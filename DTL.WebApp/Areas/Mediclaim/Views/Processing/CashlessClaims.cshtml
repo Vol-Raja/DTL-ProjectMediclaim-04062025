@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style >
+    .voucher-disabled {
+        background: #cac0c0;
+        border: #cac0c0;
+    }
+</style>
+<!-- Content Wrapper. Contains page content -->
+<!-- /.content-wrapper -->
+<!--NEW UI-->
+<input type="hidden" id="hdnDesignation" value="@ViewBag.Designation" />
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Processing mediclaim (Cashless ) List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section"> 
+            <a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a><span class="px-1">/</span>
+        
+            <span>Processing Claim List</span>
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4 row">
+                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
+                    <label class="form-label d-block mb-1"> date<span class="text-danger req_text">*</span></label>
+                    <input type="date" id="txtClaimDate" class="form-control form-control-sm" placeholder="Admission date">
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 ">
+                    <label class="form-label d-block mb-1">Claim No.<span class="text-danger req_text">*</span></label>
+                    <input type="Number" id="txtClaimId" class="form-control form-control-sm" placeholder="Claim No.">
+                </div>
+                <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <label class="form-label d-block mb-2">Card Category</label>
+                    <select name="" id="selCardCategory" class="form-select ">
+                        <option value="Select">Select</option>
+                        <option value="General">General</option>
+                        <option value="Private">Private</option>
+                        <option value="Semi Private">Semi private</option>
+                    </select>
+                </div>
+                @*  <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2">
+            <label class="form-label d-block mb-2">Organization</label>
+            @Html.DropDownList("Organization", (IEnumerable<SelectListItem>)ViewBag.DTLOfficeList, "Select", new { id = "selOrganization", @class = "form-select" })
+        </div>*@
+                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3  position-relative">
+                    <button id="btnSearch" type="button" class="btn btn-success  position-absolute bottom-0"><i class="fa fa-search"></i></button>
+                    <button id="btnClear" type="button" class="btn btn-danger position-absolute bottom-0 clear_btn"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div id="example1_wrapper" class="dataTables_wrapper no-footer">
+                <div class="dataTables_scroll">
+                    <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%;">
+                        <table id="tblProcessingCashlessClaim" class="table table-bordered dataTable no-footer" aria-describedby="example1_info" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Date</th>
+                                    <th>Claim No</th>
+                                    <th>Medical Card No.</th>
+                                    <th>Hospital Name</th>
+                                    <th>Card Category</th>
+                                    <th>Patient Name</th>
+                                    <th>Claim Status</th>
+                                    <th>Change Status</th>
+                                    <th>Remark</th>
+                                    <th>Physical Submit</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section CashlessClaims{
+    <script type="text/javascript" src="~/js/Mediclaim/Processing/cashless.js"></script>
+}
+

@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Legal Advisor";
+    Layout = "_Layout";
+
+    string ASSIGN_DATE_FORMAT = ViewBag.ASSIGN_DATE_FORMAT;
+
+}
+@using DTL.Model.Models.UserManagement;
+@model AssignPermissionModel
+
+
+<style>
+    .small-box .icon > i.ion {
+        font-size: 60px !important;
+        top: 0px !important;
+    }
+</style>
+
+<div class="container-fluid">
+
+    <div class="row header_section mx-0 px-0 border_bottom">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Legal Advisor Dashboard</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="/"><span class="">Dashboard </span> </a>
+            
+        </p>
+    </div>
+    <div class="container-fluid pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="row row-xs pt-3">
+
+
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-orange">
+                    <a href="@Url.Action("ViewLegalCases", "LegalAdvisor")">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Legal Case Request</h5>
+                                <i class="fa-solid fa-file"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-skyBlue">
+                    <a href="@Url.Action("ViewLegalCases", "LegalAdvisor", new {isReviewedOnly=true})">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Approved / Reject Legal Cases</h5>
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+
+
+
+        </div>
+    </div>
+
+
+
+</div>

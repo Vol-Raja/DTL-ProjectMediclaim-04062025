@@ -1,0 +1,78 @@
+﻿@using DTL.Model.Models.CMS
+@model IEnumerable<CMSHospitalModel>;
+@{
+    ViewData["Title"] = "नवीनतम प्रपत्र";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+
+}
+
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>अस्पताल सूची</h1>
+                <p><a href="@Url.Action("","Home")">Home</a> / <span>सेवानिवृत्त कर्मचारी सेवाएं / अस्पतालों की सूची</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidebar">
+
+                    <div class="tab">
+                        <a class="tablinks active" href="#">अस्पतालों की सूची </a>
+                        <a class="tablinks" href="@Url.Action("","form")">
+                            नवीनतम प्रपत्र सूचीबद्ध
+                        </a>
+                        <a class="tablinks" href="~/assets/documents/hospital/LIST_OF_PANEL_HOSPITALS.pdf">पैनलबद्ध अस्पताल सूची</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 px-0 shadow ">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>क्रमांक.</th>
+                                    <th>अस्पताल</th>
+                                    <th>डाउनलोड</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count() > 0)
+                                {
+                                    int counter = 0;
+                                    @foreach (var item in Model)
+                                    {
+                                        counter++;
+                                        <tr id="@item.ID">
+                                            <td>@counter</td>
+                                            <td>
+                                                @item.NameInHindi
+                                            </td>
+                                            <td>
+                                                <a target="_blank" href='@Url.Action("DownloadFile","Hospital", new {id = @item.ID,lang="Hindi"})'>
+                                                    <i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

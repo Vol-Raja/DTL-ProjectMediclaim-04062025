@@ -1,0 +1,265 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model IEnumerable<CashlessModel>
+
+@{ 
+    ViewData["Title"] = "Cashless Processing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int index = 0;
+}
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0"> Cashless Claim AMDM List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index", "AMDM",new { Area="Mediclaim"})">Dashboard </a><span class="px-1">/</span> <a href="@Url.Action("ProcessingDashbord", "AMDM",new { Area="Mediclaim"})">Processing Dashboard </a><span class="px-1"> /</span><span>Claim Approval List</span>
+
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body ps-0 pr-2 pt-5">
+            <div class="table-responsive">
+                <table id="tblClaims" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr. No.</th>
+                            <th>Select</th>
+                            <th>Date</th>
+                            <th>Claim No.</th>
+                            <th>Hospital Name</th>
+                            <th>Voucher No.</th>
+                            <th>Claim Amt.</th>
+                            <th>Approved Amt.</th>
+                            <th>Page No.</th>
+                            <th>Account No.</th>
+                            <th>IFSC Code</th>
+                            <th>BIC Code</th>
+                            <th>Branch Name</th>
+                            <th>Calim Status</th>
+                            <th>Claim Forword</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var item in Model)
+                            {
+                                index = index + 1;
+                        <tr>
+                            <td width="7%" class="text-center">@index</td>
+                            <td class="text-center"><input type="checkbox" id="chk" value="@item.ClaimId" name="checkbox"></td>
+                            <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+                            <td>@item.ClaimId</td>
+                            <td>@item.NameOfHospital</td>
+                            <td>@item.VoucherId</td>
+                            <td>@item.Amount.ToString("F")</td>
+                            <td>@item.ApprovedAmount.ToString("F")</td>
+                            <td>@item.MedicalSectionPageNumber</td>
+                            <td>@item.AccountNumber</td>
+                            <td>@item.IFSCNumber</td>
+                            <td>@item.BICCode</td>
+                            <td>@item.BranchName</td>
+                            <td>
+
+                                @switch (item.ClaimStatusId)
+                                {
+                                    case 1:
+                                        <span class="bg-warning Status_text">Pending</span> break;
+                                    case 2:
+                                        <span class="bg-success Status_text">Approved</span> break;
+                                    case 3:
+                                        <span class="bg-danger Status_text">Rejected</span>break;
+                                }
+                            </td>
+                            <td>
+                                <select name="selForwardTo" id="ddlforward" title="ForwardTo" class="form-select table_select"
+                                        onchange="ChangeStatus( @item.ClaimId, this)">
+                                    <option value="0">Select</option>
+                                    <option value="DA">Forward To DA</option>
+                                    <option value="ASO">Forward To ASO</option>
+                                    <option value="SO">Forward To SO</option>
+                                </select>
+                            </td>
+                            <td class="d-flex border-bottom-0">
+                                <a href="/Mediclaim/AMDM/Cashless/View/@item.ClaimId" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="14">
+                                    No Data found
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <a herf="#" class="btn btn-success float-end text-white mt-4" data-bs-toggle="modal" id="button" data-bs-target="#forToMediDisbur">Forward To Mediclaim Disbursement</a>
+        </div>
+    </div>
+    <div class="modal fade" id="forToMediDisbur" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body ">
+                    <div class="content p-0">
+                        <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <img src="~/assets/images/arrow.png" class="icon_reject ">
+                        <p class="message-type text-forward text-blod mb-0 pt-3">
+                            <span class="memberToDisbust"></span> Number Of claim Forward To Disbursement
+                        </p>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div><!-- col -->
+
+
+
+@section CashlessClaims{
+    <script>
+        (function ($) {
+            $('#tblClaims').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    'excel',
+                    'pdfHtml5',
+                    'csvHtml5'
+                ],
+                "ordering": false,
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bAutoWidth": false,
+                "bJQueryUI": true,
+                "bRetrieve": true,
+                "bAutoWidth": true
+            });
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#button').click(function () {
+                let claims = [];
+                let row = $("#tblClaims").find("tr")
+                $.each(row, function (data, item) {
+                    if (data !== 0) {
+                        let chkdefined = $(item).find('input[type=checkbox]:checked').val();
+                        if (chkdefined !== undefined) {
+                            claims.push($(item).find('input#chk').val());
+                            $(item).remove();
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/Medicliam/Cashless/Disburse",
+                    data: JSON.stringify(claims),
+                    contentType: 'application/json; charset=utf-8',
+                    //dataType: 'json',
+                    success: function (response, status, xhr) {
+                        if (xhr.status === 200) {
+                            $('.memberToDisbust').text(claims.length);
+                            $('#forToMediDisbur').modal('show');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        hideLoader();
+                    }
+                });
+            });
+            $('#tblClaims tbody').append(row);
+
+            if (item.forwardTo === null || item.forwardTo === '') {
+
+            }
+            else {
+                let selectControl = row.find('select');
+                selectControl.val(item.forwardTo == "CMO" ? "0" : item.forwardTo);
+
+                switch (designation) {
+                    //$(".ct option[value='X']").remove();
+                    case 'AM_DM':
+                    case 'DA1':
+                    case 'DA2': {
+                        if (item.forwardTo === 'DA' || item.forwardTo === 'ASO' || item.forwardTo === 'SO') {
+                            selectControl.attr('disabled', 'disabled');
+                        }
+                        //selectControl.find('[value="ASO"]').remove();
+                        break;
+                    }
+                    case 'DA': {
+                        if (item.forwardTo === 'ASO' || item.forwardTo === 'SO') {
+                            selectControl.attr('disabled', 'disabled');
+                        }
+                        //selectControl.find('[value="ASO"]').remove();
+                        break;
+                    }
+                    case 'ASO': {
+                        if (item.forwardTo === 'SO') {
+                            selectControl.attr('disabled', 'disabled');
+                        }
+                        //selectControl.find('[value="SO"]').remove();
+                        break;
+                    }
+                    case 'SO': {
+                        selectControl.find('[value="SO"]').remove();
+                        break;
+                    }
+                    default: break;
+                }
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        function ChangeStatus(claimId, row) {
+            //debugger;
+            showLoader();
+            $.ajax({
+                type: 'POST',
+                url: '/Mediclaim/AMDM/cashless/' + claimId + '/' + $(row).val(),
+                contentType: 'application/json; charset=utf-8',
+                success: function (response, status, xhr) {
+                    hideLoader();
+
+                    if (xhr.status == '200') {
+                        if (response !== null || response !== undefined) {
+
+                            row.setAttribute('disabled', 'disabled');
+                            location.reload(true);
+
+                            $(".hide_submit").hide();
+                            $(".show_submit").show();
+                            $('#exampleModal').modal('show');
+                        }
+                    }
+                },
+                error: function (xhr, status, error) {
+                    hideLoader();
+                    console.error("Error during AJAX request:", error);
+                    alert("Failed to change the approver. Please try again.");
+                }
+            });
+        }
+
+    </script>
+}
+

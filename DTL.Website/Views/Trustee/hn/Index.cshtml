@@ -1,0 +1,79 @@
+﻿@using DTL.Model.Models.CMS
+
+@{
+    ViewData["Title"] = ">न्यासी बोर्ड";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+
+}
+@model IEnumerable<TrusteeModel>;
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>न्यासी बोर्ड</h1>
+                <p><a href="@Url.Action("","home")">मुख पृष्ठ</a> / <span>हमारे बारे में/न्यासी बोर्ड</span></p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="sidebar">
+
+                    <div class="tab">
+                        <a class="tablinks" href="@Url.Action("","about")">हमारे बारे में</a>
+                        <a class="tablinks active" href="#">
+                            न्यासी बोर्ड
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+                        <div class="team-section">
+                            <div class="inner-width">
+                                @if (Model.Count() > 0)
+                                {
+                                    int counter = 0;
+                                    @foreach (var item in Model)
+                                    {
+                                        counter++;
+                                        <div class="pers" id="@item.ID">
+
+
+                                            <div class="pe shadow">
+                                                @{
+                                                    string Image = "/assets/images/bg.jpg";
+                                                }
+                                                @if (item.Image != null)
+                                                {
+                                                    var base64 = Convert.ToBase64String(item.Image);
+                                                    Image = String.Format("data:{0};base64,{1}", item.ImageContentType, base64);
+                                                }
+                                                <img src="@Image" alt="rafeh">
+                                                <div class="description">
+                                                    <div class="p-name">@item.NameHindi</div>
+                                                    <div class="p-des">@item.PositionHindi</div>
+
+                                                    <div @*class="p-number"*@>@item.Phone</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

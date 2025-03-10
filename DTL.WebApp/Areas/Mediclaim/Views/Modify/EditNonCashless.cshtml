@@ -1,0 +1,428 @@
+﻿@using DTL.Model.Models
+@model IEnumerable<MasterDocumentModel>
+@{
+    ViewData["Title"] = "NonCashless";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid" style="margin:0px">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Non-Cashless Mediclaim Form </h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">           
+         
+             <a href="/Mediclaim/OPD">Dashboard</a><span class="px-1">/</span>
+            <a href="/Mediclaim/NonCashless">Non-Cashless Claims</a><span class="px-1">/</span>
+            <span>Edit</span>
+        </p>
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+            <form id="addMediclaimNonCashless" class="g-3 mt-2 needs-validation" novalidate="">
+                <input type="hidden" id="hdnMediClaimId" value="@ViewBag.ClaimId" />
+
+                <h4 class="form_title shadow-2-strong ">
+                    Personal Details
+                </h4>
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Employee No.<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtEmployeeNumber" class="form-control form-control-sm " placeholder="Employee No">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2  mb-3">
+                        <label class="form-label d-block mb-1" for="name">PPO No<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtPPONumber" class="form-control form-control-sm " placeholder="PPO No">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Medical Section Page Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtMedicalSectionPageNumber" class="form-control form-control-sm " placeholder="Medical section page number">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1" for="name">Name of medical card Holder<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtMedicalCardHolderName" class="form-control form-control-sm " placeholder="Name of mecical card holder">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Medical card number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtMedicalCardNo" class="form-control form-control-sm " placeholder="Name">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Gender</label>
+                        <div class="d-flex mt-3 gender-radio">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="gender" id="rdMale" value="Male">
+                                <label class="form-check-label" for="male">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="gender" id="rdFemale" value="Female">
+                                <label class="form-check-label" for="female">
+                                    Female
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="rdOther" value="Other">
+                                <label class="form-check-label" for="other">
+                                    Other
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1" for="name">Organization<span class="text-danger req_text">*</span></label>
+                        @Html.DropDownList("Organization", (IEnumerable<SelectListItem>)ViewBag.DTLOfficeList, "Select", new { id = "selOrganization", @class = "form-select" })
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Designation<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtDesignation" class="form-control form-control-sm " placeholder="Designation">
+                    </div>
+
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2 mb-3">
+                        <label class="form-label d-block mb-1">Date Of Birth<span class="text-danger req_text">*</span></label>
+                        <input type="Date" id="txtDateOfBirth" class="form-control form-control-sm" placeholder="Date Of Birth">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-1 mb-3">
+                        <label class="form-label d-block mb-1">Age<span class="text-danger req_text">*</span></label>
+                        <input type="number" id="txtAge" class="form-control form-control-sm" placeholder="Age" readonly>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Mobile Number<span class="text-danger req_text">*</span></label>
+                        <input type="number" id="txtMobileNumber" class="form-control form-control-sm" placeholder="Mobile Number">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6  mb-3">
+                        <label class="form-label d-block mb-1">Email id<span class="text-danger req_text">*</span></label>
+                        <input type="email" id="txtEmailId" class="form-control form-control-sm" placeholder="Email id">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3">
+                        <label class="form-label d-block mb-1">Card Category<span class="text-danger req_text">*</span></label>
+                        <select name="" id="selCardCategory" class="form-select ">
+                            <option value="">Select</option>
+                            <option value="General">General</option>
+                            <option value="Private">Private</option>
+                            <option value="Semi Private">Semi Private</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3">
+                        <label class="form-label d-block mb-1">Address<span class="text-danger req_text">*</span></label>
+                        <textarea class="form-control form-control-sm" id="txtAddress" placeholder="Address"></textarea>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Name of Patient<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtPatientName" class="form-control form-control-sm" placeholder="Name of Patient">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1"> Dependent / Self</label>
+                        <div class="d-flex mt-3 ds-radio">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="dependent_self" id="dependent" value="Dependent">
+                                <label class="form-check-label" for="dependent">
+                                    Dependent
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="dependent_self" id="self" value="Self">
+                                <label class="form-check-label" for="dependentSelf">
+                                    Self
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 showDependent" id="showMe" style="display: none;">
+
+                        <h4 class="form_title shadow-2-strong ">
+                            Dependent Information
+                        </h4>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1">Name <span class="text-danger req_text">*</span></label>
+                                <input type="text" id="txtDependentName" class="form-control form-control-sm" placeholder="Name">
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2 mb-3">
+                                <label class="form-label d-block mb-1">Date Of Birth<span class="text-danger req_text">*</span></label>
+                                <input type="Date" id="txtDependentDob" class="form-control form-control-sm" placeholder="Date Of Birth">
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-1 mb-3">
+                                <label class="form-label d-block mb-1">Age<span class="text-danger req_text">*</span></label>
+                                <input type="number" id="txtDependentAge" class="form-control form-control-sm" placeholder="Age">
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-5 mb-3">
+                                <label class="form-label d-block mb-1">
+                            
+                                    relationship with
+                                    retiree<span class="text-danger req_text">*</span>
+                                </label>
+                                <select name="RelatioWithRetire" id="selRelatioWithRetire" class="form-select ">
+                                    <option value="">Select</option>
+                                    <option value="Self">Self</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Parents">Parents</option>
+                                    <option value="Child">Child</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Bank Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Account Holder Name<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtAccountHolderName" class="form-control form-control-sm" placeholder="Account Holder Name">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Account Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtAccountNumber" class="form-control form-control-sm" placeholder="Account Number">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Bank Name<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtBankName" class="form-control form-control-sm" placeholder="Bank Name">
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Branch Name<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtBranchName" class="form-control form-control-sm" placeholder="Branch Name">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">BIC Code<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtBICCode" class="form-control form-control-sm" placeholder="BIC Code">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">IFSC Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtIFSCNumber" class="form-control form-control-sm" placeholder="IFSC Code">
+                    </div>
+                </div>
+                <h4 class="form_title shadow-2-strong ">
+                    Detail of Hospitalization
+                </h4>
+
+                <div class="row border_bottom mx-0">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3 px-0 py-2">
+                        <label class="form-label d-block mb-1">Type of claim<span class="text-danger req_text">*</span></label>
+                        <select id="selClaimType" name="selClaimType" class="form-select" onchange="update()">
+                            <option value="">Select</option>
+                            <option value="OPD">OPD</option>
+                            <option value="Cancer">Cancer</option>
+                            <option value="Dialysis">Dialysis</option>
+                            <option value="Dispensary">Dispensary</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-4" id="CD_div">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Hospital Visit Date<span class="text-danger req_text">*</span></label>
+                        <input type="date" class="form-control form-control-sm" id="txtCNDDate" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Name of Hospital<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Name of Hospital with location" id="txtCNDHospitalName" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Medicine<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Medicine (Rs.)" id="txtCNDMedicineAmount" onkeyup="calculateTotal()" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Consultation<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Consultation (Rs.)" id="txtCNDConsultationAmount" onkeyup="calculateTotal()" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Investigation Amount<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Investigation Amount (Rs.)" id="txtCNDInvestigationAmount" onkeyup="calculateTotal()" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Other Expenses Amount<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Other Amount" id="txtCNDOtherAmount" onkeyup="calculateTotal()" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Total Amount<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Total Amount" id="txtCNDTotalAmount" disabled />
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3  position-relative">
+                        <button class="btn btn-success  position-absolute top-25" type="button" id="btnAddCND"><i class="fa fa-plus mr-2"></i>Add</button>
+                        @*<button class="btn btn-primary" type="button" id="btnAddCND">Add New</button>*@
+                        @*<button class="btn btn-primary" type="button" id="btnClearCND">Clear</button>*@
+                    </div>
+
+                    <div class="col-sm-12">
+                        <table id="tblCND" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Hospital Visit Date</th>
+                                    <th>Name of Hospital</th>
+                                    <th>Medicine Amt</th>
+                                    <th>Consultation Amt</th>
+                                    <th>Investigation Amt</th>
+                                    <th>Other Expenses Amt</th>
+                                    <th>Total Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Claim Document Upload
+                </h4>
+                <div class="row">
+
+                    <div class="col-sm-4 col-md-5 col-lg-5 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1">Document Type<span class="text-danger req_text">*</span></label>
+                        @if (Model.Count() > 0)
+                        {
+            <select id="selDocumentType" class="form-select" required>
+                <option value="">Select</option>
+                @foreach (var item in Model)
+                {
+            <option value="@item.DocumentId">@item.DocumentName</option>}
+            </select> }
+                        else
+                        {
+            <select id="selDocumentType" class="form-control" required>
+                <option value="">Select</option>
+            </select>}
+                    </div>
+                    <div class="col-sm-4 col-md-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Choose file<span class="text-danger req_text">*</span>
+                        </label>
+                        <input class="form-control" type="file" id="fileUpload" multiple="" accept="application/pdf">
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-2 col-xl-1 position-relative px-0">
+                        <button id="btnUpload" type="button" class="btn btn-success position-absolute top-25 fw-bolder"><i class="fa fa-plus mr-2"></i>Add</button>
+                        <button id="btnTestDocumentArray" type="button" style="display:none" class=" btn btn-success position-absolute top-25 fw-bolder"><i class="fa fa-save mr-2"></i>Add</button>
+                    </div>
+                    <div class="col-sm-12">
+                        <table id="tblDocument" class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th width="7%" class="text-center">Sr. No.</th>
+                                    <th>Document Type</th>
+                                    <th>Attach file </th>
+                                    <th width="8%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                    <button type="button" class="btn btn-brand me-2 hide_submit" id="btnSubmit" data-toggle="modal" data-target="">Update</button>
+                    <a href="@Url.Action("Index","NonCashless",new { Area="Mediclaim" })" role="button" class="btn btn-cancel me-2 hide_submit">Cancel</a>
+                    @*<button type="reset" class="btn btn-reset me-2">Reset</button>*@
+                    @*<a href="#" class="btn btn-info show_submit" id="btnViewPrintLink">View and Print Application</a>*@
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header py-2">
+                                <h5 class="modal-title">Non Cashless Mediclaim</h5>
+                                <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body ">
+                                <div class="content pt-4 pb-0">
+                                    <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                                    <h3 class="message-type text-blod pb-0 pt-3 ">
+                                        Claim Updated Successfully
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- /.content -->
+</div>
+
+@section EditNonCashless{
+    <script type="text/javascript" src="~/js/Mediclaim/Modify/noncashless.js"></script>
+
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function decimalNumberKey(evt, obj) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            var value = obj.value;
+            var dotcontains = value.indexOf(".") != -1;
+            if (dotcontains)
+                if (charCode == 46) return false;
+            if (charCode == 46) return true;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+
+        var ClaimType = '';
+        function update() {
+            ClaimType = $('#selClaimType').val();
+            //ClaimType = $('#selClaimType :selected').text();
+            //calculateTotal();
+        }
+
+        //update();
+
+        function calculateTotal() {
+            var _claim = $('#selClaimType').val();
+            ClaimType = _claim !== '' ? _claim : '';
+            var cndMedicine = '';
+            var cndInvestigation = '';
+            var cndConsultation = '';
+            var cndOther = '';
+            var cndTotal = '';
+
+            cndMedicine = $('#txtCNDMedicineAmount').val() !== '' ? $('#txtCNDMedicineAmount').val() : 0;
+            cndInvestigation = $('#txtCNDInvestigationAmount').val() !== '' ? $('#txtCNDInvestigationAmount').val() : 0;
+            cndConsultation = $('#txtCNDConsultationAmount').val() !== '' ? $('#txtCNDConsultationAmount').val() : 0;
+            cndOther = $('#txtCNDOtherAmount').val() !== '' ? $('#txtCNDOtherAmount').val() : 0;
+            cndTotal = parseFloat(cndMedicine) + parseFloat(cndInvestigation) + parseFloat(cndConsultation) + parseFloat(cndOther);
+
+            document.getElementById('txtCNDTotalAmount').value = cndTotal;
+                        //$('#txtCNDTotalAmount').val() = cndTotal;
+        }
+
+        (function () {
+        })();
+    </script>
+}

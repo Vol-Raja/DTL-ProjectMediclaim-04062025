@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewData["Title"] = "Generate Payment Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label.error {
+        display: none !important;
+    }
+</style>
+
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">New Payment Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="/GPF/Dashboard">GPF</a></li>
+                        <li class="breadcrumb-item"><a href="/GPF/Withdrawal">GFP Withdrawal</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","GeneratePayment",new { Area="GPF" })">Generate Payment</a></li>
+                        <li class="breadcrumb-item active">New Payment Form</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form id="cashlessForm" action="" method="post">
+                                <h4 class="bg-gradient-gray p-1 mb-3">Basic Details</h4>
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Application ID</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Application ID" id="txtApplicationId" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Name of Employee</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name of Employee" readonly="readonly" id="txtNameOfEmployee" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Contact No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Contact No." readonly="readonly" id="txtContactNo" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Loan Type</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="CardCategory" class="form-control" id="selLoanType">
+                                            <option value="Select">Select</option>
+                                            <option value="Refundable">Refundable</option>
+                                            <option value="NonRefundable">Non Refundable</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">No. of EMI's</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter No. of EMI's" readonly="readonly" id="txtNoOfEMI" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Approved Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Approved Amount" readonly="readonly" id="txtApprovedAmount" />
+                                    </div>
+                                </div>
+
+                                <h4 class="bg-gradient-gray p-1 mb-3 mt-4">Bank Details</h4>
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Bank Account No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Bank Account No." readonly="readonly" id="txtAccountNumber" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">IFSC Code</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter IFSC Code" readonly="readonly" id="txtIFSCCode" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">BIC Code</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter BIC Code" readonly="readonly" id="txtBICCode" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button type="button" class="btn btn-primary hide_submit" id="btnSubmit" data-toggle="modal" data-backdrop="static" >Submit</button>
+                                        <a href="/GPF/GeneratePayment" class="btn btn-danger hide_submit" id="btn">Cancel</a>
+                                        <a href="#" class="btn btn-info show_submit">View and Print Application</a>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Generate Payment</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                                                <p>Payment Generated Successfully</p>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- /Modal -->
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section GPFGeneratePayment {
+    <script type="text/javascript" src="~/js/GPF/generatepayment.js"></script>
+
+    <script>
+        $(".show_submit").hide();
+        /*
+        $("#btnSubmit").click(function () {
+            $(".hide_submit").hide();
+            $(".show_submit").show();
+        });
+        */
+
+        
+    </script>
+}

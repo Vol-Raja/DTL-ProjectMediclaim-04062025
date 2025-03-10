@@ -1,0 +1,111 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using DTL.Model.Models;
+@model IEnumerable<InvestmentDeclarationModel>
+@{
+    ViewData["Title"] = "Investment Details";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Investment Details</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("","FinanceManagement")">Finance Management</a></li>
+                    <li class="breadcrumb-item active">Investment Details</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    @*<div class="card-header">
+                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                        </div>*@
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <a href="@Url.Action("AddInvestment","FinanceManagement")" class="btn btn-default">Add Investment Details</a>
+                        </div>
+                        <hr />
+                        <table id="tblInvestment" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Financial Year</th>
+                                    <th>Investment Title</th>
+                                    <th>Investment Id</th>
+                                    <th>Investment Reference No</th>
+                                    <th>Investment Type</th>
+                                    <th>Investment Amount</th>
+                                    <th>Investment End</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var data in Model)
+                                {
+                                <tr>
+                                    <td> @data.FromMonthYr</td>
+                                    <td>@data.FinancialYear</td>
+                                    <td> @data.InvestmentTitle</td>
+                                    <td> @data.InvestmentId</td>
+                                    <td> @data.ReferenceNo</td>
+                                    <td> @data.InvestmentType</td>
+                                    <td>@data.InvestedAmount</td>
+                                    <td>@data.ToMonthYr</td>
+                                    <td>
+
+                                        <a href="@Url.Action("EditInvestment","FinanceManagement",new { investmentId = data.ID})" title="Edit Investment"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" title="Delete Investment" onclick="DeleteInvestment('@data.ID',this)" id="adelinv"><i class="fa fa-trash"></i></a>
+                                        <a href="@Url.Action("CloseInvestment","FinanceManagement",new { investmentId = data.ID})" title="View Investment"><i class="fa fa-user-edit"></i></a>
+                                    </td>
+
+                                </tr>
+
+                                }
+                             
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total</td>
+                                    <td></td>
+                                    <td>@ViewBag.TotalInvestment</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@section FinanceManagement
+{
+    <script src="~/js/FinanceManagement/InvestmentManagement.js" asp-append-version="true"></script>
+}

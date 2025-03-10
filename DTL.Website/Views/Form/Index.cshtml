@@ -1,0 +1,75 @@
+﻿@using DTL.Model.Models.CMS
+
+@{
+    ViewData["Title"] = "Pension Forms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model IEnumerable<FormModel>;
+
+
+
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1> Latest  Forms</h1>
+                <p><a href="@Url.Action("","home")">Home</a> / <span>Retired Employee Services / Latest  Form</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidebar">
+                    
+                    <div class="tab">
+                        <a class="tablinks" href="@Url.Action("","hospital")">Hospitals List</a>
+                        <a class="tablinks active" href="#">
+                            Latest  Form
+                        </a>
+                        <a class="tablinks" href="../assets/documents/hospital/LIST_OF_PANEL_HOSPITALS.pdf">Empanelled Hospital List</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 shadow px-0 mb-5">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+                        <table class="table table-bordered table-hover" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Forms</th>
+                                    <th>Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count() > 0)
+                                {
+                                    int counter = 0;
+                                    @foreach (var item in Model)
+                                    {
+                                        counter++;
+                                        <tr>
+                                            <td>@counter</td>
+                                            <td>@item.TitleInEnglish</td>
+
+
+                                            <td><a target="_blank" href='@Url.Action("DownloadFile","Form", new {id = @item.ID})'><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                    }
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

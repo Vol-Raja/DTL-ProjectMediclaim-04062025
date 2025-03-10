@@ -1,0 +1,693 @@
+﻿
+
+@{ ViewData["Title"] = "Non Refundable View";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<style>
+    .top_print_btn {
+        position: absolute;
+        right: 20px;
+        top: 30px;
+    }
+</style>
+<div class="container-fluid view_form">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Non Refundable View</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="/">Dashboard</a><span class="px-1">/</span>
+               <a href="@Url.Action("NonRefundableList","Disbursment",new {Area="GPF"})">Non Refundable List</a>
+            <span class="px-1">/</span>
+            <span>Non Refundable View</span>
+
+        </p>
+    </div>
+    <div class="card border-card mt-0 ">
+        <div class="position-relative">
+            <div id="material-tabs">
+                <a id="tab1-tab" href="#tab1" class="active"> Raised Claim Application</a>
+                <a id="tab2-tab" href="#tab2">Voucher Detail</a>
+
+                <span class="yellow-bar"></span>
+            </div>
+        </div>
+        <div class="tab-content  p-0 view_container_bg">
+            <div id="tab1">
+                <div class="card border-card mt-0  view_container_bg">
+                    <div class="card-body">
+                        <h4 class="form_title mt-3 ">
+                            Personal Details
+                        </h4>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Employee Name</label>
+                                <p class="View_text">8778789</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Employee Id</label>
+                                <p class="View_text">8778</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Organization</label>
+                                <p class="View_text">DTL</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Department</label>
+                                <p class="View_text"> It </p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Designation</label>
+                                <p class="View_text">UI</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 mb-3view_text_border">
+                                <label class="form-label d-block mb-1">Mobile Number</label>
+                                <p class="View_text">7057085889</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Email Id</label>
+                                <p class="View_text">Patient@gmail.com</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Date of Birth</label>
+                                <p class="View_text">16/02/1999</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Age</label>
+                                <p class="View_text">21</p>
+                            </div>
+                            <div class="col-sm-6 col-md-12 col-lg-12 col-xl-12 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Address</label>
+                                <p class="View_text">Bhavdhan Pune</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-2 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Date Of Joining</label>
+                                <p class="View_text">Date Of Joining</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Date Of Retirement</label>
+                                <p class="View_text">Date Of Retirement</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-2 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Basic Pay</label>
+                                <p class="View_text">16000</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <h4 class="form_title mt-3 ">
+                            Loan Details
+                        </h4>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">GPF Account Number</label>
+                                <p class="View_text">76546785679546789</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">GPF Account Balance</label>
+                                <p class="View_text">GPF Account Balance</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-2 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Monthly GPF Contributions</label>
+                                <p class="View_text">Monthly GPF Contributions</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Amount Of Advance Required [ In Figure]</label>
+                                <p class="View_text">Amount Of Advance Required [ In Figure]</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Amount Of Advance Required [In Words]</label>
+                                <p class="View_text">Amount Of Advance Required [In Words]</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Purpose Of Non-Refundable</label>
+                                <p class="View_text">Purpose Of Non-Refundable</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Basic Pay * 12</label>
+                                <p class="View_text">Basic Pay * 12</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">75% (Total GPF Account Balance)</label>
+                                <p class="View_text">75% (Total GPF Account Balance)</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Eligible Loan Amount</label>
+                                <p class="View_text">Eligible Loan Amount</p>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8 col-md-4 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Whether Any Non-Refundable Withdrawal Was Taken Earlier</label>
+                                <p class="View_text">Yes</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Indicate The Amount</label>
+                                <p class="View_text">Indicate The Amount</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Indicate The Year</label>
+                                <p class="View_text">Indicate The Year</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Place Of Posting Last 3 Years</label>
+                                <p class="View_text">Place Of Posting Last 3 Years</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Date Of Application</label>
+                                <p class="View_text">Date Of Application</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Description(Details Of Advance Application)</label>
+                                <p class="View_text">Yes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="form_title mt-3 shadow-2-strong">
+                            Document Upload
+                        </h4>
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <table id="example1" class="table table-bordered view_table">
+                                    <thead>
+                                        <tr>
+                                            <th width="7%" class="text-center">Sr. No.</th>
+                                            <th>Document Type</th>
+                                            <th width="15%" class="text-center">Attach file </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td>Document Type</td>
+                                            <td class="text-center">
+                                                <a href="#" class="pdfIcons">
+                                                    <i class="fa fa-file-pdf"
+                                                       aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="card-body">
+                        <h4 class="form_title mt-3 ">
+                            Bank Account Details
+                        </h4>
+                        <div class="row ">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Bank Name</label>
+                                <p class="View_text">Yes Bank</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Bank Account Number</label>
+                                <p class="View_text">644625436968</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Branch Name</label>
+                                <p class="View_text">Bhavdhan Pune</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">IFSC code </label>
+                                <p class="View_text">yesBank004554</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">BIC Code</label>
+                                <p class="View_text">YES56464</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="form_title mt-3 ">
+                            Approval Status
+                        </h4>
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                                    <label class="form-label d-block mb-1">Withdrawal Remark<span class="text-danger req_text">*</span></label>
+                                    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" disabled> Remarks</textarea>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                                    <label class="form-label d-block mb-1">AG2 Remark<span class="text-danger req_text">*</span></label>
+                                    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" disabled> Remarks</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="px-3">
+                                <button class="btn btn-primary float-right my-5" id="printMe"><i class="fa fa-print mr-2" aria-hidden="true"></i>Print Application</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div id="tab2">
+
+                <div class="card-body ps-0 ">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">Loan Number</label>
+                                <p class="View_text">234567</p>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">Loan Type</label>
+                                <p class="View_text">NonRefundable</p>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">Employee Id</label>
+                                <p class="View_text">23456</p>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1" for="name">Organization</label>
+                                <p class="View_text">Organization</p>
+
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1" for="name">Pay To Shri / Smt</label>
+                                <p class="View_text">Pay To Shri / Smt</p>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1" for="name">Approved Amounts</label>
+                                <p class="View_text">1000</p>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1" for="name">Approved Amounts (In Words)</label>
+                                <p class="View_text">1000</p>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1" for="name">Account Number</label>
+                                <p class="View_text">Account Number</p>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1" for="name">Bank name</label>
+                                <p class="View_text">Bank name</p>
+
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">Branch Name</label>
+                                <p class="View_text">Branch Name</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1">BIC Code</label>
+                                <p class="View_text">BIC Code</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">IFSC Number</label>
+                                <p class="View_text">IFSC Number</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1">BIC Code</label>
+                                <p class="View_text">BIC Code</p>
+                            </div>
+
+                            <div class="row">
+                                <div class="pe-0">
+                                    <button class="btn btn-primary float-right" id="printMeVoucher"><i class="fa fa-print mr-2" aria-hidden="true"></i>Print Application</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div><!-- col -->
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<!-- modal start -->
+<div class="modal fade" id="Approve_pop_up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content ">
+
+            <div class="modal-body">
+                <div class="content px-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                    <p class="message-type">Are you sure you want to Approve ?</p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="form-label d-block mb-1">Remarks</label>
+                            <textarea class="form-control form-control-sm"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" onclick="location.href='gpfLoanApprovalView.html'">Approve</button>
+                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- modal end -->
+<!-- modal start -->
+<div class="modal fade" id="Cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content px-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                    <p class="message-type pt-0">Are you sure you want to Cancel ?</p>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="reject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content px-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="~/assets/images/rejected.png" class="icon_reject ">
+                    <p class="message-type pt-0">Are you sure you want to Reject ?</p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="form-label d-block mb-1">Remarks</label>
+                            <textarea class="form-control form-control-sm"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" data-bs-dismiss="modal">Reject</button>
+                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- modal end -->
+<div id="print_preview">
+    <div class=" view_container_bg mt-0">
+
+        <div class="card-body">
+            <h4 class="print_title">
+                Personal Details
+            </h4>
+            <table class="table table-bordered w-100">
+                <tbody>
+                    <tr>
+                        <th scope="row">Employee Name</th>
+                        <td scope="row">Sanu Sharma</td>
+                        <th scope="row">Employee Id</th>
+                        <td scope="row">8778</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Organization</th>
+                        <td scope="row">Organization</td>
+                        <th scope="row">Department</th>
+                        <td scope="row">non Refundable Department</td>
+
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Designation</th>
+                        <td scope="row">Sanju sahu</td>
+                        <th scope="row">Mobile Number</th>
+                        <td scope="row">705<span class="text-danger req_text">&#8377; </span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email Id</th>
+                        <td scope="row">Patient@gmail.com</td>
+                        <th scope="row">Date Of Birth</th>
+                        <td scope="row">16/02/1999</td>
+
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Age</th>
+                        <td scope="row">21</td>
+                        <th scope="row">Gander</th>
+                        <td scope="row">Male</td>
+
+                    </tr>
+
+
+
+
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td scope="row" colspan="3">Bhavdhan Pune</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Date Of Joining</th>
+                        <td scope="row">12/02/1998</td>
+                        <th scope="row"> Date Of Retirement</th>
+                        <td scope="row">Date Of Retirement</td>
+                    </tr>
+                    <tr>
+
+
+                        <th scope="row">Basic Pay</th>
+                        <td scope="row"  colspan="3">Basic Pay <span class="text-danger req_text">&#8377; </span></td>
+                      
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Loan Detail</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">GPF Account Number</th>
+                        <td scope="row">GPF7887887 </td>
+                        <th scope="row">GPF Account Balance</th>
+                        <td scope="row">676776 <span class="text-danger req_text">&#8377; </span></td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Monthly GPF Contributions</th>
+                        <td scope="row">700</td>
+                        <th scope="row">Amount Of Advance Required [ In Figure]</th>
+                        <td scope="row">Amount Of Advance Required [ In Figure] <span class="text-danger req_text">&#8377; </span></td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Amount Of Advance Required [In Words]</th>
+                        <td scope="row">16000 <span class="text-danger req_text">&#8377; </span></td>
+                        <th scope="row">Purpose Of Non-Refundable</th>
+                        <td scope="row">Purpose Of Non-Refundable </td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Basic Pay*12*</th>
+                        <td scope="row">Basic Pay*12* </td>
+                        <th scope="row">75% (Total GPF Account Balance)*</th>
+                        <td scope="row">75% (Total GPF Account Balance)* </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th scope="row">Eligible Loan Amount</th>
+                        <td scope="row">160 <span class="text-danger req_text">&#8377; </span></td>
+                        <th scope="row">Whether Any Non-Refundable Withdrawal Was Taken Earlier</th>
+                        <td scope="row">Yes</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Indicate The Year</th>
+                        <td scope="row">Indicate The Year</td>
+                        <th scope="row">Place Of Posting Last 3 Years</th>
+                        <td scope="row">Place Of Posting Last 3 Years</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Date Of Application</th>
+                        <td scope="row" colspan="3">Date Of Application</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" colspan="2">Description(Details Of Advance Application)</th>
+                        <td scope="row" colspan="2">Description(Details Of Advance Application)</td>
+
+                    </tr>
+
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Document Upload</td>
+                    </tr>
+
+                    <tr>
+                        <th class="text-center">Sr. No.</th>
+                        <th colspan="3">Document Type</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td colspan="3">Document Type</td>
+                    </tr>
+
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Bank Account Details</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bank Name</th>
+                        <td scope="row">Yes Bank</td>
+                        <th scope="row">Bank Account Number</th>
+                        <td scope="row">644625436968</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Branch Name</th>
+                        <td scope="row">Bhavdhan Pune</td>
+                        <th scope="row">IFSC Code</th>
+                        <td scope="row">yesBank004554</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">BIC Code</th>
+                        <td scope="row" colspan="3">YES56464</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">  Approval Status</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Withdrawal Remar<</td>
+                        <td colspan="3">Remark</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Ag2 Remark</td>
+                        <td colspan="3">Remark</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="print_preview_voucher">
+    <div class=" view_container_bg mt-0">
+        <div class="card-body">
+            <h4 class="print_title">
+                Voucher View
+            </h4>
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">Employee Id</th>
+                        <td scope="row">Emp00907</td>
+                        <th scope="row">Organization</th>
+                        <td scope="row">DTl</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th scope="row">Pay To Shri / Smt</th>
+                        <td scope="row">Rahul</td>
+                        <th scope="row">Approved Amount <span class="text-danger req_text">&#8377;</span></th>
+                        <td scope="row">2000</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">In Words<span class="text-danger req_text">&#8377;</span></th>
+                        <td scope="row" colspan="3">Two Thousand</td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="6" class="text-center h4">Bank Detail</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Account number</th>
+                        <td scope="row">675467857894</td>
+                        <th scope="row">Bank Name</th>
+                        <td scope="row">SBI</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Branch Name</th>
+                        <td scope="row">Sihora</td>
+                        <th scope="row">BIC Code</th>
+                        <td scope="row">BIC000978</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">IFSC Number</th>
+                        <td scope="row"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $('#print_preview_voucher').hide();
+
+    $('#printMe').click(function () {
+        $('#print_preview_voucher').removeClass('show');
+        $('#print_preview').addClass('show');
+        window.print();
+    });
+
+    $('#printMeVoucher').click(function () {
+        $('#print_preview').removeClass('show');
+        $('#print_preview_voucher').addClass('show');
+        window.print();
+    });</script>
+
+
+<script src="~/assets/js/tab.js"></script>
+
+@section NonRefundableView{
+    <script>
+        $('.printMe').click(function () {
+            window.print();
+        });
+    </script>
+}
+

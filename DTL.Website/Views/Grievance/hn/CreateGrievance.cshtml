@@ -1,0 +1,392 @@
+﻿@using DTL.Model.Models;
+
+@{
+    ViewData["Title"] = "शिकायत के बाद";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+}
+
+@model GrievanceModel
+
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>शिकायत</h1>
+                <p><a href="@Url.Action("","home")">मुख पृष्ठ</a> / <span>शिकायत / शिकायत के बाद</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="">
+
+            <div class="sidebar col-sm-12">
+
+                <div class="tab">
+                    <a class="tablinks active" href="@Url.Action("CreateGrievance","Grievance")">शिकायत के बाद </a>
+
+                    <a class="tablinks" href="@Url.Action("ViewGrievance","Grievance")">
+                        शिकायत की स्थिति देखें
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-12 shadow ">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+
+                        <form id="CreateGrievanceForm">
+                            <div class="form_setion">
+                                <div class="row">
+                                    <div class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">उपयोगकर्ता का चयन करें</label>
+                                        <select id="UserType" name="UserType" class="form-select form-select-sm">
+                                            <option>Select</option>
+                                            <option value="Public User">सार्वजनिक उपयोगकर्ता</option>
+                                            <option value="Employee">कर्मचारी</option>
+                                            <option value="Pensioner">पेंशनभोगी</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">नाम</label>
+                                        <input name="Name" value="@Model.Name" type="text" class="form-control form-control-sm" />
+                                        <div class="invalid-feedback">
+                                            Please Enter Name
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">लिंग</label>
+                                        <div class="d-flex">
+
+
+                                            @if (!Model.IsReadOnly)
+                                            {
+                                                <p>
+                                                    @Html.RadioButtonFor(x => x.Gender, "Male", new { @class = "form-check-input" })<span>&nbsp; </span>
+                                                    पुरुष
+                                                </p>
+
+                                                <span>&nbsp; &nbsp;  &nbsp;  &nbsp;</span>
+                                                <p>@Html.RadioButtonFor(x => x.Gender, "Female", new { @class = "form-check-input" })<span>&nbsp; </span> महिला</p>
+
+                                                <span>&nbsp; &nbsp;  &nbsp;  &nbsp;</span>
+                                                <p>@Html.RadioButtonFor(x => x.Gender, "Other", new { @class = "form-check-input" })<span>&nbsp;  </span> अन्य</p>
+                                            }
+                                            else
+                                            {
+                                                <p>@Model.Gender</p>
+                                            }
+
+                                            <div class="invalid-feedback">
+                                                Please Enter Gender
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="PPONoDiv" class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">पीपीओ संख्या / कर्मचारी संख्या</label>
+                                        <input name="PPONo" id="PPONo" value="@Model.PPONo" type="number" class="form-control form-control-sm" />
+                                        <div class="invalid-feedback">
+                                            Please Enter PPO Number / Employee Number
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">मोबाइल नंबर</label>
+                                        <input name="MobileNo" value="@Model.MobileNo" type="number" class="form-control form-control-sm" />
+                                        <div class="invalid-feedback">
+                                            Please Enter Mobile Number
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">ईमेल पता</label>
+                                        <input name="EmailID" value="@Model.EmailID" type="email" class="form-control form-control-sm" />
+                                        <div class="invalid-feedback">
+                                            Please Enter Email Address
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">पता</label>
+                                        <textarea name="Address" value="@Model.Address" class="form-control">@Model.Address</textarea>
+                                        <div class="invalid-feedback">
+                                            Please Enter Adress
+                                        </div>
+                                    </div>
+                                    <div id="OfficeDiv" class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">
+                                            कार्यरत कार्यालय/जहां से सेवानिवृत्त हुए
+                                        </label>
+                                        <input name="Office" id="Office" value="@Model.Office" type="text" class="form-control form-control-sm" />
+                                        <div class="invalid-feedback">
+                                            Please Enter Working Office / From where
+                                            Retired
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">शिकायत विषय</label>
+                                        <input name="Subject" value="@Model.Subject" type="text" class="form-control form-control-sm" />
+                                        <div class="invalid-feedback">
+                                            Please Enter Complaint Subject
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 mb-3">
+                                        <label class="form-label d-block mb-1">शिकायत विवरण</label>
+                                        <input name="Description" value="@Model.Description" type="text" class="form-control form-control-sm" />
+                                        <div class="invalid-feedback">
+                                            Please Enter Complaint description
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 ">
+
+                                        <p class="">
+                                            क्या आप कोई फ़ाइल अपलोड करना चाहते हैं, यदि कोई हो: :
+                                            <div class="radio_button">
+                                                <input type="radio" name="grievance"
+                                                       id="yesGri">  हां
+
+                                                <input checked="checked" type="radio" name="grievance"
+                                                       id="noGri" class="mx-2"> नहीं
+                                            </div>
+
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-4" id="file_upload">
+                                        <input name="AttachmentFileInEnglish" accept="application/pdf" type="file" class="form-control-file border w-100">
+                                        <div class="invalid-feedback">
+                                            Please Enter Upload File
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                                        <button id="btnSubmit" class="btn btn-primary me-2">Submit</button>
+                                        <a onclick="showConfirmSwal('Are you sure you want cancel?',function(){ location.href='/home';  }); return false;" class="btn btn-cancel me-2  btn-danger " role="button">Cancel</a>
+                                        <button onclick="location.reload(); return false" class="btn btn-reset me-2  btn-warning ">Reset</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="\plugin\jquery-validation\jquery.validate.min.js"></script>
+
+<script src="\plugin\jquery-validation\additional-methods.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("input[name='grievance']").click(function () {
+            if ($("#yesGri").is(":checked")) {
+                $("#file_upload").show();
+            }
+            else {
+                $("#file_upload").hide();
+            }
+
+        });
+        $('#UserType').on('change', function () {
+            var selected = $(this).find(":selected").val();
+            if (selected == "Public User") {
+                //  $('#PPONo').prop('disabled', 'disabled');
+                //  $('#Office').prop('disabled', 'disabled');
+                $('#PPONoDiv').hide()
+                $('#OfficeDiv').hide()
+            } else {
+                //  $('#PPONo').removeAttr('disabled');
+                //  $('#Office').removeAttr('disabled');
+                $('#PPONoDiv').show()
+                $('#OfficeDiv').show()
+            }
+        });
+
+        $('#UserType').trigger('change');
+        AddEditForm();
+    });
+
+
+
+
+    function AddEditForm() {
+        $.validator.setDefaults({
+            submitHandler: function () {
+                showConfirmSwal("Are you sure you want to submit?", function () {
+                    var formData = BindGrievanceData();
+                    $.ajax({
+                        url: "/Grievance/AddEditGrievance",
+                        type: "POST",
+                        dataType: "json",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+
+
+                            if (isNaN(data) == false) {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: "Success",
+                                    text: "Your Grievance Id is " + data,
+
+
+                                }).then((result) => { location = "/Grievance/CreateGrievance" });
+
+                            }
+                            else {
+                                showErrorSwal(data);
+                            }
+                        },
+                        error: function (err) {
+                            showErrorSwal("Something went wrong!!!");
+                        }
+                    });
+                });
+
+            }
+        });
+        $('#CreateGrievanceForm').validate({
+            rules: {
+
+                EmployeeId: {
+                    required: true,
+                   
+                },
+                MobileNo: {
+                    required: true,
+                    number: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                Subject: {
+                    required: true,
+                },
+                UserType: {
+                    required: true,
+                }
+                ,
+                Name: {
+                    required: true,
+                }
+                ,
+                Gender: {
+                    required: true,
+                }
+                ,
+                Office: {
+                    required: true,
+                }
+                ,
+                Remarks: {
+                    required: true,
+                }
+                ,
+                Status: {
+                    required: true,
+                }
+                ,
+                EmailID: {
+                    required: true,
+                    email: true
+                }
+                ,
+                Description: {
+                    required: true,
+
+                }
+                ,
+                Address: {
+                    required: true,
+                },
+                PPONo: {
+                    required: true,
+                },
+                AttachmentFileInEnglish: {
+                    required: false,
+                    extension: "pdf"
+
+                }
+
+
+
+            },
+            messages: {
+                UserType: {
+                    required: "Please provide User Type.",
+                }
+                ,
+                Name: {
+                    required: "Please provide Name.",
+                }
+                ,
+                Gender: {
+                    required: "Please provide Gender.",
+                }
+                ,
+                Office: {
+                    required: "Please provide Office.",
+                },
+
+                EmailID: {
+                    required: "Please provide EmailID.",
+
+                },
+                EmployeeId: {
+                    required: "Please provide Employee Id.",
+                },
+                MobileNo: {
+                    required: "Please Provide Mobile No. ex.9812345678"
+                },
+                Subject: {
+                    required: "Please provide Subject."
+                },
+                Description: {
+                    required: "Please provide Description.",
+                }
+                ,
+                Address: {
+                    required: "Please provide Address.",
+                },
+                AttachmentFileInEnglish: {
+                    required: "Please provide file.",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    }
+    function BindGrievanceData() {
+        var frm = $('#CreateGrievanceForm');
+        var formData = new FormData(frm[0]);
+
+        return formData;
+    }
+
+
+    $("#btnSubmit").click(function () {
+        $("#CreateGrievanceForm").submit();
+    });
+
+    function ShowPreview(event) {
+        var output = document.getElementById('pdf_Preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    }
+
+
+</script>

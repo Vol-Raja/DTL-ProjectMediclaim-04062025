@@ -1,0 +1,479 @@
+﻿@using DTL.Model.Models.GPF
+@model IEnumerable<GPFProcessing>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}a
+<style>
+    .fade:not(.show) {
+        display: none;
+    }
+
+    .dataTables_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+        .dataTables_wrapper .dt-buttons.btn-group {
+            order: -1;
+        }
+
+        .dataTables_wrapper .dataTables_length {
+            order: -2;
+        }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">GPF Processing</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard", new { Area="GPF" })">GPF</a></li>
+                        <li class="breadcrumb-item active">GPF Processing</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline card-tabs">
+
+                        <div class="card-header p-0 pt-1 border-bottom-0">
+                            <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="Monthly_GPF_Processing-tab" data-toggle="pill" href="#Monthly_GPF_Processing" role="tab" aria-controls="Monthly GPF Processing" aria-selected="true">Monthly_GPF_Processing</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="GPF_report-tab" data-toggle="pill" href="#GPF_report" role="tab" aria-controls="GPF_report" aria-selected="false">GPF Report</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="GPF_summary-tab" data-toggle="pill" href="#GPF_summary" role="tab" aria-controls="GPF_summary" aria-selected="false">GPF Summary</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade active show" id="Monthly_GPF_Processing" role="tabpanel" aria-labelledby="Monthly_GPF_Processing-tab">
+
+                            <section class="content">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <form method="post" enctype="multipart/form-data" action="/GPF/GPFProcessing">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="lblEmployerName">Employer Name</label>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <select id="Employer" name="Employer" class="form-control">
+                                                                    <option value="">Select DVBETBF-2002 Office</option>
+                                                                    @foreach (var data in ViewBag.DTLOfficeList)
+                                                                    {
+                                                                        <option value="@data.DTLOffice">@data.DTLOffice</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="lblProcessingDate">Processing Date</label>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <input type="date" name="txtProcessingDate" class="form-control" data-date="" data-date-format="DD-MM-YYYY" id="txtProcessingDate">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-3 form-group">
+                                                                <label for="upload">Upload Data File</label>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <input type="file" name="postedFile" id="postedFile"> @*accept=".csv"*@
+                                                                @if (Convert.ToBoolean(ViewBag.Create))
+                                                                {
+                                                                <input type="button" value="Load File" id="btnLoadFile">
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3 form-group">
+                                                                <label for="Interest">Interest Rate (in %)</label>
+                                                            </div>
+                                                            <div class="col-md-5 form-group">
+                                                                <label name="Intereset" class="form-control" id="lblInterest" disabled="disabled" style="background-color:#e0e0e0">7.10</label>
+                                                            </div>
+                                                            <div class="col-md-1 form-group">
+                                                                <input type="button" class="btn btn-default" value="Change" data-toggle="modal" data-target="#modalChangeInterest" data-backdrop="static" data-keyboard="false" id="btnChangeIntereset">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3 form-group">
+                                                                <label for="EmployeeType">Employee Type</label>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <div class="employeeType-radio">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="employeeType" id="rdDeputated" value="Deputated">
+                                                                        <label class="form-check-label" for="deputated">Deputated</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="employeeType" id="rdGeneral" value="General">
+                                                                        <label class="form-check-label" for="General">General</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <table class="table table-bordered" id="tblGPFProcessing">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Employee No.</th>
+                                                                        <th>Employee Name</th>
+                                                                        <th>Employer</th>
+                                                                        <th>Designation</th>
+                                                                        <th>Member Contribution</th>
+                                                                        @*<th>Member interest</th>*@
+                                                                        <th>GPF Amount</th>
+                                                                        <th>Month</th>
+                                                                        <th>Year</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                                            @if (Convert.ToBoolean(ViewBag.Create))
+                                                            {
+                                                            <button class="btn btn-primary" data-toggle="modal" data-target="#monthly_gpf_submit">
+                                                                GPF Processing
+                                                            </button>
+                                                            }
+                                                            <button class="btn btn-danger" type="button" id="btnCancel">
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="monthly_gpf_submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to submit?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" id="btnSubmitGPF">Yes, submit</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCancelGPFProcessing">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalChangeInterest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Interest Rate (in %):</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <input type="text" name="txtInterest" class="form-control" id="txtInterest" />
+                                                <br />
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" id="btnChangeInterest">Change</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Modal -->
+                                <!--Modal-->
+                                <div class="modal fade" id="monthly_gpf_submit_add_another" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to submit?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" id="btnSubmitAndAddAnotherGPF">Yes, submit</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+
+                        </div>
+                        <div class="tab-pane fade show" id="GPF_report" role="tabpanel" aria-labelledby="GPF_report-tab">
+                            <section class="content">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <form method="post" enctype="multipart/form-data" action="/GPF/GPFProcessing">
+                                                        <div class="row">
+                                                            @*<div class="col-md-1">
+                    <label for="lblEmployerName" class="text-right">Employer Name</label>
+                </div>*@
+                                                            <div class="col-md-3 form-group">
+                                                                <select id="selEmployer" name="Employer" class="form-control">
+                                                                    <option value="">Select DVBETBF-2002 Office</option>
+                                                                    @foreach (var data in ViewBag.DTLOfficeList)
+                                                                    {
+                                                                        <option value="@data.DTLOffice">@data.DTLOffice</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+
+                                                            @*<div class="col-md-1">
+                    <label class="text-right">Month &amp; Year</label>
+                </div>*@
+                                                            <div class="col-md-2 form-group">
+                                                                @*<input type="month" name="txtProcessingDate" class="form-control" data-date="" data-date-format="DD-MM-YYYY" id="txtProcessingDate">*@
+                                                                <select id="selMonth" name="Month" class="form-control">
+                                                                    <option value="">Select Month</option>
+                                                                    <option value="1">January</option>
+                                                                    <option value="2">February</option>
+                                                                    <option value="3">March</option>
+                                                                    <option value="4">April</option>
+                                                                    <option value="5">May</option>
+                                                                    <option value="6">June</option>
+                                                                    <option value="7">July</option>
+                                                                    <option value="8">August</option>
+                                                                    <option value="9">September</option>
+                                                                    <option value="10">October</option>
+                                                                    <option value="11">November</option>
+                                                                    <option value="12">December</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="text" name="txtYear" class="form-control" placeholder="Year" id="txtYear" />
+                                                            </div>
+                                                            @*<div class="col-md-1">
+                    <label class="text-right">Employee ID</label>
+                </div>*@
+                                                            <div class="col-md-3 form-group">
+                                                                <input type="text" name="" class="form-control" placeholder="Employee Id" id="txtEmployeeId">
+                                                            </div>
+                                                            <div class="col-md-2 form-group text-center">
+                                                                <button class="btn btn-primary" type="button" id="btnSearch">Search</button>
+                                                                <button class="btn btn-primary" type="button" id="btnCancel">Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <hr />
+                                                            <table class="table table-bordered table-hover" id="tblGPFReport">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Employee Type</th>
+                                                                        <th>Employee Name</th>
+                                                                        <th>Employer</th>
+                                                                        <th>Employee ID</th>
+                                                                        <th>Member Contribution</th>
+                                                                        <th>Member interest</th>
+                                                                        <th>GPF Amount</th>
+                                                                        <th>Month-Year</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    @*
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-right">
+                                                                <a href="@Url.Action("ExportGPFReportToExcel","Processing",new { Area = "GPF" })" class="btn btn-primary mr-3" id="btnExportGPFReport" target="_blank">Export To Excel</a>
+                                                                <button class="btn btn-primary" type="button" id="btnGPFReportPrint">Export To PDF</button>
+                                                            </div>
+                                                        </div>
+                                                    *@
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-pane fade show " id="GPF_summary" role="tabpanel" aria-labelledby="GPF_summary-tab">
+                            <section class="content">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label for="lblEmployerName">Employer Name</label>
+                                                        </div>
+                                                        <div class="col-md-6 form-group">
+                                                            <select id="selGPFSummaryEmployer" name="Employer" class="form-control">
+                                                                <option value="">Select DVBETBF-2002 Office</option>
+                                                                @foreach (var data in ViewBag.DTLOfficeList)
+                                                                {
+                                                                    <option value="@data.DTLOffice">@data.DTLOffice</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2 form-group text-center">
+                                                            <button class="btn btn-primary" type="button" id="btnSearchGPFSummary">Search</button>
+                                                            <button class="btn btn-primary" type="button" id="btnCancelGPFSummary">Cancel</button>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <table class="table table-bordered table-hover" id="tblGPFSummary">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Month-Year</th>
+                                                                        <th>Member Contribution</th>
+                                                                        <th>Member interest</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @*@foreach (var item in Model)
+                        {
+                            string month = "";
+                            switch (item.Month)
+                            {
+                                case 1: month = "January"; break;
+                                case 2: month = "February"; break;
+                                case 3: month = "March"; break;
+                                case 4: month = "April"; break;
+                                case 5: month = "May"; break;
+                                case 6: month = "June"; break;
+                                case 7: month = "July"; break;
+                                case 8: month = "August"; break;
+                                case 9:  month = "September"; break;
+                                case 10: month = "October"; break;
+                                case 11: month = "November"; break;
+                                case 12: month = "December"; break;
+                                default: break;
+                            }
+
+                            <tr>
+                                <td>@month-@item.Year</td>
+                                <td>@item.MemberContribution</td>
+                                <td>@item.MemberInterest</td>
+                            </tr>
+                        }*@
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    @*
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-right">
+                                                            <a href="@Url.Action("ExportGPFSummaryToExcel","Processing",new { Area = "GPF" })" class="btn btn-primary mr-3" id="btnExportGPFSummary">Export to Excel</a>
+                                                            <button type="button" class="btn btn-primary mr-3" id="btnGPFSummaryPrint">Export To PDF</button>
+                                                            <a href="@Url.Action("ExportGPFSummaryToPDF","Processing",new { Area = "GPF" })" class="btn btn-primary mr-3">Export</a>
+                                                                                        <a href="mailto:enter@senderemail.id?subject=GPF Summary Report&body=Please edit the body here&cc=anotheremailaddress@anotherdomain.com
+                                                                                            &bcc=onemore@anotherdomain.com" class="btn btn-primary">Send to</a>
+                                                        </div>
+                                                    </div>
+                                                    *@
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+
+@section GPFProcessing{
+    <script src="~/js/GPF/gpfprocessing.js"></script>
+    <script>
+
+            //$(document).ready(function () {
+            //    $("#tblGPFReport").DataTable({
+            //        ordering: true,
+            //        dom: 'Blfrtip',
+            //        buttons: [
+            //            {
+            //                extend: 'excelHtml5',
+            //                title: 'GPF Processing'
+            //            },
+            //            {
+            //                extend: 'csvHtml5',
+            //                title: 'GPF Processing'
+            //            }
+            //        ],
+            //    });
+            //})
+            //$(document).ready(function () {
+            //    $("#tblGPFSummary").DataTable({
+            //        ordering: true,
+            //        dom: 'Blfrtip',
+            //        buttons: [
+            //            {
+            //                extend: 'pdfHtml5',
+            //                title: 'GPS Summary'
+            //            },
+            //            {
+            //                extend: 'excelHtml5',
+            //                title: 'GPS Summary'
+            //            }
+            //        ],
+            //    });
+            //})
+    </script>
+}

@@ -1,0 +1,150 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model List<NonCashlessModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+     .dataTables_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+       }
+        .dataTables_wrapper .dt-buttons.btn-group {
+            order: -1;
+        }
+        .dataTables_wrapper .dataTables_length {
+            order: -2;
+        }
+</style>
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Non-Cashless Mediclaim</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("NonCashless","Raise", new { Area="Dashboard" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard", new { Area="Mediclaim" })">Mediclaim</a></li>
+                        <li class="breadcrumb-item active">Non-Cashless List</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-md-12" style="padding-bottom: 1%;">
+                                @if (Convert.ToBoolean(ViewBag.Create))
+                                {
+                                    <a href="@Url.Action("NonCashless", "Raise", new { Area = "Mediclaim" })" class="btn btn-default">Add New Mediclaim</a>
+                                }
+                            </div>
+                            <hr />
+                            <table id="empTbl" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Claim No.</th>
+                                        <th>Employee No.</th>
+                                        <th>PPO No.</th>
+                                        <th>Medical Section Page No.</th>
+                                        <th>Name of Patient</th>
+                                        <th>Status</th>
+                                        <th>Reason of Rejection</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count > 0)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            string _status = null;
+                                            switch (item.ClaimStatusId)
+                                            {
+                                                case 1:
+                                                    _status = "Pending";
+                                                    break;
+                                                case 2:
+                                                    _status = "Approve";
+                                                    break;
+                                                case 3:
+                                                    _status = "Reject";
+                                                    break;
+                                            }
+
+                                            <tr>
+                                                <td>@item.ClaimId</td>
+                                                <td>@item.EmployeeNumber</td>
+                                                <td>@item.PPONumber</td>
+                                                <td>@item.MedicalSectionPageNumber</td>
+                                                <td>@item.PatientName</td>
+                                                <td>@_status</td>
+                                                <td>@item.RejectReason</td>
+                                                <td class="d-flex justify-content-around">
+                                                    @if (Convert.ToBoolean(ViewBag.View))
+                                                    {
+                                                        <a href="/Mediclaim/NonCashless/PrintPreview/@item.ClaimId.ToString()"><i class="far fa-eye"></i></a>
+                                                    }
+                                                    @if (Convert.ToBoolean(ViewBag.Edit))
+                                                    {
+                                                        <a href="/Mediclaim/Modify/EditNonCashless/@item.ClaimId"><i class="far fa-edit"></i></a>
+                                                    }
+                                                    @if (Convert.ToBoolean(ViewBag.Delete))
+                                                    {
+                                                        <a href="javascript:void(0)"><i class="fa fa-trash"></i></a>
+                                                    }
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5">
+                                                <p>No data found</p>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section Employee{
+
+    <script>
+        $(document).ready(function () {
+            $("#empTbl").DataTable({
+                ordering: true,
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Non Cashless'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Non Cashless'
+                    }
+                ],
+            });
+        })
+    </script>
+}

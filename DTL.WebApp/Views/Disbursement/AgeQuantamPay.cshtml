@@ -1,0 +1,181 @@
+﻿@using DTL.Model.Models
+@model AddQtmPaymentModel
+@{
+    ViewData["Title"] = "Age Quantam Of Pension";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Age Quantam Of Pension</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("", "Disbursement")">Disbursement</a></li>
+                    <li class="breadcrumb-item active">Age Quantam Of Pension</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="AQPaymentForm">
+                            <input type="hidden" id="id" name="id" value="@Model.ID" />
+                            <input type="hidden" id="eid" name="eid" value="@Model.EmployeeRegistrationId" />
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblPensionerName">Pensioner Name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtPensionerName" class="form-control" id="txtPensionerName" placeholder="Penisoner Name" value="@(Model.PensionerName)" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right">Date of Birth</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="date" name="txtDOB" class="form-control"
+                                           data-date="" data-date-format="DD-MM-YYYY" id="txtDOB" value="@(Model.DOB.ToString("yyyy-MM-dd") != "0001-01-01" ? Model.DOB.ToString("yyyy-MM-dd") : "")" disabled>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblEmployeeID">Employee ID</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtEmployeeID" class="form-control" id="txtEmployeeID" placeholder="Employee ID" value="@(Model.EmployeeID)" disabled>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblEmployerName">Organization /Company name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+
+                                    <select id="Employer" name="Employer" class="form-control" disabled>
+                                        <option value="">Employer Name</option>
+                                        @foreach (var data in ViewBag.DTLOfficeList)
+                                        {
+                                            if (data.DTLOffice.Equals(Model.EmployerName))
+                                            {
+                                                <option value="@data" selected>@data</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@data.DTLOffice">@data.DTLOffice</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            
+                            @*
+                                <div class="col-md-3">
+                                    <label for="lblEmployeeID">Employee ID</label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input type="text" name="txtEmployeeID" class="form-control" id="txtEmployeeID" placeholder="Employee ID" value="@(Model.EmployeeID)" disabled>
+                                </div>
+                            *@
+                            @*
+                                <div class="col-md-3">
+                                    <label for="lblPensionerName">Pensioner Name</label>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <input type="text" name="txtPensionerName" class="form-control" id="txtPensionerName" placeholder="Penisoner Name" value="@(Model.PensionerName)" required>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <input type="date" name="txtDOB" class="form-control"
+                                           data-date="" data-date-format="DD-MM-YYYY" id="txtDOB" value="@(Model.DOB.ToString("yyyy-MM-dd") != "0001-01-01"? Model.DOB.ToString("yyyy-MM-dd"):"")" disabled>
+                                </div>
+                            *@
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblCurrentAge">Current Age</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtCurrentAge" class="form-control" id="txtCurrentAge" placeholder="Age in years" value="@(Model.CurrentAge)" disabled>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblAgeGroup">Age Group</label>
+                                </div>
+                                <div class="col-md-4 form-group" >
+
+                                    <select id="AgeGroup" name="AgeGroup" class="form-control" disabled>
+                                        <option value="">Select</option>
+                                        @foreach (var data in ViewBag.AgeGroupList)
+                                        {
+                                            if (data.AgeGroup.Equals(Model.AgeGroup))
+                                            {
+                                                <option value="@data" selected>@data</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@data.AgeGroup">@data.AgeGroup</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblMonthlyPension">Monthly Pension</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtMonthlyPension" class="form-control" id="txtMonthlyPension" placeholder="Pension Amount" value="@(Model.MonthlyPension)" disabled>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblAppQTM">Applicable Quantam</label>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <input type="text" name="txtIncrementPercentage" class="form-control" id="txtIncrementPercentage" placeholder="Increment Percentage" value="@(Model.IncrementPercentage)" disabled>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <input type="text" name="txtIncrementAmount" class="form-control" id="txtIncrementAmount" placeholder="Increment Amount" value="@(Model.IncrementAmount)" disabled>
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblMonthlyPensionAQP">Monthly Pension after AQP</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtMonthlyPensionAQP" class="form-control" id="txtMonthlyPensionAQP" placeholder="Pension Amount" value="@(Model.AQPMonthlyPension)" disabled>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblPayablePeriod">Payable Period</label>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <input type="date" name="dtFrom" data-date="" data-date-format="DD-MM-YYYY" class="form-control" id="dtFrom" placeholder="From" value="@(Model.FromDate)" />
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <input type="date" name="dtTo" data-date="" data-date-format="DD-MM-YYYY" class="form-control" id="dtTo" placeholder="To" value="@(Model.ToDate)" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                    @if (Convert.ToBoolean(ViewBag.Create))
+                                    {
+                                    <button type="button" name="btnSubmit" id="btnSubmit" class="btn btn-primary">Submit</button>
+                                    }
+                                    <a href="@Url.Action("","Disbursement")" class="btn btn-danger">Close</a>
+                                    <button type="reset" name="btnClear" id="btnClear" class="btn btn-warning">Clear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Disbursement{
+    <script src="~/js/Disbursement/AddQuantamPayment.js" asp-append-version="true"></script>
+    <script src="~/js/Disbursement/AQPaymentSave.js" asp-append-version="true"></script>
+}

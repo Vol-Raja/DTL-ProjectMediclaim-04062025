@@ -1,0 +1,630 @@
+﻿@{
+    ViewData["Title"] = "NonCashless";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Non-Cashless Mediclaim Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard",new { Area="Mediclaim" })">Mediclaim</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Noncashless",new { Area="Mediclaim" })">NonCashless List</a></li>
+                        <li class="breadcrumb-item active">Raise</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="nonCashlessForm" action="" method="post">
+                                <input type="hidden" id="hdnMediClaimId" />
+                                <h4 class="bg-gradient-gray p-1 mb-3">Main Information</h4>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Employee Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Employee Number" id="txtEmployeeNumber" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">PPO No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter PPO Number" id="txtPPONumber" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Medical section Page No</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Medical section Page Number" id="txtMedicalSectionPageNumber" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Name of Medical Card Holder</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Medical Card Number" id="txtMedicalCardHolderName" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Designation</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Designation" id="txtDesignation" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Name of Patient</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Paitent Name" id="txtPatientName" />
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Gender</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="gender-radio">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="rdMale" value="Male">
+                                                <label class="form-check-label" for="male">Male</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="rdFemale" value="Female">
+                                                <label class="form-check-label" for="female">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Date of Birth</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="date" class="form-control mb-2" id="txtDateOfBirth" />
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="w-100 form-label text-right">Age</label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" class="form-control mb-2 number" id="txtAge" readonly="readonly" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Dependent/Self</label>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="ds-radio">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="dependent_self" id="dependent" value="Dependent">
+                                                <label class="form-check-label" for="d">Dependent</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="dependent_self" id="self" value="Self">
+                                                <label class="form-check-label" for="s">Self</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 showDependent">
+                                        <label class="w-100 form-label text-right">Relation with retire</label>
+                                    </div>
+                                    <div class="col-md-4 showDependent">
+                                        <select id="selRelatioWithRetire" name="RelatioWithRetire" class="form-control mb-2">
+                                            <option value="">Select</option>
+                                            <option value="value">Son</option>
+                                            <option value="value">Daughter</option>
+                                            <option value="value">Wife</option>
+                                            <option value="value">Husband</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Mobile No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Mobile Number" id="txtMobileNumber" />
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Card Category</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="selCardCategory" name="CardCategory" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="">General</option>
+                                            <option value="">Semi Private</option>
+                                            <option value="">private</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Address</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <textarea type="text" class="form-control mb-2" id="txtAddress" placeholder="Enter Address here"></textarea>
+                                    </div>
+                                </div>
+                                <h4 class="bg-gradient-gray p-1 mb-3">Details of Hospitalization</h4>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Type of Claim</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="selClaimType" name="selClaimType" class="form-control" onchange="update()">
+                                            <option value="">Select</option>
+                                            <option value="DIS">Dispensary</option>
+                                            <option value="IPD">IPD</option>
+                                            <option value="OPD">OPD</option>
+                                            <option value="CND">C&amp;D</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row claim" id="dispensary_div">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Date</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="date" class="form-control mb-2" id="txtDispensaryDate" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Dispensary Location</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Dispensary Location" id="txtDispensaryLocation" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Doctor Visited</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Doctor Name" id="txtDoctorVisited" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Token / OPD No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Token / OPD Number" id="txtTokenOPDNo" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Total Amount of Medicine</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Total Amount of Medicine" id="txtMedicineAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Test Investigation</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Test Investigation" id="txtInvestigation" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Other Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Other Amount" id="txtDispensaryOtherAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Total Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Total Amount" id="txtDispensaryTotalAmount" disabled />
+                                    </div>
+                                    <div class="col-md-12 text-center my-2">
+                                        <button class="btn btn-primary" id="btnAddDispensary" type="button">Add New</button>
+                                        <button class="btn btn-primary" id="btnClearDispensary" type="button">Clear</button>
+                                    </div>
+
+                                    <table id="tblDispensary" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Dispensary Location</th>
+                                                <th>Doctor Visited</th>
+                                                <th>Token / OPD No.</th>
+                                                <th>Total Amount of Medicine</th>
+                                                <th>Test Investigation</th>
+                                                <th>Total Amount</th>
+                                                <th>Other Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row claim" id="IPD_div">
+                                    <div class="col-md-12">
+                                        <p>Claim towards treatment obtained from hospital (on IPD basis)</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Date of Admission</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="date" class="form-control mb-2" id="txtDateOfAdmission" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Name of Hospital</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name of Hospital" id="txtIPDHospitalName" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Treatment Illness</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Treatment Illness" id="txtTreatment" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Date of Discharge</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="date" class="form-control mb-2" id="txtDateOfDischarge" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Other Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Other Amount" id="txtIPDOtherAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Total Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Total Amount" id="txtIPDTotalAmount" disabled />
+                                    </div>
+                                    <div class="col-md-12 text-center my-2">
+                                        <button class="btn btn-primary" type="button" id="btnAddIPD">Add New</button>
+                                        <button class="btn btn-primary" type="button" id="btnClearIPD">Clear</button>
+                                    </div>
+
+                                    <table id="tblIPD" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Date of Admission</th>
+                                                <th>Name of Hospital</th>
+                                                <th>Treatment Illness</th>
+                                                <th>Date of Discharge</th>
+                                                <th>Total Amount</th>
+                                                <th>Other Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row claim" id="OPD_div">
+                                    <div class="col-md-12">
+                                        <p>Claim towards treatment obtained from hospital (on OPD basis)</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Date</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="date" class="form-control mb-2" id="txtOPDDate" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Name of Hospital</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name of Hospital with location" id="txtOPDHospitalName" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Medicine (Rs.)</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Medicine (Rs.)" id="txtOPDMedicineAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Investigation Amount (Rs.)</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Investigation Amount (Rs.)" id="txtOPDInvestigationAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Consultation (Rs.)</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Consultation (Rs.)" id="txtOPDConsultationAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Other Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Other Amount" id="txtOPDOtherAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Total Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" id="txtOPDTotalAmount" placeholder="Enter Total Amount" disabled/>
+                                    </div>
+                                    <div class="col-md-12 text-center my-2">
+                                        <button class="btn btn-primary" type="button" id="btnAddOPD">Add New</button>
+                                        <button class="btn btn-primary" type="button" id="btnClearOPD">Clear</button>
+                                    </div>
+
+                                    <table id="tblOPD" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Name of Hospital</th>
+                                                <th>Medicine (Rs.)</th>
+                                                <th>Investigation Amount (Rs.)</th>
+                                                <th>Consultation (Rs.)</th>
+                                                <th>Total Amount</th>
+                                                <th>Other Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row claim" id="CD_div">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Date</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="date" class="form-control mb-2" id="txtCNDDate" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Name of Hospital</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name of Hospital with location" id="txtCNDHospitalName" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Medicine (Rs.)</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Medicine (Rs.)" id="txtCNDMedicineAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Investigation Amount (Rs.)</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Investigation Amount (Rs.)" id="txtCNDInvestigationAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Consultation (Rs.)</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Consultation (Rs.)" id="txtCNDConsultationAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Other Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Other Amount" id="txtCNDOtherAmount" onkeyup="calculateTotal()"  />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Total Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2 number" placeholder="Enter Total Amount" id="txtCNDTotalAmount" disabled />
+                                    </div>
+                                    <div class="col-md-12 text-center my-2">
+                                        <button class="btn btn-primary" type="button" id="btnAddCND">Add New</button>
+                                        <button class="btn btn-primary" type="button" id="btnClearCND">Clear</button>
+                                    </div>
+
+                                    <table id="tblCND" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Name of Hospital</th>
+                                                <th>Medicine (Rs.)</th>
+                                                <th>Investigation Amount (Rs.)</th>
+                                                <th>Consultation (Rs.)</th>
+                                                <th>Total Amount</th>
+                                                <th>Other Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <h4 class="bg-gradient-gray p-1 mb-3">Claim Document Checklist</h4>
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="chkMedicalCardPhotoCopy">
+                                            <label class="form-check-label" for="defaultCheck1">Photocopy of Medical Card (front and back page)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="chkPrescriptionDetailPhotoCopy">
+                                            <label class="form-check-label" for="defaultCheck1">Photocopy of Medical Card showing prescription, Date &amp; OPD No.</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="chkOriginalBill">
+                                            <label class="form-check-label" for="defaultCheck1">Original Bill</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="chkCashMemo">
+                                            <label class="form-check-label" for="defaultCheck1">Bill / cash memo (with break-up) of investigation and copy of reports</label>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button type="button" class="btn btn-primary hide_submit" id="btnSubmit" data-toggle="modal" data-target="">Submit</button>
+                                        <a class="btn btn-danger hide_submit">Cancel</a>
+                                        <a href="#" class="btn btn-info show_submit" id="btnViewPrintLink">View and Print Application</a>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Non-Cashless Mediclaim</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                                                <p>Claim Submitted Successfully</p>
+                                                <p>Claim Number is <b><label id="lblClaimNumber"></label></b></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal" id="btnViewPrint">View and Print Application</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+@section NonCashlessRaise{
+    <script type="text/javascript" src="~/js/Mediclaim/Raise/noncashless.js"></script>
+
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function decimalNumberKey(evt, obj) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            var value = obj.value;
+            var dotcontains = value.indexOf(".") != -1;
+            if (dotcontains)
+                if (charCode == 46) return false;
+            if (charCode == 46) return true;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+
+
+        var ClaimType = '';
+        function update() {
+            ClaimType = $('#selClaimType').val();
+            //ClaimType = $('#selClaimType :selected').text();
+            //calculateTotal();
+        }
+
+        //update();
+
+        function calculateTotal() {
+            if (ClaimType !== '') {
+                //debugger;
+                switch (ClaimType) {
+                    case 'DIS': {
+                        var disMedicine = '';
+                        var disOther = '';
+                        var disTotal = '';
+                        var disInvestigation = '';
+
+                        disMedicine = $('#txtMedicineAmount').val() !== '' ? $('#txtMedicineAmount').val() : 0;
+                        disOther = $('#txtDispensaryOtherAmount').val() !== '' ? $('#txtDispensaryOtherAmount').val() : 0;
+                        disInvestigation = $('#txtInvestigation').val() !== '' ? $('#txtInvestigation').val() : 0;
+                        disTotal = parseFloat(disOther) + parseFloat(disMedicine) + parseFloat(disInvestigation);
+
+                        document.getElementById('txtDispensaryTotalAmount').value = disTotal;
+                    }
+                    case 'IPD': {
+                        var ipdOther = '';
+                        var ipdTotal = '';
+
+                        ipdOther = $('#txtIPDOtherAmount').val() !== '' ? $('#txtIPDOtherAmount').val() : 0;
+                        ipdTotal = parseFloat(ipdOther);
+
+                        document.getElementById('txtIPDTotalAmount').value = ipdTotal;
+                    }
+                    case 'OPD': {
+                        var opdMedicine = '';
+                        var opdInvestigation = '';
+                        var opdConsultation = '';
+                        var opdOther = '';
+                        var opdTotal = '';
+
+                        opdMedicine = $('#txtOPDMedicineAmount').val() !== '' ? $('#txtOPDMedicineAmount').val() : 0;
+                        opdInvestigation = $('#txtOPDInvestigationAmount').val() !== '' ? $('#txtOPDInvestigationAmount').val() : 0;
+                        opdConsultation = $('#txtOPDConsultationAmount').val() !== '' ? $('#txtOPDConsultationAmount').val() : 0;
+                        opdOther = $('#txtOPDOtherAmount').val() !== '' ? $('#txtOPDOtherAmount').val() : 0;
+                        opdTotal = parseFloat(opdMedicine) + parseFloat(opdInvestigation) + parseFloat(opdConsultation) + parseFloat(opdOther);
+
+                        document.getElementById('txtOPDTotalAmount').value = opdTotal;
+                    }
+                    case 'CND': {
+                        var cndMedicine = '';
+                        var cndInvestigation = '';
+                        var cndConsultation = '';
+                        var cndOther = '';
+                        var cndTotal = '';
+
+                        cndMedicine = $('#txtCNDMedicineAmount').val() !== '' ? $('#txtCNDMedicineAmount').val() : 0;
+                        cndInvestigation = $('#txtCNDInvestigationAmount').val() !== '' ? $('#txtCNDInvestigationAmount').val() : 0;
+                        cndConsultation = $('#txtCNDConsultationAmount').val() !== '' ? $('#txtCNDConsultationAmount').val() : 0;
+                        cndOther = $('#txtCNDOtherAmount').val() !== '' ? $('#txtCNDOtherAmount').val() : 0;
+                        cndTotal = parseFloat(cndMedicine) + parseFloat(cndInvestigation) + parseFloat(cndConsultation) + parseFloat(cndOther);
+
+                        document.getElementById('txtCNDTotalAmount').value = cndTotal;
+                        //$('#txtCNDTotalAmount').val() = cndTotal;
+
+                        break;
+                    }
+                }
+            }
+        }
+
+    </script>
+
+}

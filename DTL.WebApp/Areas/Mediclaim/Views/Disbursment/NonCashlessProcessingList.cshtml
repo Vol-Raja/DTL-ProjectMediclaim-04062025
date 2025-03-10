@@ -1,0 +1,210 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model IEnumerable<NonCashlessModel> 
+
+@{ 
+    ViewData["Title"] = "NonCashless Claim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int index = 1;
+}
+<div class="container-fluid">
+    <input type="hidden" id="hdnClaimId" />
+    <input type="hidden" id="hdnCurrentRow" />
+    <div class="row header_section mx-0 px-0 ">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Non-Cashless Claims</h3>
+
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index", "Disbursment",new { Area="Mediclaim"})">Dashboard </a><span class="px-1">/</span> <a href="@Url.Action("ProcessingDashboard", "Disbursment",new { Area="Mediclaim"})">Processing Dashboard </a><span class="px-1"> /</span><span>Claim Approval List</span>
+
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body ps-0 pr-2 pt-5">
+            <div class="table-responsive">
+                <table id="tblClaims" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr. No.</th> 
+                            <th>Date</th>
+                            <th>Claim No.</th>
+                            <th>Voucher No.</th>
+                            <th>PPO No.</th>
+                            <th>Card Category</th>
+                            <th>Organization</th>
+                            <th>Patient Name</th>
+                            <th>Claim Amt.</th>
+                            <th>Approved Amt.</th>
+                            <th>Page No.</th>
+                            <th>Account No.</th>
+                            <th>IFSC Code</th>
+                            <th>BIC Code</th>
+                            <th>Branch Name</th>
+                            <th>payment status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        { 
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td width="7%" class="text-center">@index</td>
+
+                                    <td>@item.CreatedDate.ToString("dd-MM-yyy")</td>
+                                    <td>@item.ClaimId</td>
+                                    <td>@item.VoucherId</td>
+                                    <td>@item.PPONumber</td>
+                                    <td>@item.CardCategory</td>
+                                    <td>@item.Organization</td>
+                                    <td>@item.PatientName</td>
+                                    <td>@String.Format("{0:.##}", item.TotalAmount)</td>
+                                    <td>@String.Format("{0:.##}",item.ApprovedAmount)</td>
+                                    <td>@item.MedicalSectionPageNumber</td>
+                                    <td>@item.AccountNumber</td>
+                                    <td>@item.IFSCNumber</td>
+                                    <td>@item.BICCode</td>
+                                    <td>@item.BranchName</td>
+                                    <td class="">
+                                        @if (item.Paid)
+                                        {
+                                            <label id="lblPayment">Paid</label>
+                                        }
+                                        else
+                                        {
+                                            <label id="lblPayment">Not Paid</label>
+                                        }
+                                    </td>
+                                    <td class="d-flex border-bottom-0">
+                                        <a href="/Mediclaim/Disbursment/NonCashless/View/@item.ClaimId" class="btn btn-primary btn-sm mr-2 btn_small">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        @*@if (!item.Paid)*@
+                                        @*{
+            <a onclick="confirmModal(@item.ClaimId)" class="btn btn-success float-end text-white p-1" role="button" data-backdrop="static" data-keyboard="false">Paid</a>
+        }*@
+                                        @if (!item.Paid)
+                                        {
+                                            <a id="lnkPay" onclick="confirmModal(@item.ClaimId)" class="btn btn-success float-end text-white p-1" role="button" data-backdrop="static" data-keyboard="false">Paid</a>
+                                        }
+                                        <!-- Modal -->
+                                    </td>
+                                </tr>
+                                index = index + 1;
+                             }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="17">
+                                    No Data Found
+                                </td>
+                            </tr>
+                        } 
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+<div class="modal fade" id="paid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content p-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    <img src="~/assets/images/paid.png" class="icon_reject ">
+                    <p class="message-type text-blod  pt-3">
+                        Are you sure you want to Paid
+                    </p>
+
+
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" onclick="PayForClaim()">Yes</button>
+                    <button type="button" class="btn btn-danger popUp_btn me-2"
+                            data-bs-dismiss="modal">
+                        No
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- /.content-wrapper -->
+@section NonCashlessClaims{
+    <script>
+        (function ($) {
+            $('#tblClaims').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    'excel',
+                    'pdfHtml5',
+                    'csvHtml5'
+                ],
+                "ordering": false,
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bAutoWidth": false,
+                "bJQueryUI": true,
+                "bRetrieve": true,
+                "bAutoWidth": true
+            });
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        function confirmModal(claimId) {
+            $('#hdnClaimId').val(claimId)
+            $('#paid').modal('show');
+        }
+
+        function PayForClaim() {
+            var _claimId = $('#hdnClaimId').val();
+            $.ajax({
+                type: 'POST',
+                url: "/Mediclaim/Disbusment/Noncashless/Pay/" + _claimId,
+                data: "",
+                contentType: 'application/json; charset=utf-8',
+                //dataType: 'json',
+                success: function (response, status, xhr) {
+                    if (xhr.status == '200') {
+                        let row = $("#tblClaims").find("tr")
+                        $.each(row, function (data, item) {
+                            if (data !== 0) {
+                                let tblClaimId = $(item).find('td:nth-child(3)').text();
+                                if (tblClaimId === _claimId) {
+                                    $(item).find('td:nth-child(16)').text('Paid');
+                                    $(item).find('td:nth-child(17)').find('a#lnkPay').remove();
+                                }
+                            }
+                        });
+                        $('#paid').modal('hide');
+                        
+                    }
+                    else {
+                        alert(response);
+                    }
+                },
+                error: function (xhr, status, error) {
+
+                }
+            });
+        }
+    </script>
+}

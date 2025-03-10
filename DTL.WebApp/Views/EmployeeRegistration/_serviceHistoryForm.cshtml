@@ -1,0 +1,278 @@
+﻿@using DTL.Model.Models
+@model ServiceHistoryModel
+@{
+    var IsMedicalCardRequired = new List<string>() { "Medical Allowance", "Medical Card" };
+    var LevelPayments = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    var ReasonOfRetirements = new List<string>() { "Death", "Retirement" };
+}
+<form id="ServiceHistory" method="post">
+    <input type="hidden" id="id" name="id" value="@Model.ID" />
+    <input type="hidden" id="EmployeeRegistrationId" name="EmployeeRegistrationId" value="@ViewBag.EmpId" />
+    <div class="row">
+        <div class="col-md-8 form-group">
+            <label for="Designation">Designation</label>
+            <input type="text" name="Designation" class="form-control" id="Designation" placeholder="Designation" value="@Model.Designation">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 form-group">
+            <label for="LevelPayment">Level in payment</label>
+            <select id="LevelPayment" name="LevelPayment" class="form-control">
+                <option value="">Select</option>
+                 @foreach (var data in LevelPayments)
+                    {
+                        if (data.Equals(Model.LevelPayment))
+                        {
+                            <option value="@data" selected>@data</option>
+                        }
+                        else
+                        {
+                            <option value="@data">@data</option>
+                        }
+                    }
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 form-group">
+            <label for="DTLDepartmentName">Department name</label>
+            <input type="text" name="DTLDepartmentName" class="form-control" id="DTLDepartmentName" placeholder="DTL Department Name" value="@Model.DTLDepartmentName">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 form-group">
+            <label for="ReasonOfRetirement">Type of retirement</label>
+            <select id="ReasonOfRetirement" name="ReasonOfRetirement" class="form-control">
+                <option value="">Select</option>
+                @foreach (var data in ReasonOfRetirements)
+                {
+                    if (data.Equals(Model.ReasonOfRetirement))
+                    {
+                        <option value="@data" selected>@data</option>
+                    }
+                    else
+                    {
+                        <option value="@data">@data</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 form-group">
+            <label for="IsMedicalCardRequired">Want to avail Medical Card?</label>
+
+            @foreach (var data in IsMedicalCardRequired)
+            {
+                if (Model != null)
+                {
+                    if (data == Model.IsMedicalCardRequired)
+                    {
+                        
+                        <input type="radio" value="@data" checked="checked" name="IsMedicalCardRequired" />@data
+                    }
+                    else
+                    {
+                        <input type="radio" value="@data" name="IsMedicalCardRequired" />@data
+                    }
+                }
+                else
+                {
+                    <input type="radio" value="@data" name="IsMedicalCardRequired" />@data
+                }
+            }
+            
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-md-12" style="display: inline-flex;">
+            <div class="col-md-1">
+                <label>Total Service</label>
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="TotalServiceYear" class="form-control serviceCount" id="TotalServiceYear" placeholder="Year" value="@(Model.TotalServiceYear)">
+            </div>
+            <div class="col-md-2">
+               
+                <input type="text" name="TotalServiceMonth" class="form-control serviceCount" id="TotalServiceMonth" placeholder="Month" value="@(Model.TotalServiceMonth)">
+            </div>
+            <div class="col-md-2">
+               
+                <input type="text" name="TotalServiceDays" class="form-control serviceCount" id="TotalServiceDays" placeholder="Day" value="@(Model.TotalServiceDays)">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="display: inline-flex;">
+            <div class="col-md-1">
+                <label>Additonal Service</label>
+            </div>
+            <div class="col-md-2">
+                
+                <input type="text" name="AdditionalServiceYears" class="form-control serviceCount" id="AdditionalServiceYears" placeholder="Year" value="@(Model.AdditionalServiceYears)">
+
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="AdditionalServiceMonth" class="form-control serviceCount" id="AdditionalServiceMonth" placeholder="Month" value="@(Model.AdditionalServiceMonth)">
+
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="AdditionalServiceDays" class="form-control serviceCount" id="AdditionalServiceDays" placeholder="Days" value="@(Model.AdditionalServiceDays)">
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="ServiceDetails" class="form-control serviceCount" id="ServiceDetails" placeholder="Service Details" value="@Model.ServiceDetails">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="display: inline-flex;">
+            <div class="col-md-1"><label>Service Not Counted</label></div>
+            <div class="col-md-2">
+                <input type="text" name="ServiceNotCountedYear" class="form-control serviceCount" id="ServiceNotCountedYear" placeholder="Year" value="@(Model.ServiceNotCountedYear)">
+
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="ServiceNotCountedMonth" class="form-control serviceCount" id="ServiceNotCountedMonth" placeholder="Month" value="@(Model.ServiceNotCountedMonth)">
+
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="ServiceNotCountedDays" class="form-control serviceCount" id="ServiceNotCountedDays" placeholder="Date" value="@(Model.ServiceNotCountedDays)">
+
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="Perticulars" class="form-control serviceCount" id="Perticulars" placeholder="Perticulers" value="@Model.Perticulars">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-12" style="display: inline-flex;">
+            <div class="col-md-1"> <label>Qualifying Service</label></div>
+            <div class="col-md-2">
+                <input type="text" name="QualifyingServiceYear" class="form-control serviceCount" id="QualifyingServiceYear" placeholder="Year" value="@(Model.QualifyingServiceYear)">
+
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="QualifyingServiceMonth" class="form-control serviceCount" id="QualifyingServiceMonth" placeholder="Month" value="@(Model.QualifyingServiceMonth)">
+
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="QualifyingServiceDays" class="form-control serviceCount" id="QualifyingServiceDays" placeholder="Days" value="@(Model.QualifyingServiceDays)">
+
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="HalfYear" class="form-control" id="HalfYear" placeholder="Half Year" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6 form-group">
+            <label>Last Drawn Basic Pay</label>
+            <input type="text" name="BasicPay" class="form-control" id="BasicPay" placeholder="Basic Pay" value="@(Model.BasicPay==0?"0":Model.BasicPay)">
+        </div>
+        <div class="col-md-6 input-group">
+            @*<div class="custom-file">
+                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text">Upload Salary Slip</span>
+                </div>*@
+            <div class="col-md-2 text-center" style=" padding-top: 5.5%;">
+                <input type="file" id="UploadPaySlip" name="UploadPaySlip" style="display:none" multiple />
+                <button type="button" id="btnUploadPaySlip" class="btn btn-primary"><i class="fa fa-file-upload"></i> UPLOAD</button>
+            </div>
+            <div class="col-md-4 text-center" style=" padding-top: 5.5%;">
+                <button type="button" class="btn btn-primary" id="viewPaySlip">View Document</button>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6 form-group">
+            <label>Dearness Allowence(DA)</label>
+            <input type="text" name="DA" class="form-control" id="DA" placeholder="DA" value="@(Model.DA==0?"":Model.DA)">
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6 form-group">
+            <label>NPA</label>
+            <input type="text" name="NPA" class="form-control" id="NPA" placeholder="NPA" value="@(Model.NPA==0?"0":Model.NPA)">
+        </div>
+    </div>
+
+
+
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary" id="btnServiceHistory">Save & Next>></button>
+        <a href="@Url.Action("","EmployeeRegistration")" class="btn btn-warning">Close</a>
+    </div>
+</form>
+
+<div class="modal fade" id="modal-paySlip">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="height: calc(100vh - 100px);">
+            <div class="modal-header">
+                <h4 class="modal-title">Pay Slips</h4>
+                <button type="button" id="closePaySlipModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modal-body-payslip" class="modal-body">
+                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-tabs-1-tab" data-toggle="pill" href="#custom-tabs-1" role="tab" aria-controls="custom-tabs-1" aria-selected="false">Pay Slip 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-2-tab" data-toggle="pill" href="#custom-tabs-2" role="tab" aria-controls="custom-tabs-2" aria-selected="false">Pay Slip 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="custom-tabs-3-tab" data-toggle="pill" href="#custom-tabs-3" role="tab" aria-controls="custom-tabs-3" aria-selected="true">Pay Slip 3</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="custom-tabs-three-tabContent">
+                    @*<div class="tab-pane fade active show" id="custom-tabs-three-empProfile" role="tabpanel" aria-labelledby="custom-tabs-three-empProfile-tab">
+                            <partial name="_employeeProfileForm" for="employeeProfile" />
+                        </div>*@
+                    <div class="tab-pane fade active show" id="custom-tabs-1" role="tabpanel" aria-labelledby="custom-tabs-1-tab">
+                        @*@if (!string.IsNullOrEmpty(Model.PaySlip1Path))
+                        {*@
+                            <iframe id="ifrmPaySlip1" src="../@Model.PaySlip1Path" style="width: 100%; height: calc(80vh - 44px);"></iframe>
+                        @*}
+                        else
+                        {
+                            <div class="text-center">No Document Found!!!</div>
+                        }*@
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-2" role="tabpanel" aria-labelledby="custom-tabs-2-tab">
+                        @*@if (!string.IsNullOrEmpty(Model.PaySlip2Path))
+                        {*@
+                            <iframe id="ifrmPaySlip2" src="../@Model.PaySlip2Path" style="width: 100%; height: calc(80vh - 44px);"></iframe>
+                        @*}
+                        else
+                        {
+                            <div class="text-center">No Document Found!!!</div>
+                        }*@
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-3" role="tabpanel" aria-labelledby="custom-tabs-3-tab">
+                        @*@if (!string.IsNullOrEmpty(Model.PaySlip3Path))
+                        {*@
+                            <iframe id="ifrmPaySlip3" src="../@Model.PaySlip3Path" style="width: 100%; height: calc(80vh - 44px);"></iframe>
+                        @*}
+                        else
+                        {
+                            <div class="text-center">No Document Found!!!</div>
+                        }*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,55 @@
+﻿<div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-info">
+        <div class="inner">
+
+            <p>Admin User</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="@Url.Action("AdminUserList","AdminUser", new { Area="UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+<!-- ./col -->
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-success">
+        <div class="inner">
+
+            <p>Roles</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="@Url.Action("Index","Roles", new { Area="" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+<!-- ./col -->
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-gradient-olive">
+        <div class="inner">
+
+            <p>Modules</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="@Url.Action("ModuleList","Module", new { Area="UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-gradient-red">
+        <div class="inner">
+            <p>
+                Sub Modules
+            </p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-plus"></i>
+        </div>
+        <a href="@Url.Action("SubModuleList","SubModule", new { Area="UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+</div>

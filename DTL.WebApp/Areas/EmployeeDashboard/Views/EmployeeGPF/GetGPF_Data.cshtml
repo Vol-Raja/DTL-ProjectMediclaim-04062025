@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewData["Title"] = "GetGPF_Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Employee GPF List</h3>
+        </div>
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-2 border_bottom pb-2 row">
+                <h2 class="text-center">📊 Live GPF Employee</h2>
+
+                <div class="row mt-1">
+                    <!-- Live Metrics Cards -->
+                    <div class="col-md-4">
+                        <div class="card dashboard background-lightpink text-center p-1">
+                            <h5>Ongoing Employee</h5>
+                            <h2 id="totalongoing">0</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card dashboard background-green text-center p-1">
+                            <h5>Retiree Employee</h5>
+                            <h2 id="retiree">0</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card dashboard background-blue text-center p-1">
+                            <h5>Ready for Retiree</h5>
+                            <h2 id="readytoretiree">0</h2>
+                        </div>
+                    </div>
+                </div>
+                @*/comment by rajan 24/02/2025/*@
+                <!--<div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Organization</label>
+                    <select name="orgCode" id="State" class="form-select">
+                        <option value="all" selected>All</option>
+                        @foreach (var kvp in DTL.Model.Models.GPF.GPFEmployeeInfoModel.OrganisationNameByCode)
+                        {
+                            <option value="@kvp.Key">@kvp.Value</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Retirment Status</label>-->
+                @*<input name="retirementStatus" type="text" class="form-control form-control-sm" placeholder="Retirment Status" value="Ongoing" />*@
+                <!--<select name="retirementStatus" id="State" class="form-select">
+                        <option value="all" selected>All</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Ready for retirement">Ready for retirement</option>
+                        <option value="Retiree">Retiree</option>
+                    </select>
+                </div>-->
+                @*<div class="col-sm-6 col-md-3 col-lg-3 col-xl-3  position-relative">
+                        <button type="button" class="btn btn-success  position-absolute bottom-0" onclick="loadData()"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-danger position-absolute bottom-0 clear_btn" onclick="reset()"><i class="fa fa-times"></i></button>
+                    </div>*@
+                @* end comment by rajan 24/02/2025/*@
+            </div>
+            <div class="table-responsive">
+                <table id="example1" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>PPO-NO</th>
+                            <th>Organization</th>
+
+                            <th>Employee ID</th>
+                            <th>External Code</th>
+                            <th>Employee Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Date of Joining</th>
+                            <th>Date of Retirement</th>
+                            <th>Retirment Status</th>
+                            <th>Action</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div><!-- col -->
+
+<script>
+    var srData = 1;
+    const btn = d => `
+        <a href="@Url.Action("ViewGPFEmployeeProfile", "EmployeeGPF", new { Area = "EmployeeDashboard" })?emp=${encodeURIComponent(d.externalCode)}" class="btn btn-primary btn-sm mr-2 btn_small">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+        </a>
+    `;
+    const reset = () => {
+        $('[name="orgCode"]').val('all').trigger('change');
+        $('[name="retirementStatus"]').val('all').trigger('change');
+        loadData()
+    }
+    const loadData = () => {
+        debugger;
+        srData = 1
+        $("#example1").DataTable().destroy();
+        $("#example1").DataTable({
+            ordering: true,
+            dom: 'lfrtip',
+            scrollX: true,
+            ajax: {
+                url: `@Url.Action("GetEmployeeData", "EmployeeGPF")`,
+                data: d => {
+                    d["orgCode"] = $('[name="orgCode"]').val();
+                    d["retirementStatus"] = $('[name="retirementStatus"]').val();
+                    return d;
+                },
+                dataSrc: ''
+            },
+            columns: [
+                { render: _ => srData++ },
+                { data: 'ppo_no' },
+                { data: 'organisation' },
+                { data: 'employeeCode' },
+                { data: 'externalCode' },
+                { data: 'employeeName' },
+                { data: 'email' },
+                { data: 'contact' },
+                { data: 'doj', render: d => moment(d).format('DD-MMM-YYYY') },
+                { data: 'dor', render: d => d ? moment(d).format('DD-MMM-YYYY') : '' },
+                { data: 'retirementStatus' },
+                { render: (a, b, c) => btn(c) },
+                { render: (a, b, c) => btoa(JSON.stringify(c)), className: 'rowData d-none' },
+            ]
+        }).on('dt.draw', function () {
+            window.dispatchEvent(new Event('resize'));
+        });
+    }
+    $(document).ready(function () {
+        loadData();
+       $("#example1").DataTable().on('draw', function () {
+        updateTotalTransactions();
+    });
+    });
+
+    function updateTotalTransactions() {
+
+        let Ongoing = 0;
+        let Retiree = 0;
+        let Redayforretired = 0;
+
+        // Get all rows in the transactions table
+        const rows = document.querySelectorAll("#example1 tbody tr");
+        rows.forEach(row => {
+            const cells = row.getElementsByTagName("td");
+            if (cells.length >10) {
+                const claimStatus = cells[10].innerText.trim(); // Get Status column (index 3)
+                if (claimStatus === "Ongoing") {
+                    Ongoing++;
+                }
+                if (claimStatus === "Retiree") {
+                    Retiree++;
+                }
+
+                if (claimStatus === "Ready for retirement") {
+                    Redayforretired++;
+                }
+            }
+        });
+
+        document.getElementById("totalongoing").innerText = Ongoing;
+        document.getElementById("retiree").innerText = Retiree;
+        document.getElementById("readytoretiree").innerText = Redayforretired;
+    }
+
+
+</script>
+

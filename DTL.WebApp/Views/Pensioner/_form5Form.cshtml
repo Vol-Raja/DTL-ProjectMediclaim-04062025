@@ -1,0 +1,424 @@
+﻿@using DTL.Model.Models
+@model Form5Model
+@{
+}
+<style>
+    .profile-pic-wrapper {
+        border: 1px dashed;
+        /* height: 30vh;*/
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pic-holder {
+        text-align: center;
+        position: relative;
+        /* border-radius: 50%;*/
+        width: 100%;
+        height: 100px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*margin-bottom: 20px;*/
+    }
+
+        .pic-holder .pic {
+            height: 110%;
+            width: 100%;
+            /* -o-object-fit: cover;
+            object-fit: cover;
+            -o-object-position: center;
+            object-position: center;*/
+        }
+
+        .pic-holder .upload-file-block,
+        .pic-holder .upload-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(90, 92, 105, 0.7);
+            color: #f8f9fc;
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .pic-holder .upload-file-block {
+            cursor: pointer;
+        }
+
+        .pic-holder:hover .upload-file-block {
+            opacity: 1;
+        }
+
+        .pic-holder.uploadInProgress .upload-file-block {
+            display: none;
+        }
+
+        .pic-holder.uploadInProgress .upload-loader {
+            opacity: 1;
+        }
+
+    /* Snackbar css */
+    .snackbar {
+        visibility: hidden;
+        min-width: 250px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 14px;
+        transform: translateX(-50%);
+    }
+
+        .snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+    @@-webkit-keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @@keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @@-webkit-keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+
+    @@keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+</style>
+<form id="form5" method="post">
+    <input type="hidden" id="Id" name="Id" value="@Model.ID" />
+    <input type="hidden" id="EmployeeRegistrationId" name="EmployeeRegistrationId" value="@ViewBag.EmpId" />
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="AadharCardNo">Employee Number</label>
+            <input type="text" name="EmployeeNumber" class="form-control" id="EmployeeNumber" placeholder="Employee Number" readonly value="@ViewBag.EmployeeNumber" maxlength="20">
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="AadharCardNo">Employee Name</label>
+            <input type="text" name="EmployeeName" class="form-control" id="EmployeeName" placeholder="Employee Name" readonly value="@ViewBag.EmployeeName" maxlength="50">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="AadharCardNo">Aadhar Number</label>
+            <input type="text" name="Aadhar" class="form-control" id="Aadhar" placeholder="Aadhar Number" value="@Model.Aadhar" maxlength="14">
+        </div>
+        <div class="col-md-2 text-center" style=" padding-top: 2.5%;">
+            <input type="file" name="AadharCard" id="AadharCard" accept=".pdf" style="display: none;" />
+            <button type="button" id="btnAadharCard" class="btn btn-primary"><i class="fa fa-file-upload"></i> Upload</button>
+            <label for="msgpan"><b>Upload File Type : PDF <br />Max File Size : 2MB</b></label>
+        </div>
+        <div class="col-md-4 text-center" style=" padding-top: 2.5%;">
+            <button type="button" id="viewAadharDoc" class="btn btn-primary">View Document</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="PAN">PAN Number</label>
+            <input type="text" name="PAN" class="form-control" id="PAN" placeholder="PAN" value="@Model.PAN" maxlength="10">
+        </div>
+        <div class="col-md-2 text-center" style=" padding-top: 2.5%;">
+            <input type="file" name="PanCard" id="PanCard" accept=".pdf" style="display: none;" />
+            <button type="button" id="btnPanCard" class="btn btn-primary"><i class="fa fa-file-upload"></i> Upload</button>
+            <label for="msgpan"><b>Upload File Type : PDF<br />Max File Size : 2MB</b></label>
+        </div>
+        <div class="col-md-4 text-center" style=" padding-top: 2.5%;">
+            <button type="button" id="viewPanDoc" class="btn btn-primary">View Document</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="Bank">Bank Account No</label>
+            <input type="text" name="BankAccountNumber" class="form-control" id="BankAccountNumber" placeholder="Bank Account Number" value="@Model.BankAccountNumber">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="Bank">Bank Name</label>
+            <input type="text" name="Bank" class="form-control" id="Bank" placeholder="Bank" value="@Model.Bank">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="Bank">Name in Bank Account</label>
+            <input type="text" name="BankAccountName" class="form-control" id="BankAccountName" placeholder="Name in Bank Account" value="@Model.BankAccountName">
+        </div>
+        <div class="col-md-2 text-center" style="padding-top: 2.5%;">
+            <div class="profile-pic-wrapper">
+                <div class="pic-holder">
+                    <!-- uploaded pic shown here -->
+                    @if (Model.ThumbImpression1 == null)
+                    {
+                        <img id="profilePic" class="pic" src="~/dist/img/Thumb.png" />
+                    }
+                    else
+                    {
+                        <img id="profilePic" class="pic" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ThumbImpression1)" />
+                    }
+                    <label for="newProfilePhoto" id="lblThumbImpression1" class="upload-file-block">
+                        <div class="text-center">
+                            <div class="mb-2">
+                                <i class="fa fa-camera fa-2x"></i>
+                            </div>
+                            <div class="text-uppercase">
+                                Update <br /> Thumb Impression
+                            </div>
+                        </div>
+                    </label>
+                    <input class="uploadProfileInput" type="file" name="ThumbImpression1"
+                           id="ThumbImpression1" accept="image/*" style="display: none;" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 text-center" style="padding-top: 2.5%;">
+            <div class="profile-pic-wrapper">
+                <div class="pic-holder">
+                    <!-- uploaded pic shown here -->
+                    @if (Model.ThumbImpression2 == null)
+                    {
+                        <img id="profilePic" class="pic" src="~/dist/img/Thumb.png" />
+                    }
+                    else
+                    {
+                        <img id="profilePic" class="pic" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ThumbImpression2)" />
+                    }
+                    <label for="newProfilePhoto" id="lblThumbImpression2" class="upload-file-block">
+                        <span class="text-center">
+                            <span class="mb-2">
+                                <i class="fa fa-camera fa-2x"></i>
+                            </span>
+                            <span class="text-uppercase">
+                                Update <br /> Thumb Impression
+                            </span>
+                        </span>
+                    </label>
+                    <input class="uploadProfileInput" type="file" name="ThumbImpression2"
+                           id="ThumbImpression2" accept="image/*" style="display: none;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6 form-group">
+            <label for="IFSCCode">IFSC number</label>
+            <input type="text" name="IFSCCode" class="form-control" id="IFSCCode" placeholder="IFSC Code" value="@Model.IFSCCode">
+        </div>
+        <div class="col-md-5 text-center" style="padding-top: 2.5%;">
+            <div class="profile-pic-wrapper">
+                <div class="pic-holder">
+                    <!-- uploaded pic shown here -->
+                    @if (Model.SpecimenSignature1 == null)
+                    {
+                        <img id="profilePic" class="pic" src="~/dist/img/Specimen.png" />
+                    }
+                    else
+                    {
+                        <img id="profilePic" class="pic" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.SpecimenSignature1)" />
+                    }
+                    <label for="newProfilePhoto" id="lblSpecimenSignature1" class="upload-file-block">
+                        <div class="text-center">
+                            <div class="mb-2">
+                                <i class="fa fa-camera fa-2x"></i>
+                            </div>
+                            <div class="text-uppercase">
+                                Update <br /> Specimen Signature
+                            </div>
+                        </div>
+                    </label>
+                    <input class="uploadProfileInput" type="file" name="SpecimenSignature1"
+                           id="SpecimenSignature1" accept="image/*" style="display: none;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6 form-group">
+            <label for="BICCode">Bank Number</label>
+            <input type="text" name="BICCode" class="form-control" id="BICCode" placeholder="BIC Code" value="@Model.BICCode">
+        </div>
+        <div class="col-md-5 text-center" style="padding-top: 2.5%;">
+            <div class="profile-pic-wrapper">
+                <div class="pic-holder">
+                    <!-- uploaded pic shown here -->
+                    @if (Model.SpecimenSignature2 == null)
+                    {
+                        <img id="profilePic" class="pic" src="~/dist/img/Specimen.png" />
+                    }
+                    else
+                    {
+                        <img id="profilePic" class="pic" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.SpecimenSignature2)" />
+                    }
+                    <label for="newProfilePhoto" id="lblSpecimenSignature2" class="upload-file-block">
+                        <div class="text-center">
+                            <div class="mb-2">
+                                <i class="fa fa-camera fa-2x"></i>
+                            </div>
+                            <div class="text-uppercase">
+                                Update <br /> Specimen Signature
+                            </div>
+                        </div>
+                    </label>
+                    <input class="uploadProfileInput" type="file" name="SpecimenSignature2" id="SpecimenSignature2" accept="image/*" style="display: none;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6 form-group">
+            <label for="BankAddress">Bank Address</label>
+            <textarea id="BankAddress" name="BankAddress" class="form-control" rows="4" cols="50" placeholder="Bank Address">@Model.BankAddress</textarea>
+        </div>
+        <div class="col-md-5 text-center" style="padding-top: 2.5%;">
+            <div class="profile-pic-wrapper">
+                <div class="pic-holder">
+                    <!-- uploaded pic shown here -->
+                    @if (Model.SpecimenSignature3 == null)
+                    {
+                        <img id="profilePic" class="pic" src="~/dist/img/Specimen.png" />
+                    }
+                    else
+                    {
+                        <img id="profilePic" class="pic" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.SpecimenSignature3)" />
+                    }
+                    <label for="newProfilePhoto" id="lblSpecimenSignature3" class="upload-file-block">
+                        <div class="text-center">
+                            <div class="mb-2">
+                                <i class="fa fa-camera fa-2x"></i>
+                            </div>
+                            <div class="text-uppercase">
+                                Update <br /> Specimen Signature
+                            </div>
+                        </div>
+                    </label>
+                    <input class="uploadProfileInput" type="file" name="SpecimenSignature3"
+                           id="SpecimenSignature3" accept="image/*" style="display: none;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6 form-group">
+            <label for="IdentificationMark">Identification Mark</label>
+            <input type="text" name="IdentificationMark" class="form-control" id="IdentificationMark" placeholder="Identification Mark" value="@Model.IdentificationMark">
+        </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        @if (ViewBag.Mode != "View")
+        {
+            <button type="button" class="btn btn-primary" id="btnSaveForm5">Save & Next>></button>
+        }
+        <a href="@Url.Action("","Pensioner")" class="btn btn-warning">Close</a>
+    </div>
+</form>
+
+<div class="modal fade" id="modal-aadhar">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="height: calc(100vh - 100px);">
+            <div class="modal-header">
+                <h4 class="modal-title">Aadhar Card</h4>
+                <button type="button" id="closeAadharCardModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modal-aadhar-body" class="modal-body">
+                @if (!string.IsNullOrEmpty(Model.AadharDocPath))
+                {
+                    <iframe id="ifrmAadhar" src="../@Model.AadharDocPath" style="width: 100%; height: calc(80vh - 44px);"></iframe>
+                }
+                else
+                {
+                    <div class="text-center">No Document Found!!!</div>
+                }
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-pan">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="height: calc(100vh - 100px);">
+            <div class="modal-header">
+                <h4 class="modal-title">Pan Card</h4>
+                <button type="button" id="closePanCardModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modal-pan-body" class="modal-body">
+                @if (!string.IsNullOrEmpty(Model.PanDocPath))
+                {
+                    <iframe id="ifrmPan" src="../@Model.PanDocPath" style="width: 100%; height: calc(80vh - 44px);"></iframe>
+                }
+                else
+                {
+                    <div class="text-center">No Document Found!!!</div>
+                }
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

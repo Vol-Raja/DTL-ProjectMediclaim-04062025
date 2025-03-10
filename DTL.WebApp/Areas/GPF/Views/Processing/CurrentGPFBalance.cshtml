@@ -1,0 +1,205 @@
+﻿@using DTL.Model.Models.GPF
+@model IEnumerable<GPFProcessing>
+@{
+    ViewData["Title"] = "Current GPF Balance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Current GPF Balance </h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Dashboard","Processing", new { Area="GPF" })">Dashboard</a><span class="px-1">/</span><span>Current GPF Balance</span>
+
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+            <form class="g-3 mt-2 formSubmit" id="form">
+
+
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            GPF Annual Account Statement For Year<span class="text-danger req_text">*</span>
+                        </label>
+                        <select name="fy" id="" class="form-select validateThis">
+                            <option value="" selected disabled>Select</option>
+                            @for (int i = DateTime.Now.Year + 1; i > DateTime.Now.Year - 2; i--)
+                            {
+                                <option value="@i" @(i == DateTime.Now.Year ? "selected" : "")>FY @(i - 1)-@(i % 100)</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Enter GPF Annual Account Statement For Year !
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            Organization<span class="text-danger req_text">*</span>
+                        </label>
+                        <select name="orgCode" id="" class="form-select validateThis">
+                            <option value="" selected disabled>Select</option>
+                            @foreach (var kvp in DTL.Model.Models.GPF.GPFEmployeeInfoModel.OrganisationNameByCode)
+                            {
+                                <option value="@kvp.Key">@kvp.Value</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Enter Organization.
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            GPF Account Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="name" name="accNo" class="form-control form-control-sm validateThis"
+                               placeholder="GPF Account Number" />
+                        <div class="invalid-feedback ">
+                            Please Enter Your  GPF Account Number
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            Mobile Number
+                        </label>
+                        <input type="number" id="name" class="form-control form-control-sm validateThis"
+                               placeholder=" Mobile Number" data-type="mobile" />
+                        <div class="invalid-feedback">
+                            Please Enter Your 10 Digit Mobile Number
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                        <a class="btn btn-brand me-2" href="javascript:void(0)" onclick="GetData()">Submit</a>
+                        <!-- <button type="submit" class="btn btn-brand me-2 submitBtn"  data-bs-toggle="modal" data-bs-target="#approve">Submit</button> -->
+                        <button class="btn btn-reset me-2" type="button" id="resetBtn">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="currentBalance" tabindex="-1" aria-labelledby="currentBalance" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title text-center" id="dOrg">BRPL - BSES Rajdhani Power Limited</h5>
+                <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 ">
+                        <label class="form-label d-block mb-1 border-bottomView">
+                            Year - <span id="dFY"></span>
+                        </label>
+
+                        <label class="form-label d-block mb-1 border-bottomView">
+                            GPF Account no - <span id="dAccNo"></span>
+                        </label>
+                        <label class="form-label d-block mb-1 border-bottomView">
+                            Name - <span id="dEName"></span>
+                        </label>
+                        <label class="form-label d-block mb-1 border-bottomView">
+                            Emp Id - <span id="dECode"></span>
+                        </label>
+                        <label class="form-label d-block mb-1 border-bottomView">
+                            DOJ - <span id="dDOJ"></span>
+                        </label>
+                        <label class="form-label d-block mb-1 border-bottomView">
+                            Total GPF Account Balance - <span class="text-danger req_text2"> <span id="dBal"></span> &#8377; </span>
+                        </label>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            @*<div class="modal-footer">
+            <div class="text-center">
+            <button type="button" class="btn btn-brand  ">Submit</button>
+            </div>
+            </div>*@
+
+        </div>
+    </div>
+    <link href="~/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/plugins/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="~/plugins/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet" />
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script>
+        //$("#form").submit(function (e) {
+        //    $('#currentBalance').modal('show');
+        //    return false;
+        //});
+        $(document).ready(function () {
+
+            $('[name="accNo"]').autocomplete({
+                source: (req, res) => {
+                    if (!$('[name="orgCode"]').val()) { res([]); return; }
+                    $.get(`@Url.Action("EmployeeAutocomplete", "Data")?term=${req.term}&orgCode=` + $('[name="orgCode"]').val()).then(r => res(r));
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    $(event.target).attr('selected-id', ui.item.id);
+                    $(event.target).val(ui.item.label);
+                }
+            });
+
+            $('#resetBtn').click(function(){
+                $('[name="fy"]').val(@DateTime.Now.Year).trigger('change');
+                $('[name="orgCode"]').val('').trigger('change');
+                $('[name="accNo"]').attr('selected-id', '').trigger('change');
+                $('[name="accNo"]').val('').trigger('change');
+            })
+        })
+
+        function GetData() {
+            var valid = true;
+            var obj = {
+                fy: $('[name="fy"]').val(),
+                orgCode: $('[name="orgCode"]').val(),
+                accNo: $('[name="accNo"]').attr('selected-id'),
+            }
+            if (!obj.fy) { $('[name="fy"]').validate(false, 'Year is required'); valid = false; }
+            else $('[name="fy"]').validate(true);
+            if (!obj.orgCode) { $('[name="orgCode"]').validate(false, 'Organisation is required'); valid = false; }
+            else $('[name="orgCode"]').validate(true);
+            if (!obj.accNo) { $('[name="accNo"]').validate(false, 'Account Number is required'); valid = false; }
+            else $('[name="accNo"]').validate(true);
+            if (!valid) return;
+
+            $.get(`@Url.Action("GetCurrentBalance", "Data")?orgCode=${encodeURIComponent(obj.orgCode)}&accNo=${encodeURIComponent(obj.accNo)}&year=${obj.fy}`).then(r => {
+                if (r) {
+                    $('#dOrg').text(r.organisation);
+                    $('#dFY').text(r.financialYear);
+                    $('#dAccNo').text(r.accountNo);
+                    $('#dEName').text(r.employeeName);
+                    $('#dECode').text(r.employeeCode);
+                    $('#dDOJ').text(moment(r.doj).format('DD-MMM-YYYY'));
+                    $('#dBal').text(r.gpfBalance);
+                    $('#currentBalance').modal('show');
+                }
+            });
+        }
+
+        $.fn.validate = function (isValid, msg = '') {
+            if (isValid) $(this).removeClass('is-invalid');
+            else {
+                if (!$(this).hasClass('is-invalid')) $(this).addClass('is-invalid');
+                $(this).closest('.form-group').find('.invalid-feedback').text(msg);
+            }
+        }
+    </script>
+    <script src="~/assets/js/commonJs.js"></script>

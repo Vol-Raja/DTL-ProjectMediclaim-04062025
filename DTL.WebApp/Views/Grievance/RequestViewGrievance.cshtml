@@ -1,0 +1,260 @@
+﻿@using DTL.Model.Models
+@model GrievanceModel
+
+@{
+    ViewData["Title"] = "Grievance";
+    Layout = "_Layout";
+
+    const string Pending = "Pending";
+    const string Resolved = "Resolved";
+    const string Under_Process = "Under Process";
+    const string Withdrawn_by_Complaint = "Withdrawn by Complaint";
+    bool isResolved = ViewBag.isResolved != null && ViewBag.isResolved;
+    string[] statusTypes = new[] { Pending, Resolved, Under_Process, Withdrawn_by_Complaint };
+    string dateFormat = "dd-MM-yyyy";
+}
+
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">View Grievance</h3>
+        </div>
+
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home",new { Area="" })"><span class="">Dashboard </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index","Grievance")"><span class=""> Grievance </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("RequestGrievanceList","Grievance",new {isArchive = Model.IsDeleted, isResolved = isResolved})"><span class=""> @(isResolved ? "Resolved" : "Request") Grievance List</span> </a>
+            <span class="px-1">/</span>
+            View Grievance
+        </p>
+
+    </div>
+
+
+    <form id="GrievanceRequestForm">
+        @Html.HiddenFor(x=> x.ID)
+        <div class="card border-card mt-0 view_container_bg ">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold mb-1"><strong>Date</strong></label>
+                            <div>
+                                <p class="View_text">@Model.CreatedDate.ToString(dateFormat)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold mb-1"><strong>Grievance ID</strong></label>
+
+                            <p class="View_text">@Model.GrievanceID</p>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3 view_text_border">
+                        <label class="d-block mb-1"><strong>Change Status</strong><sup class="text-danger">*</sup></label>
+
+                        @if (isResolved)
+                        {
+                            <p class="View_text">@Model.Status</p>
+                        }
+                        else
+                        {
+                            <select class="form-control form-select" name="Status" id="Status">
+
+                                @foreach (string statusType in statusTypes)
+                                {
+                                    <option value="@statusType" selected=@(statusType == Model.Status)> @statusType</option>
+
+                                }
+
+
+                            </select>
+                            <span id="Court_error" class="validationError"></span>
+                        }
+                    </div>
+                    <hr style="width: 98%;">
+
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <div class="form-group">
+                                    <label class="d-block fw-bold mb-1"><strong>Select User Type</strong></label>
+
+                                    <p class="View_text">@Model.UserType</p>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <div class="form-group">
+                                    <label class="d-block fw-bold mb-1"><strong>Name</strong></label>
+
+                                    <p class="View_text">@Model.Name</p>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <div class="form-group">
+                                    <label class="d-block fw-bold mb-1"><strong>Gender</strong></label>
+
+                                    <p class="View_text">@Model.Gender</p>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <div class="form-group">
+                                    <label class="d-block fw-bold mb-1"><strong>Mobile Number</strong></label>
+
+                                    <p class="View_text">@Model.MobileNo</p>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <div class="form-group">
+                                    <label class="d-block fw-bold mb-1"><strong>Email ID</strong></label>
+
+                                    <p class="View_text">@Model.EmailID</p>
+
+                                </div>
+                            </div>
+                            @if (@Model.UserType != "Public User")
+                            {
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <div class="form-group">
+                                        <label class="d-block fw-bold mb-1"><strong>PPO Number/Employee ID</strong></label>
+
+                                        <p class="View_text">@Model.EmployeeId</p>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <div class="form-group">
+                                        <label class="d-block fw-bold"><strong>Working Office/From Where retired</strong></label>
+                                        <div>
+                                            <p class="View_text">@Model.Office</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <div class="form-group">
+                                    <label class="d-block fw-bold mb-1"><strong>Address</strong></label>
+
+                                    <p class="View_text">@Model.Address</p>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <div class="form-group">
+                                    <label class="d-block fw-bold mb-1"><strong>Subject</strong></label>
+
+                                    <p class="View_text">@Model.Subject</p>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="d-block fw-bold"><strong>Document</strong></label>
+                                <strong data-bs-toggle="modal" onclick="$('#pdf_docPreview').modal('show')" data-bs-target="#pdf_docPreview"><span class="btn btn-primary btn-sm" style="height: fit-content"><i class="fa fa-file-pdf mr-2" aria-hidden="true"></i>Document view</span></strong>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
+                                <div class="form-group">
+                                    <label class="d-block fw-bold mb-1"><strong>Description</strong></label>
+
+                                    <p class="View_text">@Model.Description</p>
+
+                                </div>
+                            </div>
+                            <div id="RemarksDiv" class="form-group col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="d-block fw-bold mb-1">Remarks<sup class="text-danger">*</sup></label>
+                                <div class="d-flex">
+                                    @if (isResolved)
+                                    {
+                                        <p class="View_text w-100">@Model.Remarks</p>
+                                    }
+                                    else
+                                    {
+                                        <textarea class="form-control mr-2" id="Remarks" name="Remarks" placeholder="Enter Remarks">@Model.Remarks</textarea>
+                                    }
+                                </div>
+                                <span id="Remarks_error" class="validationError"></span>
+                            </div>
+                            <div class="form-group col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="d-block fw-bold mb-1"><strong>Upload Document<sup class="text-danger">*</sup></strong></label>
+                                <div class="d-flex">
+
+                                    @if (isResolved == false)
+                                    {
+                                        <input type="file" id="GrievanceHeadAttachmentFileInEnglish" onchange="ShowDocHeadPreview(event)" name="GrievanceHeadAttachmentFileInEnglish" accept="application/pdf" class="form-control-file">
+                                    }
+                                    <span class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdf_docHeadPreview" onclick="$('#pdf_docHeadPreview').modal('show')" style="height: fit-content">Preview</span>
+                                </div>
+                                <span id="GrievanceHeadAttachmentFileInEnglish_error" class="validationError"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                @if (isResolved == false)
+                {
+                    <button class="btn btn-brand me-2">Change Status</button>
+                }
+
+                @*<button class="btn btn-cancel me-2" onclick="location.href='@Url.Action("RequestGrievanceList","Grievance",new {isArchive = Model.IsDeleted, isResolved = isResolved})'; return false;">Cancel</button>
+                <button class="btn btn-reset me-2" onclick="location.reload();return false;">Reset</button>*@
+            </div>
+
+
+        </div>
+    </form>
+
+</div>
+
+<!-- Modal -->
+<div class="modal preview" id="pdf_docPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Document Preview</h5>
+                <button type="button" onclick="$('#pdf_docPreview').modal('hide')" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <embed type="application/pdf" src="@Url.Action("DownloadFile","Grievance" , new { Id =  Model.ID})" id="pdf_Preview" width="100%" style="height: calc(100vh - 145px);">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal preview" id="pdf_docHeadPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Document Preview</h5>
+                <button type="button" onclick="$('#pdf_docHeadPreview').modal('hide')" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <embed type="application/pdf" src="@Url.Action("DownloadFile","Grievance" , new { Id =  Model.ID, isHead = true})" id="pdfHeadPreview" width="100%" style="height: calc(100vh - 145px);">
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+@section Grievance{
+    <script src="~/js/Grievance/RequestGrievance.js" asp-append-version="true"></script>
+}

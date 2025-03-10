@@ -1,0 +1,143 @@
+﻿
+@model DTL.WebApp.Areas.EmployeeDashboard.Models.PPOEmployee
+@{
+    ViewData["Title"] = "ViewEmployeeDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid view_form">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">PPO Employee View</h3>
+            @*<span class="subTitle">(To be filled by hospital only)</span>*@
+        </div>
+        @*<p class="mb-0 col-6 top_link_Section">
+                <a href="@Url.Action(" Index", "Disbursment" ,new { Area="Mediclaim" })">Dashboard </a><span class="px-1">/</span> <a href="@Url.Action(" ProcessingDashboard", "Disbursment" ,new { Area="Mediclaim" })">Processing Dashboard </a><span class="px-1"> /</span><span>Claim Approval View</span>
+            </p>*@
+    </div>
+    <div class="card border-card mt-0">
+        <input type="hidden" id="hdnAproveAmount" value="@Model.ppo_no" />
+        <div class="card-body">
+            @*<div class="position-relative">
+                <div id="material-tabs">
+                    <a id="tab2-tab" href="#tab2">Raised Claim Application</a>
+                </div>
+            </div>*@
+            <div class="tab-content view_container_bg ">
+                <div id="tab2">
+                    <div class="border-card  mt-0 px-0">
+                        <h4 class="form_title shadow-2-strong ">
+                            Employee Details
+                        </h4>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1" for="name">
+                                    PPO Number
+                                </label>
+                                <p class="View_text">@Model.ppo_no</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">
+                                    Name of Employee
+                                </label>
+                                <p class="View_text">@Model.EMP_Name</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Phone Number</label>
+                                <p class="View_text">@Model.Mobile_no</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Email Id</label>
+                                <p class="View_text">@Model.email_id</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Address</label>
+                                <p class="View_text">@Model.Perm_add</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">DOB</label>
+                                <p class="View_text">@Model.DOB</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Sex</label>
+                                <p class="View_text">@Model.Sex</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    @*<div class=" border-card border-top-0 px-0">
+                            <div class="card-body">
+                                <h4 class="form_title shadow-2-strong text-start">
+                                    Claim Approval status
+                                </h4>
+                                <div class="row">
+                                    <div class="col-sm-4 mb-3 col-md-3 col-lg-2 col-xl-2">
+                                        <label class="form-label d-block mb-1 text-left">
+                                            Approve Amount<span class="text-danger req_text">*</span>
+                                        </label>
+                                        <input type="text" id="txtApproveAmount" disabled class="form-control form-control-sm" value="@Model.Cashless.ApprovedAmountInDecimal">
+
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 mb-6 col-lg-6 col-xl-6 ">
+                                        <label class="form-label d-block mb-1 text-left">
+                                            In Words<span class="text-danger req_text">*</span>
+                                        </label>
+                                        <input type="text" id="txtApproveAmountInWords" disabled class="form-control form-control-sm" placeholder="Approve Amount in Words">
+
+                                    </div>
+                                </div>
+
+                                <h4 class="form_title shadow-2-strong text-start">
+                                    Dealing assistant remark
+                                </h4>
+                                <div class="row ">
+                                    <div class="col-sm-8 mb-3 pr-0">
+                                        <label class="form-label d-block mb-1 text-left">
+                                            Dealing assistant Remarks<span class="text-danger req_text">*</span>
+                                        </label>
+                                        <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.DealingAssistanceRemark</textarea>
+                                    </div>
+                                </div>
+                                <h4 class="form_title shadow-2-strong text-start">
+                                    Aso (Assistant Specialist Officer )
+                                </h4>
+                                <div class="row">
+                                    <div class="col-sm-8 mb-3 pr-0">
+                                        <label class="form-label d-block mb-1 text-left">
+                                            ASO Remarks<span class="text-danger req_text">*</span>
+                                        </label>
+                                        <textarea type="text" id="txtASORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.ASORemark</textarea>
+                                    </div>
+                                </div>
+                                <h4 class="form_title shadow-2-strong text-start">
+                                    so ( Specialist Officer )
+                                </h4>
+                                <div class="row">
+                                    <div class="col-sm-8 mb-3 pr-0">
+                                        <label class="form-label d-block mb-1 text-left">
+                                            SO Remarks<span class="text-danger req_text">*</span>
+                                        </label>
+                                        <textarea type="text" id="txtSORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.SORemark</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                    @*<div class="row mb-3 submit_area submit_area_strip mt-5 mx-0">
+
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary" id="printMeApplication">
+                                <i class="fa fa-print mr-2"
+                                   aria-hidden="true"></i>Print Application
+                            </button>
+                        </div>
+                    </div>*@
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

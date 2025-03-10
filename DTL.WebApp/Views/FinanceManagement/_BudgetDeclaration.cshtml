@@ -1,0 +1,194 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using DTL.Model.Models
+@model BudgetDeclarationModel
+
+@{
+    ViewData["Title"] = "Budget Declaration";
+}
+<style>
+    .offset-md-9 {
+        display: inline-flex !important;
+    }
+
+    .fa-plus-circle {
+        cursor: pointer;
+    }
+
+    .subCatTbl {
+        height: 145px;
+        overflow: auto;
+        display: block;
+    }
+</style>
+
+<form id="BudgetManagementForm" method="post">
+    <input type="hidden" id="Id" name="Id" />
+    <input type="hidden" id="EmpRegId" name="EmpRegId" />
+    @*<input type="text" id="AllocationId" name="AllocationId" value="0" />*@
+    @*<input type="text" id="Operation" name="Operation" />*@
+<div class="row">
+
+    <div class="col-md-2">
+        <label class="w-100 form-label text-right" for="lblFinancialYear">Financial Year</label>
+    </div>
+    <div class="col-md-4 form-group">
+        <select id="FinancialYear" name="FinancialYear" class="form-control">
+            <option value="">Select Financial Year</option>
+            @foreach (var data in ViewBag.FinancialYear)
+            {
+                if (data == Model.FinancialYear)
+                {
+                    <option value="@data" selected>@data </option>
+                }
+                else
+                {
+                    <option value="@data">@data</option>
+                }
+            }
+        </select>
+    </div>
+
+
+    <div class="col-md-2">
+        <label class="w-100 form-label text-right" for="lblAllocationProgram">Allocation Program/Department</label>
+    </div>
+    <div class="col-md-4 form-group">
+
+        <select id="AllocationProgram" name="AllocationProgram" class="form-control">
+            <option value="">Select Program</option>
+            @foreach (var data in ViewBag.BudgetAllocationProgam)
+            {
+                if (data.BudgetAllocationProgram.Equals(Model.AllocationProgram))
+                {
+                    <option value="@data" selected>@data </option>
+                }
+                else
+                {
+                    <option value="@data.BudgetAllocationProgram">@data.BudgetAllocationProgram</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <label class="w-100 form-label text-right" for="Others">Others</label>
+    </div>
+    <div class="col-md-4 form-group">
+        <input type="text" name="Others" id="Others" class="form-control" placeholder="Others" />
+
+    </div>
+
+
+    <div class="col-md-2">
+        <label class="w-100 form-label text-right" for="lblAllocatedFunds">Allocated Funds</label>
+    </div>
+    <div class="col-md-4 form-group">
+        <input type="text" name="AllocatedFund" id="AllocatedFund" class="form-control" placeholder="Amount of Fund Allocated" onkeypress="return isNumberKey(event,this)" />
+    </div>
+
+    <div class="col-md-2">
+        <label class="w-100 form-label text-right" for="lblDisbursementPeroid">Disbursement Period</label>
+    </div>
+    <div class="col-md-4 form-group">
+        <select id="DisbursementPeriod" name="DisbursementPeriod" class="form-control">
+            <option value="">Select Disbursement Period</option>
+            @foreach (var data in ViewBag.DisbursementPeriod)
+            {
+                if (data.DisbursementPeriod.Equals(Model.DisbursementPeriod))
+                {
+                    <option value="@data" selected>@data </option>
+                }
+                else
+                {
+                    <option value="@data.DisbursementPeriod">@data.DisbursementPeriod</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <label class="w-100 form-label text-right" for="lblDisbursementAuthority">Disbursement Authority</label>
+    </div>
+    <div class="col-md-4 form-group">
+        @*<input type="text" id="DisbursementAuthority" name="DisbursementAuthority" class="form-control" placeholder="Designation" />*@
+        <select id="DisbursementAuthority" name="DisbursementAuthority" class="form-control">
+            <option value="">Select Designation</option>
+            @foreach (var data in ViewBag.Designation)
+            {
+                if (data.Designation.Equals(Model.DisbursementAuthority))
+                {
+                    <option value="@data" selected>@data </option>
+                }
+                else
+                {
+                    <option value="@data.Designation">@data.Designation</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+
+    <div class="row">
+
+        <div class="col-md-12 mb-2" style="text-align:center;" id="divbtnAddParticular">
+            <button type="button" id="btnAddParticular" name="btnAddParticular" class="btn btn-primary" onclick="Addparticular();">Add Particular</button>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="tblbudgetDec" class="table table-bordered table-hover" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>Financial Year</th>
+                        <th>Particular</th>
+                        <th>Allocated Fund</th>
+                        <th>Period</th>
+                        <th>Authority</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" id="divViewBudget" style="display:none;">
+        <div class="col-md-12">
+            <table id="tblbudgetDecview" class="table table-bordered table-hover" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>Financial Year</th>
+                        <th>Particular</th>
+                        <th>Allocated Fund</th>
+                        <th>Period</th>
+                        <th>Authority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="card-footer text-center" id="divbtnDeclare" style="display:none;">
+        <button type="button" class="btn btn-primary" id="btnDeclareBudget">Declare Budget</button>
+
+        <a href="@Url.Action("Index","FinanceManagement")" class="btn btn-warning">Cancel</a>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12" id="chartReport">
+        <canvas id="myChart" style="width: 100%; align-content: center; align-self: center;"></canvas>
+        </div>
+    </div>
+        @section FinanceManagement{
+            <script src="~/js/FinanceManagement/BudgetDeclaration.js" asp-append-version="true"></script>
+        }

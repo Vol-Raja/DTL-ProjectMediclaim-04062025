@@ -1,0 +1,441 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container-fluid">
+        <div class="row header_section mx-0 px-0 ">
+            <div class="col-6 position-relative ps-0">
+                <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </span>
+
+
+            </div>
+            <p class="mb-0 col-6 top_link_Section">
+                <a href="@Url.Action("Index","Aso", new { Area = "Mediclaim"})"> Dashboard</a><span class="px-1">/</span><a href="@Url.Action("AsoProcesingDashboard","Aso", new { Area = "Mediclaim"})">Cashless Mediclaim</a><span class="px-1">/</span>
+                <span> View</span>
+            </p>
+        </div>
+
+        <div class="card border-card mt-0">
+            <div class="card-body">
+                <div class="">
+                    <div class="position-relative">
+                        <div id="material-tabs">
+                            <a id="tab2-tab" href="#tab1" class="active">Voucher Detail</a>
+                            <a id="tab1-tab" href="#tab2">Raised Claim Application</a>
+
+
+                            <span class="yellow-bar"></span>
+                        </div>
+                    </div>
+                    <div class="tab-content view_container_bg ">
+                        <div id="tab1">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Claim No.</label>
+                                    <p class="View_text">2356998975464</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Claim Type</label>
+                                    <p class="View_text">Cashless</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">PPO Number</label>
+                                    <p class="View_text">090909090999999</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Page No. </label>
+                                    <p class="View_text">Page No.</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Hospital Name</label>
+                                    <p class="View_text">Hospital Name</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Pay To shri / smt</label>
+                                    <p class="View_text">Pay To shri / smt</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">Approved Amount</label>
+                                    <p class="View_text">Approved Amount</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">In Words</label>
+                                    <p class="View_text">In Words</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">Bank name</label>
+                                    <p class="View_text">Bank name</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Branch Name</label>
+
+                                    <p class="View_text">Branch Name</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">BIC Code</label>
+                                    <p class="View_text">BIC Code</p>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">IFSC code </code></label>
+                                    <p class="View_text">IFSC code </code></p>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Account Number</label>
+                                    <p class="View_text">Account Number</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div id="tab2">
+                            <div class="border-card  mt-0 px-0">
+                                <h4 class="form_title shadow-2-strong ">
+                                    Detail Of Hospital
+                                </h4>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1" for="name">
+                                            Name Of Hospital
+                                        </label>
+                                        <p class="View_text">Pulse Multispecialty hospital</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">
+                                            Hospital Id
+                                        </label>
+                                        <p class="View_text">55656</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Phone Number</label>
+                                        <p class="View_text">7845214889</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Email Id</label>
+                                        <p class="View_text">Admin@gmail.com</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Address</label>
+                                        <p class="View_text">GolBazar Pune</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-card  mt-0 px-0">
+
+                                <h4 class="form_title mt-3 shadow-2-strong">
+                                    Detail Of Patients
+                                </h4>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1" for="name">Name Of Patient</label>
+                                        <p class="View_text">Rahul patil</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1" for="name">PPO Number</label>
+                                        <p class="View_text">123456</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Gender</label>
+                                        <p class="View_text">Male</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Mobile Number</label>
+                                        <p class="View_text">7845123698</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1" for="name">Organization</label>
+                                        <p class="View_text">DVB</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1" for="name">Department</label>
+                                        <p class="View_text">Mediclaim</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1" for="name">Designation</label>
+                                        <p class="View_text">Dealing Assistant</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Email Id</label>
+                                        <p class="View_text">Patient@gmail.com</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Name of medical card holder</label>
+                                        <p class="View_text">Sanju sahu</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Address</label>
+                                        <p class="View_text">Bhavdhan Pune</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date Of Birth</label>
+                                        <p class="View_text">01-03-1995</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Age</label>
+                                        <p class="View_text">29</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Medical Section Page No</label>
+                                        <p class="View_text">20</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Medical Card number</label>
+                                        <p class="View_text">2356998975464</p>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Admission Number</label>
+                                        <p class="View_text">4565646464566</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Card Category</label>
+
+                                        <p class="View_text">general</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Card Type / Illness Type</label>
+
+                                        <p class="View_text">Card Type / Illness Type</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1"> Type Of treatment </label>
+                                        <p class="View_text">Radiation therapy.</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">claim Amount</label>
+                                        <p class="View_text">2000</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1"> date of Admission </label>
+                                        <p class="View_text">20/12/2022</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">
+                                            date of Discharge / Date of Death
+                                        </label>
+                                        <p class="View_text">20/12/2022</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date Of Retirement</label>
+                                        <p class="View_text">20/12/2022</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class=" border-card  border-top-0 px-0">
+                                <h4 class="form_title mt-3 ">
+                                    Bank Details
+                                </h4>
+                                <div class="row ">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Bank Name</label>
+                                        <p class="View_text">Yes Bank</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">BIC Code</label>
+                                        <p class="View_text">YES56464</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Branch Name</label>
+                                        <p class="View_text">Bhavdhan Pune</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">IFSC code </label>
+                                        <p class="View_text">yesBank004554</p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Account Number</label>
+                                        <p class="View_text">0552314589</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" border-card border-top-0 px-0">
+                                <h4 class="form_title mt-3 shadow-2-strong">
+                                    Claim Document Upload
+                                </h4>
+                                <div class="row">
+
+                                    <div class="col-sm-12">
+                                        <table id="example1" class="table table-bordered view_table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="7%" class="text-center">Sr. No.</th>
+                                                    <th>Document Type</th>
+                                                    <th width="15%" class="text-center">Attach file </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td>Document Type</td>
+                                                    <td class="text-center"><a href="#" class="pdfIcons"><i class="fa fa-file-pdf" aria-hidden="true"></i></a> </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" border-card border-top-0 px-0">
+                                <div class="card-body">
+                                    <h4 class="form_title shadow-2-strong text-start">
+                                        Claim Approval status
+                                    </h4>
+                                    <div class="row">
+                                        <div class="col-sm-4 mb-3 col-md-3 col-lg-2 col-xl-2">
+                                            <label class="form-label d-block mb-1 text-left">
+                                                Approve Amount<span class="text-danger req_text">*</span>
+                                            </label>
+                                            <input type="number" class="form-control form-control-sm" placeholder="Amount*" value="5000" readonly />
+
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 mb-6 col-lg-6 col-xl-6 ">
+                                            <label class="form-label d-block mb-1 text-left">
+                                                In Words<span class="text-danger req_text">*</span>
+                                            </label>
+
+                                            <input type="number" class="form-control form-control-sm" placeholder="In Words*" readonly value="In Words" />
+
+                                        </div>
+                                    </div>
+
+                                    <h4 class="form_title shadow-2-strong text-start">
+                                        Dealing assistant remark
+                                    </h4>
+                                    <div class="row ">
+                                        <div class="col-sm-8 mb-3 pr-0">
+                                            <label class="form-label d-block mb-1 text-left">
+                                                Dealing assistant Remarks<span class="text-danger req_text">*</span>
+                                            </label>
+                                            <textarea class="form-control form-control-sm"
+                                                      placeholder="Dealing assistant Remarks" readonly>Remark</textarea>
+                                        </div>
+                                    </div>
+                                    <h4 class="form_title shadow-2-strong text-start">
+                                        Aso (Assistant Specialist Officer )
+                                    </h4>
+                                    <div class="row">
+                                        <div class="col-sm-8 mb-3 pr-0">
+                                            <label class="form-label d-block mb-1 text-left">
+                                                ASO Remarks<span class="text-danger req_text">*</span>
+                                            </label>
+                                            <textarea class="form-control form-control-sm" placeholder="ASO Remarks" readonly></textarea>
+                                        </div>
+                                    </div>
+
+                                    <h4 class="form_title shadow-2-strong text-start">
+                                        So (Assistant Specialist Officer )
+                                    </h4>
+                                    <div class="row">
+                                        <div class="col-sm-8 mb-3 pr-0">
+                                            <label class="form-label d-block mb-1 text-left">
+                                                ASO Remarks<span class="text-danger req_text">*</span>
+                                            </label>
+                                            <textarea class="form-control form-control-sm" placeholder="ASO Remarks" readonly></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3 submit_area submit_area_strip mt-1 mx-0 justify-content-end">
+                                        <div class="col-sm-4">
+                                            <a class="btn btn-success me-2 text-white" role="button" data-bs-toggle="modal"
+                                               data-bs-target="#approve">Approved</a>
+                                            <a class="btn btn-danger me-2 text-white" role="button" data-bs-toggle="modal"
+                                               data-bs-target="#reject">Reject</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="reject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body ">
+                    <div class="content p-0">
+                        <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        <img src="~/assets/images/rejected.png" class="icon_reject ">
+                        <p class="message-type text-blod mb-0 pt-3">
+                            Are you sure you want to reject the application ?
+                        </p>
+
+                        <div class="col-sm-12 mb-3 px-0">
+                            <label class="form-label d-block mb-1">
+                                Remark<span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea class="form-control form-control-sm" placeholder="Remark"></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-brand popUp_btn me-2">
+                            Yes, Reject
+                        </button>
+                        <button type="button" class="btn btn-danger popUp_btn me-2"
+                                data-bs-dismiss="modal">
+                            Close
+                        </button>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="approve" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body ">
+                    <div class="content p-0">
+                        <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+
+                        <p class="message-type text-blod  pt-3">
+                            Are you sure you want to approve the application ?
+                        </p>
+                        <div class="col-sm-12 mb-3 px-0">
+                            <label class="form-label d-block mb-1">
+                                Remark<span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea class="form-control form-control-sm" placeholder="Remark"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-brand popUp_btn me-2">
+                            Yes, Approve
+                        </button>
+                        <button type="button" class="btn btn-danger popUp_btn me-2"
+                                data-bs-dismiss="modal">
+                            Close
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="~/assets/js/tab.js"></script>

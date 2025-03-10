@@ -1,0 +1,107 @@
+﻿@page
+@model LoginModel
+
+
+@{ ViewData["Title"] = "Forgot Password";
+    Layout = "../../../../Views/auth/forgotPassword.cshtml";
+}
+<style>
+
+    /* OTP code */
+
+
+    .digit-group input {
+        width: 32px;
+        height: 35px;
+        text-align: center;
+        font-size: 22px;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 200;
+        color: #a20e37;
+        margin: 0 2px;
+    }
+
+    .digit-group .splitter {
+        padding: 0 5px;
+        color: white;
+        font-size: 24px;
+    }
+
+    #otp_success {
+        display: none;
+    }
+
+
+    /* OTP code */
+
+
+</style>
+
+<div class="login_div forget_password" >
+
+        <h5 class="text-center mt-3">Validate OTP</h5>
+        <div class="text-danger"></div>
+        <p class="forget_title">Enter six digit OTP sent on your registered mobile number.</p>
+        <form method="get" class="digit-group text-center" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+            <input type="text" id="digit-1" name="digit-1" data-next="digit-2" />
+            <input type="text" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" />
+            <input type="text" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" />
+            <input type="text" id="digit-4" name="digit-4" data-next="digit-5" data-previous="digit-3" />
+            <input type="text" id="digit-5" name="digit-5" data-next="digit-6" data-previous="digit-4" />
+            <input type="text" id="digit-6" name="digit-6" data-previous="digit-5" />
+        </form>
+        <div id="otp_btn" class="text-center m-3">
+            @*<a class="btn btn-success mr-2" onclick="verifyOTP()" asp-page="./ResetPass">Verify OTP</a>*@
+            <a class="btn btn-success mr-2" onclick="VerifyOTP()">Verify OTP</a>
+            <a class="btn btn-info" id="otp_resend">Resend OTP</a>
+        </div>
+
+
+
+ 
+    <!-- /.login-card-body -->
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @*<script type="text/javascript" src="~/js/UserManagement/forgot-password.js"></script>*@
+}
+
+
+
+<script>
+
+    //function verifyOTP() {
+    //    alert("OTP has been verified");
+    //}
+    window.onload = function () {
+        (function ($) {
+            $('.digit-group').find('input').each(function () {
+                $(this).attr('maxlength', 1);
+                $(this).on('keyup', function (e) {
+                    var parent = $($(this).parent());
+
+                    if (e.keyCode === 8 || e.keyCode === 37) {
+                        var prev = parent.find('input#' + $(this).data('previous'));
+
+                        if (prev.length) {
+                            $(prev).select();
+                        }
+                    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
+                        var next = parent.find('input#' + $(this).data('next'));
+
+                        if (next.length) {
+                            $(next).select();
+                        } else {
+                            if (parent.data('autosubmit')) {
+                                parent.submit();
+                            }
+                        }
+                    }
+                });
+            });
+        })(jQuery);
+    }
+
+
+</script>

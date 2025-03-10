@@ -1,0 +1,217 @@
+﻿@using DTL.Model.Models
+@model RecoveryAllowanceModel
+@{
+    ViewData["Title"] = "Recovery/Allowance";
+}
+
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Recovery/Allowance</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Disbursement")">Disbursement</a></li>
+                    <li class="breadcrumb-item active">Recovery/Allowance</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="RecoveryForm">
+                            <input type="hidden" id="id" name="id" value="@Model.ID" />
+                            <input type="hidden" id="eid" name="eid" value="@Model.EmployeeRegistrationId" />
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblPensionerName">Pensioner Name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtPensionerName" class="form-control" id="txtPensionerName" placeholder="Penisoner Name" value="@(Model.PensionerName)" required>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblEmployeeID">Employee ID</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtEmployeeID" class="form-control" id="txtEmployeeID" placeholder="Employee ID" value="@(Model.EmployeeID)" disabled>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblEmployerName">Organization /Company name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+
+                                    <select id="Employer" name="Employer" class="form-control" disabled>
+                                        <option value="">Employer Name</option>
+                                        @foreach (var data in Model.DTLOfficeList)
+                                        {
+                                            if (data.DTLOffice.Equals(Model.EmployerName))
+                                            {
+                                                <option value="@data" selected>@data</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@data.DTLOffice">@data.DTLOffice</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblChangeType">Change Type</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <select id="ChangeType" name="ChangeType" class="form-control">
+                                        <option value="">Select</option>
+                                        @foreach (var data in Model.ChangeTypeList)
+                                        {
+                                            if (data.ChangeType.Equals(Model.ChangeType))
+                                            {
+                                                <option value="@data" selected>@data</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@data.ChangeType">@data.ChangeType</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblEmployerName">Reason for Recovery/Allowance</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <select id="Reason" name="Reason" class="form-control">
+                                        <option value="">Select</option>
+                                        @foreach (var data in Model.ReasonList)
+                                        {
+                                            if (data.Reason.Equals(Model.Reason))
+                                            {
+                                                <option value="@data" selected>@data</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@data.Reason">@data.Reason</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblRecoveryOption">Types Of Recovery</label>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <select id="TypeOfRecovery" name="TypeOfRecovery" class="form-control" multiple>
+                                        <option value="">Select Type Of Recovery</option>
+                                         @foreach (var data in Model.TypeOfRecoveryList)
+                                            {
+                                                if (data.TypeOfRecovery.Equals(Model.TypeOfRecovery))
+                                                {
+                                                    <option value="@data.TypeOfRecovery" selected>@data.TypeOfRecovery</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@data.TypeOfRecovery">@data.TypeOfRecovery</option>
+                                                }
+                                            }
+
+                                    </select>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblRecoveryAmount">Recovery Amount</label>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtRecoveryAmount" class="form-control" id="txtRecoveryAmount" placeholder="Recovery Amount" />
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblRecoveryOption">Recovery Option</label>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <select id="RecoveryOption" name="RecoveryOption" class="form-control">
+                                        <option value="">Select Recovery Option</option>
+
+
+
+                                        @foreach (var data in Model.RecoveryOptionList)
+                                        {
+                                            if (data.RecoveryOption.Equals(Model.RecoveryOption))
+                                            {
+                                                <option value="@data" selected>@data</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@data.RecoveryOption">@data.RecoveryOption</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblMonthlyPension">Monthly Pension</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtMonthlyPension" class="form-control" id="txtMonthlyPension" placeholder="Pension Amount" value="@(Model.MonthlyPension)" disabled>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblMonthlyPension">Applicable Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtApplicableAmount" class="form-control" id="txtApplicableAmount" placeholder="Recovery/Allowance Amount" value="@(Model.ApplicableAmount)">
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblMonthlyPensionAfter">Monthly Pension after</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="txtMonthlyPensionAfter" class="form-control" id="txtMonthlyPensionAfter" placeholder="Reviesed Pension Amount" value="@(Model.MonthlyPensionAfter)" disabled>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblPayablePeriod">Payable Period</label>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <input type="date" name="dtFrom" data-date="" data-date-format="DD-MM-YYYY" class="form-control" id="dtFrom" placeholder="From" value="@(Model.FromDate)" />
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <input type="date" name="dtTo" data-date="" data-date-format="DD-MM-YYYY" class="form-control" id="dtTo" placeholder="To" value="@(Model.ToDate)">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                    @if (Convert.ToBoolean(ViewBag.Create))
+                                    {
+                                    <button type="button" name="btnSubmit" id="btnSubmit" class="btn btn-primary">Submit</button>
+                                    }
+                                    <a href="@Url.Action("","Disbursement")" class="btn btn-danger">Close</a>
+                                    <button type="reset" name="btnClear" id="btnClear" class="btn btn-warning">Clear</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Disbursement{
+    <script src="~/js/Disbursement/RecoveryAllowance.js" asp-append-version="true"></script>
+    <script src="~/js/Disbursement/RecoveryAllowanceSave.js" asp-append-version="true"></script>
+}

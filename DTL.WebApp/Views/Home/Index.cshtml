@@ -1,0 +1,605 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using DTL.Model.Models.UserManagement;
+@model IEnumerable<AssignPermissionModel>;
+@{
+    var _modules = new List<string>() { };
+}
+
+<style>
+    .small-box .icon > i.ion {
+        font-size: 60px !important;
+        top: 0px !important;
+    }
+</style>
+
+
+<!-- Content Wrapper. Contains page content -->
+
+
+<div class="container-fluid">
+
+    <div class="row header_section mx-0 px-0 border_bottom">
+        <div class="col-5 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0"> Dashboard</h3>
+        </div>
+        <p class="mb-0 col-7 top_link_Section"><span class="">Dashboard </span></p>
+    </div>
+    <div class="container-fluid pd-x-0 pd-lg-x-10 pd-xl-x-0">
+
+        <div class="row row-xs pt-3">
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.ModuleName.ToUpper() == "Pensioner Profile".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-yellow">
+                                <a href="@Url.Action("Index", "EmployeeRegistration")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Pensioner Profile</h5>
+                                            <i class="fa fa-user "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- col -->
+                    }
+                    if (item.ModuleName.ToUpper() == "Pension Payment Orders".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-danger">
+                                <div class="inner">
+
+                                    <p>Pension Payment Orders</p>
+                                </div>
+
+                                <a href="@Url.Action("Index", "Pensioner")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-green">
+                                <a href="@Url.Action("Index", "Pensioner")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Pension Payment Orders</h5>
+                                            <i class="fa fa-gift"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- col -->
+                    }
+                    if (item.ModuleName.ToUpper() == "Disbursement".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-success">
+                                <div class="inner">
+
+                                    <p>Disbursement</p>
+                                </div>
+
+                                <a href="@Url.Action("Index", "Disbursement")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard bg-primary-light">
+                                <a href="@Url.Action("Index", "Disbursement")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Disbursement</h5>
+                                            <i class="fa fa-window-restore "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "GPF".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-gradient-olive">
+                                <div class="inner">
+
+                                    <p>GPF</p>
+                                </div>
+
+                                <a href="@Url.Action("Index", "Dashboard", new { area = "GPF" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard bg-warning">
+                                <a href="@Url.Action("Index", "Dashboard", new { area = "GPF" })">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">GPF</h5>
+                                            <i class="fa fa-google "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "Finance Management".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-warning">
+                                <div class="inner">
+
+                                    <p>Finance Management</p>
+                                </div>
+
+                                <a href="@Url.Action("Index", "FinanceManagement")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-orange">
+                                <a href="@Url.Action("Index", "FinanceManagement")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Finance Management</h5>
+                                            <i class="fas fa-chart-line "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "Mediclaim".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-success">
+                                <div class="inner">
+
+                                    <p>Mediclaim</p>
+                                </div>
+
+                                <a href="@Url.Action("Index", "Dashboard", new { area = "Mediclaim" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-purple">
+                                <a href="@Url.Action("Index", "Dashboard", new { area = "Mediclaim" })">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Mediclaim</h5>
+                                            <i class="fa fa-hand-holding-heart"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "Legal Section".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-skyBlue">
+                                <a href="@Url.Action("Index", "LegalSection")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Legal Section</h5>
+                                            <i class="fa fa-balance-scale"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "Existing Employee Registration".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+
+                                    <p>Existing Employee Registration</p>
+                                </div>
+
+                                <a href="@Url.Action("Index", "ExistingEmployeeRegistration")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-lightpink">
+                                <a href="@Url.Action("Index", "ExistingEmployeeRegistration")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Existing Employee Registration</h5>
+                                            <i class="far fa-id-card "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                    if (item.ModuleName.ToUpper() == "Employee Registration".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-info">
+                                <div class="inner">
+
+                                    <p>Employee Registration</p>
+                                </div>
+
+                                <a href="@Url.Action("Index", "EmployeeRegistration")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-lightpink">
+                                <a href="@Url.Action("Index", "EmployeeRegistration")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Employee Registration</h5>
+                                            <i class="far fa-id-card"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                    if (item.ModuleName.ToUpper() == "Admin User".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-info">
+                                <div class="inner">
+
+                                    <p>Admin User</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="@Url.Action("AdminUserList", "AdminUser", new { Area = "UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-lightpink">
+                                <a href="@Url.Action("AdminUserList", "AdminUser", new { Area = "UserManagement" })">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Admin User</h5>
+                                            <i class="fa fa-h-square "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "Roles".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-success">
+                                <div class="inner">
+
+                                    <p>Roles</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="@Url.Action("Index", "Roles", new { Area = "" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-lightpink">
+                                <a href="@Url.Action("Index", "Roles", new { Area = "" })">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Roles</h5>
+                                            <i class="fa fa-h-square "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                    if (item.ModuleName.ToUpper() == "Modules".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-gradient-olive">
+                                <div class="inner">
+
+                                    <p>Modules</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="@Url.Action("ModuleList", "Module", new { Area = "UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-lightpink">
+                                <a href="@Url.Action("ModuleList", "Module", new { Area = "UserManagement" })">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Modules</h5>
+                                            <i class="fa fa-h-square "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                    if (item.ModuleName.ToUpper() == "Sub Modules".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-gradient-red">
+                                <div class="inner">
+                                    <p>
+                                        Sub Modules
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-plus"></i>
+                                </div>
+                                <a href="@Url.Action("SubModuleList", "SubModule", new { Area = "UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-lightpink">
+                                <a href="@Url.Action("SubModuleList", "SubModule", new { Area = "UserManagement" })">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Sub Modules</h5>
+                                            <i class="fa fa-h-square "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "DVB User".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-info">
+                                <div class="inner">
+
+                                    <p>DVB User</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="@Url.Action("DVBUserList", "DVBUser", new { Area = "UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-lightpink">
+                                <a href="@Url.Action("DVBUserList", "DVBUser", new { Area = "UserManagement" })">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">DVB User</h5>
+                                            <i class="fa fa-h-square "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "Hospital User".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-success">
+                                <div class="inner">
+
+                                    <p>Hospital User</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="@Url.Action("HospitalUserList", "HospitalUser", new { Area = "UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-lightpink">
+                                <a href="@Url.Action("HospitalUserList", "HospitalUser", new { Area = "UserManagement" })">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Hospital User</h5>
+                                            <i class="fa fa-h-square "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "Legal Advisor".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                        <!--<div class="small-box bg-warning">
+                                <div class="inner">
+
+                                    <p>Legal Advisor</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="@Url.Action("Index", "LegalAdvisor")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>-->
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-green">
+                                <a href="@Url.Action("Index", "LegalAdvisor")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Legal Advisor</h5>
+                                            <i class="fa fa-user-alt"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (item.ModuleName.ToUpper() == "Grievance".ToUpper() && !_modules.Contains(item.ModuleName.ToUpper()))
+                    {
+                        _modules.Add(item.ModuleName.ToUpper());
+                        <div class="col-sm-6 col-lg-3 mt-2">
+                            <div class="card dashboard background-yellow">
+                                <a href="@Url.Action("Index", "Grievance")">
+                                    <div class="card-body">
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Grievance</h5>
+                                            <i class="fa fa-legal "></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+            @switch (ViewBag.Roles)
+            {
+                case "Master":
+                    <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                    <!--<div class="small-box bg-info">
+                            <div class="inner">
+
+                                <p>Admin User</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="@Url.Action("AdminUserList", "AdminUser", new { Area = "UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>-->
+                    <div class="col-sm-6 col-lg-3 mt-2">
+                        <div class="card dashboard background-teal">
+                            <a href="@Url.Action("AdminUserList", "AdminUser", new { Area = "UserManagement" })">
+                                <div class="card-body">
+                                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                        <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">DVB User</h5>
+                                        <i class="fa fa-home-user "></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-2">
+                        <div class="card dashboard background-gray">
+                            <a href="@Url.Action("ModuleList", "Module", new { Area = "UserManagement" })">
+                                <div class="card-body">
+                                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                        <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Modules</h5>
+                                        <i class="fa fa-th-large"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-2">
+                        <div class="card dashboard background-blue">
+                            <a href="@Url.Action("SubModuleList", "SubModule", new { Area = "UserManagement" })">
+                                <div class="card-body">
+                                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                        <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Sub Modules</h5>
+                                        <i class="fa fa-square "></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!--<div class="small-box bg-success">
+                            <div class="inner">
+                                <p>
+                                    CMS
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-plus"></i>
+                            </div>
+                            <a href="@Url.Action("Index","Dashboard", new { Area="WebsiteCMS" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>-->
+                    <div class="col-sm-6 col-lg-3 mt-2">
+                        <div class="card dashboard background-light-orange">
+                            <a href="@Url.Action("Index","Dashboard", new { Area="WebsiteCMS" })">
+                                <div class="card-body">
+                                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                        <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">CMS</h5>
+                                        <i class="fa fa-globe"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div> @*<partial name="_DVBPensionTrustMenu" />*@ break;
+                    <!--<div class="col-lg-3 col-6">--> <!-- small box -->
+                    <!--<div class="small-box bg-info">
+                                                                                                                                  <div class="inner">
+
+                                                                                                                                      <p>DVB User</p>
+                                                                                                                                  </div>
+                                                                                                                                  <div class="icon">
+                                                                                                                                      <i class="ion ion-person-add"></i>
+                                                                                                                                  </div>
+                                                                                                                                  <a href="@Url.Action("DVBUserList", "DVBUser", new { Area = "UserManagement" })" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                                                                                                              </div>
+                                                                                                                          </div>-->
+                    <div class="col-sm-6 col-lg-3 mt-2">
+                        <div class="card dashboard background-lightpink">
+                            <a href="@Url.Action("DVBUserList", "DVBUser", new { Area = "UserManagement" })">
+                                <div class="card-body">
+                                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                        <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">DVB User</h5>
+                                        <i class="fa fa-h-square "></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-2">
+                        <div class="card dashboard background-lightpink">
+                            <a href="@Url.Action("HospitalUserList", "HospitalUser", new { Area = "UserManagement" })">
+                                <div class="card-body">
+                                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                        <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Hospital User</h5>
+                                        <i class="fa fa-h-square "></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div> @*<partial name="_DVBPensionTrustMenu" />*@break;
+            }
+        </div>
+
+    </div>
+
+
+
+</div>
+
+@section DashboardScript{
+    <!-- AdminLTE for demo purposes -->
+    <!-- <script src="~/dist/js/demo.js" asp-append-version="true"></script>-->
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- <script src="~/dist/js/pages/dashboard.js" asp-append-version="true"></script>-->
+}

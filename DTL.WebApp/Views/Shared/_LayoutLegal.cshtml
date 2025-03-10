@@ -1,0 +1,391 @@
+﻿
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/assets/js/jquery.min.js"></script>
+   
+    <script src="~/assets/js/bootstrap-datepicker.js"></script>
+    <script src="~/assets/js/buttons.html5.min.js"></script>
+    <script src="~/assets/js/CommonValidations.js"></script>
+    <script src="~/assets/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/js/dataTables.dataTables.min.js"></script>
+    <script src="~/assets/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/parsley.min.js"></script>
+    <script src="~/assets/js/pdfmake.min.js"></script>
+    <script src="~/assets/js/perfect-scrollbar.min.js"></script>
+    <script src="~/plugins/select2/js/select2.min.js"></script>
+   
+    <!-- Bootstrap CSS -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="~/assets/css/dashforge.css" rel="stylesheet">
+    <link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="~/assets/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="~/assets/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="~/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+      <!-- Bootstrap CSS -->
+   
+   
+    
+  
+   
+    <link href="~/assets/css/all.min.css" rel="stylesheet">
+    <link href="~/assets/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/assets/css/typicons.css" rel="stylesheet">
+    <link href="~/assets/css/fontAwesome/all.min.css" rel="stylesheet">
+
+     @*<script src="~/plugins/jquery/jquery.min.js"></script>*@
+    <!-- jQuery UI 1.11.4 -->
+    <!--<script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>-->
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <!--<script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>-->
+    <!-- Bootstrap 4 -->
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- bs-custom-file-input -->
+
+    <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <!--<script src="~/plugins/inputmask/jquery.inputmask.min.js"></script>-->
+    <!-- date-range-picker -->
+    <!--<script src="~/plugins/daterangepicker/daterangepicker.js"></script>-->
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.js"></script>
+    <!-- Toastr -->
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="~/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/plugins/jszip/jszip.min.js"></script>
+    <script src="~/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="~/plugins/table-to-excel/table-to-excel.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+
+
+    <title>@ViewBag.Title</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header style="background-color:#003399">
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-md-8 d-flex py-2">
+
+                        <img src="~/assets/images/dvb.jpg" alt="" width="50px">
+
+                        <div class="my-auto ms-3">
+                            <h5 class="text-white">DVEBTBF</h5>
+                            <span class="d-block text-white">PTIS (Pension Trust Information System)</span>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="col-md-4 my-auto text-end">
+
+                        <div class="profile_btn">
+                            <a class="btn dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <label>@(User?.Identity?.Name)</label>
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Vidya Online Services</a></li>
+                                <li><a class="dropdown-item" href="#">VOL</a></li>
+
+                                <li><a class="dropdown-item" href="/Identity/Account/logout">Log out</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="sidebar">
+            <div class="sidebar_body">
+                <ul class="sidebar_nav">
+                    <li class="nav_item list_head">
+                        <a href="#">Master Dashboard</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#"><i class="fa-regular fa-file me-2"></i>Admin Creation</a>
+                    </li>
+                </ul>
+                <ul class="sidebar_nav">
+                    <li class="nav_item list_head">
+                        <a href="#">Admin Dashboard</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#"><i class="fa-regular fa-file me-2"></i>DVB User Creation</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#"><i class="fa-regular fa-file me-2"></i>Hospital User Creation</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_link"><i class="fa-regular fa-file me-2"></i>Website CMS</a>
+                        <div class="nav">
+                            <a class="active" href="#">About Us</a>
+                            <a href="#">Banner Images</a>
+                            <a href="#">Aim and Vision</a>
+                            <a href="#">Gallery</a>
+                            <a href="#">Tenders</a>
+                            <a href="#">Contact Us</a>
+                            <a href="#">Important Links</a>
+                            <a href="#">Citizen Charter</a>
+                            <a href="#">Footer Links</a>
+                            <a href="#">Latest Forms</a>
+                            <a href="#">Public Notices</a>
+                            <a href="#">Latest News</a>
+                            <a href="#">Events</a>
+                            <a href="#">RTI</a>
+                            <a href="#">Grievance</a>
+                        </div>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_link"><i class="me-2 fa-brands fa-wpforms"></i>Master Management</a>
+                        <div class="nav">
+                            <a href="#">Departments</a>
+                            <a href="#">Sections</a>
+                            <a href="#">Hospitals Names</a>
+                            <a href="#">Gender</a>
+                            <a href="#">Organisation</a>
+                            <a href="#">State</a>
+                            <a href="#">DIstrict</a>
+                            <a href="#">User Types</a>
+                            <a href="#">Relationship Type</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="sidebar_nav">
+                    <li class="nav_item list_head">
+                        <a href="#">Pensioner Dashboard</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#"><i class="fa-regular fa-file me-2"></i>View Profile</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_link"><i class="fa-regular fa-file me-2"></i>Mediclaim</a>
+                        <div class="nav">
+                            <a class="active" href="#">Mediclaim Raise</a>
+                            <a href="#">Empanelled Hospital List</a>
+                            <a href="#">CGHS Rate Card</a>
+                            <a href="#">View Page Details</a>
+                            <a href="#">View Medical Card Details</a>
+                        </div>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_link"><i class="me-2 fa-brands fa-wpforms"></i>PPO</a>
+                        <div class="nav">
+                            <a href="#">View PPO</a>
+                            <a href="#">View Pension Slip</a>
+                            <a href="#">View Pension Certificate</a>
+                        </div>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_link"><i class="me-2 fa-brands fa-wpforms"></i>Grievance</a>
+                        <div class="nav">
+                            <a href="#">Create Grievance</a>
+                            <a href="#">Resolved Grievance</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="sidebar_nav">
+                    <li class="nav_item list_head">
+                        <a href="#">Employee Dashboard</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#"><i class="fa-regular fa-file me-2"></i>Monthly GPF Statement</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#"><i class="fa-regular fa-file me-2"></i>Current GPF Balance</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_link"><i class="fa-regular fa-file me-2"></i>Loan Application</a>
+                        <div class="nav">
+                            <a class="active" href="#">Refundable Loan Application</a>
+                            <a href="#">Non-Refundable Application</a>
+                            <a href="#">Approved Loan Application</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script>
+        (function ($) {
+            $('.digit-group').find('input').each(function () {
+                $(this).attr('maxlength', 1);
+                $(this).on('keyup', function (e) {
+                    var parent = $($(this).parent());
+
+                    if (e.keyCode === 8 || e.keyCode === 37) {
+                        var prev = parent.find('input#' + $(this).data('previous'));
+
+                        if (prev.length) {
+                            $(prev).select();
+                        }
+                    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
+                        var next = parent.find('input#' + $(this).data('next'));
+
+                        if (next.length) {
+                            $(next).select();
+                        } else {
+                            if (parent.data('autosubmit')) {
+                                parent.submit();
+                            }
+                        }
+                    }
+                });
+            });
+
+            // $('.datepicker').datepicker({
+            //  	  showOtherMonths: true,
+            //  	  selectOtherMonths: true,
+            //  	  changeMonth: true,
+            //  	  changeYear: true
+            //  	});
+            // $('.yearpicker').datepicker({
+            // 	viewMode: "years",
+            //     minViewMode: "years",
+            //     	format: "yyyy",
+            //     	autoclose: true
+            // });
+
+            // $('.yearpicker').click(function(){
+            //     var popup =$(this).offset();
+            //     var popupTop = popup.top - 40;
+            //     $('.datepicker').css({
+            //       'top' : popupTop
+            //      });
+            // });
+
+
+
+            $(".reset").click(function () {
+                $(this).closest('form').find("input[type=text], textarea").val("");
+            });
+
+
+
+
+            $('#example1').DataTable({
+                "ordering": false,
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bAutoWidth": false,
+                "bJQueryUI": true,
+                "bRetrieve": true,
+                "bAutoWidth": true
+            });
+
+
+            $('#inspectiontbl').DataTable({
+                "ordering": false
+            });
+
+            $('#eligibleStudents').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    'excelHtml5',
+                    'csvHtml5'
+                ],
+                "ordering": false,
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bAutoWidth": false,
+                "bJQueryUI": true,
+                "bRetrieve": true,
+                "bAutoWidth": true
+            });
+
+            $('#admissionReport').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                "ordering": false,
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bAutoWidth": false,
+                "bJQueryUI": true,
+                "bRetrieve": true,
+                "bAutoWidth": true
+            });
+
+
+
+
+            // Select2
+         //   $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+
+        })(jQuery);
+    </script>
+
+    <style>
+    .hide{
+        display:none;
+    }
+    </style>
+    <!-- <script>
+        $(".datepicker").datepicker({
+            format: 'mm-dd-yyyy'
+        });
+    </script> -->
+     @RenderSection("Legal", false)
+      @RenderSection("Grievance", false)
+     
+</body>
+
+
+
+</html>

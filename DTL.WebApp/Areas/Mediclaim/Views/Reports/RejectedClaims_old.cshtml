@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewData["Title"] = "RejectedClaims";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Rejected Claims</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home", new { Area = "" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard", new { Area = "Mediclaim" })">Mediclaim</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Reports", new { Area = "Mediclaim" })">Reports</a></li>
+                        <li class="breadcrumb-item active">Rejected Claims</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="hidden" id="hdnClaimStatus" value="Rejected" />
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Claim Type.</label>
+                                    <select name="ClaimType" class="form-control" id="selClaimType">
+                                        <option value="Select">Select</option>
+                                        <option value="Cashless">Cashless</option>
+                                        <option value="Noncashless">Non-Cashless</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Claim No.</label>
+                                    <input type="text" class="form-control" placeholder="Enter Claim Number" id="txtClaimNumber" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Application Date From</label>
+                                    <input type="date" class="form-control" id="txtFromDate" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label">Application Date To</label>
+                                    <input type="date" class="form-control" id="txtToDate" />
+                                </div>
+                                <div class="col-md-12 text-center mt-3">
+                                    <button type="button" class="btn btn-primary" id="btnSearch">Search</button>
+                                    <button class="btn btn-primary" type="reset" id="btnCancel">Cancel</button>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col align-self-center mb-3">
+                                    <button type="button" class="btn btn-primary" id="btnExportExcel">Export To Excel</button>
+                                </div>
+                            </div>
+                            <table id="tblReport" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Claim No.</th>
+                                        <th>Page No.</th>
+                                        <th>Patient Name</th>
+                                        <th>Type of Application</th>
+                                        <th>Date of Application</th>
+                                        <th>Rejected Reason</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @*<tr>
+                    <td>1</td>
+                    <td>12345</td>
+                    <td>23</td>
+                    <td>Saket Sonawane</td>
+                    <td>application type</td>
+                    <td>21/10/2021</td>
+                    <td>Paid</td>
+                    <td>
+                        <a href="javascript:void(0)"><i class="far fa-eye mr-2"></i>View</a>
+                    </td>
+                </tr>*@
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.content -->
+</div>
+@section RejectedClaimReport{
+    <script type="text/javascript" src="~/js/Mediclaim/Report/report.js"></script>
+}
+

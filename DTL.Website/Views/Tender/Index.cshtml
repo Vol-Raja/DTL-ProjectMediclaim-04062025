@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Tenders List";
+    const string DATE_FORMAT = "dd-MM-yyyy";
+    const string TIME_FORMAT = "hh:mm tt";
+    var isArch = Context.Request.Query["isArchieved"] == "True";
+
+}
+@using DTL.Model.Models.CMS;
+
+@model IEnumerable<TenderModel>;
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>Tenders</h1>
+                <p><a @Url.Action("" , "home")>Home</a> / <span>Tenders</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+
+        <div class="sidebar">
+
+            <div class="tab">
+                <a class="tablinks @(isArch ? "": "active")" href="@Url.Action("", "tender")">Active Tenders</a>
+                <a class="tablinks @(isArch ? "active": "")" href="@Url.Action("", "tender" , new { isArchieved = true})">Archived Tenders</a>
+            </div>
+        </div>
+        <div class="shadow mb-5 ">
+            <div class="main_content">
+                <div class="tabcontent hospital_list">
+
+                    <table class="table table-bordered table-hover" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Tender</th>
+                                <th>Publish Date</th>
+                                <th>Opening Date</th>
+                                <th>Closing Date</th>
+                              
+                                <th>Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() > 0)
+                            {
+                                int counter = 0;
+                                @foreach (var item in Model)
+                                {
+                                    counter++;
+                                    <tr>
+                                        <td>@counter</td>
+                                        <td>@item.TitleInEnglish</td>
+                                        <td>@item.PublishDate.ToString(DATE_FORMAT) </td>
+                                        <td>@item.OpeningDate.ToString( DATE_FORMAT) </td>
+                                        <td>@item.ClosingDate.ToString( DATE_FORMAT) </td>
+                                     
+                                        <td class="d-flex justify-content-around">
+                                            <a href='@Url.Action("download","tender", new {id = @item.ID})'
+                                       target="_blank" aria-hidden="true"><i class="fa fa-file-pdf-o text-danger mx-2" aria-hidden="true"></i></a>
+                                        </td>
+
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8">No Data found</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

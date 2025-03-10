@@ -1,0 +1,279 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using DTL.Model.Models
+@model InvestmentDeclarationModel
+@{
+    ViewData["Title"] = "Investment Declaration";
+var tempInvestmentTypeList = ViewBag.InvestmentTypeList;
+}
+<style>
+    .offset-md-9 {
+        display: inline-flex !important;
+    }
+
+    .fa-plus-circle {
+        cursor: pointer;
+    }
+
+    .subCatTbl {
+        height: 145px;
+        overflow: auto;
+        display: block;
+    }
+</style>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Investment Declaration</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("","FinanceManagement")">Finance Management</a></li>
+                        <li class="breadcrumb-item active">Investment Declaration</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form id="frmInvestmentDeclaration" method="post">
+                                <input id="Id" name="Id" type="hidden" value="@Model.ID" />
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblFinancialYear">Financial Year</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <select id="FinancialYear" name="FinancialYear" class="form-control">
+                                            <option value="">Select Financial Year</option>
+                                            @foreach (var data in ViewBag.FinancialYear)
+                                            {
+                                                if (data == Model.FinancialYear)
+                                                {
+                                                    <option value="@data" selected>@data </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@data">@data</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblInvestmentType">Investment Type</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+
+                                        <select id="InvestmentType" name="InvestmentType" class="form-control">
+                                            <option value="">Select Investment Type</option>
+                                            @foreach (var data in ViewBag.InvestmentTypeList)
+                                            {
+                                                if (data.InvestmentType.Equals(Model.InvestmentType))
+                                                {
+
+                                                    <option value="@data.InvestmentType" selected>@data.InvestmentType </option>
+
+                                                }
+
+                                                else
+                                                {
+                                                    <option value="@data.InvestmentType">@data.InvestmentType </option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="Others">Others</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="Others" id="Others" class="form-control" placeholder="Others" value="@Model.InvestmentType" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblInvestmentTitle">Investment Title</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="InvestmentTitle" id="InvestmentTitle" class="form-control" placeholder="Name of Investment" value="@Model.InvestmentTitle" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblReferenceNumber">Reference Number</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="ReferenceNo" id="ReferenceNo" class="form-control" placeholder="Transaction/Reference No" value="@Model.ReferenceNo" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblInvestmentAmt">Invested Amount</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="InvestedAmount" id="InvestedAmount" class="form-control" placeholder="Amount in rupees" onkeypress="return isNumberKey(event,this)" value="@Model.InvestedAmount" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblClosingPeriod">Investment End(In Years)</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="ClosingPeriod" id="ClosingPeriod" class="form-control" onkeypress="return isNumberKey(event,this)" placeholder="Locking Period" value="@Model.ClosingPeriod" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblFrom">From</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="date" name="FromDate" id="FromDate" class="form-control" placeholder="From Date"
+                                               data-date="" data-date-format="DD-MM-YYYY"
+                                               value="@(Model.FromDate.ToString("yyyy-MM-dd") != "0001-01-01"? Model.FromDate.ToString("yyyy-MM-dd"):"")" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblTo">To</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="date" name="ToDate" id="ToDate" class="form-control" placeholder="To Date"
+                                               data-date="" data-date-format="DD-MM-YYYY"
+                                               value="@(Model.ToDate.ToString("yyyy-MM-dd") != "0001-01-01"? Model.ToDate.ToString("yyyy-MM-dd"):"")" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblExpectedProfitMargin">Expected Profit Margin %</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="ExpectedProfitMargin" id="ExpectedProfitMargin" class="form-control" placeholder="Expected Profit Margin%" onkeypress="return isNumberKey(event,this)" value="@Model.ExpectedProfitMargin" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblExpectedROI">Expected ROI</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="ExpectedROI" id="ExpectedROI" class="form-control" placeholder="ROI in Rupees" onkeypress="return isNumberKey(event,this)" value="@Model.ExpectedROI" />
+
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="lblExpectedROI">Expected Profit Amount</label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="ExpectedProfitAmount" id="ExpectedProfitAmount" class="form-control" placeholder="Profit Amount" value="@Model.ExpectedProfitAmount" />
+
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;" id="divbtnDeclare">
+                                        @switch (ViewBag.Mode)
+                                        {
+                                            case "Insert":
+                                                <button type="button" class="btn btn-primary" id="btnDeclareInvestment">Declare</button>
+                                                break;
+
+                                            case "Update":
+                                                <button type="button" class="btn btn-primary" id="btnModifyInvestment">Modify</button>
+                                                break;
+                                            case "Close":
+                                                <button type="button" class="btn btn-danger" id="btnCloseInvestment" data-toggle="modal" data-target="#PopupCloseInvestment">Close</button>
+                                                break;
+                                        }
+                                        <a href="@Url.Action("Index","FinanceManagement")" class="btn btn-danger">Cancel</a>
+                                    </div>
+
+                                </div>
+                               
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<div class="modal fade" id="PopupCloseInvestment">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Close Investment?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-primary card-outline card-tabs">
+                            <div class="card-header p-0 pt-1 border-bottom-0">
+
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="lblActualReturnOnInvestment">Actual Return on Investment</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="ActualReturnOnInvestment" id="ActualReturnOnInvestment" class="form-control" placeholder="Actual Return On Investment" onkeypress="return isNumberKey(event,this)" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="lblProfitLoss">Profit/Loss</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="ActualProfitLossAmt" id="ActualProfitLossAmt" class="form-control" disabled />
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button href="@Url.Action("Index","FinanceManagement")" type="button" class="btn btn-default" data-dismiss="modal" id="btnCancel">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnCloseInvestmentOpt">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section FinanceManagement
+                                    {
+    <script src="~/js/FinanceManagement/InvestmentDeclaration.js" asp-append-version="true"></script>
+}

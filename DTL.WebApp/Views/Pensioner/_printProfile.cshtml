@@ -1,0 +1,49 @@
+﻿@using DTL.Model.Models
+@model EmployeeProfileModel
+
+<table width="100%">
+    <tr><td align="center" colspan="2">D.V.B.E.T.B.F. Pension Trust 2002</td></tr>
+    <tr><td align="center" colspan="2">Pre-Fab, Building, Rajghat Power House, New Delhi-11002</td></tr>
+    <tr><td align="center" colspan="2"><b>PPO/GPO/CPO</b></td></tr>
+    <tr>
+        <td width="50%"><b>Pension Payment Order No: </b>@Model.PPOOrderId</td>
+        <td width="50%" align="right"><b>Employee Code: </b>@Model.EmployeeId</td>
+    </tr>
+</table>
+<table width="100%">
+    <tr><td colspan="4"></td></tr>
+    <tr>
+        <td>Employee Name</td>
+        <td>@Model.EmployeeName</td>
+        <td>Father/Husband Name</td>
+        <td>@Model.FatherName</td>
+    </tr>
+    <tr>
+        <td>Date Of Membership</td>
+        <td>@Model.ServiceStartDate.ToString("dd/MM/yyyy")</td>
+        <td>Date Of Birth</td>
+        <td>@Model.DOB.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+        <td>Date Of Retirement</td>
+        <td>@Model.ServiceEndDate.ToString("dd/MM/yyyy")</td>
+        <td>Date Of Leaving</td>
+        <td>@Model.ServiceEndDate.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+        <td>Department Name</td>
+        <td>@Model.DTLOffice</td>
+        <td>Designation</td>
+        <td>@Model.Designation</td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>@Model.PermanentAddress</td>
+    </tr>
+    <tr>
+        <td>Pay Scale</td>
+        <td></td>
+        <td>Grade Pay</td>
+        <td>@Model</td>
+    </tr>
+</table>

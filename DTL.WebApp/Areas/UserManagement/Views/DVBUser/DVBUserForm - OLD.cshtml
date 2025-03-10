@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "DVB User Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .error {
+        border:solid 1px #ff0000;
+    }
+</style>
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">DVB User Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("DVBUserList","DVBUser",new { Area="UserManagement" })">DVB Users</a></li>
+                        <li class="breadcrumb-item active">DVB User Form</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form action="/" method="post">
+                                <input type="hidden" id="hdndvbUserId" value="@ViewBag.DVBUserId"  />
+                                <input type="hidden" id="hdndvbUserFormMode" value="@ViewBag.Mode" />
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Name</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name" id="txtName" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtHospitalId">Email ID</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Email ID" id="txtEmailAddress" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Phone Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Phone Number" id="txtPhoneNumber" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Department</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" id="selDepartment">
+                                            <option value="PPO">PPO</option>
+                                            <option value="MEDICLAIM">MEDICLAIM</option>
+                                            <option value="DISBURSEMENT">DISBURSEMENT</option>
+                                            <option value="LEGAL SECTION">LEGAL SECTION</option>
+                                            <option value="GPF">GPF</option>
+                                            <option value="FINANCE">FINANCE</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Designation</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Designation" id="txtDesignation" required />
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button type="button" class="btn btn-primary" id="btnSubmit">Submit</button>
+                                        <a href="/UserManagement/DVBUser/DVBUserList" class="btn btn-danger">Cancel</a>
+                                        <a class="btn btn-info">Reset</a>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section DVBUser{
+    <script type="text/javascript" src="~/js/UserManagement/dvbuser.js"></script>
+}

@@ -1,0 +1,232 @@
+﻿@using DTL.WebApp.Areas.WebsiteCMS
+@{
+    ViewData["Title"] = "CMS Dashboard Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+ 
+    <div class="row header_section mx-0 px-0 border_bottom">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">CMS Dashboard</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home",new { Area="" })"> Dashboard</a><span class="px-1">/</span><span>CMS Dashboard</span>
+        </p>
+    </div>
+    <div class="container-fluid pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="row row-xs">
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard bg-warning">
+                    <a href="@Url.Action(StringConstants.DASHBOARD,StringConstants.CMS_About)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title"> About us</h5>
+                                <i class="fa-solid fa-asterisk"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-skyBlue">
+                    <a href="@Url.Action("",StringConstants.CMS_BANNERIMAGE)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Banner images</h5>
+                                <i class="fa-solid fa-file-image"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-yellow">
+                    <a href="@Url.Action("",StringConstants.CMS_AIMVISION)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Aim & Vision</h5>
+                                <i class="fa-solid fa-low-vision"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-green">
+                    <a href="@Url.Action("",StringConstants.CMS_BANNERIMAGE,new {isGallery = true})">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Gallery</h5>
+                                <i class="fa-solid fa-file-image "></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-purple">
+                    <a href="@Url.Action("",StringConstants.CMS_TENDER)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">
+                                    Tender
+                                </h5>
+                                <i class="fa-solid fa-list "></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-pink">
+                    <a href="@Url.Action("",StringConstants.CMS_ContactUs)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">
+                                    Contact Us
+                                </h5>
+                                <i class="fa-solid fa-phone "></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard bg-info">
+                    <a href="@Url.Action("",StringConstants.CMS_LINK)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">
+                                    Important Links
+                                </h5>
+                                <i class="fa-solid fa-link "></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-darkblue">
+                    <a href="@Url.Action("",StringConstants.CMS_NOTICE)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Public Notices</h5>
+                                <i class="fa-solid fa-file "></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-green">
+                    <a href="@Url.Action("",StringConstants.CMS_WHATS_NEW)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Latest news</h5>
+                                <i class="fa fa-newspaper"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-orange">
+                    <a href="@Url.Action("",StringConstants.CMS_Event)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">
+                                    Events
+                                </h5>
+                                <i class="fa-solid fa-calendar"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-skyBlue">
+                    <a href="@Url.Action(StringConstants.DASHBOARD,StringConstants.CMS_RuleActHelpline)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">citizen Charter</h5>
+                                <i class="fa-solid fa-user-plus"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-light-gray">
+                    <a href="@Url.Action(StringConstants.DASHBOARD,StringConstants.CMS_SocialMediaAccount)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Footer Links</h5>
+                                <i class="fa-solid fa-link"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-lightpink">
+                    <a href="@Url.Action("",StringConstants.CMS_Form)">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Latest form</h5>
+                                <i class="fa-solid fa-file"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-red">
+                    <a href="@Url.Action("Index", "FeedBack", new { Area = "WebsiteCMS" })">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Feedback System</h5>
+                                <i class="fa-solid fa-file"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-blue">
+             <a href="@Url.Action("Index", "HospitalList", new { Area = "WebsiteCMS" })">
+                    @*<a href="@Url.Action("Index",StringConstants.CMS_Hospital,new { Area = "WebsiteCMS" })">*@
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Hospital list </h5>
+                                <i class="fa-solid fa-file"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-green">
+                    <a href="@Url.Action("Index", StringConstants.CMS_Testimony, new { Area = "WebsiteCMS" })">
+                        @*<a href="@Url.Action("Index", "Feedback", new { Area = "WebsiteCMS" })">*@
+                            <div class="card-body">
+                                <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                    <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Message By Head  </h5>
+                                    <i class="fa-solid fa-file"></i>
+                                </div>
+                            </div>
+                        </a>
+</div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

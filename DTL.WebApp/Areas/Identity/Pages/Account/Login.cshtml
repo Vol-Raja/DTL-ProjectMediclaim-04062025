@@ -1,0 +1,223 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "../../../../Views/Shared/_LoginLayout.cshtml";
+
+    var message = TempData["Message"] == null? "": TempData["Message"].ToString();
+}
+
+<!-- /.login-logo -->
+
+<div class="main-content">
+    <div class="container-xxl container-xl container-md container-sm"
+         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+
+        <div class="row">
+
+            <div class="offset-md-7 col-md-4 offset-sm-2 col-sm-8">
+                <div class="login_div">
+                    <div class="text-center">
+                        <h5 class="m-0">LOGIN</h5>
+                        <span class="mb-4 d-block" style="color: #003399; font-size: 14px;">
+                            @if(string.IsNullOrEmpty(message) == false){
+                              <p>@message</p>
+                            }else{
+                                <p>Sign in to start your session</p>
+                            }
+                           
+                        </span>
+                    </div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <form id="account" method="post">
+                        <div class="mb-2">
+                            <label class="form-label d-block mb-1">
+                                Username<span class="text-danger req_text">*</span>
+                            </label>
+                            <input asp-for="Input.Email" class="form-control" placeholder="Username" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-2 position-relative">
+                            <label class="form-label d-block mb-1">
+                                Password<span class="text-danger req_text">*</span>
+                            </label>
+                            <input asp-for="Input.Password" id="txtPassword" class="form-control" placeholder="Password" enableviewstate="false" placeholder="Password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                            <i class="fa fa-eye password_eye login_password_eye toggle-password" aria-hidden="true"></i>
+
+                        </div>
+                        <div class="mb-3">
+                            @* <label class="form-label d-block mb-1">
+            Captcha<span class="text-danger req_text">*</span>
+            </label>
+            <input type="text" class="form-control form-control-sm" maxlength="20"
+            enableviewstate="false" />
+            <div class="d-flex">
+            <img src="~/dist/css/newImage/captcha.JPG" style="width: 200px;" />
+
+            <i class="fa-solid fa-arrows-rotate my-auto ms-3"></i>
+            </div>*@
+                            <div class="form-group">
+                                <div>
+                                    <label class="form-label d-block mb-1" id="text_white">Captcha</label>
+                                    <div style="display:flex">
+                                        <div class="captcha_img position-relative">
+                                            <span id="captchaDiv">TIInWK</span>
+                                            <div class="copy">
+                                            </div>
+                                        </div>
+                                        <div class="captcha_button">
+                                            <a onclick="refreshCaptcha()" class="btn btn-primary btn-sm mr-2 text-white" style="margin-left:7px;">Refresh</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div id="captcha_input">
+                                <input asp-for="Input.CaptchaCode" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="mb-3 submit_area d-flex align-items-center gap-2">
+                            <button type="submit" class="btn btn-sm btn-brand">Log in</button>
+                            <a href="/Identity/Account/Empdata" class="btn btn-sm btn-brand">Go Emp Login</a>
+                            <a id="forgot-password" href="~/UserManagement/ForgotPassword/ForgotPassword" class="btn btn-sm">Forget Password?</a>
+                        </div>
+
+                        @*<div class="mb-3 submit_area row text-left position-relative">
+            <button type="submit" class="btn btn-sm btn-brand">Log in</button>
+
+            <a id="forgot-password" href="~/UserManagement/ForgotPassword/ForgotPassword" class="forgetPasswordtext">
+                Forget
+                Password ?
+            </a>
+        </div>*@
+
+                        <!-- /.col -->
+                        @*<div class="col-8">
+        <div>
+        <label class="p-0" asp-for="Input.RememberMe">
+        <input asp-for="Input.RememberMe" />
+        @Html.DisplayNameFor(m => m.Input.RememberMe)
+        </label>
+        </div>
+        </div>*@
+                        <!-- /.col -->
+
+                    </form>
+
+
+
+                    @*<p class="mb-0">
+                    <a href="register.html" class="text-center">Register a new membership</a>
+                    </p>*@
+
+                    <!-- /.login-card-body -->
+                    @*<div class="offset-md-7 col-md-4 offset-sm-2 col-sm-8">
+                    <div class="login_div">
+                    <div class="text-center">
+                    <h5 class="m-0">LOGIN</h5>
+                    <span class="mb-4 d-block" style="color: #003399; font-size: 14px;">
+                    Sign in to start
+                    your session
+                    </span>
+                    </div>
+
+                    <div class="mb-2">
+                    <label class="form-label d-block mb-1">
+                    Username<span class="text-danger req_text">*</span>
+                    </label>
+                    <input id="txtUserId" type="text" class="form-control form-control-sm is-invalid" placeholder="Username" maxlength="20"
+                    runat="server" enableviewstate="true" />
+                    <div class="invalid-feedback">
+                    The Username is required
+                    </div>
+                    </div>
+                    <div class="mb-2 position-relative">
+                    <label class="form-label d-block mb-1">
+                    Password<span class="text-danger req_text">*</span>
+                    </label>
+                    <input id="txtPassword" type="password" class="form-control form-control-sm is-invalid"
+                    maxlength="20" runat="server" enableviewstate="false" placeholder="Password" />
+                    <i class="fa fa-eye password_eye login_password_eye toggle-password" aria-hidden="true"></i>
+                    <div class="invalid-feedback">
+                    The password is required
+                    </div>
+                    </div>
+                    <div class="mb-3">
+                    <label class="form-label d-block mb-1">
+                    Captcha<span class="text-danger req_text">*</span>
+                    </label>
+                    <input type="text" class="form-control form-control-sm" maxlength="20"
+                    enableviewstate="false" />
+                    <div class="d-flex">
+                    <img src="assets/images/captcha.JPG" style="width: 200px;" />
+                    <i class="fa-solid fa-arrows-rotate my-auto ms-3"></i>
+                    </div>
+                    </div>
+                    <div class="mb-3 submit_area row text-left position-relative">
+                    <a href="dashboard.html" class="btn btn-sm btn-brand">Log in</a>
+
+                    <a href="authentication/forgetPassword.html" class="forgetPasswordtext">
+                    Forget
+                    Password ?
+                    </a>
+                    </div>
+
+                    </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+
+        .captcha_img {
+            width: 69%;
+            letter-spacing: 1em;
+            font-size: 22px;
+            text-align: center;
+            background-image: url('/assets/images/captcha_bg.jpg');
+        }
+
+        .position-relative {
+            position: relative !important;
+        }
+    </style>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $("body").on('click', '.toggle-password', function () {
+            debugger;
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $("#txtPassword");
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+
+        });
+        function refreshCaptcha() {
+            debugger;
+            $.ajax({
+                url: "/UserManagement/Captcha/",
+                method: "GET",
+                success: function (response) {
+                    document.getElementById("captchaDiv").innerHTML = response;
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            refreshCaptcha();
+
+        });
+    </script>
+}

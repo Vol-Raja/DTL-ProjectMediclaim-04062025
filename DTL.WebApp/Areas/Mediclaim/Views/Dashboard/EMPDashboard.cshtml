@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "EMPDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>EMPDashboard</h1>
+<div class="col-sm-6 col-lg-3 mt-2">
+    <div class="card dashboard background-lightpink">
+        <a href="@Url.Action("IndexCredit","Cashless", new { Area="Mediclaim" })">
+            <div class="card-body">
+                <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                    <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Creditletter</h5>
+                    <i class="fa-brands fa-resolving"></i>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+

@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Finance Management";
+}
+@using DTL.Model.Models.UserManagement;
+@model IEnumerable<AssignPermissionModel>;
+@{
+    var _modules = new List<string>() { };
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .small-box .icon > i.ion {
+        font-size: 60px !important;
+        top: 0px !important;
+    }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="container-fluid">
+    <!-- Content Header (Page header) -->
+    <div class="row header_section mx-0 px-0 border_bottom">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Finance Management</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section"><span class="">Dashboard </span></p>
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="container-fluid pd-x-0 pd-lg-x-10 pd-xl-x-0">
+
+            <div class="row">
+                @if (Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        if (item.SubModuleName.ToUpper() == "Budget Management".ToUpper() && !_modules.Contains(item.SubModuleName.ToUpper()))
+                        {
+                            _modules.Add(item.SubModuleName.ToUpper());
+
+                            <div class="col-sm-6 col-lg-3 mt-2">
+                                <div class="card dashboard background-red">
+                                    <a href="@Url.Action("BudgetManagement", "FinanceManagement")">
+                                        <div class="card-body">
+                                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Budget Management</h5>
+                                                <i class="fa-solid fa-house-chimney-medical"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- col -->
+                        }
+
+                        if (item.SubModuleName.ToUpper() == "Pension Management".ToUpper() && !_modules.Contains(item.SubModuleName.ToUpper()))
+                        {
+                            _modules.Add(item.SubModuleName.ToUpper());
+                            <!-- ./col -->
+
+                            <div class="col-sm-6 col-lg-3 mt-2">
+                                <div class="card dashboard background-yellow">
+                                    <a href="@Url.Action("PensionManagement","FinanceManagement")">
+                                        <div class="card-body">
+                                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Pension Management</h5>
+                                                <i class="fa-solid fa-house-chimney-medical"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- col -->
+                        }
+
+                        if (item.SubModuleName.ToUpper() == "GPF Management".ToUpper() && !_modules.Contains(item.SubModuleName.ToUpper()))
+                        {
+                            _modules.Add(item.SubModuleName.ToUpper());
+                            <!-- ./col -->
+
+                            <div class="col-sm-6 col-lg-3 mt-2">
+                                <div class="card dashboard background-green">
+                                    <a href="@Url.Action("GPFManagement","FinanceManagement")">
+                                        <div class="card-body">
+                                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">GPF Management</h5>
+                                                <i class="fa-solid fa-house-chimney-medical"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+                        if (item.SubModuleName.ToUpper() == "Financial Analysis".ToUpper() && !_modules.Contains(item.SubModuleName.ToUpper()))
+                        {
+                            _modules.Add(item.SubModuleName.ToUpper());
+
+                            <div class="col-sm-6 col-lg-3 mt-2">
+                                <div class="card dashboard background-skyBlue">
+                                    <a href="@Url.Action("FinanceAnalysis","FinanceManagement")">
+                                        <div class="card-body">
+                                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Financial Analysis</h5>
+                                                <i class="fa-solid fa-house-chimney-medical"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+                        if (item.SubModuleName.ToUpper() == "Investments".ToUpper() && !_modules.Contains(item.SubModuleName.ToUpper()))
+                        {
+                            _modules.Add(item.SubModuleName.ToUpper());
+
+                            <div class="col-sm-6 col-lg-3 mt-2">
+                                <div class="card dashboard background-gray">
+                                    <a href="@Url.Action("InvestmentManagement","FinanceManagement")">
+                                        <div class="card-body">
+                                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Investments</h5>
+                                                <i class="fa-solid fa-house-chimney-medical"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+
+    <!-- /.content -->
+</div>

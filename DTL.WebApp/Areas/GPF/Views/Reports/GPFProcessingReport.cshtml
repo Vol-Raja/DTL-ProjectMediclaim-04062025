@@ -1,0 +1,254 @@
+﻿@using DTL.Model.Models.GPF
+@model IEnumerable<GPFProcessing>
+@{
+    ViewData["Title"] = "GPF Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">GPF Report</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Dashboard","Processing", new { Area="GPF" })">Dashboard</a>
+            <span class="px-1">/</span><span>GPF Report</span>
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4 row">
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Organization</label>
+                    <select class="form-select" name="orgCode">
+                        <option value="all">All</option>
+                        @foreach (var kvp in DTL.Model.Models.GPF.GPFEmployeeInfoModel.OrganisationNameByCode)
+                        {
+                            <option value="@kvp.Key">@kvp.Value</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Employee Id</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Search Employee" name="empCode" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Month & Year From</label>
+                    <input type="month" class="form-control form-control-sm" name="monthFrom" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Month & Year To</label>
+                    <input type="month" class="form-control form-control-sm" name="monthTo" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 mt-2 ml-auto text-right">
+                    <button class="btn btn-success bottom-0" onclick="GetData()"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-danger bottom-0 clear_btn"><i class="fa fa-times"></i></button>
+                </div>
+
+            </div>
+            <div class="table-responsive">
+                <table id="table" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr. No.</th>
+                            <th>Employee Name </th>
+                            <th>Org</th>
+                            <th class="text-center">Employee Id</th>
+                            <th class="text-center">External Code</th>
+                            <th class="text-center">GPF Contribution </th>
+                            <th class="text-center">Member Interest</th>
+                            <th class="text-center">Monthly GPF Amount</th>
+                            <th class="text-center">GPF Account Balance</th>
+                            <th class="text-center">Month / Year</th>
+
+                            @*<th>Action</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+@*
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Janice </td>
+                            <td>Harber Inc</td>
+                            <td>86940590</td>
+                            <td class="text-end">68575<span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">938 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">879789 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">4500 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-center">May 2o22</td>
+
+                            <!--<td class="d-flex border-bottom-0">
+                            <a href="@Url.Action("NonCashlessVoucherView","Voucher", new { Area="Mediclaim"})" class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
+                            <!-- Modal -->
+                            <!--</td>-->
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>Janice </td>
+                            <td>Harber Inc</td>
+                            <td>86940590</td>
+                            <td class="text-end">68575<span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">938 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">879789 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">4500 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-center">May 2o22</td>
+
+                            <!--<td class="d-flex border-bottom-0">
+                            <a href="@Url.Action("NonCashlessVoucherView","Voucher", new { Area="Mediclaim"})" class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
+                            <!-- Modal -->
+                            <!--</td>-->
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Janice </td>
+                            <td>Harber Inc</td>
+                            <td>86940590</td>
+                            <td class="text-end">68575<span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">938 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">879789 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end">4500 <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-center">May 2o22</td>
+
+                            <!--<td class="d-flex border-bottom-0">
+                            <a href="@Url.Action("NonCashlessVoucherView","Voucher", new { Area="Mediclaim"})" class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
+                            <!-- Modal -->
+                            <!--</td>-->
+                        </tr>*@
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center"></td>
+                            <td><b>Total</b> </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-end"><b><span id="totalContribution"></span></b><span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end"><b><span id="totalInterest"></span></b><span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end"><b><span id="totalAmount"></span></b> <span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-end"><b><span id="totalBalance"></span></b><span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-center"></td>
+
+
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<link href="~/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/plugins/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet" />
+<link href="~/plugins/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet" />
+<script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#table").DataTable({
+            buttons: [
+                'excel',
+                'pdfHtml5',
+                'csvHtml5'
+            ],
+            dom: 'lBfrtip',
+            "ordering": false,
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "bAutoWidth": false,
+            "bJQueryUI": true,
+            "bRetrieve": true,
+            "bAutoWidth": true
+        });
+        $('.clear_btn').click(function () {
+            $('[name="orgCode"]').val('all').trigger('change');
+            $('[name="empCode"]').val('').trigger('change');
+            $('[name="monthFrom"]').val('').trigger('change');
+            $('[name="monthTo"]').val('').trigger('change');
+            GetData()
+        });
+        $('[name="empCode"]').autocomplete({
+            source: (req, res) => {
+                $.get(`@Url.Action("EmployeeAutocomplete", "Data")?term=${req.term}&orgCode=` + $('[name="orgCode"]').val()).then(r => res(r));
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                $(event.target).attr('selected-id', ui.item.id);
+                $(event.target).val(ui.item.label);
+            }
+        });
+        Array.prototype.distinct = function () {
+            return [...new Set(this)];
+        }
+        GetData();
+    })
+
+    const curr = c => `${c}<span class="text-danger req_text">&#8377; </span>`;
+
+    function GetData() {
+        var sr = 1;
+        $('#table').DataTable().destroy();
+        $('#table').find('tbody').empty();
+        $('#totalContribution,#totalInterest,#totalAmount,#totalBalance').text('0');
+        var empCode = $('[name="empCode"]').val() ? `&empCode=${$('[name="empCode"]').attr('selected-id')}` : '';
+        var monthFrom = $('[name="monthFrom"]').val() ? `&dtFrom=${$('[name="monthFrom"]').val()}-01` : '';
+        var monthTo = $('[name="monthTo"]').val() ? `&dtTo=${$('[name="monthTo"]').val()}-01` : '';
+        $.get(`@Url.Action("GetData", "Data")?orgCode=${$('[name="orgCode"]').val()}${empCode}${monthFrom}${monthTo}`).then(r => {
+            reportData = r;
+            $('#totalContribution').html(r.map(q => q.memberContribution).reduce((a, b) => a + b).toFixed(2));
+            $('#totalInterest').html(r.map(q => q.memberInterest).reduce((a, b) => a + b).toFixed(2));
+            $('#totalAmount').html(r.map(q => q.memberContribution + q.memberInterest).reduce((a, b) => a + b).toFixed(2));
+            var cumulativeSumGPF = reportData.map(q => q.employeeNumber).distinct().map(q => {
+                return reportData.filter(rd => rd.employeeNumber == q).map(q => q.gpfSum).reduce((a, b) => a > b ? a : b)
+            }).reduce((a, b) => a + b);
+            $('#totalBalance').html(cumulativeSumGPF.toFixed(2));
+
+            $("#table").DataTable({
+                buttons: [
+                    'excel',
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                    },
+                    'csvHtml5'
+                ],
+                dom: 'lBfrtip',
+                "ordering": false,
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bAutoWidth": false,
+                "bJQueryUI": true,
+                "bRetrieve": true,
+                "bAutoWidth": true,
+                data: r,
+                columns: [
+                    { render: _ => sr++ },
+                    { data: 'employeeName' },
+                    { data: 'organisation' },
+                    { data: 'employeeCode' },
+                    { data: 'employeeNumber' },
+                    { data: 'memberContribution', render: curr },
+                    { data: 'memberInterest', render: curr },
+                    { data: 'gpfAmount', render: curr },
+                    { data: 'gpfSum', render: curr },
+                    { render: (a, b, c) => moment(`${c.year}-${c.month}-01`).format('MMMM YYYY'), className: 'text-center' },
+                ]
+            });
+        })
+    }
+
+</script>

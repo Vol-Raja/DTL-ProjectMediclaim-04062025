@@ -1,0 +1,314 @@
+﻿@using DTL.Model.Models
+@model PensionSlipModel
+@{
+    var GratuityType = new List<string>() {
+        "Death",
+        "Retirement"
+    };
+}
+<form id="pensionSlipForm">
+    <input type="hidden" id="ID" name="ID" value="@Model.ID" />
+    <input type="hidden" id="EmployeeRegistrationId" name="EmployeeRegistrationId" value="@ViewBag.EmpId" />
+    <div class="row">
+        <div class="col-md-6">
+            <label for="ABPFor10Months">Average of Basic Pay for last 10 months</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="ABPLast10Months" class="form-control" id="ABPLast10Months" placeholder="Amount" value="@(Model.ABPLast10Months==0?"":Model.ABPLast10Months)">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="EmolumentsForPension">Emoluments For Pension</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="EmolumentsForPension" class="form-control" id="EmolumentsForPension" placeholder="Emolument Amount" value="@(Model.EmolumentsForPension == 0 ? "":Model.EmolumentsForPension)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="AdmissiablePension">Basic pension</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="AdmissiablePension" class="form-control" id="AdmissiablePension" placeholder="Pension Amount" value="@(Model.AdmissiablePension == 0? "":Model.AdmissiablePension)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="AdmissiableDate">Admissiable Date</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="date" data-date="" data-date-format="DD-MM-YYYY" name="AdmissiableDate"
+                   class="form-control" id="AdmissiableDate" placeholder="Form Date"
+                   value="@(Model.AdmissiableDate?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.AdmissiableDate?.ToString("yyyy-MM-dd"):"")">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="PensionAtEnhancedRate">Pension At Enhanced Rate</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="PensionAtEnhancedRate" class="form-control" id="PensionAtEnhancedRate" placeholder="Pension Amount" value="@Model.PensionEnhancedRate">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Admissiable For</label>
+        </div>
+        <div class="col-md-3 form-group">
+            <input type="date" data-date="" data-date-format="DD-MM-YYYY" name="AdmissibleForFromDate_Enhanced" class="form-control" id="AdmissibleForFromDate_Enhanced" placeholder="From Date" value="@(Model.AdmissibleForFromDate_Enhanced?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.AdmissibleForFromDate_Enhanced?.ToString("yyyy-MM-dd"):"")">
+        </div>
+        <div class="col-md-3 form-group">
+            <input type="date" data-date="" data-date-format="DD-MM-YYYY" name="AdmissibleForToDate_Enhanced" class="form-control" id="AdmissibleForToDate_Enhanced" placeholder="To Date" value="@(Model.AdmissibleForToDate_Enhanced?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.AdmissibleForToDate_Enhanced?.ToString("yyyy-MM-dd"):"")">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="PensionAtNormalRate">Pension At Normal Rate</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="PensionAtNormalRate" class="form-control" id="PensionAtNormalRate" placeholder="Pension Amount" value="@(Model.PensionAtNormalRate ==0?"":Model.PensionAtNormalRate)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Admissiable For</label>
+        </div>
+        <div class="col-md-3 form-group">
+            <input type="date" data-date="" data-date-format="DD-MM-YYYY" name="AdmissibleForFromDate_Normal" class="form-control" id="AdmissibleForFromDate_Normal" placeholder="From Date" value="@(Model.AdmissibleForFromDate_Normal?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.AdmissibleForFromDate_Normal?.ToString("yyyy-MM-dd"):"")">
+        </div>
+        <div class="col-md-3 form-group">
+            <input type="date" data-date="" data-date-format="DD-MM-YYYY" name="AdmissibleForToDate_Normal" class="form-control" id="AdmissibleForToDate_Normal" placeholder="From Date" value="@(Model.AdmissibleForToDate_Normal?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.AdmissibleForToDate_Normal?.ToString("yyyy-MM-dd"):"")">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="lblCommutation">Commutation %</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="PSCommutation" class="form-control" id="PSCommutation" placeholder="Commutation %" value="@(Model.PSCommutation == 0?"":Model.PSCommutation)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="CommutationPortion">Commutation Portion</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="CommutationPortion" class="form-control" id="CommutationPortion" placeholder="Commutation Value" value="@(Model.CommutedPortion == 0?"":Model.CommutedPortion)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="LumsumPayableCommutation">commutation Amount</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="LumsumPayableCommutation" class="form-control" id="LumsumPayableCommutation" placeholder="Commutation Amount" value="@(Model.LumsumPayableCommutation ==0 ? "" :Model.LumsumPayableCommutation)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="CommutationPortion">Lump Sum Payable</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <label id="LumpsumPayable" class="form-control"></label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="GratuityType">Gratuity Type</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <select id="GratuityType" name="GratuityType" class="form-control">
+                @foreach (var data in GratuityType)
+                {
+                    if (Model == null)
+                    {
+                        if (data == Model.GratuityType)
+                        {
+                            <option value="@data" selected>@data</option>
+                        }
+                        else
+                        {
+                            <option value="@data">@data</option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="@data">@data</option>
+                    }
+                }
+                @*<option value="">GratuityType</option>
+                    <option value="Death">Death</option>
+                    <option value="Retirement">Retirement</option>*@
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="Gratuity">Gratuity Amount</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="Gratuity" class="form-control" id="Gratuity" placeholder="Amount" value="@(Model.Gratuity ==0 ? "" :Model.Gratuity)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="DOBPs">DOB</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="date" name="DOBPs" class="form-control" id="DOBPs" placeholder="DOB"
+                   data-date="" data-date-format="DD-MM-YYYY"
+                   value="@(Model.DOB?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.DOB?.ToString("yyyy-MM-dd"):"")" disabled>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="ServiceStartDatePs">Start date of service</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="date" name="ServiceStartDatePs" value="@(Model.ServiceStartDate?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.ServiceStartDate?.ToString("yyyy-MM-dd"):"")"
+                   data-date="" data-date-format="DD-MM-YYYY"
+                   class="form-control" id="ServiceEndDatePs" placeholder="Service End Date">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="ServiceEndDatePs">End date of service </label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="date" name="ServiceEndDatePs" value="@(Model.ServiceEndDate?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.ServiceEndDate?.ToString("yyyy-MM-dd"):"")"
+                   data-date="" data-date-format="DD-MM-YYYY"
+                   class="form-control" id="ServiceEndDatePs" placeholder="Service End Date">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="Service Period">Service Period</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="ServicePeriod" class="form-control" id="ServicePeriod" placeholder="Service Period" value="@(Model.ServicePeriod)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="LeaveEncashmentDays">Leave Encashment Days</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="LeaveEncashmentDays" class="form-control" id="LeaveEncashmentDays" placeholder="Leave Encashment Days" value="@(Model.LeaveEncashmentDays ==0 ? "" :Model.LeaveEncashmentDays)">
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="LeaveEncashment">Leave encashment Amount</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="LeaveEncashment" class="form-control" id="LeaveEncashment" placeholder="Leave Encashment Amount" value="@(Model.LeaveEncashment ==0 ? "" :Model.LeaveEncashment)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="Taxable">Taxable Leave Encashment</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="TaxableLeaveEncashment" class="form-control" id="TaxableLeaveEncashment" placeholder="Taxable Leave Encashment" value="@(Model.TaxableLeaveEncashment ==0 ? "" :Model.TaxableLeaveEncashment)" onkeypress="return isNumberKey(event,this)">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="Taxable">Taxable</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="Taxable" class="form-control" id="Taxable" placeholder="Taxable" value="@(Model.Taxable ==0 ? "" :Model.Taxable)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="NonTaxable">Non Taxable</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="NonTaxable" class="form-control" id="NonTaxable" placeholder="Non Taxable" value="@(Model.NonTaxable ==0 ? "" :Model.NonTaxable)">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="TaxableAmountCommutation">Taxable Amount of commutation</label>
+        </div>
+        <div class="col-md-6 form-group">
+            <input type="text" name="TaxableAmountCommutation" class="form-control" id="TaxableAmountCommutation" placeholder="Taxable Amount of commutation" value="@(Model.TaxableAmountCommutation ==0 ? "" :Model.TaxableAmountCommutation)">
+        </div>
+    </div>
+
+
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary" id="btnSavePensionSlip">Save</button>
+        @switch (ViewBag.Roles)
+        {
+            case "HR":
+                <button type="button" class="btn btn-primary" id="btnSubmitPensionApp">Submit</button>
+
+
+                break;
+            case "HOD":
+                <button type="button" class="btn btn-primary" id="btnApproveSubmitPensionApp">Approve & Submit</button>
+                <button type="button" class="btn btn-warning" id="btnRejectPensionApp" data-toggle="modal" data-target="#addRejectionModal">Reject</button>
+
+                break;
+            case "AM":
+                <button type="button" class="btn btn-primary" id="btnApprovePensionApp">Approve</button>
+                <button type="button" class="btn btn-warning" id="btnAMRejectPensionApp" data-toggle="modal" data-target="#addRejectionModal">Reject</button>
+                break;
+        }
+        <a href="@Url.Action("","Pensioner")" class="btn btn-warning">Close</a>
+    </div>
+</form>
+<!-- /.modal -->
+<div class="modal fade" id="addRejectionModal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Rejection Summary</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-primary card-outline card-tabs">
+                            @*<div class="card-header p-0 pt-1 border-bottom-0">
+                                   Rejection Remark
+                                </div>*@
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    Rejection Reason
+                                    <input type="hidden" id="role" value="@ViewBag.Roles" />
+                                    <input type="text" class="form-control" id="RejectionReason" name="RejectionReason" />
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnSaveRejection">Submit</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

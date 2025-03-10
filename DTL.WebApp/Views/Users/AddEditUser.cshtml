@@ -1,0 +1,79 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model UserViewModel
+@{
+    ViewData["Title"] = "Add Edit Users";
+    var roles = Model.Role?.Split(",").ToList();
+}
+
+
+
+<ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="user-tab" data-toggle="pill" href="#userForm" role="tab" aria-controls="userForm" aria-selected="true">User</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="userRole-tab" data-toggle="pill" href="#userRoleForm" role="tab" aria-controls="userRoleForm" aria-selected="false">Role</a>
+    </li>
+</ul>
+<div class="tab-content" id="custom-content-below-tabContent">
+    <div class="tab-pane fade show active" id="userForm" role="tabpanel" aria-labelledby="userForm-tab">
+        <div class="card-body">
+            <input type="hidden" name="userId" id="userId" value="@Model.UserId" />
+            <div class="form-group">
+                <label for="userName">Name</label>
+                <input type="text" name="fullName" class="form-control" id="fullName" placeholder="Username" value="@Model.fullName">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="@Model.Email">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" name="PhoneNumber" class="form-control" id="PhoneNumber" placeholder="Phone" value="@Model.PhoneNumber">
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="userRoleForm" role="tabpanel" aria-labelledby="userRoleForm-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group list-group-flush">
+                    @foreach (var role in ViewBag.Roles)
+                    {
+                        if (roles != null)
+                        {
+                            if (roles.Any(x => x == role.Name))
+                            {
+                                <li class="list-group-item">
+                                    <input type="radio" class="form-check-input" name="role" value="@role.Name" checked />
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        @role.Name
+                                    </label>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="list-group-item">
+                                    <input type="radio" class="form-check-input" name="role" value="@role.Name" />
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        @role.Name
+                                    </label>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item">
+                                <input type="radio" class="form-check-input" name="role" value="@role.Name" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @role.Name
+                                </label>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

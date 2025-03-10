@@ -1,0 +1,65 @@
+﻿@using DTL.Model.Models.CMS;
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "नोटिस";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+
+}
+@model IEnumerable<NoticeModel>;
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>नोटिस</h1>
+                <p><a href="view/hn/index.html">मुख पृष्ठ </a> / <span>नोटिस</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidebar">
+
+                    <div class="tab">
+                        <a class="tablinks" href="@Url.Action("","whatsnew")">
+                            नवीनतम समाचार
+                        </a>
+                        <a class="tablinks active" href="#">सार्वजनिक सूचना</a>
+                        <a class="tablinks" href="@Url.Action("","link")">महत्वपूर्ण लिंक  </a>
+                        <a class="tablinks" href="@Url.Action("","BannerImage")">गैलरी</a>
+                        <a class="tablinks" href="@Url.Action("" , "event")">कार्यक्रम</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 shadow">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+                        <div class="Notices news">
+                            @if (Model.Count() > 0)
+                            {
+                                int counter = 0;
+                                @foreach (var item in Model)
+                                {
+                                    counter++;
+                                    <div class="Inner_Notices">
+                                        <p class="mb-0 icons"><i class="fa fa-calendar me-3"></i>@item.NoticeDateHindi.ToString("dd-MMMM-yyyy", new CultureInfo("hi"))</p>
+                                        <p class="mb-2">@item.TitleInHindi  <a target="_blank" class="download_link ms-3" href="@Url.Action("DownloadFile","notice", new { id= @item.ID, lang = "hn"})" aria-hidden="true"><i class="fa fa-file-pdf-o text-danger mx-2" aria-hidden="true"></i></a></p>
+
+                                    </div>
+
+                                }
+
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

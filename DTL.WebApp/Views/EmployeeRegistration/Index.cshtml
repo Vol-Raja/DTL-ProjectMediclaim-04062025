@@ -1,0 +1,100 @@
+﻿@using DTL.Model.Models
+
+@model IEnumerable<EmployeeProfileModel>
+@{ ViewData["Title"] = "Employees";
+    int i = 1; }
+
+<!-- Content Header (Page header) -->
+<div class="container-fluid ">
+<div class="row header_section mx-0 px-0 border_bottom">
+    <div class="col-5 position-relative ps-0">
+        <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+            <i class="fa-solid fa-bars"></i>
+        </span>
+        <h3 class="mb-0">Employee Registration</h3>
+    </div>
+    <p class="mb-0 col-7 top_link_Section"><a href="@Url.Action("","Home")">Home</a><span class="px-1">/</span><span>Employee List</span></p>
+</div>
+<!-- Main content -->
+
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4">
+                @if (Convert.ToBoolean(ViewBag.Create))
+                {
+                    <button type="button" class="btn btn-primary btn-sm mr-2 "
+                  onclick="location.href='@Url.Action("Create", "EmployeeRegistration")'">
+                     Add New Employee
+                  </button>
+                    <button type="button" class="btn btn-primary btn-sm "
+                            onclick="location.href='@Url.Action("ArchiveEmployee", "EmployeeRegistration")'">
+                        Archives
+                   </button>
+                }
+            </div>
+
+       
+                <table id="empTbl" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Organization</th>
+                            <th>Emp ID</th>
+                            <th>GPF Number</th>
+                            <th>Employee Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Date of Joining</th>
+                            <th>Date of Retirement</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                        <tr>
+                            <td>@i</td>
+                            <td> @data.EmailAddress</td>
+                            <td> @data.EmployeeId</td>
+                            <td>GPF0009</td>
+                            <td> @data.EmployeeName</td>
+                            <td> @data.EmailAddress</td>
+                           
+                            <td>8958956857</td>
+                            <td>10/10/1963</td>
+                            <td>10/10/2022</td>
+
+                            <td class="d-flex border-bottom-0 justify-content-center">
+
+                                @if (Convert.ToBoolean(ViewBag.View))
+                                {
+                            <a href="@Url.Action("ViewEmployee", "EmployeeRegistration", new { employeeId = data.ID })" title="view profile" class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye"></i></a>}
+                                @if (Convert.ToBoolean(ViewBag.Edit))
+                                {
+                            <a href="@Url.Action("EditEmployee", "EmployeeRegistration", new { employeeId = data.ID })" title="edit profile" onclick="EditRolePageAccess('@data.ID')" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-user-edit"></i></a> } @*<a href="@Url.Action("EditEmployeeDetails", "EmployeeRegistration", new { employeeId = data.ID })" title="edit employee details" onclick="EditRolePageAccess('@data.ID')"><i class="fas fa-edit"></i></a>*@
+                                @if (Convert.ToBoolean(ViewBag.Delete))
+                                {
+                            <a href="javascript:void(0)" title="delete employee" class="btn btn-danger btn-sm mr-2 btn_small" data-empId="@data.ID"><i class="fa fa-trash"></i></a>}
+                            <a href="#" class="btn btn-success btn-sm mr-2 "><i class="fa fa-refresh mr-2"></i>Resend Password</a>
+                            </td>
+
+                        </tr>
+i = i + 1;
+        }
+                    </tbody>    
+
+                </table> 
+        
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+    </div>
+
+<!-- /.content -->
+</div>
+
+@section Employee{
+    <script src="~/js/Employee/EmployeeList.js" asp-append-version="true"></script>
+}

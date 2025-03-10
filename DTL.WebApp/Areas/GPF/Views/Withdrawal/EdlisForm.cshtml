@@ -1,0 +1,1564 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/assets/css/smart_wizard_all.min.css" rel="stylesheet" />
+<div class="container-fluid view_form">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Edlis  Settlement form</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Withdrawal", new { Area="GPF" })" class="">Dashboard</a><span class="px-1">/</span><a href="@Url.Action("EdlisList","Withdrawal", new { Area="GPF" })">Edlis  List</a><span class="px-1">/</span><span>Edlis  Form</span>
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body">
+            <form id="regForm">
+
+                <!-- One "tab" for each step in the form: -->
+                <div class="tab">
+                    <h4 class="form_title shadow-2-strong m-0">
+                        Personal Details
+                    </h4>
+                    <div class="my-4 border_bottom pb-4 row">
+
+
+                        <div class="col-sm-6 col-md-3 col-lg-6 col-xl-4">
+                            <label class="form-label d-block mb-1">
+                                Employee Code<span class="text-danger req_text">*</span>
+                            </label>
+                            <div class="form-group">
+                                <input type="text" class="form-control emp ds" name="basicDetails.employeeCode"
+                                       placeholder=" Employee Code" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        @*<div class="col-sm-6 col-md-3 col-lg-3 col-xl-3  position-relative">
+                            <button class="btn btn-success  position-absolute bottom-0"><i class="fa fa-search"></i></button>
+
+                            </div>*@
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 ">
+                            <label class="form-label d-block mb-1">
+                                Employee Name<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="name"
+                                   placeholder=" Employee Name" required />
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Father/ Husband Name<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.fatherName"
+                                   placeholder="Father/ Husband Name" required />
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                DOB<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="date" class="form-control ds date" required name="basicDetails.dateOfBirth" />
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2 mb-3 ">
+                            <label class="form-label d-block mb-1">
+                                Age<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds2" name="age"
+                                   placeholder="Age" disabled required />
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Blood Group<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.bloodGroup"
+                                   placeholder=" Blood Group" required />
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">Gender</label>
+                            <div class="d-flex mt-3 gender-radio">
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" name="gender" id="rdMale" value="Male" checked="checked">
+                                    <label class="form-check-label" for="male">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" name="gender" id="rdFemale" value="Female">
+                                    <label class="form-check-label" for="female">
+                                        Female
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="rdOther" value="Other">
+                                    <label class="form-check-label" for="other">
+                                        Other
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Email Id<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="email" class="form-control ds" name="email"
+                                   placeholder="Email Id" required />
+                        </div>
+
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Mobile Number<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="number" class="form-control ds" name="mobile"
+                                   placeholder="Mobile Number" required />
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Address<span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea class="form-control ds2" name="address"
+                                      placeholder="Address" required></textarea>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4 class="form_title shadow-2-strong mt-0">
+                        Organization Details
+                    </h4>
+
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 ">
+                            <label class="form-label d-block mb-1">
+                                Employee Type <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.employeeType"
+                                   placeholder="Employee Type" required />
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                GPF Account Number<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.gpfNumber"
+                                   placeholder="GPF Account Number" required />
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Organization<span class="text-danger req_text">*</span>
+                            </label>
+                            <select class="form-select ds" id="selOrganization" name="organisationCode">
+                                <option value="" selected disabled>Select</option>
+                                @foreach (var kvp in DTL.Model.Models.GPF.GPFEmployeeInfoModel.OrganisationNameByCode)
+                                {
+                                    <option value="@kvp.Key">@kvp.Value</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3 ">
+                            <label class="form-label d-block mb-1">
+                                Designation<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.designation"
+                                   placeholder="Designation" required />
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4  mb-3">
+                            <label class="form-label d-block mb-1">
+                                Level
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.level"
+                                   placeholder="Level" required />
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Department<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.department"
+                                   placeholder="Department" required />
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Pay scale<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.payScale"
+                                   placeholder="Basic Pay" required />
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Basic Pay<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="basicDetails.basicPay"
+                                   placeholder="Basic Pay" required />
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date of Joining<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="date" class="form-control ds date" name="basicDetails.dateOfJoining"
+                                   placeholder="Date of Joining" required />
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date Of Retirment<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="date" class="form-control ds date" name="basicDetails.dateOfRetirement"
+                                   placeholder="Date Of Retirment" required />
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Address<span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea class="form-control ds2" name="address"
+                                      placeholder="Address" required></textarea>
+
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Pincode<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" name="currentAddress.pinCode"
+                                   placeholder="Pincode" required />
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Contact<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control ds" maxlength="10" name="basicDetails.contactNumber"
+                                   placeholder="Contact" required onkeypress="return  isNumberKey(event)"/>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4 class="form_title shadow-2-strong mt-0">
+                        Family Details
+                    </h4>
+
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group">
+                            <label class="form-label d-block mb-1">
+                                Member Name <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="family.name"
+                                   placeholder="Employee Type" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">
+                                DOB<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="date" class="form-control" name="family.dateOfBirth"
+                                   placeholder="GPF Account Number" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">
+                                Age<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="number" class="form-control" name="family.age"
+                                   placeholder="Age" disabled />
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">
+                                Contact<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" maxlength="10" name="family.contact"
+                                   placeholder="Contact" required onkeypress="return  isNumberKey(event)"/>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4  mb-3 form-group">
+                            <label class="form-label d-block mb-1">
+                                Email Id
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="email" class="form-control" name="family.email"
+                                   placeholder="Email Id" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">
+                                Relation With Emp<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="family.relationship"
+                                   placeholder="Relation With Emp" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">
+                                Address<span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea class="form-control" name="family.address"
+                                      placeholder="Address" required></textarea>
+                            <div class="invalid-feedback"></div>
+
+                        </div>
+
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3 form-group">
+                            <div class="position-relative">
+                                <label class="form-label d-block mb-1">
+                                    Pincode<span class="text-danger req_text">*</span>
+                                </label>
+                                <input type="text" class="form-control" maxlength="6" name="family.pincode"
+                                       placeholder="Pincode" required onkeypress="return  isNumberKey(event)" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-12 mb-3">
+                                <button class="btn btn-success float-end" type="button" id="btnAddCND_F"><i class="fa fa-plus mr-2"></i>Add</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tblFamily" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.no</th>
+                                            <th>Member Name</th>
+                                            <th>DOB</th>
+                                            <th>Age</th>
+                                            @*<th>Address</th>*@
+                                            <th>Contact</th>
+                                            <th>Email Id</th>
+                                            <th>Relations</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4 class="form_title shadow-2-strong mt-0">
+                        Nominee Details
+                    </h4>
+
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group">
+                            <label class="form-label d-block mb-1">
+                                Name of Nominee <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="nominee.name"
+                                   placeholder=" Name Nominee" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group mb-3">
+                            <label class="form-label d-block mb-1">
+                                Nominee DOB<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="date" class="form-control" name="nominee.dateOfBirth"
+                                   placeholder="Nominee DOB" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group mb-3 ">
+                            <label class="form-label d-block mb-1">
+                                Age<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="nominee.age"
+                                   placeholder="Age" disabled />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group  mb-3">
+                            <label class="form-label d-block mb-1">
+                                Relationship with Employee
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="nominee.relationship"
+                                   placeholder="Relationship with Employee" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 form-group mb-3">
+                            <label class="form-label d-block mb-1">
+                                Share<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="nominee.share"
+                                   placeholder="Share" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 form-group mb-3">
+                            <label class="form-label d-block mb-1">
+                                As per Share %<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="nominee.asPerShare"
+                                   placeholder="As per Share %" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 form-group mb-3">
+                            <label class="form-label d-block mb-1">
+                                Address<span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea class="form-control" name="nominee.address"
+                                      placeholder="Address" required></textarea>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 form-group mb-3">
+                            <label class="form-label d-block mb-1">
+                                Contact
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="nominee.contact"
+                                   placeholder="Contact" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 form-group mb-3">
+                            <div class="position-relative">
+                                <label class="form-label d-block mb-1">
+                                    Email id<span class="text-danger req_text">*</span>
+                                </label>
+                                <input type="text" class="form-control" name="nominee.email"
+                                       placeholder="Email id" required />
+                                <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group mb-3">
+                            <div class="position-relative">
+                                <label class="form-label d-block mb-1">
+                                    Nominee Type<span class="text-danger req_text">*</span>
+                                </label>
+                                <select class="form-select" id="NomineeType" name="nominee.nomineeType">
+                                    <option value="">Select</option>
+                                    <option value="Major">Major</option>
+                                    <option value="Minor">Minor</option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            @*<div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3 mt-5" id="minor_checkbox">
+
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="minor">
+        <label class="form-check-label" for="minor">
+        If Minor
+        </label>
+        </div>
+
+        </div>*@
+                        </div>
+                    <div id="checkList">
+                        <h4 class="form_title shadow-2-strong mt-0">
+                            Guardian Details
+                        </h4>
+                        <div class="row">
+
+                            <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">
+                                    Name<span class="text-danger req_text">*</span>
+                                </label>
+                                <input type="text" class="form-control" name="nominee.guardianName"
+                                       placeholder="Name" required />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">
+                                    Relationship With Employee<span class="text-danger req_text">*</span>
+                                </label>
+                                <input type="text" class="form-control" name="nominee.guardianRelationship"
+                                       placeholder="Relationship With Employee" required />
+                            </div>
+                            <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">
+
+                                    Contact
+                                    <span class="text-danger req_text">*</span>
+                                </label>
+                                <input type="text" class="form-control" maxlength="17" name="nominee.guardianContact"
+                                       placeholder="Contact" required />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                                <label class="form-label d-block mb-1">
+                                    Address<span class="text-danger req_text">*</span>
+                                </label>
+                                <textarea class="form-control" placeholder="Address" name="nominee.guardianAddress" required></textarea>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-sm-3 mb-3">
+                            <button class="btn btn-success float-end" type="button" id="btnAddCND_N"><i class="fa fa-plus mr-2"></i>Add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table id="tblNominee" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.no</th>
+                                        <th>Name of nominee</th>
+                                        <th>Nominee DOB</th>
+                                        <th> Age</th>
+                                        <th>Relation With Employee</th>
+                                        <th>Share</th>
+                                        <th>Share(%)</th>
+                                        @*<th>Address</th>*@
+                                        <th>Contact</th>
+                                        <th>Email id</th>
+                                        <th>Nominee Type</th>
+                                        <th>Guardian Name</th>
+                                        <th>Guardian Relation with employee</th>
+                                        <th>Guardian Contact </th>
+                                        @*<th>Guardian Address</th>*@
+                                        <th>Action</th>
+                                        <th class="d-none"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4 class="form_title shadow-2-strong m-0">
+                        Other Details
+                    </h4>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
+                            <p>If any loan from GPF Account Balance</p>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex mb-3">
+                            <div class="form-check me-4">
+                                <input class="form-check-input" type="radio" name="isLoan" id="yes" value="yes">
+                                <label class="form-check-label" for="yes">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="isLoan" id="no" value="no">
+                                <label class="form-check-label" for="no">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mt-2 ms-2" id="Refundable_row">
+                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="refucheckbox">
+                                    <label class="form-check-label" for="minor">
+                                        Refundable
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="nonrefunCheckbox">
+                                    <label class="form-check-label" for="minor">
+                                        Non Refundable
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4" id="refund">
+                            <div class="col-sm-12">
+                                <h3 class="mb-3">Refundable: </h3>
+                                <table id="tblLoanRef" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Loan No</th>
+                                            <th>Loan Date</th>
+                                            <th>Loan Amount</th>
+                                            <th>Loan Reason</th>
+                                            <th>OutStanding Balance</th>
+                                            <th>EMI's pending </th>
+                                            <th>Total GPF Balance</th>
+                                            <th>Loan Status</th>
+                                            <th class="d-none"></th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>1888</td>
+                                        <td>10/10/2022</td>
+                                        <td>3000000</td>
+                                        <td>Health</td>
+                                        <td>200000</td>
+                                        <td>EMI's pending</td>
+                                        <td>7676</td>
+                                        <td>Pending</td>
+
+
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mt-4" id="nonrefun">
+                            <div class="col-sm-12">
+                                <h3 class="mb-3">Non-Refundable: </h3>
+                                <table id="tblLoanNonRef" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Loan No</th>
+                                            <th>Loan Date</th>
+                                            <th>Loan Amount</th>
+                                            <th>Loan Reason</th>
+                                            <th>Total GPF Balance</th>
+                                            @*<th>Loan Status</th>*@
+                                            <th class="d-none"></th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>1888</td>
+                                        <td>10/10/2022</td>
+                                        <td>3000000</td>
+                                        <td>Health</td>
+                                        <td>7676</td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4 class="form_title shadow-2-strong m-0">
+                        Edlis Settlement Details
+                    </h4>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 px-0">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
+                                <p>Transfer To Nominee</p>
+                            </div>
+                            <div class="d-flex ms-3">
+                                <div class="form-check me-5">
+                                    <input class="form-check-input" type="radio" name="transferToNominee" id="tfyes" value="yes">
+                                    <label class="form-check-label" for="yes">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="transferToNominee" id="tfnno" value="no">
+                                    <label class="form-check-label" for="no">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 form-group" id="ttshow">
+                                <label class="form-label d-block mb-1">
+                                    Reason <span class="text-danger req_text">*</span>
+                                </label>
+                                <textarea placeholder="Reason" class="form-control" name="transferToNomineeReason"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mx-0 mt-3">
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Current GPF Account Balance<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="number" class="form-control" name="gpfAccountBalance"
+                                   placeholder="Current GPF Account Balance" required />
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 form-group col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+
+                                Edlis Amount
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="edlisAmount"
+                                   placeholder="Edlis Amount" required />
+                            <div class="invalid-feedback"></div>
+                        </div><div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+
+                                Outstanding Balance
+
+                            </label>
+                            <input type="text" disabled class="form-control" name="gpfOutstanding"
+                                   placeholder="outstanding Balance" required />
+                      
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+
+                                Final Settlement Amount
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="number" disabled class="form-control" name="finalSettlementAmount"
+                                   placeholder=" Final Settlement Amount" required />
+                        </div>
+                        <div class="col-sm-6 col-md-2 form-group col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Settlement Date
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="date" class="form-control" name="settlementDate"
+                                   placeholder="Date Of Settlement" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 form-group col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date Of Death
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="date" class="form-control" name="dateOfDeath"
+                                   placeholder="  Date Of Death" required />
+                        
+                        </div>
+
+                        <div class="col-sm-6 col-md-2 form-group col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Reason Of Death
+                                <span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea class="form-control" name="reasonOfDeath"
+                                      placeholder=" Reason Of Death" required></textarea>
+                            <div class="invalid-feedback"></div>
+                            @*<input type="text" class="form-control"
+        placeholder="Reason Of Death" required />*@
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-lg-4 col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date Of Retirment
+
+                            </label>
+                            <input type="date" class="form-control" name="dateOfRetirement"
+                                   placeholder="  Date Of Retirment" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-4 col-md-5 form-group mb-3">
+                            <label class="form-label d-block mb-1">
+                                Upload Death Certificate <span class="text-danger req_text">*</span>
+                            </label>
+                            <input class="form-control" type="file" id="fileDeathCert" accept=".pdf">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4 class="form_title shadow-2-strong m-0">
+                        Bank Detail
+                    </h4>
+                    <div class="row my-4">
+                        <div class="col-sm-6 col-md-4 col-lg-4 form-group  col-xl-4 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Account Holder Name<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control"  name="bankDetails.accountHolderName"
+                                   placeholder="Account Holder Name" required onkeypress="return  lettersOnly(event)"/>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group ">
+                            <label class="form-label d-block mb-1">
+                                Bank Name<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="bankDetails.bankName"
+                                   placeholder="Bank Name" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group ">
+                            <label class="form-label d-block mb-1">
+                                Branch Name<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="bankDetails.branchName"
+                                   placeholder="Branch Name" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group ">
+                            <label class="form-label d-block mb-1">
+                                Account Number<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" maxlength="17" name="bankDetails.accountNumber"
+                                   placeholder="Account Number" required onkeypress="return  isNumberKey(event)"/>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group  ">
+                            <label class="form-label d-block mb-1">
+                                IFSC Code <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="bankDetails.ifsc"
+                                   placeholder="IFSC Code" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 form-group ">
+                            <label class="form-label d-block mb-1">
+                                BIS Code <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="bankDetails.bis"
+                                   placeholder="BIS Code" required />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4 class="form_title shadow-2-strong m-0">
+                        Upload Attachment
+                    </h4>
+                    <div class="row my-4">
+
+                        <div class="col-sm-4 col-md-5 col-lg-5 col-xl-5 mb-3 form-group ">
+                            <label class="form-label d-block mb-1">Document Type<span class="text-danger req_text">*</span></label>
+                            <select id="docType" class="form-select" required="">
+                                <option value="">Select</option>
+                                <option value="Doc1">Document 1</option>
+                                <option value="Doc2">Document 2</option>
+                                <option value="Doc3">Document 3</option>
+                                <option value="Doc4">Document 4</option>
+                            </select>
+                            <div class="invalid-feedback ">
+                                Please Enter Document Type
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-5 mb-3 form-group ">
+                            <label class="form-label d-block mb-1">
+                                Choose file<span class="text-danger req_text">*</span>
+                            </label>
+                            <input class="form-control validateThis" type="file" accept=".pdf" id="fileUpload">
+                        </div>
+                        <div class="col-sm-3 col-md-2 col-lg-2 col-xl-1 position-relative px-0">
+                            <button id="btnUpload" type="button" class=" btn btn-success position-absolute top-25 fw-bolder" onclick="uploadFile()"><i class="fa fa-plus mr-2"></i>Add</button>
+                            <button id="btnTestDocumentArray" type="button" style="display:none" class=" btn btn-success position-absolute top-25 fw-bolder"><i class="fa fa-save mr-2"></i>Add</button>
+                        </div>
+                        <div class="col-sm-12">
+                            <table id="tblDocs" class="table table-bordered ">
+                                <thead>
+                                    <tr>
+                                        <th width="7%" class="text-center d-none">Sr. No.</th>
+                                        <th>Document Type</th>
+                                        <th class="text-center" width="15%">Attach file </th>
+                                        <th width="8%">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @* <tr>
+                                        <td class="text-center">1</td>
+                                        <th>Document Type</th>
+                                        <td class="text-center"><a href="#" class="pdfIcons"><i class="fa fa-file-pdf" aria-hidden="true"></i></a> </td>
+                                        <td class="d-flex border-bottom-0 text-center">
+                                        <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                        </tr>*@
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div style="overflow:auto;">
+                    <div class="d-flex float-end mt-4">
+                        <button type="button" id="prevBtn" class="btn btn-brand me-2 " onclick="nextPrev(-1)">Previous</button>
+                        <button type="button" id="nextBtn" class="btn btn-brand me-2 " onclick="nextPrev(1)">Next</button>
+                        <button type="button" id="cancelBtn" class="btn btn-danger me-2 " onclick="nextPrev(-1)">Cancel</button>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:40px; display:none">
+                    <span class="step">1</span>
+                    <span class="step">2</span>
+                    <span class="step">3</span>
+                    <span class="step">4</span>
+                    <span class="step">5</span>
+                    <span class="step">6</span>
+                    <span class="step">7</span>
+                    <span class="step">8</span>
+                </div>
+                <!-- Circles which indicates the steps of the form: -->
+
+            </form>
+
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<template id="tr_Family">
+    <tr>
+        <td>1</td>
+        <td>${obj.name}</td>
+        <td>${moment(obj.dateOfBirth).format('DD-MMM-YYYY')}</td>
+        <td>${moment().diff(moment(obj.dateOfBirth), 'YEAR')}</td>
+        @*<td>${obj.address}</td>*@
+        <td>${obj.contact}</td>
+        <td>${obj.email}</td>
+        <td>${obj.relationship}</td>
+        <td class="d-flex border-bottom-0">
+            <a href="#" title="Edit" class="btn btn-info btn-sm mr-2 btn_small" onclick="editFamily(this)"><i class="far fa-edit"></i></a>
+            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small" onclick="$(this).closest('tr').remove()" title="Delete"><i class="fa fa-trash"></i></a>
+        </td>
+        <td class="d-none rowData">${ btoa(JSON.stringify(obj)) }</td>
+    </tr>
+</template>
+
+<template id="tr_Nominee">
+    <tr>
+        <td>1</td>
+        <td>${obj.name}</td>
+        <td>${moment(obj.dateOfBirth).format('DD-MMM-YYYY')}</td>
+        <td>${moment().diff(moment(obj.dateOfBirth), 'YEAR')}</td>
+        <td>${obj.relationship}</td>
+        <td>${obj.share}</td>
+        <td>${obj.asPerShare}%</td>
+        <td>${obj.contact}</td>
+        <td>${obj.email}</td>
+        <td>${obj.nomineeType}</td>
+        <td>${obj.guardianName}</td>
+        <td>${obj.guardianRelationship}</td>
+        <td>${obj.guardianContact}</td>
+        <td class="d-flex border-bottom-0">
+            <a href="#" title="Edit" class="btn btn-info btn-sm mr-2 btn_small" onclick="editNominee(this)"><i class="far fa-edit"></i></a>
+            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small" onclick="$(this).closest('tr').remove()" title="Delete"><i class="fa fa-trash"></i></a>
+        </td>
+        <td class="d-none rowData">${ btoa(JSON.stringify(obj)) }</td>
+    </tr>
+</template>
+
+<template id="tmplDocRow">
+    <tr>
+        <td class="text-center d-none" id="srno"></td>
+        <th id="docName">Document Type</th>
+        <td class="text-center">
+            <input id="inpFile" type="file" style="display:none" />
+            <a href="javascript:void(0)" class="pdfIcons dwldFile"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
+        </td>
+        <td class="d-flex border-bottom-0 text-center">
+            <a href="javascript:void(0)" class="btn btn-danger btn-sm mr-2 btn_small" onclick="$(this).closest('tr').remove(); UpdateSrNo();">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+        </td>
+    </tr>
+</template>
+
+
+<style>
+    #regForm {
+        background-color: #ffffff;
+        margin: 10px auto;
+        min-width: 300px;
+    }
+
+
+
+
+    /* Mark input boxes that gets an error on validation: */
+    input.invalid {
+        background-color: #ffdddd;
+    }
+
+    /* Hide all steps by default: */
+    .tab {
+        display: none;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+    #prevBtn {
+        background-color: #bbbbbb;
+    }
+
+    /* Make circles that indicate the steps of the form: */
+    .step {
+        height: 30px;
+        width: 30px;
+        margin: 0 2px;
+        background-color: #bbbbbb;
+        border: none;
+        padding: 5px 10px 0px;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+        margin-right: 19px;
+    }
+
+        .step.active {
+            opacity: 1;
+            background: #185ab2;
+            color: white;
+        }
+
+        /* Mark the steps that are finished and valid: */
+        .step.finish {
+            background-color: #04AA6D;
+        }
+</style>
+
+
+
+
+<script>
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
+
+    function showTab(n) {
+        // This function will display the specified tab of the form...
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        //... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+            document.getElementById("prevBtn").style.display = "block";
+        }
+        else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("cancelBtn").style.display = "block";
+        } else {
+            document.getElementById("cancelBtn").style.display = "none";
+        }
+        //... and run a function that will display the correct step indicator:
+        fixStepIndicator(n)
+    }
+    function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("tab");
+        // Exit the function if any field in the current tab is invalid:
+        //  if (n == 1 && !validateForm()) return false;
+        if (!validateCurrentForm()) return;
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form... :
+        if (currentTab >= x.length) {
+            //...the form gets submitted:
+            //document.getElementById("regForm").submit();
+            Submit();
+            return false;
+        }
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        // This function deals with validation of the form fields
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false
+                valid = false;
+            }
+        }
+        // If the valid status is true, mark the step as finished and valid:
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        }
+        return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace("active", "");
+        }
+        //... and adds the "active" class on the current step:
+        x[n].className += "active";
+    }
+</script>
+
+
+<script>
+    $('#Refundable_row').hide();
+    $("#refund").hide();
+    $("#nonrefun").hide();
+    $('#minor_checkbox').hide();
+    $('#checkList').hide();
+    $('#ltshow').hide();
+    $('#ttshow').hide();
+    $("#NomineeType").change(function () {
+        var select = $(this).val();
+        if (select == 'Minor') {
+            $('#minor_checkbox').show();
+
+        }
+        else {
+            $('#minor_checkbox').hide();
+        }
+    });
+    $('#minor').click(function () {
+        if ($(this).is(":checked")) {
+            $("#checkList").show();
+            console.log('hello');
+        } else {
+            $("#checkList").hide();
+
+        }
+    });
+    $('#refucheckbox').click(function () {
+        if ($(this).is(":checked")) {
+            $("#refund").show();
+        } else {
+            $("#refund").hide();
+
+        }
+    });
+    $('#nonrefunCheckbox').click(function () {
+        if ($(this).is(":checked")) {
+            $("#nonrefun").show();
+        } else {
+            $("#nonrefun").hide();
+
+        }
+    });
+    $('#yes').click(function () {
+        $('#Refundable_row').show();
+    });
+    $('#no').click(function () {
+        $('#Refundable_row').hide();
+    });
+    $('#ltpno').click(function () {
+        if ($(this).is(":checked")) {
+            $('#ltshow').show();
+        }
+        else {
+            $('#ltshow').hide();
+
+        }
+
+    });
+    $('#tfyes').click(function () {
+        $('#ttshow').hide();
+    });
+    $('#ltpyes').click(function () {
+        $('#ltshow').hide();
+    });
+    $('#tfnno').click(function () {
+        if ($(this).is(":checked")) {
+            $('#ttshow').show();
+        }
+        else {
+            $('#ttshow').hide();
+        }
+    });
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('.emp').change(function () { if (!$('.emp').val()) ResetEmpData(); })
+
+        $('.emp').autocomplete({
+            source: (req, res) => {
+                $.get(`@Url.Action("EmployeeAutocomplete", "Data")?term=${req.term}&orgCode=` + ($('[name="orgCode"]').val() || 'all')).then(r => res(r));
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                $(event.target).attr('selected-id', ui.item.id);
+                $(event.target).val(ui.item.label);
+                LoadEmpData(ui.item.id);
+            }
+        });
+        $('#btnAddCND_F').click(AddFamily);
+        $('#btnAddCND_N').click(AddNominee);
+        $('[name="family.dateOfBirth"]').change(function () { $('[name="family.age"]').val(moment().diff(moment($(this).val()), 'YEAR')); });
+        $('[name="nominee.dateOfBirth"]').change(function () { $('[name="nominee.age"]').val(moment().diff(moment($(this).val()), 'YEAR')); });
+        $('[name="edlisAmount"]').change(function () {
+            var edlis = parseFloat($(this).val());
+            var os = parseFloat($('[name="gpfOutstanding"]').val() || '0');
+            $('[name="finalSettlementAmount"]').val(edlis - os);
+        })
+
+
+        $(document).on('click', '.dwldFile', function () {
+            var f = $(this).siblings('#inpFile')[0].files[0];
+            var n = $(this).closest('tr').find('#docName').text().trim();
+            getBase64(f).then(r => {
+                var dataURI = r;
+                var blob = dataURItoBlob(dataURI);
+                var objectURL = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = objectURL;
+                a.download = n + '.pdf';
+                a.style.display = 'none';
+                $('body').append(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(objectURL);
+            });
+        });
+    });
+
+
+    function uploadFile() {
+        var f = $('#fileUpload')[0].files;
+        if (!f.length) { toastr.warning('Please select file first.'); return; }
+        if (!$('#docType').val()) { toastr.warning('Please select document type.'); return; }
+        if (!f[0].name.endsWith('.pdf')) { toastr.warning('Please select a PDF document.'); return; }
+        if (f[0].size > 2 * 1024 * 1024) { toastr.warning('Maximum allowed file size is 2MB.'); return; }
+        var tr = $($('#tmplDocRow').html());
+        tr.find('#docName').text($('#docType').val());
+        tr.find('#inpFile').prop('files', f);
+        $('#tblDocs').find('tbody').append(tr);
+    }
+
+
+    function ResetEmpData(empId) {
+        $('input.ds:not(.emp),select.ds,input.ds2,textarea.ds2').val('').attr('readonly', false);
+        $('select.ds').val('').attr('disabled', false);
+        $(`[name="gender"]`).attr('disabled', false);
+        $('.ds2[name="age"]').attr('readonly', true);
+        $('.emp').removeAttr('selected-id');
+    }
+
+    function LoadEmpData(empId) {
+        const getAddress = ad => `${ad.address || ''} ${ad.street || ''} ${ad.city || ''} ${ad.pinCode || ''} ${ad.state || ''}`.replaceAll(/\s+/gm, ' ').trim();
+
+        $.get(`@Url.Action("GetEmployeeDetails", "Data")?externalCode=${encodeURIComponent(empId)}`).then(r => {
+            if (r) {
+                data = r;
+                var el = n => $(`[name="${n}"]`);
+                $('.ds').each(function () {
+                    var prop = $(this).attr('name');
+                    var val = eval(`r.${prop}`);
+                    if ($(this).hasClass('date')) $(this).val(val ? moment(val).format('YYYY-MM-DD') : '');
+                    else $(this).val(val || '');
+                });
+                $(`[name="gender"][value="${r.gender}"]`).prop('checked', true).attr('disabled', true);
+                $(`[name="gender"]`).attr('disabled', true);
+                var ds2 = name => $(`.ds2[name="${name}"]`);
+                const getAddress = ad => `${ad.address || ''} ${ad.street || ''} ${ad.city || ''} ${ad.pinCode || ''} ${ad.state || ''}`.replaceAll(/\s+/gm, ' ').trim();
+                ds2('age').val(moment().diff(moment(r.basicDetails.dateOfBirth), 'YEAR'));
+                ds2('address').val(getAddress(r.currentAddress));
+
+                $('input.ds:not(.emp),select.ds,input.ds2,textarea.ds2').attr('readonly', true);
+                $('select.ds').attr('disabled', true);
+                var currentFy = moment().month() > 2 ? (moment().year() + 1) : moment().year();
+                $.get(`@Url.Action("GetCurrentBalance", "Data")?orgCode=${encodeURIComponent(r.organisationCode)}&accNo=${encodeURIComponent(empId)}&year=${currentFy}`).then(r1 => {
+                    data.gpfDetails = r1;
+                    $('[name="gpfAccountBalance"]').val(r1.gpfBalance).attr('readonly', true)
+                    $.get(`@Url.Action("GetLoanApplicationsByEmployee", "Data")?&externalCode=${encodeURIComponent(empId)}`).then(r2 => {
+                        if (r2.length) {
+                            $('[name="isLoan"][value="yes"]').prop('checked', true);
+                            $('[name="isLoan"]').prop('disabled', true);
+                            var outstanding = 0;
+                            if (r2.some(q => q.loanType == 'Refundable')) {
+                                $('#refund').show();
+                                $('#tblLoanRef').find('tbody').html(r2.filter(q => q.loanType == 'Refundable').map(q => {
+                                    outstanding += q.details.numEMI ? (moment(q.details.emiEnd).diff(moment(), 'MONTH') * (q.loanAmount / q.details.numEMI)) : 0
+                                    return `
+                                        <tr>
+                                            <td>${q.applicationNumber}</td>
+                                            <td>${moment(q.createdOn).format('DD-MMM-YYYY')}</td>
+                                            <td>${q.loanAmount}</td>
+                                            <td>${q.details.loanPurpose}</td>
+                                            <td>${q.details.numEMI ? (moment(q.details.emiEnd).diff(moment(), 'MONTH') * (q.loanAmount / q.details.numEMI)) : ''}</td>
+                                            <td>${q.details.emiEnd ? (moment(q.details.emiEnd) > moment() ? 'Pending' : 'Completed') : ''}</td>
+                                            <td>&#8377;&nbsp;${data.gpfDetails.gpfBalance}</td>
+                                            <td>${q.loanStatus}</td>
+                                            <td class="d-none">${btoa(JSON.stringify(q))}</td>
+                                        </tr>
+                                    `}).join(''));
+                            }
+                            if (r2.some(q => q.loanType == 'Non-Refundable')) {
+                                $('#nonrefun').show();
+                                $('#tblLoanNonRef').find('tbody').html(r2.filter(q => q.loanType == 'Non-Refundable').map(q => `
+                                            <tr>
+                                                <td>${q.applicationNumber}</td>
+                                                <td>${moment(q.createdOn).format('DD-MMM-YYYY')}</td>
+                                                    <td>${q.loanAmount}</td>
+                                                    <td>${q.details.loanPurpose}</td>
+                                                <td>&#8377;&nbsp;${data.gpfDetails.gpfBalance}</td>
+                                                <!--<td>${q.loanStatus}</td>-->
+                                                <td class="d-none">${btoa(JSON.stringify(q))}</td>
+                                            </tr>
+                                        `).join(''))
+                            }
+                            $('[name="gpfOutstanding"]').val(outstanding);
+                        }
+                        else {
+                            $('[name="isLoan"][value="no"]').prop('checked', true);
+                            $('[name="isLoan"]').prop('disabled', true);
+                            $('#refund').hide();
+                            $('#nonrefun').hide();
+                        }
+                    });
+                });
+
+
+
+            }
+        })
+    }
+
+    function AddNominee() {
+        var obj = {
+            name: $('[name="nominee.name"]').val(),
+            dateOfBirth: $('[name="nominee.dateOfBirth"]').val(),
+            relationship: $('[name="nominee.relationship"]').val(),
+            share: parseFloat(parseFloat($('[name="nominee.share"]').val() || '0').toFixed(2)),
+            asPerShare: parseFloat(parseFloat($('[name="nominee.asPerShare"]').val() || '0').toFixed(2)),
+            address: $('[name="nominee.address"]').val(),
+            contact: $('[name="nominee.contact"]').val(),
+            email: $('[name="nominee.email"]').val(),
+            nomineeType: $('[name="nominee.nomineeType"]').val(),
+            guardianName: $('[name="nominee.guardianName"]').val(),
+            guardianRelationship: $('[name="nominee.guardianRelationship"]').val(),
+            guardianContact: $('[name="nominee.guardianContact"]').val(),
+            guardianAddress: $('[name="nominee.guardianAddress"]').val(),
+        };
+
+        var valid = true;
+
+        if (!obj.name) { valid = false; $('[name="nominee.name"]').validate(false, 'Name is required'); }
+        else $('[name="nominee.name"]').validate(true);
+        if (!obj.dateOfBirth) { valid = false; $('[name="nominee.dateOfBirth"]').validate(false, 'Date of Birth is required'); }
+        else $('[name="nominee.dateOfBirth"]').validate(true);
+        if (!obj.relationship) { valid = false; $('[name="nominee.relationship"]').validate(false, 'Relationship is required'); }
+        else $('[name="nominee.relationship"]').validate(true);
+        if (!obj.share) { valid = false; $('[name="nominee.share"]').validate(false, 'Share is required'); }
+        else $('[name="nominee.share"]').validate(true);
+        if (!obj.asPerShare) { valid = false; $('[name="nominee.asPerShare"]').validate(false, 'As Per Share % is required'); }
+        else $('[name="nominee.asPerShare"]').validate(true);
+        if (!obj.address) { valid = false; $('[name="nominee.address"]').validate(false, 'Address is required'); }
+        else $('[name="nominee.address"]').validate(true);
+        if (!obj.contact) { valid = false; $('[name="nominee.contact"]').validate(false, 'Contact is required'); }
+        else $('[name="nominee.contact"]').validate(true);
+        var pattern = /^\b[A-Z0-9._%-]+@@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+        if (!obj.email || !pattern.test(obj.email)) {
+            valid = false;
+            $('[name="nominee.email"]').validate(false, 'Email is required');
+        }
+        else $('[name="nominee.email"]').validate(true);
+        if (!obj.nomineeType) { valid = false; $('[name="nominee.nomineeType"]').validate(false, 'Nominee Type is required'); }
+        else $('[name="nominee.nomineeType"]').validate(true);
+        if (obj.nomineeType == 'Minor') {
+            if (!obj.guardianName) { valid = false; $('[name="nominee.guardianName"]').validate(false, 'Guardian Name is required'); }
+            else $('[name="nominee.guardianName"]').validate(true);
+            if (!obj.guardianRelationship) { valid = false; $('[name="nominee.guardianRelationship"]').validate(false, 'Guardian Relationship is required'); }
+            else $('[name="nominee.guardianRelationship"]').validate(true);
+            if (!obj.guardianContact) { valid = false; $('[name="nominee.guardianContact"]').validate(false, 'Guardian Contact is required'); }
+            else $('[name="nominee.guardianContact"]').validate(true);
+            if (!obj.guardianAddress) { valid = false; $('[name="nominee.guardianAddress"]').validate(false, 'Guardian Address is required'); }
+            else $('[name="nominee.guardianAddress"]').validate(true);
+        }
+
+        if (!valid) return;
+        $('#tblNominee').find('tbody').append(eval('`' + $('#tr_Nominee').html() + '`'));
+        $('[name*="nominee."]').val('').trigger('change')
+
+    }
+
+    function editNominee(ctrl) {
+        var obj = JSON.parse(atob($(ctrl).closest('tr').find('.rowData').text()))
+        Object.keys(obj).forEach(k => {
+            $(`[name="nominee.${k}"]`).val(obj[k]).trigger('change');
+        });
+        $(ctrl).closest('tr').remove();
+    }
+
+    function demoNominee(i = 0) {
+        var obj = { "name": "Nominee Name", "dateOfBirth": "2000-01-01", "relationship": (i ? "Son" : "Daughter"), "share": 50, "asPerShare": 50, "address": "Nominee Address", "contact": "9111111111", "email": "a@a.in", "nomineeType": "Major", "guardianName": "", "guardianRelationship": "", "guardianContact": "", "guardianAddress": "" };
+        Object.keys(obj).forEach(k => {
+            $(`[name="nominee.${k}"]`).val(obj[k]).trigger('change');
+        });
+    }
+
+    function AddFamily() {
+        var obj = {
+            name: $('[name="family.name"]').val(),
+            dateOfBirth: $('[name="family.dateOfBirth"]').val(),
+            relationship: $('[name="family.relationship"]').val(),
+            address: $('[name="family.address"]').val(),
+            contact: $('[name="family.contact"]').val(),
+            email: $('[name="family.email"]').val(),
+            pincode: $('[name="family.pincode"]').val(),
+        };
+
+        var valid = true;
+
+        if (!obj.name) { valid = false; $('[name="family.name"]').validate(false, 'Name is required'); }
+        else $('[name="family.name"]').validate(true);
+        if (!obj.dateOfBirth) { valid = false; $('[name="family.dateOfBirth"]').validate(false, 'Date of Birth is required'); }
+        else $('[name="family.dateOfBirth"]').validate(true);
+        if (!obj.relationship) { valid = false; $('[name="family.relationship"]').validate(false, 'Relationship is required'); }
+        else $('[name="family.relationship"]').validate(true);
+        if (!obj.address) { valid = false; $('[name="family.address"]').validate(false, 'Address is required'); }
+        else $('[name="family.address"]').validate(true);
+        if (!obj.contact) { valid = false; $('[name="family.contact"]').validate(false, 'Contact is required'); }
+        else $('[name="family.contact"]').validate(true);
+         var pattern = /^\b[A-Z0-9._%-]+@@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+        if (!obj.email || !pattern.test(obj.email)) {
+            valid = false;
+            $('[name="family.email"]').validate(false, 'Email is required');
+        }
+
+        else $('[name="family.email"]').validate(true);
+        if (!obj.pincode) { valid = false; $('[name="family.pincode"]').validate(false, 'Pincode is required'); }
+        else $('[name="family.pincode"]').validate(true);
+
+
+        if (!valid) return;
+        $('#tblFamily').find('tbody').append(eval('`' + $('#tr_Family').html() + '`'));
+        $('[name*="family."]').val('').trigger('change')
+
+    }
+
+    function editFamily(ctrl) {
+        var obj = JSON.parse(atob($(ctrl).closest('tr').find('.rowData').text()))
+        Object.keys(obj).forEach(k => {
+            $(`[name="family.${k}"]`).val(obj[k]).trigger('change');
+        });
+        $(ctrl).closest('tr').remove();
+    }
+
+    function demoFamily(i = 0) {
+        var obj = { "name": "Family Member", "dateOfBirth": "2000-01-01", "relationship": (i ? "Son" : "Daughter"), "address": "Test Address", "contact": "9876543210", "email": "a@a.in", "pincode": "100001" };
+        Object.keys(obj).forEach(k => {
+            $(`[name="family.${k}"]`).val(obj[k]).trigger('change');
+        });
+    }
+
+
+    function validateCurrentForm() {
+        valid = true;
+        if (currentTab == 0) {
+            if (!$('.emp').attr('selected-id')) { valid = false; $('.emp').validate(false, 'Please select employee'); }
+            else $('.emp').validate(true);
+        }
+        else if (currentTab == 3) {
+            var total = $.makeArray($('#tblNominee tbody tr .rowData')).map(q => {
+                var obj = JSON.parse(atob($(q).text()));
+                return obj.asPerShare;
+            }).reduce((a, b) => a + b);
+            if (total < 99 || total > 101) {
+                toastr.warning('Total share not covering 100%');
+                valid = false;
+            }
+        }
+        else if (currentTab == 5) {
+            if (!$('[name="transferToNominee"]:checked').length) { valid = false; toastr.warning('Please select if Transfer to Nominee Applicable'); }
+            if ($('[name="transferToNominee"]:checked').val() != 'yes' && !$('[name="transferToNomineeReason"]').val()) {
+                valid = false;
+                $('[name="transferToNomineeReason"]').validate(false, 'Reason is required');
+            }
+            else $('[name="transferToNomineeReason"]').validate(true);
+            if (!$('[name="edlisAmount"]').val()) { valid = false; $('[name="edlisAmount"]').validate(false, 'EDLIS Amount is required'); }
+            else $('[name="edlisAmount"]').validate(true);
+            if (!$('[name="settlementDate"]').val()) { valid = false; $('[name="settlementDate"]').validate(false, 'Settlement Date is required'); }
+            else $('[name="settlementDate"]').validate(true);
+            if (!$('[name="dateOfDeath"]').val()) { valid = false; $('[name="dateOfDeath"]').validate(false, 'Date Of Death is required'); }
+            else $('[name="dateOfDeath"]').validate(true);
+            if (!$('[name="reasonOfDeath"]').val()) { valid = false; $('[name="reasonOfDeath"]').validate(false, 'Reason Of Death is required'); }
+            else $('[name="reasonOfDeath"]').validate(true);
+            if (!$('#fileDeathCert')[0].files.length) { valid = false; $('#fileDeathCert').validate(false, 'Please upload Death Certificate'); }
+            else $('#fileDeathCert').validate(true);
+        }
+        else if (currentTab == 6) {
+            if (!$('[name="bankDetails.accountHolderName"]').val()) { valid = false; $('[name="bankDetails.accountHolderName"]').validate(false, 'Account Holder Name is required'); }
+            else $('[name="bankDetails.accountHolderName"]').validate(true);
+            if (!$('[name="bankDetails.bankName"]').val()) { valid = false; $('[name="bankDetails.bankName"]').validate(false, 'Bank Name is required'); }
+            else $('[name="bankDetails.bankName"]').validate(true);
+            if (!$('[name="bankDetails.branchName"]').val()) { valid = false; $('[name="bankDetails.branchName"]').validate(false, 'Branch Name is required'); }
+            else $('[name="bankDetails.branchName"]').validate(true);
+            if (!$('[name="bankDetails.accountNumber"]').val()) { valid = false; $('[name="bankDetails.accountNumber"]').validate(false, 'Account Number is required'); }
+            else $('[name="bankDetails.accountNumber"]').validate(true);
+            if (!$('[name="bankDetails.ifsc"]').val()) { valid = false; $('[name="bankDetails.ifsc"]').validate(false, 'IFSC code is required'); }
+            else $('[name="bankDetails.ifsc"]').validate(true);
+            if (!$('[name="bankDetails.bis"]').val()) { valid = false; $('[name="bankDetails.bis"]').validate(false, 'BIS is required'); }
+            else $('[name="bankDetails.bis"]').validate(true);
+        }
+        return valid;
+    }
+
+    $.fn.validate = function (isValid, msg = '') {
+        if (isValid) $(this).removeClass('is-invalid');
+        else {
+            if (!$(this).hasClass('is-invalid')) $(this).addClass('is-invalid');
+            $(this).closest('.form-group').find('.invalid-feedback').text(msg);
+        }
+    }
+
+    function Submit() {
+        var obj = {
+            applicationNumber: '',
+            organization: $('[name="organisationCode"]').val(),
+            employeeExternalCode: $('.emp').attr('selected-id'),
+            edlisStatus: 'Pending',
+            edlisAmount: parseFloat($('[name="edlisAmount"]').val()),
+            finalSettlementAmount: parseFloat($('[name="finalSettlementAmount"]').val()),
+            settlementDate: $('[name="settlementDate"]').val(),
+            dateOfDeath: $('[name="dateOfDeath"]').val(),
+            dateOfRetirement: $('[name="dateOfRetirement"]').val(),
+            transferToNominee: $('[name="transferToNominee"]:checked').val() == 'yes',
+            transferToNomineeReason: $('[name="transferToNomineeReason"]').val(),
+            reasonOfDeath: $('[name="reasonOfDeath"]').val(),
+        };
+        obj.family = $.makeArray($('#tblFamily tbody tr .rowData')).map(q => JSON.parse(atob($(q).text())));
+        obj.nominees = $.makeArray($('#tblNominee tbody tr .rowData')).map(q => JSON.parse(atob($(q).text())));
+        obj.bankDetails = {
+            accountHolderName: $('[name="bankDetails.accountHolderName"]').val(),
+            bankName: $('[name="bankDetails.bankName"]').val(),
+            branchName: $('[name="bankDetails.branchName"]').val(),
+            accountNumber: $('[name="bankDetails.accountNumber"]').val(),
+            ifsc: $('[name="bankDetails.ifsc"]').val(),
+            bis: $('[name="bankDetails.bis"]').val(),
+        };
+        var documentDetails = $.makeArray($('#tblDocs').find('tbody tr')).map(tr => {
+            return {
+                fileName: $(tr).find('#docName').text().trim(),
+                fileData: $(tr).find('#inpFile')[0].files[0]
+            };
+        });
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SaveEDLIS", "Data")',
+            data: JSON.stringify(obj),
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.status) {
+                    toastr.success('Saved Successfully');
+                    var px = [];
+                    documentDetails.forEach(dd => {
+                        var fd = new FormData();
+                        fd.append('file', dd.fileData);
+                        fd.append('FileName', dd.fileName);
+                        fd.append('ApplicationNumber', data.data.applicationNumber);
+                        px.push($.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("SaveEDLISDocument", "Data")',
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                        }));
+                    });
+                    Promise.all(px).then(r => {
+                        window.setTimeout(_ => window.location = '@Url.Action("EdlisList","Withdrawal",new {Area="GPF" })', 500);
+                    })
+                }
+                else {
+                    toastr.error('An error occurred while saving.');
+                }
+            }
+        })
+    }
+</script>
+<script src="~/assets/js/commonJs.js"></script>

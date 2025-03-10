@@ -1,0 +1,468 @@
+﻿@{
+    ViewData["Title"] = "Non-Refundable Loan Application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-4 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Non-Refundable Loan Application</h3>
+        </div>
+        <p class="mb-0 col-8 top_link_Section">
+            <a href="@Url.Action("index","withdrawal", new { Area="GPF" })">Dashboard</a><span class="px-1">/</span><a href="@Url.Action("index","LoanProcessing", new { Area="GPF" })">Loan Processing List</a><span class="px-1">/</span><a href="@Url.Action("NonRefundableList","withdrawal", new { Area="GPF" })">Non-Refundable List</a><span class="px-1">/</span><span>Non-Refundable </span>
+</p>
+    </div>
+    <form class="g-3 mt-0 formSubmit" id="form">
+        <div class="card border-card mt-0">
+
+            <div class="card-body">
+                <h4 class="form_title shadow-2-strong ">
+                    Personal Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 mb-, mm3">
+                        <label class="form-label d-block mb-1">Employee Name</label>
+                        <input type="text" class="form-control form-control-sm validateThis" placeholder="Employee Name" />
+                        <div class="invalid-feedback ">
+                            Please Enter Employee Name
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Employee ID</label>
+                        <input type="text" class="form-control form-control-sm validateThis" placeholder="Employee ID" />
+                        <div class="invalid-feedback ">
+                            Please Enter Employee ID
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Organization</label>
+                        <select name="" id="org" class="form-select validateThis">
+                            <option value="">--Select--</option>
+
+                            <option value="BRPL/C001">BRPL - BSES Rajdhani Power Ltd</option>
+                            <option value="BYPL/C001">BYPL - BSES Yamuna Power Ltd</option>
+                            <option value="DTL/C001">DTL - Delhi Transco Ltd</option>
+                            <option value="DPCL/C001">DPCL - Delhi Power Company Limited</option>
+                            <option value="IPGCL/C001">IPGCL - Indraprastha Power Generation company Ltd</option>
+                            <option value="NDPL/C001">NDPL - North Delhi Power Ltd</option>
+                            <option value="BSES/C001">BSES - BSES</option>
+                            <option value="SC/C001">SUSPENSE COMPANY</option>
+
+
+                        </select>
+
+                        <div class="invalid-feedback ">
+                            Please Enter Organization
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Department</label>
+                        <input type="email" class="form-control form-control-sm validateThis"
+                               placeholder="Department" />
+                        <div class="invalid-feedback ">
+                            Please Enter Department
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Designation</label>
+                        <input type="text" class="form-control form-control-sm validateThis"
+                               placeholder="Designation" />
+                        <div class="invalid-feedback ">
+                            Please Enter Designation
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Mobile Number</label>
+
+                        <input type="text" class="form-control form-control-sm validateThis" placeholder="Mobile Number" />
+                        <div class="invalid-feedback ">
+                            Please Enter Mobile Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Email ID</label>
+                        <input type="text" class="form-control form-control-sm validateThis" placeholder="Enter Email ID" />
+                        <div class="invalid-feedback ">
+                            Please Enter Email ID
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-md-2  mb-3">
+                        <label class="form-label d-block mb-1">Date Of Birth</label>
+                        <input type="date" class="form-control form-control-sm validateThis" placeholder="Date of Birth" />
+                        <div class="invalid-feedback ">
+                            Please Enter Date Of Birth
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-2  mb-3">
+                        <label class="form-label d-block mb-1">Age</label>
+                        <input type="Number" class="form-control form-control-sm validateThis" placeholder="Enter Age" disabled />
+                        <div class="invalid-feedback ">
+                            Please Enter Age
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Address</label>
+                        <textarea class="form-control form-control-sm validateThis"></textarea>
+                        <div class="invalid-feedback ">
+                            Please Enter Address
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Date of Retirement</label>
+                        <input type="date" class="form-control form-control-sm validateThis" placeholder="Enter Retirement" />
+                        <div class="invalid-feedback ">
+                            Please Enter Date of Retirement
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Date Of Joining</label>
+                        <input type="date" class="form-control form-control-sm validateThis" placeholder="Date Of Joining" />
+                        <div class="invalid-feedback ">
+                            Please Enter Your  Date Of Joining
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Basic Pay</label>
+                        <input type="text" class="form-control form-control-sm validateThis" placeholder="Basic Pay" />
+                        <div class="invalid-feedback ">
+                            Please Enter Basic Pay
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h4 class="form_title shadow-2-strong ">
+                    Loan Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">GPF Account Number</label>
+                        <input type="text" class="form-control form-control-sm validateThis"
+                               placeholder="Account Number" />
+                        <div class="invalid-feedback ">
+                            Please Enter GPF Account Number
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">GPF Account Balance</label>
+                        <div class="d-flex">
+
+                            <input type="text" class="form-control form-control-sm validateThis" placeholder="GPF Account Balance" disabled />
+                        </div>
+                        <div class="invalid-feedback ">
+                            Please Enter GPF Account Balance
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Monthly GPF Contributions</label>
+                        <input type="text" class="form-control form-control-sm validateThis" placeholder="Monthly GPF Contributions" />
+                        <div class="invalid-feedback ">
+                            Please Enter Monthly GPF Contributions
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Amount of Advance Required [ in figure]</label>
+                        <div class="d-flex">
+
+                            <input type="text" class="form-control form-control-sm validateThis" placeholder="In figure" />
+                            <div class="invalid-feedback ">
+                                Please Enter Amount of Advance Required [ in figure]
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Amount of Advance Required [in Words]</label>
+                        <div class="d-flex">
+
+                            <input type="text" class="form-control form-control-sm validateThis" placeholder="in Words" disabled />
+                            <div class="invalid-feedback ">
+                                Please Enter Amount of Advance Required [in Words]
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Purpose of Non-Refundable</label>
+                        <select name="" id="State" class="form-select validateThis">
+                            <option value="">--Select--</option>
+                            <option value="">Housing Loan</option>
+                            <option value="">Purchase Of Consumer</option>
+                            <option value="">Medical Issues</option>
+                            <option value="">Vehical Loan</option>
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Enter Purpose of Non-Refundable
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Basic Pay*12<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control form-control-sm validateThis" placeholder="Basic Pay" disabled>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">75% (Total GPF Account Balance)<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" placeholder="Account Balance" readonly="">
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Eligible loan Amount</label>
+                        <div class="d-flex">
+
+                            <input type="text" class="form-control form-control-sm validateThis" placeholder="Eligible loan Amount" disabled />
+                        </div>
+                        <div class="invalid-feedback ">
+                            Please Enter Eligible loan Amount
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Place of Posting Last 3 Years</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Place Of Posting Last 3 Years" />
+                        <div class="invalid-feedback ">
+                            Please Enter Place of Posting Last 3 Years
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Description(Details of Advance Application)</label>
+                        <textarea class="form-control form-control-sm"></textarea>
+                    </div>
+                    <div class="col-sm-8 col-md-4 mb-3">
+                        <p class="form-label d-block mb-1">Whether any Non-Refundable withdrawal was Taken earlier</p>
+                        <div class="d-flex">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="dependentSelf"
+                                       id="Yes">
+                                <label class="form-check-label" for="Yes">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="dependentSelf"
+                                       id="no">
+                                <label class="form-check-label" for="dependentSelf">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="yesDiv">
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Indicate the Amount</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="Indicate the Amount" />
+                        <div class="invalid-feedback ">
+                            Please Enter Indicate the Amount
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Indicate the Year</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="Indicate the Year" />
+                        <div class="invalid-feedback ">
+                            Please Enter Indicate the Year
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Date of Application</label>
+                        <input type="date" class="form-control form-control-sm" placeholder="Enter" />
+                        <div class="invalid-feedback ">
+                            Please Enter Date of Application
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+                </div>
+    
+                <div class="card-body">
+                    <h4 class="form_title shadow-2-strong ">
+                        Upload Document Attachment
+                    </h4>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 mb-3">
+                            <label class="form-label d-block mb-1">Document Name</label>
+                            <select name="" id="State" class="form-select validateThis">
+                                <option value="">--Select--</option>
+                                <option value="">Pan</option>
+                                <option value="">Aadhar Card</option>
+                                <option value="">Salary Slip</option>
+                                <option value="">others</option>
+
+                            </select>
+                            <div class="invalid-feedback ">
+                                Please Enter Document Name
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-md-5 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Choose file<span class="text-danger req_text">*</span>
+                            </label>
+                            <input class="form-control validateThis" type="file" id="formFileMultiple" multiple>
+                            <div class="invalid-feedback ">
+                                Please Enter Choose file
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2 col-lg-2 col-xl-1 position-relative px-0">
+                            <button class=" btn btn-success position-absolute top-25 fw-bolder">
+                                <i class="fa fa-plus mr-2"></i>Add
+                            </button>
+                        </div>
+                        <div class="col-sm-12">
+                            <table id="example1" class="table table-bordered table">
+                                <thead>
+                                    <tr>
+                                        <th width="7%" class="text-center">Sr. No.</th>
+                                        <th>Document Type</th>
+                                        <th class="text-center" width="15%">Attach file </th>
+                                        <th width="8%">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td class="text-center">1</td>
+                                        <th>Document Type</th>
+                                        <td class="text-center"><a href="#" class="pdfIcons"><i class="fa fa-file-pdf" aria-hidden="true"></i></a> </td>
+                                        <td class="d-flex border-bottom-0 text-center">
+                                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="card-body">
+                            <h4 class="form_title shadow-2-strong ">
+                                Bank Details
+                            </h4>
+                            <div class="row">
+
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label d-block mb-1">Bank Name </label>
+                                    <input type="text" class="form-control form-control-sm validateThis" placeholder="Bank Name" />
+                                    <div class="invalid-feedback ">
+                                        Please Enter Bank Name
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label d-block mb-1">Branch Name </label>
+                                    <input type="text" class="form-control form-control-sm validateThis" placeholder="Branch Name" />
+                                    <div class="invalid-feedback ">
+                                        Please Enter Branch Name
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label d-block mb-1">Bank Account Number </label>
+                                    <input type="text" class="form-control form-control-sm validateThis" placeholder="Account Number" />
+                                    <div class="invalid-feedback ">
+                                        Please Enter Bank Account Number
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label d-block mb-1">IFSC Code</label>
+                                    <input type="text" class="form-control form-control-sm validateThis" placeholder="IFSC Code" />
+                                    <div class="invalid-feedback ">
+                                        Please Enter IFSC Code
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label d-block mb-1">BIC Code</label>
+                                    <input type="text" class="form-control form-control-sm validateThis" placeholder="BIC Code" />
+                                    <div class="invalid-feedback ">
+                                        Please Enter BIC Code
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb-3 submit_area submit_area_strip">
+                            <a class="btn btn-brand me-2" data-bs-toggle="modal" data-bs-target="#submit_pop_up">Submit</a>
+                            <a class="btn btn-cancel me-2" href="@Url.Action("NonRefundableList","Withdrawal",new {Area="GPF" })" .>Cancel</a>
+                            <button class="btn btn-reset me-2">Reset</button>
+                        </div>
+                        <!-- modal start -->
+                        <div class="modal fade" id="submit_pop_up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog  modal-sm">
+                                <div class="modal-content">
+
+                                    <div class="modal-body ">
+                                        <div class="content px-0">
+                                            <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                                            <p class="message-type">Are you sure you want to Submit ?</p>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-brand popUp_btn me-2">Submit</button>
+                                            <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- modal end -->
+                        <!-- modal start -->
+                        <div class="modal fade" id="Cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog  modal-dialog-scrollable ">
+                                <div class="modal-content">
+
+                                    <div class="modal-body ">
+                                        <div class="content">
+                                            <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <img src="../assets/images/thumbs-up.png" class="icon_reject ">
+                                            <p class="message-type">Are you sure you want to Cancel ?</p>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-brand popUp_btn me-2" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- modal end -->
+                    </div>
+                </div>
+
+            </div>
+</form>
+</div>
+<script src="~/assets/js/commonJs.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#yesDiv').hide();
+   
+        $('input[type="radio"]').click(function () {
+            if ($(this).attr('id') == 'Yes') {
+                $('#yesDiv').show();
+              
+            }
+            else if ($(this).attr('id') == 'no') {
+              
+                $('#yesDiv').hide();
+            }
+            else {
+                $('#showMe').hide();
+           
+            }
+        });
+    });
+</script>

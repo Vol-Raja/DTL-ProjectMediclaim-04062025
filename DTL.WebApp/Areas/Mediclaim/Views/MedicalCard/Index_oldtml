@@ -1,0 +1,143 @@
+﻿@using DTL.Model.Models.Mediclaim;
+@model List<MedicalCardModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .dataTables_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+        .dataTables_wrapper .dt-buttons.btn-group {
+            order: -1;
+        }
+
+        .dataTables_wrapper .dataTables_length {
+            order: -2;
+        }
+</style>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Mediclaim Card Details</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard",new { Area="Mediclaim" })">Mediclaim</a></li>
+                        <li class="breadcrumb-item active">Mediclaim Card List</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-md-12" style="padding-bottom: 1%;">
+                                @if (Convert.ToBoolean(ViewBag.Create))
+                                {
+                                    <a href="@Url.Action("AddNewMedicalCard", "MedicalCard", new { Area = "Mediclaim" })" class="btn btn-default">Add New Mediclaim Card Details</a>
+                                }
+                            </div>
+                            <hr />
+                            <table id="empTbl" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Medical Card No.</th>
+                                        <th>Employee No.</th>
+                                        <th>PPO No.</th>
+                                        <th>Name of Card Holder/ Pensioner</th>
+                                        <th>Employer</th>
+                                        <th>Medical Section Page No.</th>
+                                        <th>Card category</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count > 0)
+                                    {
+                                        int rowIndex = 1;
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@rowIndex</td>
+                                                <td>@item.MedicalCardId</td>
+                                                <td>@item.EmployeeNo</td>
+                                                <td>@item.PPONo</td>
+                                                <td>@item.NameOfCardHolder</td>
+                                                <td>@item.Employer</td>
+                                                <td>@item.MedicalSectionPageNo</td>
+                                                <td>@item.CardCategory</td>
+                                                <td class="d-flex justify-content-around">
+                                                    @if (Convert.ToBoolean(ViewBag.View))
+                                                    {
+                                                        <a href="/Mediclaim/MedicalCard/PrintPreview/@item.MedicalCardId.ToString()"><i class="far fa-eye"></i></a>}
+                                                    @if (Convert.ToBoolean(ViewBag.Edit))
+                                                    {
+                                                        <a href="/Mediclaim/MedicalCard/EditMedicalCard/@item.MedicalCardId"><i class="far fa-edit"></i></a>}
+                                                    @if (Convert.ToBoolean(ViewBag.Delete))
+                                                    {
+                                                        <a href="/Mediclaim/MedicalCard/Delete/@item.MedicalCardId.ToString()"><i class="fa fa-trash"></i></a>}
+                                                </td>
+                                            </tr>
+                                            rowIndex = rowIndex + 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="9">
+                                                <p>No data found</p>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section MedicalCard{
+
+    <script>
+        $(document).ready(function () {
+            $("#empTbl").DataTable({
+                ordering: true,
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Medical Cards'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Medical Cards'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Medical Cards'
+                    }
+                ],
+            });
+        })
+    </script>
+}

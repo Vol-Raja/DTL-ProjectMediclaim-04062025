@@ -1,0 +1,963 @@
+﻿@using DTL.Model.Models
+@model IEnumerable<MasterDocumentModel>
+@{
+    ViewData["Title"] = "Creditletter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid view_form">
+    <input type="hidden" id="hdnMediClaimId" />
+    <div class="card border-card mt-0">
+        <div class="card-body">
+            <form class="g-3 mt-2 needs-validation" id="cashlessForm" action="" method="post">
+
+                <h4 class="form_title shadow-2-strong ">
+                    Detail Of Hospital
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1" for="name">Name Of Hospital<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtNameOfHospital" maxlength="100" readonly class="form-control form-control-sm " placeholder="Name Of Hospital" />
+                        <div class="invalid-feedback">
+                            Please Enter Name Of Hospital
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Hospital Id<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtHospitalId" maxlength="15" readonly class="form-control form-control-sm" placeholder="Hospital Id" />
+                        <div class="invalid-feedback">
+                            Please Enter Hospital Id
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Phone Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtHospitalPhoneNumber" readonly class="form-control form-control-sm" placeholder="Phone Number" />
+                        <div class="invalid-feedback">
+                            Please Enter Phone Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Email Id<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="email" id="txtEmailId" maxlength="50" readonly class="form-control form-control-sm" placeholder="Email id" />
+                        <div class="invalid-feedback">
+                            Please Enter  Email Id
+                        </div>
+                    </div>
+                    <div class="col-sm-8 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Address<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea id="txtHospitalAddress" maxlength="250" readonly class="form-control form-control-sm" placeholder="Address"></textarea>
+                        <div class="invalid-feedback">
+                            Please Enter Address
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    General Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Date Of Issue<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="Date" id="dtDateRetirement" class="form-control form-control-sm" placeholder="Date Of Issue" />
+                        @*<input type="email" id="txtEmailId" maxlength="50" readonly class="form-control form-control-sm" placeholder="Email id" />*@
+                        <div class="invalid-feedback">
+                            Please Choose Issue Date
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Case Type<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="radio" id="rdemergency" name="selectedOption" value="Emergency" />
+                        <label for="Emergency">Emergency</label>
+
+                        <input type="radio" id="rdelective" name="selectedOption" value="Elective" checked="checked" />
+                        <label for="Elective">Elective</label>
+
+                        <div class="invalid-feedback">
+                            Please Choose Case Type
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Date Of Admission<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="Date" id="dtAdmission" class="form-control form-control-sm" placeholder="Date Of Birth" />
+                        <div class="invalid-feedback">
+                            Please Choose Date Of Admission
+                        </div>
+                    </div>
+
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong" id="report_heder">
+                    Report Document Upload
+                </h4>
+
+                <div class="row" id="report_document">
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 col-md-5 col-lg-5 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Document Type<span class="text-danger req_text">*</span>
+                        </label>
+                        @if (Model.Count() > 0)
+                        {
+                            <select id="selDocumentType" class="form-select">
+                                <option value="">Select</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.DocumentId">@item.DocumentName</option>
+                                }
+                            </select>
+                            @*<div class="invalid-feedback">
+                                    Please Enter Document Type
+                                </div>*@
+                        }
+                        else
+                        {
+                            <select id="selDocumentType" class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                            @*<div class="invalid-feedback">
+                                    Please Enter Document Type
+                                </div>*@
+                        }
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 col-md-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Choose file<span class="text-danger req_text">*</span>
+                        </label>
+                        <input class="form-control" type="file" id="fileUpload" accept="application/pdf">
+
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-2 col-xl-1 position-relative px-0">
+                        <button type="button" class="btn btn-success position-absolute top-25" id="btnUpload"><i class="fa fa-plus mr-2"></i>Add</button>
+                    </div>
+                    <div class="col-sm-12">
+                        <table id="tblDocument" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width:10%">Sr. No.</th>
+                                    <th style="width:40%">Document Type</th>
+                                    <th style="width:30%">Attach File</th>
+                                    <th style="width:20%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Patients Details
+                </h4>
+
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            PPO Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPPONumber" class="form-control form-control-sm" placeholder="PPO Number" />
+                        <div class="invalid-feedback">
+                            Please Enter PPO Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            PensionerName<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPensionerName" readonly="readonly" class="form-control form-control-sm" placeholder="Pensioner Name" onkeypress="return  lettersOnly(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter PensionerName
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Employee.No<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtempno" maxlength="10" class="form-control form-control-sm" placeholder="Employee No" onkeypress="return  isNumberKey(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter  Employee No
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Patient Name<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPatient" maxlength="16" class="form-control form-control-sm" placeholder="Patient Name" />
+                        <div class="invalid-feedback">
+                            Please Enter Patient Name
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            relationship with
+                            retiree<span class="text-danger req_text">*</span>
+                        </label>
+                        <select name="RelatioWithRetire" id="txtRelation" class="form-select ">
+                            <option value="">Select</option>
+                            <option value="Self">Self</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Parents">Parents</option>
+                            <option value="Child">Child</option>
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Select relationship with
+                            retiree
+                        </div>
+                    </div>
+
+
+                    @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Page No<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" id="txtPageNumber" maxlength="50" class="form-control form-control-sm" placeholder="Page No" />
+                            <div class="invalid-feedback">
+                                Please Enter  Page No
+                            </div>
+                        </div>*@
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Category of Room<span class="text-danger req_text">*</span>
+                        </label>
+
+                        <select name="" id="selCardCategory" class="form-select">
+                            <option value="">Select</option>
+                            <option value="General">General</option>
+                            <option value="Semi-Private">Semi Private</option>
+                            <option value="Private">Private</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please Enter  Category
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Name of Doctor<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtdocno" maxlength="50" class="form-control form-control-sm" placeholder="Name of Doctor" />
+                        <div class="invalid-feedback">
+                            Please Enter Name of Doctor
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Doctor Mobile No<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtDoctorNumber" maxlength="10" class="form-control form-control-sm" placeholder="Doctor Mobile Number" onkeypress="return  isNumberKey(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter Doctor Mobile No
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Patient Mobile No<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPatientNumber" readonly="readonly" maxlength="10" class="form-control form-control-sm" placeholder="Patient Mobile Number" onkeypress="return  isNumberKey(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter Patient Mobile No
+                        </div>
+                    </div>
+                    @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="date" id="dtDateRetirement" class="form-control form-control-sm" placeholder="Date of Retirement" />
+                            <div class="invalid-feedback">
+                                Please Enter  Date
+                            </div>
+                        </div>*@
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Provisional Diagnosis<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtProvisional" maxlength="10" class="form-control form-control-sm" placeholder="Provisional" />
+                        <div class="invalid-feedback">
+                            Please Enter Provisional Diagnosis
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Duration Of Stay<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtDurationNumber" maxlength="10" class="form-control form-control-sm" placeholder="Duration Number" onkeypress="return  isNumberKey(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter Duration Of Stay
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Organization Name<span class="text-danger req_text">*</span></label>
+                        @Html.DropDownList("Organization", (IEnumerable<SelectListItem>)ViewBag.DTLOfficeList, "Select", new { id = "selOrganization", @class = "form-select" })
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Intended Treatment<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea id="txtIstended" maxlength="250" class="form-control form-control-sm" placeholder="Treatment"></textarea>
+                        @*<input type="text" id="txtIstended" maxlength="10" class="form-control form-control-sm" placeholder="Treatment"/>*@
+                        <div class="invalid-feedback">
+                            Please Enter Intended Treatment
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Resident Address<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea id="txtResidentAddress" maxlength="250" class="form-control form-control-sm" placeholder="Address"></textarea>
+                        <div class="invalid-feedback">
+                            Please Enter Resident Address
+                        </div>
+                    </div>
+                </div>
+
+
+                @*<h4 class="form_title mt-3 shadow-2-strong">
+                        Requested By Hospital at the time of discharge
+                    </h4>*@
+                @*<div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date Of Admission<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="Date" id="dtAdmission" class="form-control form-control-sm" placeholder="Date Of Birth" />
+                            <div class="invalid-feedback">
+                                Please Enter Date Of Admission
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date Of Discharge<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="Date" id="dtDischarge" class="form-control form-control-sm" placeholder="Date Of Birth" />
+                            <div class="invalid-feedback">
+                                Please Enter Date Of Discharge
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Diagnosis <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" id="txtDiagnosis" maxlength="50" class="form-control form-control-sm" placeholder="Card Type / Illness Type" />
+                            <div class="invalid-feedback">
+                                Please Enter Diagnosis
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Type Of treatment <span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea id="txtTypeOfTreatment" maxlength="250" class="form-control form-control-sm" placeholder="Treatment Type"></textarea>
+
+                            <div class="invalid-feedback">
+                                Please Enter Type Of treatment
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                SignatureDischargeTime <span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea id="txtSignatureDischargeTime" maxlength="250" class="form-control form-control-sm" placeholder="Signature Discharge"></textarea>
+
+                            <div class="invalid-feedback">
+                                Please Enter Type Of treatment
+                            </div>
+                        </div>
+
+                    </div>*@
+
+
+                <div class="col-md-12 mb-3 submit_area submit_area_strip" style="background: aliceblue;">
+                    <button type="button" class="btn btn-brand me-2 hide_submit" id="btnSubmit1" data-toggle="modal" data-target="">Submit</button>
+                    <a href="/Mediclaim/Cashless" role="button" class="btn btn-cancel me-2 hide_submit">Cancel</a>
+                    <button type="reset" class="btn btn-reset me-2">Reset</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--<div class="container-fluid">
+
+    <div class="card border-card mt-0">
+        <div class="card-body">
+            <form class="g-3 mt-2 needs-validation" id="cashlessForm" action="" method="post">
+                <input type="hidden" id="hdnMediClaimId" />
+                <h4 class="form_title shadow-2-strong ">
+                    Detail Of Hospital
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1" for="name">Name Of Hospital<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtNameOfHospital" maxlength="100" readonly class="form-control form-control-sm " placeholder="Name Of Hospital" />
+                        <div class="invalid-feedback">
+                            Please Enter Name Of Hospital
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Hospital Id<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtHospitalId" maxlength="15" readonly class="form-control form-control-sm" placeholder="Hospital Id" />
+                        <div class="invalid-feedback">
+                            Please Enter Hospital Id
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Phone Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtHospitalPhoneNumber" readonly class="form-control form-control-sm" placeholder="Phone Number" />
+                        <div class="invalid-feedback">
+                            Please Enter Phone Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Email Id<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="email" id="txtEmailId" maxlength="50" readonly class="form-control form-control-sm" placeholder="Email id" />
+                        <div class="invalid-feedback">
+                            Please Enter  Email Id
+                        </div>
+                    </div>
+                    <div class="col-sm-8 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Address<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea id="txtHospitalAddress" maxlength="250" readonly class="form-control form-control-sm" placeholder="Address"></textarea>
+                        <div class="invalid-feedback">
+                            Please Enter Address
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    General Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Date Of Issue<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="Date" id="dtDateRetirement" class="form-control form-control-sm" placeholder="Date Of Issue" />-->
+                        @*<input type="email" id="txtEmailId" maxlength="50" readonly class="form-control form-control-sm" placeholder="Email id" />*@
+                        <!--<div class="invalid-feedback">
+                            Please Choose Issue Date
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Case Type<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="radio" id="rdemergency" name="selectedOption" value="Emergency" />
+                        <label for="Emergency">Emergency</label>
+
+                        <input type="radio" id="rdelective" name="selectedOption" value="Elective" checked="checked" />
+                        <label for="Elective">Elective</label>
+
+                        <div class="invalid-feedback">
+                            Please Choose Case Type
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Date Of Admission<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="Date" id="dtAdmission" class="form-control form-control-sm" placeholder="Date Of Birth" />
+                        <div class="invalid-feedback">
+                            Please Choose Date Of Admission
+                        </div>
+                    </div>
+
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong" id="report_heder">
+                    Report Document Upload
+                </h4>
+
+                <div class="row" id="report_document">
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 col-md-5 col-lg-5 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Document Type<span class="text-danger req_text">*</span>
+                        </label>
+                        if (Model.Count() > 0)
+                        {
+                            <select id="selDocumentType" class="form-select">
+                                <option value="">Select</option>
+                                foreach (var item in Model)
+                                {
+                                    <option value="item.DocumentId">item.DocumentName</option>
+                                }
+                            </select>
+                            @*<div class="invalid-feedback">
+                        Please Enter Document Type
+                  --  </div>*@
+                        <!--}
+                        //else
+                        //{
+                            <select id="selDocumentType" class="form-control">
+                                <option value="">Select</option>
+                            </select>-->
+                            @*<div class="invalid-feedback">
+                        Please Enter Document Type
+                    </div>*@
+                        <!--}
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 col-md-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Choose file<span class="text-danger req_text">*</span>
+                        </label>
+                        <input class="form-control" type="file" id="fileUpload" accept="application/pdf">
+
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-2 col-xl-1 position-relative px-0">
+                        <button type="button" class="btn btn-success position-absolute top-25" id="btnUpload"><i class="fa fa-plus mr-2"></i>Add</button>
+                    </div>
+                    <div class="col-sm-12">
+                        <table id="tblDocument" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width:10%">Sr. No.</th>
+                                    <th style="width:40%">Document Type</th>
+                                    <th style="width:30%">Attach File</th>
+                                    <th style="width:20%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Patients Details
+                </h4>
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            PPO Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPPONumber" class="form-control form-control-sm" placeholder="PPO Number" />
+                        <div class="invalid-feedback">
+                            Please Enter PPO Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            PensionerName<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPensionerName" readonly="readonly" class="form-control form-control-sm" placeholder="Pensioner Name" onkeypress="return  lettersOnly(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter PensionerName
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Employee.No<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtempno" maxlength="10" class="form-control form-control-sm" placeholder="Employee No" onkeypress="return  isNumberKey(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter  Employee No
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Patient Name<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPatient" maxlength="16" class="form-control form-control-sm" placeholder="Patient Name" />
+                        <div class="invalid-feedback">
+                            Please Enter Patient Name
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            relationship with
+                            retiree<span class="text-danger req_text">*</span>
+                        </label>
+                        <select name="RelatioWithRetire" id="txtRelation" class="form-select ">
+                            <option value="">Select</option>
+                            <option value="Self">Self</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Parents">Parents</option>
+                            <option value="Child">Child</option>
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Select relationship with
+                            retiree
+                        </div>
+                    </div>-->
+
+
+                    @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                <label class="form-label d-block mb-1">
+                    Page No<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtPageNumber" maxlength="50" class="form-control form-control-sm" placeholder="Page No" />
+                <div class="invalid-feedback">
+                    Please Enter  Page No
+                </div>
+            </div>*@
+                    <!--<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Category of Room<span class="text-danger req_text">*</span>
+                        </label>
+
+                        <select name="" id="selCardCategory" class="form-select">
+                            <option value="">Select</option>
+                            <option value="General">General</option>
+                            <option value="Semi-Private">Semi Private</option>
+                            <option value="Private">Private</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please Enter  Category
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Name of Doctor<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtdocno" maxlength="50" class="form-control form-control-sm" placeholder="Name of Doctor" />
+                        <div class="invalid-feedback">
+                            Please Enter Name of Doctor
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Doctor Mobile No<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtDoctorNumber" maxlength="10" class="form-control form-control-sm" placeholder="Doctor Mobile Number" onkeypress="return  isNumberKey(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter Doctor Mobile No
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Patient Mobile No<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPatientNumber" readonly="readonly" maxlength="10" class="form-control form-control-sm" placeholder="Patient Mobile Number" onkeypress="return  isNumberKey(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter Patient Mobile No
+                        </div>
+                    </div>-->
+                    @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1">
+                    Date <span class="text-danger req_text">*</span>
+                </label>
+                <input type="date" id="dtDateRetirement" class="form-control form-control-sm" placeholder="Date of Retirement" />
+                <div class="invalid-feedback">
+                    Please Enter  Date
+                </div>
+            </div>*@
+
+                    <!--<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Provisional Diagnosis<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtProvisional" maxlength="10" class="form-control form-control-sm" placeholder="Provisional" />
+                        <div class="invalid-feedback">
+                            Please Enter Provisional Diagnosis
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Duration Of Stay<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtDurationNumber" maxlength="10" class="form-control form-control-sm" placeholder="Duration Number" onkeypress="return  isNumberKey(event)" />
+                        <div class="invalid-feedback">
+                            Please Enter Duration Of Stay
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Intended Treatment<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea id="txtIstended" maxlength="250" class="form-control form-control-sm" placeholder="Treatment"></textarea>-->
+                        @*<input type="text" id="txtIstended" maxlength="10" class="form-control form-control-sm" placeholder="Treatment"/>*@
+                        <!--<div class="invalid-feedback">
+                            Please Enter Intended Treatment
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Resident Address<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea id="txtResidentAddress" maxlength="250" class="form-control form-control-sm" placeholder="Address"></textarea>
+                        <div class="invalid-feedback">
+                            Please Enter Resident Address
+                        </div>
+                    </div>
+                </div>-->
+                @*<div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                <label class="form-label d-block mb-1">
+                    Patient Name<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtPatient" maxlength="16" class="form-control form-control-sm" placeholder="Patient Name" />
+                <div class="invalid-feedback">
+                    Please Enter Patient Name
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1">
+                    PensionerName<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtPensionerName" class="form-control form-control-sm" placeholder="Pensioner Name" onkeypress="return  lettersOnly(event)" />
+                <div class="invalid-feedback">
+                    Please Enter PensionerName
+                </div>
+
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                <label class="form-label d-block mb-1">
+                    relationship with
+                    retiree<span class="text-danger req_text">*</span>
+                </label>
+                <select name="RelatioWithRetire" id="txtRelation" class="form-select ">
+                    <option value="">Select</option>
+                    <option value="Self">Self</option>
+                    <option value="Spouse">Spouse</option>
+                    <option value="Parents">Parents</option>
+                    <option value="Child">Child</option>
+                </select>
+                <div class="invalid-feedback ">
+                    Please Select relationship with
+                    retiree
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                <label class="form-label d-block mb-1">
+                    E.No<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtempno" maxlength="50" class="form-control form-control-sm" placeholder="Employee No" />
+                <div class="invalid-feedback">
+                    Please Enter  EMPLOYEE No
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                <label class="form-label d-block mb-1">
+                    Page No<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtPageNumber" maxlength="50" class="form-control form-control-sm" placeholder="Page No" />
+                <div class="invalid-feedback">
+                    Please Enter  Page No
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                <label class="form-label d-block mb-1">
+                    Category of Room<span class="text-danger req_text">*</span>
+                </label>
+
+                <select name="" id="selCardCategory" class="form-select">
+                    <option value="">Select</option>
+                    <option value="General">General</option>
+                    <option value="Semi-Private">Semi Private</option>
+                    <option value="Private">Private</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please Enter  Category
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1">
+                    Name of Doctor<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtdocno" maxlength="50" class="form-control form-control-sm" placeholder="Name of Doctor" />
+                <div class="invalid-feedback">
+                    Please Enter Name of Doctor
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1" for="name">
+                    PPO Number<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtPPONumber" class="form-control form-control-sm" placeholder="PPO Number" />
+                <div class="invalid-feedback">
+                    Please Enter PPO Number
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1">
+                    Patient Number<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtPatientNumber" maxlength="10" class="form-control form-control-sm" placeholder="Patient Number" onkeypress="return  isNumberKey(event)" />
+                <div class="invalid-feedback">
+                    Please Enter Patient Number
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1">
+                    Date <span class="text-danger req_text">*</span>
+                </label>
+                <input type="date" id="dtDateRetirement" class="form-control form-control-sm" placeholder="Date of Retirement" />
+                <div class="invalid-feedback">
+                    Please Enter  Date
+                </div>
+            </div>
+        </div>*@
+
+
+                @*<div class="col-sm-12  mb-3">
+            <label class="form-label d-block mb-1">
+                Resident Address<span class="text-danger req_text">*</span>
+            </label>
+            <textarea id="txtResidentAddress" maxlength="250" class="form-control form-control-sm" placeholder="Address"></textarea>
+            <div class="invalid-feedback">
+                Please Enter Resident Address
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1">
+                    Provisional Diagnosis<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtProvisional" maxlength="10" class="form-control form-control-sm" placeholder="Provisional" />
+                <div class="invalid-feedback">
+                    Please Enter Provisional Diagnosis
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1">
+                    Istended Treatment<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtIstended" maxlength="10" class="form-control form-control-sm" placeholder="Treatment" />
+                <div class="invalid-feedback">
+                    Please Enter Istended Treatment
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                <label class="form-label d-block mb-1">
+                    Duration Of Stayt<span class="text-danger req_text">*</span>
+                </label>
+                <input type="text" id="txtDurationNumber" maxlength="10" class="form-control form-control-sm" placeholder="Duration Number" onkeypress="return  isNumberKey(event)" />
+                <div class="invalid-feedback">
+                    Please Enter Duration Of Stay
+                </div>
+            </div>*@
+<!--</div>-->
+
+                @*<h4 class="form_title mt-3 shadow-2-strong">
+                        Requested By Hospital at the time of discharge
+                    </h4>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date Of Admission<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="Date" id="dtAdmission" class="form-control form-control-sm" placeholder="Date Of Birth" />
+                            <div class="invalid-feedback">
+                                Please Enter Date Of Admission
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Date Of Discharge<span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="Date" id="dtDischarge" class="form-control form-control-sm" placeholder="Date Of Birth" />
+                            <div class="invalid-feedback">
+                                Please Enter Date Of Discharge
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Diagnosis <span class="text-danger req_text">*</span>
+                            </label>
+                            <input type="text" id="txtDiagnosis" maxlength="50" class="form-control form-control-sm" placeholder="Card Type / Illness Type" />
+                            <div class="invalid-feedback">
+                                Please Enter Diagnosis
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                Type Of treatment <span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea id="txtTypeOfTreatment" maxlength="250" class="form-control form-control-sm" placeholder="Treatment Type"></textarea>
+
+                            <div class="invalid-feedback">
+                                Please Enter Type Of treatment
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <label class="form-label d-block mb-1">
+                                SignatureDischargeTime <span class="text-danger req_text">*</span>
+                            </label>
+                            <textarea id="txtSignatureDischargeTime" maxlength="250" class="form-control form-control-sm" placeholder="Signature Discharge"></textarea>
+
+                            <div class="invalid-feedback">
+                                Please Enter Type Of treatment
+                            </div>
+                        </div>
+
+                    </div>*@
+
+
+                <!--<div class="col-md-12 mb-3 submit_area submit_area_strip" style="background: aliceblue;">
+                    <button type="button" class="btn btn-brand me-2 hide_submit" id="btnSubmit1" data-toggle="modal" data-target="">Submit</button>
+                    <a href="/Mediclaim/Cashless" role="button" class="btn btn-cancel me-2 hide_submit">Cancel</a>
+                    <button type="reset" class="btn btn-reset me-2">Reset</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>-->
+
+@section CashlessRaise{
+    <script src="~/assets/js/commonJs.js"></script>
+    <script type="text/javascript" src="~/js/Mediclaim/Raise/CreditLatter.js"></script>
+
+    <script>
+        $(".show_submit").hide();
+        $('input[name=dependent_self]').click(function () {
+            if ($(this).val() === "Dependent") {
+                $(".showDependent").show();
+            } else {
+                $(".showDependent").hide();
+            }
+        });
+
+    </script>
+}
+

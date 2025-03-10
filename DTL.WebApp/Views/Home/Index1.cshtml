@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    .small-box .icon > i.ion {
+        font-size: 60px !important;
+        top: 0px !important;
+    }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"> Dashboard</h1>
+                </div><!-- /.col -->
+                @*<div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Layout</a></li>
+                            <li class="breadcrumb-item active">Top Navigation</li>
+                        </ol>
+                    </div>*@<!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                @switch (ViewBag.Roles)
+                {
+                    case "Master":
+                        <partial name="_masterMenu" />
+                        break;
+                    case "SuperAdmin":
+                        <partial name="_superAdminMenu" />
+                        break;
+                    case "Admin":
+                        <partial name="_adminMenu" />
+                        break;
+                    case "Pensioner":
+                        <partial name="_pensionerMenu" />
+                        break;
+                    case "Hospitals":
+                        <partial name="_hospitalsMenu" />
+                        break;
+                    case "Existing Employee":
+                        <partial name="_existingEmployeeMenu" />
+                        break;
+                    case "DVB Pension Trust":
+                        <partial name="_DVBPensionTrustMenu" />
+                        break;
+                }
+
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+<!-- /.content-wrapper -->
+<!-- /.content-wrapper -->
+@section DashboardScript{
+    <!-- AdminLTE for demo purposes -->
+    <!-- <script src="~/dist/js/demo.js" asp-append-version="true"></script>-->
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- <script src="~/dist/js/pages/dashboard.js" asp-append-version="true"></script>-->
+}

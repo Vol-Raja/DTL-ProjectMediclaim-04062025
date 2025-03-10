@@ -1,0 +1,429 @@
+@using System.Globalization
+@{
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+}
+@model HomeModel;
+<div class="container-fliud">
+    <main role="main" class="">
+        <style>
+
+            .tabs {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .AimVisionbtn {
+                padding: 4px 0px;
+                font-size: 15px;
+                cursor: pointer;
+                border: none;
+                background-color: #01173b00;
+                color: white;
+                border-radius: 20px;
+                font-weight: 600;
+            }
+
+
+
+                .AimVisionbtn.active {
+                    background-color: #ffffff;
+                    color: #01173b;
+                }
+
+            AimVisionsections {
+                background-color: #01173b;
+            }
+
+            .AimVisioncontent.active {
+                display: block;
+            }
+
+
+
+            .AimVisioncontent {
+                display: none;
+            }
+        </style>
+        <section id="welcome_text">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-lg-3">
+                        <h5>स्वागत है लाभार्थी!!!</h5>
+                    </div>
+                    <div class="col-md-8 col-lg-9">
+                        <marquee behavior="" direction="left" scrollamount="3" onmouseover="this.stop();" onmouseleave="this.start()">
+                            <p>
+                                हम हमेशा मुस्कुराहट के साथ गरिमापूर्ण उम्र बढ़ने का आनंद लेने के लिए आपके साथ होते हैं। हम दिल्ली पावर सेक्टर में प्रदान की गई आपकी मूल्यवान सेवाओं की सराहना करते हैं। ”
+                            </p>
+                        </marquee>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @if (Model.BannerImages?.Count() > 0)
+                    {
+                        int counter = 0;
+                        @foreach (var item in Model.BannerImages.Where(x => x.IsGallery != true))
+                        {
+                            <div class='bannerImage carousel-item @(counter == 0 ? "active" : "")'>
+                                <img src="@Url.Action("DownloadFile","BannerImage", new {BannerImageId= @item.ID})" class="d-block w-100" alt="banner image">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+                            counter++;
+                        }
+                    }
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+        <section id="important_notice" class="sction_align">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 position-relative">
+                        <div class="links shadow">
+                            <h5 class="content_heading title_bg">
+                                महत्वपूर्ण लिंक
+                            </h5>
+                            <marquee id="imp" behavior="" direction="up" scrollamount="3" onmouseover="this.stop();" onmouseleave="this.start()">
+                                @if (Model.Links != null)
+                                {
+                                    @foreach (var item in Model.Links)
+                                    {
+                                        <a href="@item.Link" target="_blank">@item.TitleHindi</a>
+                                    }
+                                }
+                            </marquee>
+                            <div class="controls text-end">
+                                <a href="/link" class="btn btn-sm btn-primary">सभी देखें</a>
+                                <button onclick="document.getElementById('imp').stop()">
+                                    <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
+                                </button>
+                                <button onclick="document.getElementById('imp').start()">
+                                    <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mt-auto">
+                        <div class="message">
+                            <div class="owl-carousel owl-theme owl-loaded owl-drag">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage" style="transform: translate3d(-1304px, 0px, 0px); transition: all 0s ease 0s; width: 3912px;">
+                                        @if (Model.Testimonies != null)
+                                        {
+                                            @foreach (var item in Model.Testimonies)
+                                            {
+
+                                                <div class="owl-item cloned" style="width: 642px; margin-right: 10px;">
+                                                    <div class="item">
+                                                        <div class="info">
+                                                            <div class="img">
+                                                                <img src="@Url.Action("DownloadFile", "Testimony" , new { TestimonyId=item.ID})" alt="@item.NameEnglish">
+                                                            </div>
+                                                            <div class="name my-auto">
+                                                                <h4>@item.NameHindi</h4>
+                                                                <h6>@item.PositionHindi</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="msg">
+                                                            <p>
+                                                                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                                                @item.DescriptionHindi
+                                                                <i class="fa fa-quote-right" aria-hidden="true"></i>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        }
+                                    </div>
+                                </div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots disabled"></div>
+                            </div>
+                       
+                        </div>
+                    </div>
+                    <div class="col-lg-3 position-relative">
+
+                        <div class="links shadow">
+                            <h5 class="content_heading title_bg">
+                                सार्वजनिक सूचनाएँ
+                            </h5>
+                            <marquee id="notice" direction="up" scrollamount="3" onmouseover="this.stop();" onmouseleave="this.start()">
+                                @if (Model.Notices != null)
+                                {
+                                    @foreach (var notice in Model.Notices)
+                                    {
+                                        <a href="@Url.Action("DownloadFile", "notice", new { id =  notice.ID , lang = "hn"})" target="_blank">@notice.TitleInHindi</a>
+                                    }
+                                }
+
+                            </marquee>
+                            <div class="controls text-end">
+                                <a href="/notice" class="btn btn-sm btn-primary">सभी देखें</a>
+                                <button onclick="document.getElementById( 'notice').stop();">
+                                    <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
+                                </button>
+                                <button onclick="document.getElementById( 'notice').start();">
+                                    <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="facility">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 position-relative text-center my-4">
+                        <h5 class="border_heading content_heading blue position-relative d-inline">पेंशनभोगियों/मौजूदा  कर्मचारियों के लिए सुविधाएं</h5>
+                    </div>
+                    <div class="col-sm-5">
+                        <img src="assets/images/pensionSection.webp" class="w-100">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="facility_tab">
+                            <a href="http://103.118.16.16:81/">
+
+                                <div class="facility shadow FacilitiesGray">
+                                    <img src="assets/images/icons/retirement-plan.png" class="facility_Icons">
+                                    <p>मासिक पेंशन विवरण </p>
+                                </div>
+                            </a>
+                            <a href="http://103.118.16.16:81/">
+                                <div class="facility shadow FacilitiesRed">
+                                    <img src="assets/images/icons/payment.png" class="facility_Icons">
+                                    <p>मेडिकल बिल / दावा विवरण</p>
+                                </div>
+                            </a>
+                            <a href="http://103.118.16.16:81/">
+                                <div class="facility shadow FacilitiesPurple">
+                                    <img src="assets/images/icons/list.png" class="facility_Icons">
+                                    <p>
+                                        वार्षिक जीपीएफ पर्ची
+                                    </p>
+                                </div>
+                            </a>
+                            <a href="@Url.Action("","Form")">
+                                <div class="facility shadow FacilitiesYellow">
+                                    <img src="assets/images/icons/onlineSlip.png" class="facility_Icons">
+                                    <p>पेंशन ट्रस्ट से संबंधित नवीनतम फॉर्म / परिपत्र</p>
+                                </div>
+                            </a>
+                            <a href="@Url.Action("","Hospital")">
+                                <div class="facility shadow FacilitiesGreen">
+                                    <img src="assets/images/icons/hospital.png" class="facility_Icons">
+                                    <p>
+                                        अस्पताल सूची
+                                    </p>
+                                </div>
+                            </a>
+                            <a href="@Url.Action("","Contactus")">
+                                <div class="facility shadow FacilitiesBlue">
+                                    <img src="assets/images/icons/feedback.png" class="facility_Icons">
+                                    <p>प्रतिक्रिया प्रणाली</p>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="middle_part">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 news_section">
+                        <div class="">
+
+                            <div class="tabs mb-3 mt-5">
+                                <button class="AimVisionbtn btn1 active" id="1">निविदाओं</button>
+                                <button class="AimVisionbtn btn2" id="2">कार्यक्रम</button>
+                                <button class="AimVisionbtn btn3" id="3">ताज़ा खबर</button>
+                            </div>
+                            <div class="AimVisionsections">
+                                <div class="AimVisioncontent content1 active">
+                                    <div class="whatNewSection news">
+                                        @{
+                                            string dateFormat = "dd-MM-yyyy";
+                                        }
+                                        @foreach (var tender in Model.Tenders.OrderByDescending(x => x.CreatedDate))
+                                        {
+
+                                            <div class="Inner_section_ev">
+                                                <p class="mb-0"><i class="fa fa-calendar me-3"></i>@tender.CreatedDate.ToString(dateFormat)</p>
+                                                <p>@tender.TitleInHindi</p>
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <a class="btn" href="/Tender">VIEW ALL <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="AimVisioncontent content2">
+                                    <div class="whatNewSection news">
+                                        @foreach (var item in Model.Events.OrderByDescending(x => x.CreatedDate))
+                                        {
+
+                                            <div class="Inner_section_ev">
+                                                <p class="mb-0"><i class="fa fa-calendar me-3"></i>@item.CreatedDate.ToString(dateFormat)</p>
+                                                <p>@item.TitleInHindi</p>
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                    <a class="btn" href="/event">VIEW ALL <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="AimVisioncontent content3">
+                                    <div class="whatNewSection news">
+                                        @foreach (var item in Model.WhatsNews.OrderByDescending(x => x.CreatedDate))
+                                        {
+
+                                            <div class="Inner_section_ev">
+                                                <p class="mb-0"><i class="fa fa-calendar me-3"></i>@item.CreatedDate.ToString(dateFormat)</p>
+                                                <p>@item.TitleInHindi</p>
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <a class="btn" href="/WhatsNew">VIEW ALL <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-8">
+                        <div class="aim_vision">
+                            <div class="content_div mb-5">
+                                <h5 class="content_heading blue text-dark text-start">हमारा लक्ष्य</h5>
+                                <p>
+                                    @Html.Raw(Model.AimVision?.AimContentHindi)
+                                </p>
+                            </div>
+                            <div class="content_div mb-5">
+                                <h5 class="content_heading blue text-start">हमारा उद्देश्य</h5>
+                                <p>
+                                    @Html.Raw(Model.AimVision.VisionContentHindi)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery my-5">
+            <div class="container px-0 mx-auto">
+                <div class="col-md-12 position-relative my-5 text-center">
+                    <h5 class="border_heading content_heading blue position-relative d-inline">गैलरी</h5>
+                </div>
+
+                <div id="carouselExampleControls1" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner carousel-inner-gallery">
+                        @if (Model.BannerImages?.Where(x => x.IsGallery == true).Count() > 0)
+                        {
+                            int imagesPerSlide = 5;
+                            int imageCounter = 0;
+                            int totalImages = Model.BannerImages.Where(x => x.IsGallery == true).Count();
+                            int iterationCount = totalImages % 5 == 0 ? totalImages / 5 : (totalImages / 5) + 1;
+                            var gallaryImages = Model.BannerImages.Where(x => x.IsGallery == true).ToList();
+                            for (int k = 0; k < iterationCount; k++)
+                            {
+
+                                <div class="carousel-item @(k==0 ?"active" : "")">
+                                    <div class="cards-wrapper">
+
+                                        @for (int i = 0; i < imagesPerSlide && imageCounter < totalImages; i++)
+                                        {
+                                            var item = gallaryImages[imageCounter];
+
+                                            <div class="card gallery-inner-box shadow">
+                                                <div class="image-wrapper">
+                                                    <img src="@Url.Action("DownloadFile","BannerImage", new {BannerImageId= @item.ID})" alt="">
+                                                </div>
+
+                                            </div>
+
+                                            imageCounter++;
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+                    <div class="slider-btn-section">
+                        <button class="carousel-control-prev-gallery" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next-gallery" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <script>
+            const buttons = document.querySelectorAll(".AimVisionbtn");
+            const sections = document.querySelectorAll(".AimVisioncontent");
+
+
+            buttons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    buttons.forEach((btn) => {
+                        btn.classList.remove("active");
+                    });
+                    btn.classList.add("active");
+                    const id = btn.id;
+                    sections.forEach((section) => {
+                        section.classList.remove("active");
+                    });
+                    const req = document.getElementsByClassName(`content${id}`);
+                    if (req && req.length)
+                        req[0].classList.add("active");
+                })
+            })
+
+        </script>
+    </main>
+</div>
+
+
+
+<script src="../../assets/js/bootstrap.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="../../assets/js/font_resize.js"></script>
+<script src="../../assets/js/dark_mode.js"></script>
+<script>
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1
+            }
+        }
+    })
+
+</script>

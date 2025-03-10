@@ -1,0 +1,242 @@
+﻿@using DTL.Model.Models
+@model GrievanceModel
+
+@{
+    ViewData["Title"] = "Grievance";
+    Layout = "_Layout";
+    //const string Public_User = "Public User";
+    const string Employee = "GPFEmployee";
+    const string Pensioner_Employee = "Pensioner";
+    string[] userTypes = new[] { Employee, Pensioner_Employee };
+
+
+    const string mediclaim = "Mediclaim";
+    const string Pensioner_Emp = "Pensioner";
+    const string grievance = "Grievance";
+    string[] userTypes1 = new[] { mediclaim, Pensioner_Emp , grievance };
+    var isNew = Model.ID == Guid.Empty;
+}
+
+
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">@(isNew ? "Add" : Model.IsReadOnly ? "View" : "Edit") Grievance</h3>
+        </div>
+
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home",new { Area="" })"><span class="">Dashboard </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index","Grievance")"><span class=""> Grievance </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("GrievanceList","Grievance")"><span class=""> Grievance List</span> </a>
+            <span class="px-1">/</span>
+            @(isNew ? "Add" : Model.IsReadOnly ? "View" : "Edit") Grievance
+        </p>
+
+    </div>
+
+
+    <form id="CreateGrievanceForm">
+        @Html.HiddenFor(x=> x.ID)
+        @Html.HiddenFor(x=> x.Status)
+        @Html.HiddenFor(x=> x.GrievanceID)
+        @Html.Hidden("IsNew",isNew)
+        <div class="card border-card mt-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="d-block">Select User Type<sup class="text-danger">*</sup></label>
+                        <select class="form-control form-select" name="UserType" id="UserType">
+                            <option value="" selected>--select--</option>
+                            @foreach (string usertype in userTypes)
+                            {
+                                <option value="@usertype" selected=@(usertype == Model.UserType)> @usertype</option>
+                            }
+
+                        </select>
+                        <span id="UserType_error" class="validationError"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="d-block">Name<sup class="text-danger">*</sup></label>
+                        <div class="d-flex">
+                            <input type="text" name="Name" value="@Model.Name" disabled="@Model.IsReadOnly" class="form-control mr-2" id="Name" placeholder="Enter Name">
+                        </div>
+                        <span id="Name_error" class="validationError"></span>
+                    </div>
+
+                    @*<div class="form-group col-md-4">
+            <label class="d-block">Gender<sup class="text-danger">*</sup></label>
+            <div class="d-flex">
+
+
+                @if (!Model.IsReadOnly)
+                {
+                    <p>@Html.RadioButtonFor(x => x.Gender, "Male")<span>&nbsp; </span> Male</p>
+
+                    <span>&nbsp; &nbsp;</span>
+                    <p>@Html.RadioButtonFor(x => x.Gender, "Female")<span>&nbsp; </span> Female</p>
+
+                    <span>&nbsp; &nbsp;</span>
+                    <p>@Html.RadioButtonFor(x => x.Gender, "Other")<span>&nbsp;  </span> Other</p>
+                }
+                else
+                {
+                    <p>@Model.Gender</p>
+                }
+
+
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label class="d-block">Mobile Number<sup class="text-danger">*</sup></label>
+            <div class="d-flex">
+                <input type="text" value="@Model.MobileNo" disabled="@Model.IsReadOnly" class="form-control mr-2" name="MobileNo" id="MobileNo" placeholder="Mobile Number">
+            </div>
+            <span id="MobileNo_error" class="validationError"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label class="d-block">Email ID<sup class="text-danger">*</sup></label>
+            <div class="d-flex">
+                <input type="text" value="@Model.EmailID" disabled="@Model.IsReadOnly" name="EmailID" class="form-control mr-2" id="EmailID" placeholder="Email ID">
+            </div>
+            <span id="EmailID_error" class="validationError"></span>
+        </div>*@
+
+                    <div class="form-group col-md-4" id="PPONoDiv">
+                        <label class="d-block">PPO Number/Employee ID<sup class="text-danger">*</sup></label>
+                        <div class="d-flex">
+                            <input type="text" value="@(Model.EmployeeId == 0 ? "": Model.EmployeeId.ToString())" disabled="@Model.IsReadOnly" name="EmployeeId" class="form-control mr-2" id="EmployeeId" placeholder="Enter PPO Number/Employee ID">
+                        </div>
+                        <span id="EmployeeId_error" class="validationError"></span>
+                    </div>
+
+                    @*<div class="form-group col-md-4">
+            <label class="d-block">Address<sup class="text-danger">*</sup></label>
+            <div class="d-flex">
+                <input type="text" value="@Model.Address" disabled="@Model.IsReadOnly" name="Address" class="form-control mr-2" id="Address" placeholder="Enter Address">
+            </div>
+            <span id="Address_error" class="validationError"></span>
+        </div>
+        <div class="form-group col-md-4" id="OfficeDiv">
+            <label class="d-block">Working Office/From Where retired<sup class="text-danger">*</sup></label>
+            <div class="d-flex">
+                <input type="text" value="@Model.Office" disabled="@Model.IsReadOnly" name="Office" class="form-control mr-2" id="Office" placeholder="Enter Working Office/From Where">
+            </div>
+            <span id="Office_error" class="validationError"></span>
+        </div>*@
+                    <div class="form-group col-md-4">
+                        <label class="d-block">Complaint Type<sup class="text-danger">*</sup></label>
+                        @*<div class="d-flex">*@
+                            <select class="form-control form-select" name="Subject" id="Subject">
+                                <option value="" selected>--select--</option>
+                                @foreach (string usertype1 in userTypes1)
+                                {
+                                    <option value="@usertype1" selected=@(usertype1 == Model.Subject)> @usertype1</option>
+                                }
+
+                            </select>
+
+                            @*<input type="text" value="@Model.Subject" disabled="@Model.IsReadOnly" name="Subject" class="form-control mr-2" id="Subject" placeholder="Enter Address">*@
+                        @*</div>*@
+                        <span id="Subject_error" class="validationError"></span>
+                    </div>
+
+                    @*<div class="form-group col-md-4">
+                        <label class="d-block">Select User Type<sup class="text-danger">*</sup></label>
+                        <select class="form-control form-select" name="UserType" id="UserType">
+                            <option value="" selected>--select--</option>
+                            @foreach (string usertype in userTypes)
+                            {
+                                <option value="@usertype" selected=@(usertype == Model.UserType)> @usertype</option>
+                            }
+
+                        </select>
+                        <span id="UserType_error" class="validationError"></span>
+                    </div>*@
+
+                    <div class="form-group col-md-4">
+                        <label class="d-block">Case Description<sup class="text-danger">*</sup></label>
+                        <div class="d-flex">
+                            <textarea name="Description" disabled="@Model.IsReadOnly" class="form-control mr-2" id="Description" placeholder="Enter Description">@Model.Description</textarea>
+                        </div>
+                        <span id="Description_error" class="validationError"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="d-block fw-bold"><strong>Upload Document</strong></label>
+                        <div class="d-flex">
+                            <input disabled="@Model.IsReadOnly" type="file" accept="application/pdf" id="AttachmentFileInEnglish" name="AttachmentFileInEnglish" onchange="ShowPreview(event)" class="form-control">
+                            @Html.HiddenFor(x => x.EnglishFileName)
+                            @Html.HiddenFor(x => x.EnglishContentType)
+                            <span class="btn btn-secondary btn-sm" id="rtiDelBtn" style="display: none;" onclick="deleteAttachment()">Delete</span> &nbsp;
+
+                            <span class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdf_docPreview" onclick="$('#pdf_docPreview').modal('show');" style="height: fit-content">Preview</span>
+                        </div>
+                        @*<span class="validationError" id="AttachmentFileInEnglish_error"></span>*@
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                <button class="btn btn-brand me-2 @(Model.IsReadOnly ? "hide" :"")">@(ViewBag.Mode == "Edit" ? "Update" : "Submit")</button>
+                <button class="btn btn-cancel me-2" onclick="showConfirmSwal('Are you sure you want cancel?', function() { location.href='@Url.Action("GrievanceList","Grievance")';}); return false;">Cancel</button>
+                <button class="btn btn-reset me-2  @(Model.IsReadOnly ? "hide" :"")" onclick="showConfirmSwal('Are you sure you want Reset?', function() { window.location.reload();}); return false;">Reset</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Modal -->
+<div class="modal preview" id="pdf_docPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Document Preview</h5>
+                <button type="button" class="close" onclick="$('#pdf_docPreview').modal('hide');" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <embed type="application/pdf" src="@Url.Action("DownloadFile","Grievance" , new { Id =  Model.ID})" id="pdf_Preview" width="100%" style="height: calc(100vh - 145px);">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal GrievanceID" id="GrievanceIDModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Grievance ID</h5>
+                <button type="button" class="close" onclick="$('#pdf_docPreview').modal('hide');" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <h3> Your Grievance is saved.</h3>
+
+                <p>Your Grievance ID is <span id="GrievanceIDSpan"> </span></p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="location='/Grievance/GrievanceList'" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Grievance{
+    <script src="~/js/Grievance/Grievance.js" asp-append-version="true"></script>
+}

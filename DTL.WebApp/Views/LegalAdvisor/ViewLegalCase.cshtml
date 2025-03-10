@@ -1,0 +1,317 @@
+﻿@using DTL.Model.Models
+@model LegalSectionModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "View Legal Case details";
+    string dateFormat = "dd-MM-yyyy";
+}
+
+
+<div class="container-fluid">
+
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">View Legal Case details</h3>
+        </div>
+
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="/"><span class="">Dashboard </span> </a>
+            <span class="px-1">/</span>
+
+            <a href=" @Url.Action("ViewLegalCases","LegalAdvisor" , new {isReviewedOnly = Model.IsReadOnly})"><span class="">@(Model.IsReadOnly ? "Approval/Reject Cases" : "Legal Case Requests")</span> </a>
+            <span class="px-1">/</span>
+            View Legal Case details
+
+        </p>
+
+    </div>
+
+
+
+    <form id="LegalCaseForm">
+        <div class="card border-card mt-0 view_container_bg">
+            <div class="card-body">
+                <div class="row">
+                    <input type="hidden" id="id" name="id" value="@Model.ID" />
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Date</strong></label>
+
+                            <p class="View_text">@Model.CreatedDate.ToString(dateFormat)</p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Case Number</strong></label>
+
+                            <p class="View_text">@Model.CaseNo</p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Petitioner Name</strong></label>
+
+                            <p class="View_text">@Model.PetitionerName</p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Legal Advisor Name</strong></label>
+                            <div>
+                                <p class="View_text">@Model.NameOfCouncil</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Email ID</strong></label>
+
+                            <p class="View_text">@Model.Email</p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Mobile Number</strong></label>
+
+                            <p class="View_text">@Model.Mobile</p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Subject of Case</strong></label>
+
+                            <p class="View_text">@Model.SubjectOfCase</p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Court Type</strong></label>
+                            <p class="View_text">@Model.CourtType</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Department</strong></label>
+
+                            <p class="View_text">@Model.Department</p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Parties Involved</strong></label>
+
+                            <p class="View_text">@Model.PartiesInvolved</p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Case Status</strong></label>
+
+                            <p class="View_text">@Model.StatusType</p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12 col-lg-12 col-xl-12 mb-3 view_text_border">
+                        <div class="form-group">
+                            <label class="d-block fw-bold"><strong>Case Description</strong></label>
+
+                            <p class="View_text">@Model.SummaryOfCase</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="card-header">
+                        <h5 class="m-0">Hearing Details:</h5>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <table class="table table-bordered" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>Case Intial Date</th>
+                                    <th>Next Hearing date</th>
+                                    <th>Case end date</th>
+                                    <th>Upload Document</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@Model.CaseInitialDate?.ToString(dateFormat)</td>
+                                    <td>@Model.NextHearingDate?.ToString(dateFormat)</td>
+                                    <td>@Model.CaseEndDate?.ToString(dateFormat)</td>
+                                    <td style="text-align:center;">
+                                        <a href="@Url.Action("DownloadFile","LegalAdvisor" , new { Id =  Model.ID})" target="_blank"><i class="fa-regular fa-file-pdf"> View </i></a>
+                                    </td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="d-block fw-bold">Legal Advisor Status</label>
+                        <div class="d-flex">
+
+                            @if (!Model.IsReadOnly)
+                            {
+                                @Html.RadioButtonFor(m => m.Approve, true) <span>&nbsp; Approve  &nbsp; &nbsp;</span>
+
+                                @Html.RadioButtonFor(m => m.Approve, false) <span> &nbsp; Reject</span>
+                            }
+                            else
+                            {
+                                <p>@Model.LegalAdvisorStatus</p>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="d-block fw-bold">Legal Advisor Remarks<sup class="text-danger">*</sup></label>
+                        <div class="d-flex">
+                            <textarea class="form-control mr-2" disabled="@Model.IsReadOnly" id="LegalAdvisorRemarks" name="LegalAdvisorRemarks" placeholder="Enter Remarks">@Model.LegalAdvisorRemarks</textarea>
+                        </div>
+                        <span id="LegalAdvisorRemarks_error" class="validationError"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                <button id="btnSubmit" class="btn btn-brand me-2 @(Model.IsReadOnly? "hide":"")">Change Status</button>
+                <button class="btn btn-reset me-2 @(Model.IsReadOnly? "hide":"")" onclick="showConfirmSwal('Are you sure you want Reset?', function(){window.location.reload();}); return false; ">Reset</button>
+                @if (Model.IsReadOnly)
+                {
+                    <button onclick="location.href='@Url.Action("ViewLegalCases","LegalAdvisor" , new {isReviewedOnly = Model.IsReadOnly})';return false;" class="btn btn-cancel me-2">Back</button>
+
+                }
+                else
+                {
+                    <button class="btn btn-cancel me-2" onclick="showConfirmSwal('Are you sure you want cancel?',function() {location.href='@Url.Action("ViewLegalCases","LegalAdvisor" , new {isReviewedOnly = Model.IsReadOnly})';}); return false;">Cancel</button>
+
+                }
+            </div>
+        </div>
+    </form>
+
+</div><!-- col -->
+
+<style>
+    #Approve-error {
+        display: contents;
+    }
+</style>
+
+<script>
+
+
+
+    function AddEditForm() {
+        $.validator.setDefaults({
+            submitHandler: function () {
+
+
+                showConfirmSwal("Are you sure you want to submit?", function () {
+
+                    var formData = BindCaseData();
+                    $.ajax({
+                        url: '@Url.Action("AddEditLegalCaseDetails","LegalAdvisor")',
+                        type: "POST",
+                        dataType: "json",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            //alert(data);
+                            if (data == "add" || data == "update") {
+                                showSuccessSwal("Data updated successfully!");
+
+
+                                setTimeout(function () {
+                                    window.location.href = "/LegalAdvisor/ViewLegalCases";
+                                }, 2000);
+                            }
+                            else {
+
+
+                                if (data.indexOf("UC_CaseNo") > -1) {
+                                    showErrorSwal("Duplicate value for Case Number.");
+
+                                } else
+                                    showErrorSwal("Error - " + data);
+
+                            }
+                        },
+                        error: function (err) {
+                            showErrorSwal("Error - " + err);
+                        }
+                    });
+                });
+                return false;
+            }
+
+        });
+        $('#LegalCaseForm').validate({
+            rules: {
+                LegalAdvisorRemarks: {
+                    required: true,
+
+
+                },
+                Approve: {
+                    required: true
+                }
+
+
+            },
+            messages: {
+                LegalAdvisorRemarks: {
+                    required: "Please provide Legal Advisor Remarks.",
+
+                },
+                Approve: {
+                    required: "Select status"
+                }
+
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    }
+
+
+
+
+
+
+    function BindCaseData() {
+        var frm = $('#LegalCaseForm');
+
+        var formData = new FormData(frm[0]);
+        return formData;
+    }
+
+    $(document).ready(function () {
+        AddEditForm();
+    });
+
+</script>

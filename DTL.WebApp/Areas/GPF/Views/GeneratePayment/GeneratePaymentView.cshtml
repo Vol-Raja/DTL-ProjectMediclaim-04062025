@@ -1,0 +1,112 @@
+﻿@using DTL.Model.Models.GPF
+@model GPFGeneratePaymentModel
+@{
+    ViewData["Title"] = "Genereate Payment View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label.error {
+        display: none !important;
+    }
+</style>
+
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Payment Details</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="/GPF/Dashboard">GPF</a></li>
+                        <li class="breadcrumb-item"><a href="/GPF/Withdrawal">GFP Withdrawal</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","GeneratePayment",new { Area="GPF" })">Generate Payment</a></li>
+                        <li class="breadcrumb-item active">New Payment Details</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="text-center mb-3">Payment Details</h2>
+                            <table class="table table-bordered mb-3">
+
+                                <tr>
+                                    <th colspan="4" class="text-center bg-gray-light">Basic Details</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 20%">Application ID</td>
+                                    <th style="width: 30%">@Model.ApplicationId</th>
+                                    <td class="text-right" style="width: 20%">Name of Employee</td>
+                                    <th style="width: 30%">@Model.NameOfEmployee</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Contact No.</td>
+                                    <th>@Model.ContactNo</th>
+                                    <td class="text-right">Loan Type</td>
+                                    <th>@Model.LoanType</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">No. of EMI's'</td>
+                                    <th>@Model.NoOfEMI</th>
+                                    <td class="text-right">Approved Amount</td>
+                                    <th>@Model.ApprovedAmount</th>
+                                </tr>
+                            </table>
+
+                            <table class="table table-bordered mb-3">
+                                <tr>
+                                    <th colspan="4" class="text-center bg-gray-light">Bank Details</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 20%">Bank Account No.</td>
+                                    <th style="width: 30%">@Model.AccountNumber</th>
+                                    <td class="text-right" style="width: 20%">IFSC Code</td>
+                                    <th style="width: 30%">@Model.IFSCCode</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">BIC Code</td>
+                                    <th>@Model.BICCode</th>
+
+                                </tr>
+
+                            </table>
+
+
+
+                            <div class="row">
+                                <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                    <button type="button" class="btn btn-primary" onclick="history.back()">Back</button>
+                                </div>
+                                <div class="col-md-12 p-3 text-center">
+                                    <button class="btn btn-primary printMe"><i class="fa fa-print mr-2" aria-hidden="true"></i>Print </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section GPFGeneratePayment{
+
+    <script>
+        $('.printMe').click(function () {
+            window.print();
+        });
+    </script>
+}

@@ -1,0 +1,635 @@
+﻿@{
+    string loanType = ViewBag.IsNonRefundable != null ? "Non-Refundable" : "Refundable";
+    string loanTypeAct = ViewBag.IsNonRefundable != null ? "NonRefundable" : "Refundable";
+    ViewData["Title"] = loanType + " View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid view_form">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">@loanType View</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","AM_Dm", new { Area="GPF" })" class="">Dashboard</a><span class="px-1">/</span><a href="@Url.Action(loanTypeAct + "List","AM_Dm", new { Area="GPF" })">@loanType List</a><span class="px-1">/</span><span>Loan Approvals View</span>
+        </p>
+
+    </div>
+    <div class="card border-card mt-0 view_container_bg">
+        <div class="card-body">
+            <h4 class="form_title mt-3 ">
+                Personal Details
+            </h4>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Employee Name</label>
+                    <p class="View_text"><span class="ds" name="employee.name"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Employee Id</label>
+                    <p class="View_text"><span class="ds" name="employee.basicDetails.employeeCode"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Organization</label>
+                    <p class="View_text"><span class="ds" name="employee.organisation"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Department</label>
+                    <p class="View_text"><span class="ds" name="employee.basicDetails.department"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Designation</label>
+                    <p class="View_text"><span class="ds" name="employee.basicDetails.designation"></span></p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 mb-3view_text_border">
+                    <label class="form-label d-block mb-1">Mobile Number</label>
+                    <p class="View_text"><span class="ds" name="employee.mobile"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Email Id</label>
+                    <p class="View_text"><span class="ds" name="employee.email"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Date of Birth</label>
+                    <p class="View_text"><span class="ds date" name="employee.basicDetails.dateOfBirth"></span></p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Age</label>
+                    <p class="View_text"><span class="ds2" name="age"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Gender</label>
+                    <p class="View_text"><span class="ds" name="employee.gender"></span></p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Date of Joining</label>
+                    <p class="View_text">
+                        <span class="ds date" name="employee.basicDetails.dateOfJoining"></span>
+                    </p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Basic Pay</label>
+                    <p class="View_text"><span class="ds curr" name="details.basicPay"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Address</label>
+                    <p class="View_text"><span class="ds2" name="address"></span></p>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="form_title mt-3 ">
+                Loan Details
+            </h4>
+            <div class="row ">
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">GPF Account Number</label>
+                    <p class="View_text"><span class="ds2" name="gpfAccountNumber"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">GPF Account Balance</label>
+                    <p class="View_text"><span class="ds2" name="gpfAccountBalance"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Monthly GPF Contribution</label>
+                    <p class="View_text"><span class="ds curr" name="details.contribution"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Purpose of Loan</label>
+                    <p class="View_text"><span class="ds" name="details.loanPurpose"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Rate of Interest(%)</label>
+                    <p class="View_text"><span class="ds perc" name="details.rateOfInterest"></span></p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Amount Of Loan Required (In Figure)</label>
+                    <p class="View_text"><span class="ds curr" name="loanAmount"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Amount Of Loan Required (In Words)</label>
+                    <p class="View_text"><span class="ds2" name="amountWords"></span></p>
+
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Basic Pay * 12</label>
+                    <p class="View_text"><span class="ds2" name="basicPay12"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">75% (Total GPF Account Balance)</label>
+                    <p class="View_text"><span class="ds2" name="gpfBalance75"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Eligible Amount</label>
+                    <p class="View_text"><span class="ds curr" name="eligibleAmount"></span></p>
+                </div>
+                @if (loanType == "Refundable")
+                {
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Number Of EMI's</label>
+                        <p class="View_text"><span class="ds" name="details.numEMI"></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Monthly EMI Amount</label>
+                        <p class="View_text"><span class="ds2" name="emiAmount"></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">EMI Start Date</label>
+                        <p class="View_text"><span class="ds date" name="details.emiStart"></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">EMI End Date</label>
+                        <p class="View_text"><span class="ds date" name="details.emiEnd"></span></p>
+                    </div>
+                }
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Place of Posting Last 3 Years</label>
+                    <p class="View_text"><span class="ds" name="details.postingPlace"></span></p>
+                </div>
+
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Discription(Details of Refundable Loan)</label>
+                    <p class="View_text"><span class="ds" name="details.description"></span></p>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <p class="form-label d-block mb-1">Details of Any Loan Pending</p>
+                    <p class="View_text"><span class="ds2" name="pendingLoan"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Amount of previous @loanType Loan</label>
+                    <p class="View_text"><span class="ds" name="details.prev_Amount"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Date of Withdrawal @loanType</label>
+                    <p class="View_text"><span class="ds date" name="details.prev_DateOfWithdrawal"></span></p>
+                </div>
+                @if (loanType == "Refundable")
+                {
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Date of Last Repayment of previous Loan</label>
+                        <p class="View_text"><span class="ds date" name="details.prev_DateOfRepayment"></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-8 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Balance of previous Refundable Loan if any Outstanding against the Account Holder</label>
+                        <p class="View_text"><span class="ds" name="details.prev_BalanceAmount"></span></p>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+        <div class="card-body">
+            <h4 class="form_title mt-3 shadow-2-strong">
+                Document Upload
+            </h4>
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered view_table">
+                        <thead>
+                            <tr>
+                                <th width="7%" class="text-center">Sr. No.</th>
+                                <th>Document Type</th>
+                                <th width="15%" class="text-center">Attach file </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*
+                            <tr>
+                            <td class="text-center">1</td>
+                            <td>Document Type</td>
+                            <td class="text-center">
+                            <a href="#" class="pdfIcons">
+                            <i class="fa fa-file-pdf"
+                            aria-hidden="true"></i>
+                            </a>
+                            </td>
+
+                            </tr>*@
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="card-body">
+            <h4 class="form_title mt-3 ">
+                Bank Account Details
+            </h4>
+            <div class="row ">
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Bank Account Number</label>
+                    <p class="View_text"><span class="ds" name="bankDetails.accountNumber"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Bank Name</label>
+                    <p class="View_text"><span class="ds" name="bankDetails.bankName"></span></p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Branch Name</label>
+                    <p class="View_text"><span class="ds" name="bankDetails.branchName"></span></p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">BIC Code</label>
+                    <p class="View_text"><span class="ds" name="bankDetails.bic"></span></p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">IFSC code </label>
+                    <p class="View_text"><span class="ds" name="bankDetails.ifsc"></span></p>
+                </div>
+            </div>
+            <h4 class="form_title mt-3 ">
+                Approval Status
+            </h4>
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                        <label class="form-label d-block mb-1">Withdrawal Remark<span class="text-danger req_text">*</span></label>
+                        <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" name="Remark" disabled>Enter Remarks</textarea>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                        <label class="form-label d-block mb-1">AG2 Remark<span class="text-danger req_text">*</span></label>
+                        <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" name="AG2Remark" placeholder="Enter Remarks"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 submit_area submit_area_strip mt-5 mx-0 px-0">
+
+                <div class="col-sm-8 text-left ps-0 a-0 actions">
+                </div>
+                <div class="col-sm-4 pe-0">
+                    <button class="btn btn-primary" id="printMe"><i class="fa fa-print mr-2" aria-hidden="true"></i>Print Application</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="modal fade" id="Approve_pop_up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="content px-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                    <p class="message-type mb-0 pt-0">Are you sure you want to Approve ?</p>
+
+                </div>
+                <div class="text-center">
+                    <a href="@Url.Action("RefundableList","AM_Dm",new {Area="GPF" })" class="btn btn-brand popUp_btn me-2">Approve</a>
+                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- modal end -->
+<!-- modal start -->
+<div class="modal fade" id="Cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                    <p class="message-type">Are you sure you want to Cancel ?</p>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="reject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content px-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="~/assets/images/rejected.png" class="icon_reject ">
+                    <p class="message-type mb-0 pt-3">Are you sure you want to Reject ?</p>
+
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" data-bs-dismiss="modal">Reject</button>
+                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- modal end -->
+<!-- modal end -->
+<div id="print_preview">
+    <div class=" view_container_bg mt-0">
+
+        <div class="card-body">
+            <h4 class="print_title">
+                Personal Details
+            </h4>
+            <table class="table table-bordered w-100">
+                <tbody>
+                    <tr>
+                        <th scope="row" width="25%">Employee Name</th>
+                        <td scope="row" width="25%"><span class="ds" name="employee.name"></span></td>
+                        <th scope="row" width="25%">Employee Id</th>
+                        <td scope="row" width="25%"><span class="ds" name="employee.basicDetails.employeeCode"></span></td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Organization</th>
+                        <td scope="row" colspan="3"><span class="ds" name="employee.organisation"></span></td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Department</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.department"></span> Department</td>
+                        <th scope="row">Designation</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.designation"></span></td>
+
+
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Mobile Number</th>
+                        <td scope="row"><span class="ds" name="employee.mobile"></span></td>
+                        <th scope="row">Email Id</th>
+                        <td scope="row"><span class="ds" name="employee.email"></span></td>
+
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Date Of Birth</th>
+                        <td scope="row"><span class="ds date" name="employee.basicDetails.dateOfBirth"></span></td>
+                        <th scope="row">Age</th>
+                        <td scope="row"><span class="ds2" name="age"></span></td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Gender</th>
+                        <td scope="row"><span class="ds" name="employee.gender"></span></td>
+
+                        <th scope="row">Date Of Joining</th>
+                        <td scope="row"><span class="ds date" name="employee.basicDetails.dateOfJoining"></span></td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td scope="row" colspan="3"><span class="ds2" name="address"></span></td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Basic Pay</th>
+                        <td scope="row"><span class="ds curr" name="details.basicPay"></span></td>
+
+
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Loan Details</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">GPF Account Number</th>
+                        <td scope="row"><span class="ds2" name="gpfAccountNumber"></span></td>
+                        <th scope="row">GPF Account Balance</th>
+                        <td scope="row"><span class="ds2" name="gpfAccountBalance"></span></td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Monthly GPF Contribution</th>
+                        <td scope="row"><span class="ds curr" name="details.contribution"></span></td>
+                        <th scope="row">Purpose Of Loan</th>
+                        <td scope="row"><span class="ds" name="details.loanPurpose"></span></td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Rate Of Interest(%)</th>
+                        <td scope="row"><span class="ds perc" name="details.rateOfInterest"></span></td>
+                        <th scope="row">Amount Of Loan Required (In Figure)</th>
+                        <td scope="row"><span class="ds curr" name="loanAmount"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Amount Of Loan Required(In Words)</th>
+                        <td scope="row" colspan="3"><span class="ds2" name="amountWords"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Basic Pay * 12</th>
+                        <td scope="row"><span class="ds2" name="basicPay12"></span></td>
+                        <th scope="row">75% Total GPF Account Balance</th>
+                        <td scope="row"><span class="ds2" name="gpfBalance75"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Eligible Amount</th>
+                        <td scope="row"><span class="ds curr" name="eligibleAmount"></span></td>
+                        @if (loanType == "Refundable")
+                        {
+                            <th scope="row">Number Of EMI's</th>
+                            <td scope="row"><span class="ds" name="details.numEMI"></span></td>
+                        }
+                        else
+                        {
+                            <th scope="row">Place Of Posting Last 3 Years</th>
+                            <td scope="row"><span class="ds" name="details.postingPlace"></span></td>
+                        }
+                    </tr>
+                    @if (loanType == "Refundable")
+                    {
+                        <tr>
+                            <th scope="row">Monthly EMI Amount</th>
+                            <td scope="row"><span class="ds2" name="emiAmount"></span></td>
+                            <th scope="row">EMI Start Date</th>
+                            <td scope="row"><span class="ds date" name="details.emiStart"></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">EMI End Date</th>
+                            <td scope="row"><span class="ds date" name="details.emiEnd"></span></td>
+                            <th scope="row">Place Of Posting Last 3 Years</th>
+                            <td scope="row"><span class="ds" name="details.postingPlace"></span></td>
+                        </tr>
+                    }
+                    <tr>
+
+                        <th scope="row">Discription(Details Of @loanType Loan)</th>
+                        <td scope="row" colspan="3"><span class="ds" name="details.description"></span></td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Details Of Any Loan Pending</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Amount Of Previous @loanType Loan</th>
+                        <td scope="row"><span class="ds" name="details.prev_Amount"></span></td>
+                        <th scope="row">Date Of Withdrawal @loanType</th>
+                        <td scope="row"><span class="ds date" name="details.prev_DateOfWithdrawal"></span></td>
+                    </tr>
+                    @if (loanType == "Refundable")
+                    {
+                        <tr>
+                            <th scope="row">Date Of Last Repayment Of Previous Loan</th>
+                            <td scope="row"><span class="ds date" name="details.prev_DateOfRepayment"></span></td>
+                            <th scope="row">Balance Of Previous Refundable Loan If Any Outstanding Against The Account Holder</th>
+                            <td scope="row"><span class="ds" name="details.prev_BalanceAmount"></span></td>
+                        </tr>
+                    }
+                    <tr style="page-break-before: always">
+                        <td scope="row" colspan="4" class="text-center h4">Upload Documents</td>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Sr. No.</th>
+                        <th colspan="3">Document Type</th>
+                    </tr>
+                    <tr id="docPrint">
+                        <td scope="row" colspan="4" class="text-center h4">Bank Account Details</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bank Account Number</th>
+                        <td scope="row"><span class="ds" name="bankDetails.accountNumber"></span></td>
+                        <th scope="row">Bank Name</th>
+                        <td scope="row"><span class="ds" name="bankDetails.bankName"></span></td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Branch Name</th>
+                        <td scope="row"><span class="ds" name="bankDetails.branchName"></span></td>
+                        <th scope="row">BIC Code</th>
+                        <td scope="row" colspan="3"><span class="ds" name="bankDetails.bic"></span></td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">IFSC Code</th>
+                        <td scope="row"><span class="ds" name="bankDetails.ifsc"></span></td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Approval Status</td>
+                    <tr>
+                        <th scope="row">Withdrawal Remark</th>
+                        <td scope="row" colspan="3"><span class="ds" name="remark"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">AG II Remark</th>
+                        <td scope="row" colspan="3"><span class="ds" name="aG2Remark"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $('#printMe').click(function () {
+        $('#print_preview').addClass('show');
+        window.print();
+
+    });
+
+
+    $(document).ready(function () {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        var appNo = params['applicationNumber'];
+        if (appNo) {
+            $.get('@Url.Action("GetLoanApplication", "Data")?applicationNumber=' + encodeURIComponent(appNo)).then(r => {
+                data = r;
+                const curr = amt => `&#8377;&nbsp;${amt}`
+                const perc = amt => `${amt}&nbsp;%`
+                $('.ds').each(function () {
+                    var prop = $(this).attr('name');
+                    var val = eval(`r.${prop}`);
+                    if ($(this).hasClass('date')) $(this).html(val ? moment(val).format('DD-MMM-YYYY') : '');
+                    else if ($(this).hasClass('perc')) $(this).html(val ? perc(val) : '');
+                    else if ($(this).hasClass('curr')) $(this).html(val ? curr(val) : '');
+                    else $(this).html(val);
+                });
+                var ds2 = name => $(`.ds2[name="${name}"]`);
+                const getAddress = ad => `${ad.address || ''} ${ad.street || ''} ${ad.city || ''} ${ad.pinCode || ''} ${ad.state || ''}`.replaceAll(/\s+/gm, ' ').trim();
+                ds2('age').html(moment().diff(moment(r.employee.basicDetails.dateOfBirth), 'YEAR'));
+                ds2('address').html(getAddress(r.employee.currentAddress));
+                var currentFy = moment().month() > 2 ? (moment().year() + 1) : moment().year();
+                $.get(`@Url.Action("GetCurrentBalance", "Data")?orgCode=${encodeURIComponent(r.employee.organisationCode)}&accNo=${encodeURIComponent(r.employeeExternalCode)}&year=${currentFy}`).then(r1 => {
+                    ds2('gpfAccountNumber').html(r1.accountNo);
+                    ds2('gpfAccountBalance').html(curr(r1.gpfBalance));
+                    ds2('gpfBalance75').html(curr((r1.gpfBalance * 0.75).toFixed(2)));
+                });
+                ds2('emiAmount').html(curr(Math.min(r.eligibleAmount, r.loanAmount) / r.details.numEMI));
+                ds2('basicPay12').html(curr(r.details.basicPay * 12));
+                ds2('amountWords').html(intoWords(r.loanAmount));
+                ds2('pendingLoan').html(r.details.previousLoan ? 'Yes' : 'No');
+                var docSr = 1;
+                r.documents.forEach(dd => {
+                    var uri = `data:application/pdf;base64,${dd.documentData}`;
+                    var blob = dataURItoBlob(uri);
+                    var objectURL = URL.createObjectURL(blob);
+                    var icon = `<a href="${objectURL}" download="${dd.documentType}.pdf" class="pdfIcons"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>`
+                    var id = docSr++;
+                    var tr = `<tr><td>${id}</td><td>${dd.documentType}</td><td class="text-center">${icon}</td></tr>`
+                    var tr2 = `<tr><td class="text-center">${id}</td><td colspan="3">${dd.documentType}</td></tr>`
+                    $('#example1').find('tbody').append(tr);
+                    $('#docPrint').before(tr2);
+                });
+                $('[name="Remark"]').val(r.remark);
+                $('[name="AG2Remark"]').val(r.aG2Remark);
+                $('input,textarea').prop('readonly', true);
+                $('.actions *').remove();
+            });
+        }
+    })
+
+
+    function dataURItoBlob(dataURI) {
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataURI.split(',')[1]);
+        else
+            byteString = unescape(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ia = new Uint8Array(byteString.length);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ia], { type: mimeString });
+    }
+
+    function intoWords(num) {
+        var a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+        var b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        if ((num = num.toString()).length > 9) return 'overflow';
+        n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!n) return; var str = '';
+        str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+        str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+        str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+        str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+        str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'Only ' : 'Only';
+        return str;
+    }
+
+</script>
+
+

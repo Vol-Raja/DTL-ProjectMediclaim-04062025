@@ -1,0 +1,173 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    .voucher-disabled {
+        background: #cac0c0;
+        border: #cac0c0;
+    }
+</style>
+<!-- Content Wrapper. Contains page content -->
+<!-- /.content-wrapper -->
+<!--New UI-->
+
+<input type="hidden" id="hdndesignation" value="@ViewBag.Designation" />
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Settlement Applications List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="/">Dashboard</a><span class="px-1">/</span>
+            <span>Settlement Application List</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2 mt-4">
+            <div class="table-responsive">
+                <table id="tblEdlisApproval" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>S.no</th>
+                            <th>Date</th>
+                            <th> Application Id </th>
+                            <th>Employee Code </th>
+                            <th>Employee Name </th>
+                            <th>Organization</th>
+                            <th>Final Settlement Amount</th>
+                            <th>Account Number</th>
+                            <th>IFSC Code </th>
+                            <th>BIS Code</th>
+                            <th>Branch name</th>
+                            <th>Application Status</th>
+                            <th>Payment Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>S.no</td>
+                            <td>Date</td>
+                            <td>Settlemenet Application Id </td>
+                            <td>Employee Code </td>
+                            <td>Employee Name </td>
+                            <td>Organization</td>
+                            <td>Final Settlement Amount</td>
+                            <td>Account Number</td>
+                            <td>IFSC Code </td>
+                            <td>BIS Code</td>
+                            <td>Branch name</td>
+                            <td>Application Status</td>
+                            <td>Payment Status</td>
+                            <td>
+                                <a href="@Url.Action("settlementApprovalView","Disbursment", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a id="lnkPay" class="btn btn-success text-white p-1" data-bs-toggle="modal" data-bs-target="#paid">Paid</a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="paid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content p-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    <img src="~/assets/images/paid.png" class="icon_reject ">
+                    <p class="message-type text-blod  pt-3">
+                        Are you sure you want to Paid
+                    </p>
+
+
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" onclick="updatePaid()">Yes</button>
+                    <button type="button" class="btn btn-danger popUp_btn me-2"
+                            data-bs-dismiss="modal">
+                        No
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    var srno = 1, appNo = '';
+
+    const buttons = c => `
+                <a href="@Url.Action("settlementApprovalView","Disbursment", new {Area="GPF" })?applicationNumber=${encodeURIComponent(c.applicationNumber)}" class="btn btn-primary btn-sm mr-2 btn_small">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <a id="lnkPay" class="btn btn-success text-white p-1" data-bs-toggle="modal" data-bs-target="#paid" onclick="appNo = '${c.applicationNumber}'">Paid</a>
+                `
+
+    const color = status => status == "Rejected" ? 'danger' : (status == 'Completed' ? 'success' : 'orange');
+
+    $(document).ready(function () {
+        $("#tblEdlisApproval").DataTable({
+            ordering: true,
+            dom: 'Blfrtip',
+            scrollX: true,
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'Settlement Application List'
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: 'Settlement Application List'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Settlement Application List',
+
+                }
+            ],
+            ajax: {
+                url: `@Url.Action("GetSettlementApplicationsDisburs", "Data")`,
+                dataSrc: ''
+            },
+            columns: [
+                { render: _ => srno++ },
+                { data: 'createdOn', render: a => moment(a).format('DD-MMM-YYYY') },
+                { data: 'applicationNumber' },
+                { data: 'employeeCode' },
+                { data: 'employeeName' },
+                { data: 'organisationName' },
+                { data: 'finalSettlementAmount', render: a => `&#8377;&nbsp;${a.toFixed(2)}` },
+                { data: 'accountNumber' },
+                { data: 'ifsc' },
+                { data: 'bis' },
+                { data: 'branchName' },
+                { data: 'settlementStatus', render: (a, b, c) => `<span class="bg-${color(c.settlementStatus)} Status_text w-100 text-center d-block">${a}</span>` },
+                { data: 'paymentDone', render: (a, b, c) => `<span class="bg-${color(c.settlementStatus)} Status_text w-100 text-center d-block">${(a ? 'Done' : 'Pending')}</span>` },
+                { render: (a, b, c) => buttons(c), className: 'd-flex border-bottom-0' }
+            ]
+        });
+    });
+
+    function updatePaid() {
+        if (!appNo) return;
+        $.get(`@Url.Action("UpdateSettlementDisburs", "Data")?applicationNumber=${encodeURIComponent(appNo)}`).then(r => {
+            toastr.success('Updated Successfully');
+            $('#paid').modal('hide');
+            window.setTimeout(_ => $("#tblEdlisApproval").DataTable().ajax.reload());
+        })
+    }
+
+</script>

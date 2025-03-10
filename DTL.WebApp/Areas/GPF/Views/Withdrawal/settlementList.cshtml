@@ -1,0 +1,142 @@
+﻿@using DTL.Model.Models.GPF
+@model GPFWithdrawalModel
+@{
+    ViewData["Title"] = "Settlement List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">GPF Settlement List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Withdrawal", new { Area="GPF" })" class="">Dashboard </a><span class="px-1">/</span><span> GPF Settlement List</span>
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4">
+                <a href="@Url.Action("settlement","Withdrawal", new { Area="GPF" })" class="btn btn-primary btn-sm mr-2 ">
+                    Add New Settlement
+                </a>
+
+            </div>
+            <table id="example1" class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th width="7%" class="text-center">Sr.no</th>
+                        <th>Date</th>
+                        <th>Application Id </th>
+                        <th>Emp code</th>
+                        <th>Emp Name </th>
+                        <th>Organization</th>
+                        <th>Final settlement Amount</th>
+                        <th >Application Status</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td width="7%" class="text-center">Sr.no</td>
+                        <td>10/12/2022</td>
+                        <td>56757575 </td>
+                        <td>Emp767677</td>
+                        <td>Rahul </td>
+                        <td>DTL</td>
+                        <td>25000</td>
+                        <td class="text-center"><span class="bg-orange Status_text w-100 d-block">Under Precessing With AG/DM</span></td>
+
+                        <td>Remarks</td>
+                        <td class="d-flex border-bottom-0">
+                            <a href="@Url.Action("settlementView","Withdrawal", new { Area="GPF" })" " class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="7%" class="text-center">Sr.no</td>
+                        <td>11/12/2022</td>
+                        <td>5675898575 </td>
+                        <td>Emp767677</td>
+                        <td>Nishant </td>
+                        <td>DTL</td>
+                        <td>25000</td>
+                        <td class="text-center"><span class="bg-orange Status_text w-100 d-block">Under Precessing With AG II</span></td>
+
+                        <td>Remarks</td>
+                        <td class="d-flex border-bottom-0">
+                            <a href="@Url.Action("settlementView","Withdrawal", new { Area="GPF" })" " class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="7%" class="text-center">Sr.no</td>
+                        <td>11/12/2022</td>
+                        <td>5675898575 </td>
+                        <td>Emp767677</td>
+                        <td>Nishant </td>
+                        <td>DTL</td>
+                        <td>25000</td>
+                        <td class="text-center"><span class="bg-success Status_text text-center">Approved</span></td>
+
+                        <td>Remarks</td>
+                        <td class="d-flex border-bottom-0">
+                            <a href="@Url.Action("settlementView","Withdrawal", new { Area="GPF" })" " class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+
+</div><!-- col -->
+<script>
+    
+    const buttons = c => `
+            <a href="@Url.Action("settlementView","Withdrawal", new { Area="GPF" })?applicationNumber=${encodeURIComponent(c.applicationNumber)}" class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+            <!-- <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+            <!-- <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
+        `
+
+    const color = status => status == 'Completed' ? 'success' : (status == "Rejected" ? 'danger' : 'orange');
+
+    (function ($) {
+        var i = 1;
+        $('#example1').DataTable({
+            ordering: true,
+            dom: 'lfrtip',
+            scrollX: true,
+            ajax: {
+                url: `@Url.Action("GetSettlementApplications", "Data")`,
+                dataSrc: ''
+            },
+            columns: [
+                { render: _ => i++ },
+                { data: 'settlementDate', render: a => moment(a).format('DD-MMM-YYYY') },
+                { data: 'applicationNumber' },
+                { data: 'employeeCode' },
+                { data: 'employeeName' },
+                { data: 'organisationName' },
+                { render: (a, b, c) => c.finalSettlementAmount || c.settlementAmount },
+                { data: 'settlementStatus', render: (a, b, c) => `<span class="bg-${color(c.settlementStatus)} Status_text w-100 text-center d-block">${a}</span>` },
+                { render: (a, b, c) => c.aG2Remark || c.remark || '' },
+                { render: (a, b, c) => buttons(c) }
+            ]
+        });
+    })(jQuery);
+</script>

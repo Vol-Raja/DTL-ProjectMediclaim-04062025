@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Pensioner";
+}
+
+@using DTL.Model.Models.UserManagement;
+@model IEnumerable<AssignPermissionModel>;
+@{
+    var _modules = new List<string>() { };
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="container-fluid">
+    
+    <div class="row header_section mx-0 px-0 border_bottom">
+        <div class="col-5 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0"> Pensioner Dashboard</h3>
+        </div>
+        <p class="mb-0 col-7 top_link_Section"><span class="">Dashboard </span></p>
+    </div>
+    <div class="container-fluid pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="row row-xs">
+
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-skyBlue">
+                    <a href="#">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">View  Profile</h5>
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard bg-warning">
+                    <a href="mediclaimDashboard.html">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Mediclaim</h5>
+                                <i class="fa fa-medkit"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-green">
+                    <a href="ppoDashboard.html">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">PPO</h5>
+                                <i class="fa fa-sort"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+
+            <div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-lightpink">
+                    <a href="../employee/grievanceDashboard.html">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Grievance</h5>
+                                <i class="fa fa-gavel"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+
+        </div>
+    </div>
+
+
+
+</div>
+@section DashboardScript{
+    <!-- AdminLTE for demo purposes -->
+    <!-- <script src="~/dist/js/demo.js"></script>-->
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- <script src="~/dist/js/pages/dashboard.js"></script>-->
+}

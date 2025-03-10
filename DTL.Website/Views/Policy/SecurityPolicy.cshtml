@@ -1,0 +1,27 @@
+﻿@using DTL.Model.Models.CMS
+@model FooterLegalSectionModel
+@{ ViewData["Title"] = "Security Policy";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>Security Policy</h1>
+                <p><a href="@Url.Action("","home")">Home</a> / <span>Security Policy</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="main_page">
+    <div class="container">
+        <div class="accesibility_div">
+            <div class="row shadow pt-4 px-3">
+                <p>
+                    @Model?.SecurityPolicy
+                </p>
+               
+
+            </div>
+        </div>
+    </div>
+</section>

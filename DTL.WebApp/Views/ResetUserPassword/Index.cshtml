@@ -1,0 +1,29 @@
+﻿@{ 
+    ViewData["Title"] = "Forgot your password?";
+    Layout = "../Shared/_LoginLayout.cshtml";
+
+}
+<div class="card">
+    <div class="card-body login-card-body">
+
+        <div class="row">
+            <div class="col-md-12">                
+                <label>Enter your OTP:</label>               
+                <div class="form-group">
+                    <label ></label>
+                    <input id="otp" name="otp" required class="form-control" />                    
+                </div>
+               @* <button type="button" class="btn btn-primary">Submit</button>*@
+                <a href="@Url.Action("ResetPassword","ResetUserPassword",new {area="" })" class="btn btn-primary">Submit</a>
+                <hr />
+                <div class="mb-1">
+                    <a href="@Url.Action("Login","Account",new{area="Identity" })">Back to Login</a>
+                </div>                
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- /.login-card-body -->
+</div>

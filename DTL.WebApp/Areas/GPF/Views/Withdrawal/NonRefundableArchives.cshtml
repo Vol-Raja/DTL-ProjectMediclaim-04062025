@@ -1,0 +1,84 @@
+﻿@using DTL.Model.Models.GPF
+@model List<GPFWithdrawalModel>
+@{
+    ViewData["Title"] = "Refundable List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Refundable List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Withdrawal", new { Area="GPF" })">GPF Withdrawal Dashboard</a><span class="px-1">/</span><a href="@Url.Action("Index","LoanProcessing", new { Area="GPF" })">Loan Application</a><span class="px-1">/</span><span>Refundable List</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4">
+                <button type="button" class="btn btn-primary btn-sm mr-2 "
+                        onclick="location.href='@Url.Action("AddRefundableGPF","Withdrawal", new { Area="GPF" })'">
+                    Add New Refundable
+                </button>
+                <button type="button" class="btn btn-primary btn-sm "
+                        onclick="location.href='@Url.Action("NonRefundableArchives","Withdrawal", new { Area="GPF" })'">
+                    Archives
+                </button>
+            </div>
+            <table id="example1" class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Date</th>
+                        <th>Loan Application No.</th>
+                        <th>GFP Account Holder Name</th>
+                        <th>Email id</th>
+                        <th>Designation</th>
+                        <th>Organization</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+                        <td>20/02/2022</td>
+                        <td>123456</td>
+                        <td>Rahul Sahu</td>
+                        <td>admin@gmail.com</td>
+                        <td>Public User</td>
+                        <td>Dashboard</td>
+                        <td>Pending</td>
+                        <td class="d-flex border-bottom-0">
+
+                            <a href="@Url.Action("NonRefundableView","Withdrawal", new { Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small">
+                                <i class="fa fa-pencil"
+                                   aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small">
+                                <i class="fa fa-trash"
+                                   aria-hidden="true"></i>
+                            </a>
+
+
+
+                            <!-- Modal -->
+
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Content Wrapper. Contains page content -->
+

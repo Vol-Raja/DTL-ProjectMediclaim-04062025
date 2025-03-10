@@ -1,0 +1,97 @@
+﻿@using DTL.WebApp.Areas.EmployeeDashboard.Models
+@model IEnumerable<PPOEmployee>
+@{
+    ViewData["Title"] = "GetPPO_Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <input type="hidden" id="hdnClaimId" />
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">All PPO Data</h3>
+        </div>
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body ps-0 pr-2 pt-5">
+            <div class="table-responsive">
+                <table id="tblPPO" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr.No.</th>
+                            <th>PPO-No</th>
+                            <th>Employee Name</th>
+                            <th>DOB</th>
+                            <th>Gender</th>
+                            <th>Email_ID</th>
+                            <th>Mobile_NO</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            int index = 1;
+
+                            @foreach (var item in Model)
+                            {
+                        <tr>
+                            <td width="7%" class="text-center">@index</td>
+                            <td>@item.ppo_no</td>
+                            <td>@item.EMP_Name</td>
+                            <td>@item.DOB.ToString("dd/MM/yyyy")</td>
+                            <td>@item.Sex</td>
+                            <td>@item.email_id</td>
+                            <td>@item.Mobile_no</td>
+                            <td>@item.Perm_add</td>
+                            <td>
+                                <a href="/EmployeeDashboard/PPO/ViewEmployeeDetails/@item.ppo_no" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                                index++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="13">
+                                    No Data Found
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div><!-- col -->
+@section CashlessClaims{
+    <script>
+        (function ($) {
+            $('#tblPPO').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    //'excel',
+                    //'pdfHtml5',
+                    //'csvHtml5'
+                ],
+                "ordering": false,
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bAutoWidth": false,
+                "bJQueryUI": true,
+                "bRetrieve": true,
+                "bAutoWidth": true
+            });
+        })(jQuery);
+    </script>
+}
+
+

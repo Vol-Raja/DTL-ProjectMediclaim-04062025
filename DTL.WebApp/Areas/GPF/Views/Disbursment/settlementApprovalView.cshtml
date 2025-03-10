@@ -1,0 +1,918 @@
+﻿
+@{ ViewData["Title"] = "Settlement View";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="container-fluid view_form">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">GPF Settlement Form View</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="/ class="">Dashboard</a><span class="px-1">/</span><a href="@Url.Action("settlementApproval","Disbursment", new { Area="GPF" })">Settlement  Approval List</a><span class="px-1">/</span><span>Settlement View</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0 ">
+        <div class="card-body">
+            <div class="position-relative">
+                <div id="material-tabs">
+                    <a id="tab1-tab" href="#tab1" class="active">
+                        Application Status
+                    </a>
+
+                    <span class="yellow-bar">    </span>
+                </div>
+            </div>
+            <div class="tab-content p-0 ">
+                <div id="tab1">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+
+                            <h4 class="accordion m-0">
+                                Personal Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Employee Code</label>
+                                    <p class="View_text"><span class="ds" name="employee.basicDetails.employeeCode"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Employee Name</label>
+                                    <p class="View_text"><span class="ds" name="employee.basicDetails.employeeName"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Father/ Husband Name</label>
+                                    <p class="View_text"><span class="ds" name="employee.basicDetails.fatherName"></span></p>
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Date of Birth</label>
+                                    <p class="View_text"><span class="ds date" name="employee.basicDetails.dateOfBirth"></span></p>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Age</label>
+                                    <p class="View_text"><span class="ds2" name="age"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Blood Group</label>
+                                    <p class="View_text"><span class="ds" name="employee.basicDetails.bloodGroup"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Gender</label>
+                                    <p class="View_text"><span class="ds" name="employee.gender"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Email Id</label>
+                                    <p class="View_text"><span class="ds" name="employee.email"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Mobile Number</label>
+                                    <p class="View_text"><span class="ds" name="employee.mobile"></span></p>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Address</label>
+                                    <p class="View_text"><span class="ds2" name="address"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <h4 class="accordion m-0">
+                                Organization Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="accordion-body">
+                                <div class="row mt-3">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Employee Type</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.employeeType"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">GPF Account Number</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.gpfNumber"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Organization</label>
+                                        <p class="View_text"><span class="ds" name="employee.organisation"></span></p>
+                                    </div>
+
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Designation</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.designation"></span></p>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Level </label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.level"></span> </p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Department</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.department"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Pay Scale</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.payScale"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Basic Pay</label>
+                                        <p class="View_text"><span class="ds curr" name="employee.basicDetails.basicPay"></span></p>
+
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date Of Joining</label>
+                                        <p class="View_text"><span class="ds date" name="employee.basicDetails.dateOfJoining"></span></p>
+                                    </div> <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">
+                                            Date Of Retirment
+                                        </label>
+                                        <p class="View_text"><span class="ds date" name="employee.basicDetails.dateOfRetirement"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Contact Number</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.contactNumber"></span></p>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Address</label>
+                                        <p class="View_text"><span class="ds2" name="address"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">PIN Code</label>
+                                        <p class="View_text"><span class="ds" name="employee.currentAddress.pinCode"></span></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <h4 class="accordion m-0">
+                                Nominee Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" id="divNominee">
+                            <div class="table-responsive">
+                                <table id="tblNominee" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.no</th>
+                                            <th>Name of nominee</th>
+                                            <th>Nominee DOB</th>
+                                            <th> Age</th>
+                                            <th>Relation With Employee</th>
+                                            <th>Share</th>
+                                            <th>Share(%)</th>
+                                            <th>Address</th>
+                                            <th>Contact</th>
+                                            <th>Email id</th>
+                                            <th>Nominee Type</th>
+                                            <th>Guardian Name</th>
+                                            <th>Guardian Relation with employee</th>
+                                            <th>Guardian Contact </th>
+                                            <th>Guardian Address</th>
+                                            <th class="d-none"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                            <h4 class="accordion m-0">
+                                Other Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">If any loan from GPF Account Balance</label>
+                                    <p class="View_text"><span class="ds2" name="isLoan"></span></p>
+                                </div>
+                                <div class="row mt-2 ms-2 d-none">
+                                    <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 mb-3 ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="refucheckbox" checked>
+                                            <label class="form-check-label" for="minor">
+                                                Refundable
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 mb-3 ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="nonrefunCheckbox" checked>
+                                            <label class="form-check-label" for="minor">
+                                                Non Refundable
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="refund">
+                                    <div class="col-sm-12">
+                                        <h5 class="my-2">Refundable</h5>
+                                        <table id="tblLoanRef" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Loan No</th>
+                                                    <th>Loan Date</th>
+                                                    <th>Loan Amount</th>
+                                                    <th>Loan Reason</th>
+                                                    <th>OutStanding Balance</th>
+                                                    <th>EMI's pending </th>
+                                                    <th>Total GPF Balance</th>
+                                                    <th>Loan Status</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row" id="nonrefun">
+                                            <div class="col-sm-12">
+                                                <h5 class="my-2">Non-Refundable</h5>
+                                        <table id="tblLoanNonRef" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Loan No</th>
+                                                    <th>Loan Date</th>
+                                                    <th>Loan Amount</th>
+                                                    <th>Loan Reason</th>
+                                                    <th>Total GPF Balance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                            <h4 class="accordion m-0">
+                                Settlement Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Life Time Pension</label>
+                                    <p class="View_text"><span class="ds2" name="lifeTimePension"></span></p>
+                                </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border lifeTimePensionShow">
+                                    <label class="form-label d-block mb-1">Reason </label>
+                                    <p class="View_text"><span class="ds" name="lifeTimePensionReason"></span> </p>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Transfer To Nominee</label>
+                                    <p class="View_text"><span class="ds2" name="transferToNominee"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border transferToNomineeShow">
+                                    <label class="form-label d-block mb-1">Reason </label>
+                                    <p class="View_text"><span class="ds" name="transferToNomineeReason"></span>  </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Current GPF Account Balance </label>
+                                    <p class="View_text"><span class="ds2" name="gpfAccountBalance"></span> </p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Settlement Amount  </label>
+                                    <p class="View_text"><span class="ds" name="settlementAmount"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Date Of Settlement   </label>
+                                    <p class="View_text"><span class="ds date" name="settlementDate"></span> </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                            <h4 class="accordion m-0">
+                                Bank Detail
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Account Holder Name</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.accountHolderName"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Bank Name </label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.bankName"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Branch Name</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.branchName"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Account Number</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.accountNumber"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">IFSC Code</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.ifsc"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">BIS Code</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.bis"></span></p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingSeven">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                            <h4 class="accordion m-0">
+                                Upload Attachment
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered view_table">
+                                        <thead>
+                                            <tr>
+                                                <th width="7%" class="text-center">Sr. No.</th>
+                                                <th>Document Type</th>
+                                                <th width="15%" class="text-center">Attach file </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @*
+                                            <tr>
+                                            <td class="text-center">1</td>
+                                            <td>Document Type</td>
+                                            <td class="text-center">
+                                            <a href="#" class="pdfIcons">
+                                            <i class="fa fa-file-pdf"
+                                            aria-hidden="true"></i>
+                                            </a>
+                                            </td>
+
+                                            </tr>*@
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingEight">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                            <h4 class="accordion m-0">
+                                Approve Status
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseEight" class="accordion-collapse collapse show" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                                    <label class="form-label d-block mb-1">Settlement Final Amount<span class="text-danger req_text">*</span></label>
+                                    <input type="text" id="txtApprovedAmount" name="finalSettlementAmount" class="form-control form-control-sm" value="0" disabled>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                                    <label class="form-label d-block mb-1">In Words<span class="text-danger req_text">*</span></label>
+                                    <input type="text" id="txtApproveAmountInWords" name="finalSettlementAmountWords" class="form-control form-control-sm" disabled="" placeholder="Approve Amount in Words">
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                    <label class="form-label d-block mb-1">Remark<span class="text-danger req_text">*</span></label>
+                                    <textarea placeholder="Remark" class="form-control" name="remark" disabled></textarea>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                    <label class="form-label d-block mb-1">AG II Remark<span class="text-danger req_text">*</span></label>
+                                    <textarea placeholder="Enter Remark" class="form-control" name="aG2Remark" disabled></textarea>
+                                </div>
+                            </div>
+                                    <div class="row">
+                                        <div class="col-lg-12" style="float:right">
+                                          
+                                            <button class="btn btn-primary float-end" id="printMe">
+                                                <i class="fa fa-print mr-2"
+                                                   aria-hidden="true"></i>Print Application
+                                            </button>
+                                        </div>
+                                    </div>
+                            @*<div class="row mt-3">
+                                <div class="col-lg-12" style="float:right">
+                                    <button id="btnModalApprove" type="button" class="btn btn-success me-2 text-white" data-bs-toggle="modal" data-bs-target="#approvemsg">Approve</button>
+                                    <button id="btnModalReject" type="button" class="btn btn-danger me-2 text-white" data-bs-toggle="modal" data-bs-target="#rejectmsg">Reject</button>
+                                </div>
+                            </div>*@
+                        </div>
+
+
+                    </div>
+                </div>
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="print_preview">
+    <div class=" view_container_bg mt-0">
+
+        <div class="card-body">
+            <h4 class="print_title">
+                Personal Details
+            </h4>
+            <table class="table table-bordered w-100">
+                <tbody>
+                    <tr>
+                        <th scope="row" width="200px">Employee Code</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.employeeCode"></td>
+                        <th scope="row">Employee Name</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.employeeName"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Father/ Husband Name</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.fatherName"></td>
+                        <th scope="row">Date of Birth</th>
+                        <td scope="row"><span class="ds date" name="employee.basicDetails.dateOfBirth"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Age</th>
+                        <td scope="row"><span class="ds2" name="age"></span></td>
+                        <th scope="row">Gender</th>
+                        <td scope="row"><span class="ds" name="employee.gender"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Blood Group</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.bloodGroup"></td>
+                        <th scope="row">Email Id</th>
+                        <td scope="row"><span class="ds" name="employee.email"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mobile Number</th>
+                        <td scope="row"><span class="ds" name="employee.mobile"></td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td scope="row"><span class="ds2" name="address"></td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4"> Organization Details</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Employee Type</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.employeeType"></td>
+                        <th scope="row">GPF Account Number</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.gpfNumber"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Organization</th>
+                        <td scope="row"><span class="ds" name="employee.organisation"></td>
+                        <th scope="row">Designation</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.designation"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Level</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.level"></td>
+                        <th scope="row">Department</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.department"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Pay Scale</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.payScale"></td>
+                        <th scope="row">Basic Pay</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.basicPay"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Date Of Joining</th>
+                        <td scope="row"><span class="ds date" name="employee.basicDetails.dateOfJoining"></td>
+                        <th scope="row">Date Of Retirment</th>
+                        <td scope="row"><span class="ds date" name="employee.basicDetails.dateOfRetirement"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Contact Number</th>
+                        <td scope="row"><span class="ds" name="employee.basicDetails.contactNumber"></td>
+                        <th scope="row">PIN Code</th>
+                        <td scope="row"><span class="ds" name="employee.currentAddress.pinCode"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" colspan="2">Address</th>
+                        <td scope="row"><span class="ds2" name="address"></td>
+
+                    </tr>
+
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Nominee Details</td>
+                    </tr>
+                    <tr id="print_nominee">
+                        <td scope="row" colspan="4" class="text-center h4">Other Details</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" colspan="3">
+                            If any loan from GPF Account Balance
+                        </th>
+                        <td scope="row"><span class="ds2" name="isLoan"></span></td>
+
+                    </tr>
+                    <tr class="refund">
+                        <th scope="row" colspan="4">Refundable</th>
+                    </tr>
+                    <tr class="refund">
+                        <td scope="row" colspan="4">
+
+                            <table class="w-100" id="tblLoanRefPrint">
+                                <thead>
+                                    <tr>
+                                        <th>Loan No</th>
+                                        <th>Loan Date</th>
+                                        <th>Loan Amount</th>
+                                        <th>Loan Reason</th>
+                                        <th>OutStanding Balance</th>
+                                        <th>EMI's pending </th>
+                                        <th>Total GPF Balance</th>
+                                        <th>Loan Status</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="nonrefun">
+                        <th scope="row" colspan="4">NonRefundable</th>
+                    </tr>
+                    <tr class="nonrefun">
+                        <td scope="row" colspan="4">
+                            <table class="w-100" id="tblLoanNonRefPrint">
+                                <thead>
+                                    <tr>
+                                        <th>Loan No</th>
+                                        <th>Loan Date</th>
+                                        <th>Loan Amount</th>
+                                        <th>Loan Reason</th>
+                                        <th>Total GPF Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4"> Settlement Details</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Life Time Pension</th>
+                        <td scope="row"><span class="ds2" name="lifeTimePension"></span></td>
+                        <th scope="row" class="lifeTimePensionShow">Reason</th>
+                        <td scope="row" class="lifeTimePensionShow"><span class="ds" name="lifeTimePensionReason"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Transfer To Nominee</th>
+                        <td scope="row"><span class="ds2" name="transferToNominee"></span></td>
+                        <th scope="row" class="transferToNomineeShow">Reason</th>
+                        <td scope="row" class="transferToNomineeShow"><span class="ds" name="transferToNomineeReason"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Current GPF Account Balance </th>
+                        <td scope="row"><span class="ds2" name="gpfAccountBalance"></span> </td>
+                        <th scope="row">Settlement Amount</th>
+                        <td scope="row"><span class="ds" name="settlementAmount"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Date Of Settlement </th>
+                        <td scope="row" colspan="3"><span class="ds date" name="settlementDate"></span></td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">
+                            Bank Detail
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Account Holder Name </th>
+                        <td scope="row"><span class="ds" name="bankDetails.accountHolderName"></span></td>
+                        <th scope="row">Bank Name</th>
+                        <td scope="row"><span class="ds" name="bankDetails.bankName"></span></td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Branch Name </th>
+                        <td scope="row"><span class="ds" name="bankDetails.branchName"></span></td>
+                        <th scope="row">Account Number</th>
+                        <td scope="row"><span class="ds" name="bankDetails.accountNumber"></span></td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">IFSC Code </th>
+                        <td scope="row"><span class="ds" name="bankDetails.ifsc"></span></td>
+                        <th scope="row">BIS Code</th>
+                        <td scope="row"><span class="ds" name="bankDetails.bis"></span></td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">
+                            Upload Attachment
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Sr. No.</th>
+                        <th colspan="3">Document Type</th>
+                    </tr>
+                    <tr id="docPrint">
+                        <td scope="row" colspan="4" class="text-center h4">
+                            Approve Status
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Approve Amount </th>
+                        <td scope="row"><span class="ds curr" name="finalSettlementAmount"></span></td>
+                        <th scope="row">In Words</th>
+                        <td scope="row"><span class="ds2" name="finalSettlementAmountWords"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Withdrawal Remark</th>
+                        <td scope="row"><span class="ds" name="remark"></span></td>
+                        <th scope="row">AG II Remark</th>
+                        <td scope="row"><span class="ds" name="aG2Remark"></span></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<template id="tmpl_Nominee">
+    <tr>
+        <th scope="row">Name Of Nominee</th>
+        <td scope="row">${obj.name}</td>
+        <th scope="row">Nominee DOB</th>
+        <td scope="row">${moment(obj.dateOfBirth).format('DD-MMM-YYYY')}</td>
+    </tr>
+    <tr>
+        <th scope="row">Age</th>
+        <td scope="row">${moment().diff(moment(obj.dateOfBirth), 'YEAR')}</td>
+        <th scope="row">Relationship With Employee </th>
+        <td scope="row">${obj.relationship}</td>
+    </tr>
+    <tr>
+        <th scope="row">Share</th>
+        <td scope="row">${obj.share}</td>
+        <th scope="row">As Per Share %</th>
+        <td scope="row">${obj.asPerShare}%</td>
+    </tr>
+    <tr>
+        <th scope="row">Contact</th>
+        <td scope="row">${obj.contact}</td>
+        <th scope="row">Nominee Type</th>
+        <td scope="row">${obj.nomineeType}</td>
+    </tr>
+    <tr>
+        <th scope="row" colspan="4" class="text-center h4">Guardian Details</th>
+    </tr>
+    <tr class="${(obj.nomineeType == 'Minor' ? '' : 'd-none')}">
+        <th scope="row">Guardian Name</th>
+        <td scope="row">${obj.guardianName}</td>
+        <th scope="row">Guardian Relationship</th>
+        <td scope="row">${obj.guardianRelationship}</td>
+    </tr>
+    <tr class="${(obj.nomineeType == 'Minor' ? '' : 'd-none')}">
+        <th scope="row">Guardian Contact</th>
+        <td scope="row">${obj.guardianContact}</td>
+    </tr>
+</template>
+
+<template id="tr_Nominee">
+    <tr>
+        <td>${i++}</td>
+        <td>${obj.name}</td>
+        <td>${moment(obj.dateOfBirth).format('DD-MMM-YYYY')}</td>
+        <td>${moment().diff(moment(obj.dateOfBirth), 'YEAR')}</td>
+        <td>${obj.relationship}</td>
+        <td>${obj.share}</td>
+        <td>${obj.asPerShare}%</td>
+        <td>${obj.address}</td>
+        <td>${obj.contact}</td>
+        <td>${obj.email}</td>
+        <td>${obj.nomineeType}</td>
+        <td>${obj.guardianName}</td>
+        <td>${obj.guardianRelationship}</td>
+        <td>${obj.guardianContact}</td>
+        <td>${obj.guardianAddress}</td>
+        <td class="d-none rowData">${ btoa(JSON.stringify(obj)) }</td>
+    </tr>
+</template>
+
+
+<script src="~/assets/js/tab.js"></script>
+<script>
+    $('#printMe').click(function () {
+        $('#print_preview').addClass('show');
+        window.print();
+
+    });
+    
+
+    $(document).ready(function () {
+
+        $('[name="finalSettlementAmount"]').change(function () { $('[name="finalSettlementAmountWords"]').val(intoWords($(this).val())); })
+
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        var appNo = params['applicationNumber'];
+        if (appNo) {
+            $.get('@Url.Action("GetSettlementApplication", "Data")?applicationNumber=' + encodeURIComponent(appNo)).then(r => {
+                data = r;
+                const curr = amt => `&#8377;&nbsp;${amt}`
+                const perc = amt => `${amt}&nbsp;%`
+                $('.ds').each(function () {
+                    var prop = $(this).attr('name');
+                    var val = eval(`r.${prop}`);
+                    if ($(this).hasClass('date')) $(this).html(val ? moment(val).format('DD-MMM-YYYY') : '');
+                    else if ($(this).hasClass('perc')) $(this).html(val ? perc(val) : '');
+                    else if ($(this).hasClass('curr')) $(this).html(val ? curr(val) : '');
+                    else $(this).html(val);
+                });
+                var ds2 = name => $(`.ds2[name="${name}"]`);
+                const getAddress = ad => `${ad.address || ''} ${ad.street || ''} ${ad.city || ''} ${ad.pinCode || ''} ${ad.state || ''}`.replaceAll(/\s+/gm, ' ').trim();
+                ds2('age').html(moment().diff(moment(r.employee.basicDetails.dateOfBirth), 'YEAR'));
+                ds2('address').html(getAddress(r.employee.currentAddress));
+                ds2('lifeTimePension').html(r.lifeTimePension ? 'Yes' : 'No');
+                ds2('transferToNominee').html(r.transferToNominee ? 'Yes' : 'No');
+                if (!r.lifeTimePension) { $('.lifeTimePensionShow').show(); } else $('.lifeTimePensionShow').hide();
+                if (!r.transferToNominee) { $('.transferToNomineeShow').show(); } else $('.transferToNomineeShow').hide();
+                var currentFy = moment().month() > 2 ? (moment().year() + 1) : moment().year();
+                $.get(`@Url.Action("GetCurrentBalance", "Data")?orgCode=${encodeURIComponent(r.employee.organisationCode)}&accNo=${encodeURIComponent(r.employeeExternalCode)}&year=${currentFy}`).then(r1 => {
+                    ds2('gpfAccountBalance').html(curr(r1.gpfBalance));
+                    $.get(`@Url.Action("GetLoanApplicationsByEmployee", "Data")?&externalCode=${encodeURIComponent(r.employeeExternalCode)}`).then(r2 => {
+                        if (r2.length) {
+                            ds2('isLoan').html('Yes')
+                            if (r2.some(q => q.loanType == 'Refundable')) {
+                                $('#refund,.refund').show();
+                                var tData = r2.filter(q => q.loanType == 'Refundable').map(q => `
+                                            <tr>
+                                                <td>${q.applicationNumber}</td>
+                                                <td>${moment(q.createdOn).format('DD-MMM-YYYY')}</td>
+                                                <td>${q.loanAmount}</td>
+                                                <td>${q.details.loanPurpose}</td>
+                                                <td>${q.details.numEMI ? (moment(q.details.emiEnd).diff(moment(), 'MONTH') * (Math.min(q.loanAmount, q.eligibleAmount) / q.details.numEMI)) : ''}</td>
+                                                <td>${q.details.emiEnd ? (moment(q.details.emiEnd) > moment() ? 'Pending' : 'Completed') : ''}</td>
+                                                <td>&#8377;&nbsp;${r1.gpfBalance}</td>
+                                                <td>${q.loanStatus}</td>
+                                                <td class="d-none">${btoa(JSON.stringify(q))}</td>
+                                            </tr>
+                                        `).join('');
+                                $('#tblLoanRef').find('tbody').html(tData);
+                                $('#tblLoanRefPrint').find('tbody').html(tData);
+                            }
+                            else    $('#refund,.refund').hide();
+                            if (r2.some(q => q.loanType == 'Non-Refundable')) {
+                                $('#nonrefun,.nonrefun').show();
+                                var tData = r2.filter(q => q.loanType == 'Non-Refundable').map(q => `
+                                            <tr>
+                                                <td>${q.applicationNumber}</td>
+                                                <td>${moment(q.createdOn).format('DD-MMM-YYYY')}</td>
+                                                    <td>${q.loanAmount}</td>
+                                                    <td>${q.details.loanPurpose}</td>
+                                                <td>&#8377;&nbsp;${r1.gpfBalance}</td>
+                                                <td class="d-none">${btoa(JSON.stringify(q))}</td>
+                                            </tr>
+                                        `).join('');
+                                $('#tblLoanNonRef').find('tbody').html(tData);
+                                $('#tblLoanNonRefPrint').find('tbody').html(tData);
+                            }
+                            else    $('#nonrefun,.nonrefun').hide();
+                        }
+                        else {
+                            ds2('isLoan').html('No')
+                            $('#refund').hide();
+                            $('#nonrefun').hide();
+                        }
+                    });
+                });
+                i = 1;
+                r.nominees.forEach(obj => {
+                    $('#tblNominee').find('tbody').append(eval('`' + $('#tr_Nominee').html() + '`'));
+                    var nd = eval('`'+$('#tmpl_Nominee').html()+'`');
+                    $('#print_nominee').before(nd);
+                })
+                var docSr = 1;
+                r.documents.forEach(dd => {
+                    var uri = `data:application/pdf;base64,${dd.documentData}`;
+                    var blob = dataURItoBlob(uri);
+                    var objectURL = URL.createObjectURL(blob);
+                    var icon = `<a href="${objectURL}" download="${dd.documentType}.pdf" class="pdfIcons"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>`
+                    var id = docSr++;
+                    var tr = `<tr><td>${id}</td><td>${dd.documentType}</td><td class="text-center">${icon}</td></tr>`
+                    var tr2 = `<tr><td class="text-center">${id}</td><td colspan="3">${dd.documentType}</td></tr>`
+                    $('#example1').find('tbody').append(tr);
+                    $('#docPrint').before(tr2);
+                });
+                $('[name="finalSettlementAmount"]').val(r.finalSettlementAmount || r.settlementAmount).trigger('change');
+                ds2('finalSettlementAmountWords').html(intoWords(r.finalSettlementAmount));
+                $('[name="remark"]').val(r.remark);
+                $('[name="aG2Remark"]').val(r.aG2Remark);
+                if (r.settlementStatus != 'Pending with AG II') {
+                    $('input,textarea').prop('readonly', true);
+                    $('.actions *').remove();
+                }
+            });
+        }
+    })
+
+
+    function dataURItoBlob(dataURI) {
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataURI.split(',')[1]);
+        else
+            byteString = unescape(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ia = new Uint8Array(byteString.length);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ia], { type: mimeString });
+    }
+
+    function intoWords(num) {
+        var a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+        var b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        if ((num = num.toString()).length > 9) return 'overflow';
+        n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!n) return; var str = '';
+        str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+        str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+        str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+        str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+        str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'Only ' : 'Only';
+        return str;
+    }
+    
+        </script>
+
+

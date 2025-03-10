@@ -1,0 +1,83 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-DTL.WebApp-B55EA2F3-E81F-4EE9-A623-04D7BEC46CDF</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\GPF\Views\Report\**" />
+    <Compile Remove="Areas\Mediclaim\Data\**" />
+    <Compile Remove="Areas\Mediclaim\Models\**" />
+    <Content Remove="Areas\GPF\Views\Report\**" />
+    <Content Remove="Areas\Mediclaim\Data\**" />
+    <Content Remove="Areas\Mediclaim\Models\**" />
+    <EmbeddedResource Remove="Areas\GPF\Views\Report\**" />
+    <EmbeddedResource Remove="Areas\Mediclaim\Data\**" />
+    <EmbeddedResource Remove="Areas\Mediclaim\Models\**" />
+    <None Remove="Areas\GPF\Views\Report\**" />
+    <None Remove="Areas\Mediclaim\Data\**" />
+    <None Remove="Areas\Mediclaim\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Form5Controller.cs" />
+    <Compile Remove="Controllers\NomineeDetailsController.cs" />
+    <Compile Remove="Controllers\PensionSlipController.cs" />
+    <Compile Remove="Controllers\RolePageAccessController.cs" />
+    <Compile Remove="Controllers\ServiceHistoryController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Mediclaim\Views\Disbursment\PnbIndex.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Areas\GPF\Views\Withdrawal\Index._oldcshtml" />
+    <None Remove="Areas\Mediclaim\Views\Disbursment\NonCashlessProcessingList.cshtml~RF16ebd02.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\GPF\Views\Withdrawal\Index._oldcshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+   <PackageReference Include="ClosedXML" Version="0.95.4" />
+   <PackageReference Include="itext7" Version="7.2.1" />
+    <PackageReference Include="MailKit" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0-rc.2.21480.5" />
+    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DTL.Business\DTL.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Controllers\" />
+    <Folder Include="Areas\Identity\Views\" />
+    <Folder Include="wwwroot\files\cashless\" />
+    <Folder Include="wwwroot\files\Creditletter\" />
+    <Folder Include="wwwroot\files\Extend_Date\" />
+    <Folder Include="wwwroot\files\noncashless\" />
+    <Folder Include="wwwroot\files\nonrefundable\" />
+    <Folder Include="wwwroot\files\refundable\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\files\GPF.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

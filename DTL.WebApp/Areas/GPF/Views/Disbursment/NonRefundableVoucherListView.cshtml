@@ -1,0 +1,98 @@
+﻿
+@{ ViewData["Title"] = "Non Refundable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Voucher View</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="/">Dashboard</a><span class="px-1">/</span>
+            <a href="@Url.Action("VoucherApplicationDashboard","Disbursment",new {Area="GPF"})">Loan Voucher dashboard</a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("NonRefundableVoucherList","Disbursment",new {Area="GPF"})">Voucher List</a>
+            <span class="px-1">/</span>
+            <span> Voucher View</span>
+
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body ps-0 ">
+            <div class="card-body">
+              
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">Loan Number</label>
+                        <p class="View_text">Loan Number</p>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">Loan Type</label>
+                        <p class="View_text">Loan Type</p>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">Employee Id</label>
+                        <p class="View_text">Employee Id</p>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Organization</label>
+                        <p class="View_text">Organization</p>
+
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Pay To Shri / Smt</label>
+                        <p class="View_text">Pay To Shri / Smt</p>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Approved Amounts</label>
+                        <p class="View_text">1000</p>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Approved Amounts (In Words)</label>
+                        <p class="View_text">1000</p>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Account Number</label>
+                        <p class="View_text">Account Number</p>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Bank name</label>
+                        <p class="View_text">Bank name</p>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">Branch Name</label>
+                        <p class="View_text">Branch Name</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1">BIC Code</label>
+                        <p class="View_text">BIC Code</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">IFSC Number</label>
+                        <p class="View_text">IFSC Number</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1">BIC Code</label>
+                        <p class="View_text">BIC Code</p>
+                    </div>
+                </div>
+                
+              
+            </div>
+
+        </div>
+
+    </div><!-- col -->
+ </div>

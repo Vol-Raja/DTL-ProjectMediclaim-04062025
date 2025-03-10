@@ -1,0 +1,95 @@
+﻿@using DTL.Model.Models.CMS
+@using DTL.WebApp.Areas.WebsiteCMS
+
+
+@model FooterLegalSectionModel
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Add Legal</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home",new { Area="" })"><span class="">Dashboard </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index", StringConstants.DASHBOARD, new { Area = StringConstants.CMS_AREA })"><span>CMS</span></a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action(StringConstants.DASHBOARD, StringConstants.CMS_SocialMediaAccount, new { Area = StringConstants.CMS_AREA })"><span>Footer link Dashboard </span></a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("LegalList", StringConstants.CMS_SocialMediaAccount, new { Area = StringConstants.CMS_AREA })"><span>Legal list</span></a>
+            <span class="px-1">/</span>
+            <span>Add legal</span>
+
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body">
+            <form id="AddFooterLegalSectionForm" action="" method="post">
+                @Html.HiddenFor(x=>x.ID)
+                @Html.HiddenFor(x=>x.IsNew)
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Copyright Policy </label>
+                        <input name="CopyrightPolicy" value="@Model.CopyrightPolicy" type="text" class="form-control form-control-sm" placeholder="Copyright Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">CMAP Policy </label>
+                        <input name="CMAPPolicy" type="text" value="@Model.CMAPPolicy" class="form-control form-control-sm" placeholder="CMAP" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">CAP Policy </label>
+                        <input name="CAPPolicy" type="text" value="@Model.CAPPolicy" class="form-control form-control-sm" placeholder="CAP Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Content Review Policy </label>
+                        <input name="ContentReviewPolicy" value="@Model.ContentReviewPolicy" type="text" class="form-control form-control-sm" placeholder="Content Review Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Hyperlink Policy </label>
+                        <input name="HyperlinkPolicy" value="@Model.HyperlinkPolicy" type="text" class="form-control form-control-sm" placeholder="Hyperlink Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Terms & Condition Policy </label>
+                        <input name="TermsConditionPolicy" value="@Model.TermsConditionPolicy" type="text" class="form-control form-control-sm" placeholder="Terms & Condition Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Privacy Policy </label>
+                        <input name="PrivacyPolicy" type="text" value="@Model.PrivacyPolicy" class="form-control form-control-sm" placeholder="Privacy Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Website Monitoring plan Policy </label>
+                        <input name="WebsiteMonitoringPlanPolicy" value="@Model.WebsiteMonitoringPlanPolicy" type="text" class="form-control form-control-sm" placeholder="Website Monitoring plan Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Security Policy </label>
+                        <input name="SecurityPolicy" value="@Model.SecurityPolicy" type="text" class="form-control form-control-sm" placeholder="Security Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Contingency Management plan  Policy </label>
+                        <input name="ContingencyManagementPlanPolicy" value="@Model.ContingencyManagementPlanPolicy" type="text" class="form-control form-control-sm" placeholder="Contingency Management plan  Policy" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        <label class="form-label d-block mb-1">Disclaimer </label>
+                        <input name="Disclaimer" type="text" value="@Model.Disclaimer" class="form-control form-control-sm" placeholder="Disclaimer" />
+                    </div>
+                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                        <button id="btnSubmit" type="submit" class="btn btn-brand me-2 @(Model.ViewOnly ? "hide" :"")">@(Model.IsNew ? "Submit" : "Update")</button>
+                        <button onclick="showConfirmSwal('Are you sure you want cancel?',function(){ location.href='/WebsiteCMS/SocialMediaAccount/LegalList';  }); return false;" class="btn btn-cancel me-2">Cancel</button>
+                        <button onclick="showConfirmSwal('Are you sure you want to Reset?', function(){ location.reload();}); return false; " class="btn btn-reset me-2">Reset</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/CMS/FooterLegalSection.js" asp-append-version="true"></script>
+

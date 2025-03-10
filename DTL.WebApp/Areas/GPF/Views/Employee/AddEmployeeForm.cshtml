@@ -1,0 +1,364 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{ ViewData["Title"] = "Index";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Employee Profile Creation</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a class="" href="@Url.Action("Dashboard","Processing",new { Area="GPF" })">Dashboard </a><span class="px-1">/</span><a class="" href="@Url.Action("Index","Employee",new { Area="GPF" })">Employee Profile List </a><span class="px-1">/</span>                                                                                                                                                                                                                    <span>Employee Profile Creation</span>
+        </p>
+    </div>
+    <form class="g-3 mt-2 formSubmit" id="form">
+        <div class="card border-card mt-0">
+
+            <div class="card-body">
+                <h4 class="form_title shadow-2-strong ">
+                    Personal Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-4 mb-, mm3">
+                        <label class="form-label d-block mb-1">Employee Name</label>
+                        <input type="text" class="form-control validateThis"  placeholder="Employee Name" />
+                        <div class="invalid-feedback ">
+                            Please Enter Employee Name.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">GPF Number</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="GPF Number" value="597685" readonly />
+
+                    </div>
+                    <div class="col-sm-4 mb-3 position-relative">
+
+                        <div class="small-12 medium-2 large-2 columns">
+                            <label class="form-label d-block mb-1 profile_title">Profile Photo upload</label>
+                            <div class="circle">
+                                <img class="profile-pic" src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg">
+
+                            </div>
+                            <div class="p-image">
+
+                                <i class="fa fa-camera upload-button"></i>
+                                <input class="file-upload validateThis" type="file" accept="image/*" />
+                                <div class="invalid-feedback viewValidationPosition ">
+                                    Please Your Profile Photo upload.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Email id</label>
+                        <input type="email" class="form-control validateThis"
+                               placeholder="Email id" />
+                        <div class="invalid-feedback ">
+                            Please Enter Email id.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Contact Number</label>
+                        <input type="text" class="form-control validateThis"
+                               placeholder="Contact Number" />
+                        <div class="invalid-feedback ">
+                            Please Enter Contact Number.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Alternate Contact Number</label>
+                        <input type="text" class="form-control "
+                               placeholder="Alternate Contact Number" />
+                        <div class="invalid-feedback ">
+                            Please Enter Employee Name.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Gender</label>
+                        <div class="d-flex mt-2">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="Gender" id="male" checked>
+                                <label class="form-check-label" for="male">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="Gender" id="female">
+                                <label class="form-check-label" for="female">
+                                    Female
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Gender" id="other">
+                                <label class="form-check-label" for="other">
+                                    Other
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Maritial Status</label>
+                        <div class="d-flex mt-2">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="MaritialStatus" id="Married" checked>
+                                <label class="form-check-label" for="Married">
+                                    Married
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="MaritialStatus" id="Unmarried">
+                                <label class="form-check-label" for="Unmarried">
+                                    Unmarried
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Date of Birth</label>
+                        <input type="date" class="form-control validateThis"/>
+                        <div class="invalid-feedback ">
+                            Please Enter Date of Birth
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Age</label>
+                        <input type="number" class="form-control validateThis" placeholder="Age"
+                               disabled />
+                        <div class="invalid-feedback ">
+                            Please Enter Age.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Spouse Name</label>
+                        <input type="text" class="form-control validateThis" placeholder="Spouse Name" />
+                        <div class="invalid-feedback ">
+                            Please Enter Spouse Name.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Father Name</label>
+                        <input type="text" class="form-control validateThis" placeholder="Father Name" />
+                        <div class="invalid-feedback ">
+                            Please Enter Father Name.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Blood Group</label>
+                        <input type="text" class="form-control validateThis" placeholder="Blood Group " />
+                        <div class="invalid-feedback ">
+                            Please Enter Blood Group.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Residential Address</label>
+                        <textarea class="form-control validateThis" placeholder="Residential Addres"></textarea>
+                        <div class="invalid-feedback ">
+                            Please Enter Residential Address.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Pincode</label>
+                        <input type="text" class="form-control validateThis" placeholder="Pincode" />
+                        <div class="invalid-feedback ">
+                            Please Enter Pincode.
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">City</label>
+                        <input type="text" class="form-control validateThis" placeholder="City" />
+                        <div class="invalid-feedback ">
+                            Please Enter City Name.
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">State</label>
+                        <select name="" id="State" class="form-select validateThis">
+                            <option value="">Select</option>
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Enter State Name.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Nationality</label>
+                        <input type="text" class="form-control validateThis" placeholder="Nationality" />
+                        <div class="invalid-feedback ">
+                            Please Enter Nationality.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Aadhar Number</label>
+                        <input type="text" class="form-control validateThis" placeholder="Aadhar Number" />
+                        <div class="invalid-feedback ">
+                            Please Enter Aadhar Number.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Physically Disable </label>
+                        <div class="d-flex mt-2">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="Physically" id="yes" checked >
+                                <label class="form-check-label" for="yes">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="Physically" id="No">
+                                <label class="form-check-label" for="No">
+                                    No
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Identification Marks</label>
+                        <input type="text" class="form-control validateThis" placeholder="Identification Marks" />
+                        <div class="invalid-feedback ">
+                            Please Enter Identification Marks.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h4 class="form_title shadow-2-strong ">
+                    Organization Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Name of Organization</label>
+                        <select name="" id="State" class="form-select validateThis">
+                            <option value="">Select</option>
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Enter  Organization.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Designation</label>
+                        <input type="text" class="form-control validateThis" placeholder="Designation" />
+                        <div class="invalid-feedback ">
+                            Please Enter Designation.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Employee ID</label>
+                        <input type="text" class="form-control validateThis" placeholder="Employee ID" />
+                        <div class="invalid-feedback ">
+                            Please Enter Employee ID.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Date of Joining</label>
+                        <input type="date" class="form-control validateThis " placeholder="Date of Joining" />
+                        <div class="invalid-feedback ">
+                            Please Enter Date of Joining.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Date of Retirement</label>
+                        <input type="date" class="form-control " placeholder="Date of Retirement" readonly />
+                        <div class="invalid-feedback ">
+                            Please Enter Date of Retirement.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <h4 class="form_title shadow-2-strong ">
+                    Retirement Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Reason of Retirement</label>
+                        <select name="" id="State" class="form-select validateThis">
+                            <option value="">--Select--</option>
+                            <option value="">Death</option>
+                            <option value="">Retirement</option>
+                            <option value="">VRS</option>
+                            <option value="">Medical</option>
+
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Enter Reason of Retirement.
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Date of Death</label>
+                        <input type="date" class="form-control " placeholder="Date of Death" />
+
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Date of Retirement</label>
+                        <input type="date" class="form-control validateThis" placeholder="Date of Retirement" />
+                        <div class="invalid-feedback ">
+                            Please Enter Date of Death.
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3 submit_area submit_area_strip">
+                        <button class="btn btn-brand me-2 submitBtn">Submit</button>
+                        <button class="btn btn-cancel me-2" data-bs-toggle="modal" data-bs-target="#Cancel">Cancel</button>
+                        <button class="btn btn-reset me-2">Reset</button>
+                    </div>
+                    <!-- modal start -->
+                    <div class="modal fade" id="submit_pop_up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-body ">
+                                    <div class="content">
+                                        <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                                        <p class="message-type">Are you sure you want to Submit ?</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-brand popUp_btn me-2" onclick="location.href='employeeProfileCreationList.html'">Submit</button>
+                                        <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- modal end -->
+                    <!-- modal start -->
+                    <div class="modal fade" id="Cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog   ">
+                            <div class="modal-content">
+
+                                <div class="modal-body ">
+                                    <div class="content">
+                                        <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <img src="../assets/images/thumbs-up.png" class="icon_reject ">
+                                        <p class="message-type">Are you sure you want to Cancel ?</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-brand popUp_btn me-2" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- modal end -->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script src="~/assets/js/commonJs.js"></script>

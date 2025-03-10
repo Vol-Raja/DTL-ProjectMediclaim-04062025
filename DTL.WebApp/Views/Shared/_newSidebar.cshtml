@@ -1,0 +1,624 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using DTL.WebApp.Common;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+
+    var roles = ((ClaimsIdentity)User.Identity).Claims
+                                  .Where(c => c.Type == ClaimTypes.Role)
+                                  .Select(c => c.Value);
+    var user = UserManager.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+    string dashboard = string.Empty;
+    if (TempData.Peek(Constants.Dashboard) != null)
+        dashboard = Convert.ToString(TempData.Peek(Constants.Dashboard));
+
+    if (string.IsNullOrEmpty(dashboard))
+    {
+        Context.Request.Cookies.TryGetValue(Constants.Dashboard, out dashboard);
+
+    }
+    string userDashboard = string.Empty;
+    if (dashboard != null)
+    {
+        userDashboard = dashboard.ToString().Trim();
+    }
+
+}
+<style>
+    .Active {
+        border-left: 5px solid rgb(239 221 2);
+        padding: 13px 4px !important;
+        border-right: 5px solid #efdd02;
+    }
+    /*.nav_item {
+        position: relative;
+    }
+
+    .submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .submenu li {
+            padding: 8px 16px;
+        }
+
+            .submenu li a {
+                text-decoration: none;
+                color: #333;
+            }
+
+    .nav_item:hover .submenu {
+        display: block;
+    }*/
+
+</style>
+<div id="sidebar">
+    <div class="sidebar_body">
+        @if (userDashboard == Constants.SUPER_ADMIN_DASHBOARD)
+        {
+
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("", "Home", new { Area = "" })">Admin Dashboard</a>
+                </li>
+                <li class="nav_item">
+                    <a href="/UserManagement/DVBUser/DVBUserList"><i class="fa-regular fa-user"></i>DVB User Creation</a>
+                </li>
+                <li class="nav_item">
+                    <a href="/UserManagement/HospitalUser/HospitalUserList"><i class="fa-regular fa-hospital"></i>Hospital User Creation</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="/WebsiteCMS/Dashboard">
+                        <i class="fa fa-globe"></i>Website CMS
+                    </a>
+                </li>
+
+                <li class="nav_item ">
+                    <a href="/UserManagement/MasterUser" class=""><i class=" fa-brands fa-wpforms"></i>Master Management</a>
+                </li>
+
+            </ul>
+        }
+        else if (userDashboard == Constants.Pensioner_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="/Pensioner">Pensioner Dashboard</a>
+                </li>
+                <li class="nav_item">
+                    <a href="#"><i class="fa-regular fa-eye"></i>View Profile</a>
+                </li>
+                <li class="nav_item">
+                    <a href="#">
+                        <i class="fa fa-hand-holding-heart"></i>   Mediclaim
+                    </a>
+                </li>
+                <li class="nav_item">
+                    <a href="#"><i class="fa fa-list"></i>PPO</a>
+
+                </li>
+                <li class="nav_item">
+                    <a href="/Grievance"><i class="fa fa-gavel"></i>Grievance</a>
+
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.Employee_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="/Employee">Employee Dashboard</a>
+                </li>
+                <li class="nav_item">
+                    <a href="#"><i class="fa-regular fa-calendar"></i>Monthly GPF Statement</a>
+                </li>
+                <li class="nav_item">
+                    <a href="#"><i class="fa fa-balance-scale"></i>Current GPF Balance</a>
+                </li>
+                <li class="nav_item sub-menu">
+                    <a href="#"><i class="fa fa-credit-card "></i>  Loan Application</a>
+
+                </li>
+                <li class="nav_item sub-menu">
+                    <a href="/Grievance"><i class="fa fa-gavel"></i>Grievance</a>
+
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.Dealing_Assistant_Dashboard_OPD)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("index", "OPD", new { Area = "Mediclaim" })">Dealing Assistant (OPD) Dashboard</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "NonCashless", new { Area = "Mediclaim" })"><i class="fa fa-shield"></i>Mediclaim raise </a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("OPDProcessingMediclaimList", "Processing", new { Area = "Mediclaim" })"><i class="fa-solid fa-tachometer"></i>Mediclaim processing</a>
+                </li>
+                <li class="nav_item">
+                    <a href="/Mediclaim/noncashless/Vouchers"><i class="fa-solid fa-ticket"></i>Voucher generation</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("EmpanelledHospitalList", "EmpanelledHospitals", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>Empanelled Hospital List</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("CGHSRateCard", "CghsRateCard", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>CGHS Rate card list</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("OPDMedicalPageDetails", "MedicalPageDetail", new { Area = "Mediclaim" })"><i class="fa-solid fa-file"></i>Medical Page Details</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "LegalSection", new { Area = "" })"><i class="fa-solid fa-gavel "></i>Legal Case</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "Reports", new { Area = "Mediclaim" })"><i class="fa-solid fa-bug"></i>Report</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.Dealing_Assistant_Dashboard_IPD)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index", "IPD", new { Area = "Mediclaim" })"> Dealing Assistant(IPD) Dashboards</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("ProcessingList", "IPD", new { Area = "Mediclaim" })"><i class="fa-solid fa-tachometer"></i>Mediclaim processing</a>
+                </li>
+                <li class="nav_item">
+                    <a href="/Mediclaim/cashless/Vouchers"><i class="fa-solid fa-ticket"></i>Voucher generation</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("EmpanelledHospitalList", "EmpanelledHospitals", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>Empanelled Hospital List</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("CGHSRateCard", "CghsRateCard", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>CGHS Rate card list</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "MedicalCard", new { Area = "Mediclaim" })"><i class="fa fa-credit-card"></i>Mediclaim card Details</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("OPDMedicalPageDetails", "MedicalPageDetail", new { Area = "Mediclaim" })"><i class="fa-solid fa-file"></i>Medical Page Details</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "LegalSection", new { Area = "" })"><i class="fa-solid fa-gavel "></i>Legal Case</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "Reports", new { Area = "Mediclaim" })"><i class="fa-solid fa-bug"></i>Report</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.CMO_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index", "CMO", new { Area = "Mediclaim" })"> CMO Dashboards</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("ProcessingList", "CMO", new { Area = "Mediclaim" })"><i class="fa-solid fa-tachometer"></i>Mediclaim processing</a>
+                </li>
+                <li class="nav_item">
+                    <a href="/Mediclaim/cashless/Vouchers"><i class="fa-solid fa-ticket"></i>Voucher generation</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("EmpanelledHospitalList", "EmpanelledHospitals", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>Empanelled Hospital List</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("CGHSRateCard", "CghsRateCard", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>CGHS Rate card list</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("OPDMedicalPageDetails", "MedicalPageDetail", new { Area = "Mediclaim" })"><i class="fa-solid fa-file"></i>Medical Page Details</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.ASO_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index", "Aso", new { Area = "Mediclaim" })">ASO Dashboard</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("AsoProcesingDashboard", "Aso", new { Area = "Mediclaim" })"><i class="fa-solid fa-tachometer"></i>Mediclaim processing</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("EmpanelledHospitalList", "EmpanelledHospitals", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>Empanelled Hospital List</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "CghsRateCard", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>CGHS Rate card list</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("OPDMedicalPageDetails", "MedicalPageDetail", new { Area = "Mediclaim" })"><i class="fa-solid fa-file"></i>Medical Page Details</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "MedicalCard", new { Area = "Mediclaim" })"><i class="fa fa-credit-card"></i>Mediclaim card Details</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "LegalSection", new { Area = "" })"><i class="fa-solid fa-gavel "></i>Legal Case</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "Reports", new { Area = "Mediclaim" })"><i class="fa-solid fa-bug"></i>Report</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.SO_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("", "So", new { Area = "Mediclaim" })">SO Dashboard</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("ProcessingDashbord", "So", new { Area = "Mediclaim" })"><i class="fa-solid fa-tachometer"></i>Mediclaim processing</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("EmpanelledHospitalList", "EmpanelledHospitals", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>Empanelled Hospital List</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index", "CghsRateCard", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>CGHS Rate card list</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("OPDMedicalPageDetails", "MedicalPageDetail", new { Area = "Mediclaim" })"><i class="fa-solid fa-file"></i>Medical Page Details</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index","MedicalCard", new { Area = "Mediclaim" })"><i class="fa fa-credit-card"></i>Mediclaim card Details</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index","LegalSection", new { Area = "" })"><i class="fa-solid fa-gavel "></i>Legal Case</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index","Reports", new { Area = "Mediclaim" })"><i class="fa-solid fa-bug"></i>Report</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.AM_DM_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index","AMDM", new { Area = "Mediclaim" })">AM/DM Dashboard</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("ProcessingDashbord","AMDM", new { Area = "Mediclaim" })"><i class="fa-solid fa-tachometer"></i>Claim Approval List</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("ClaimForwardDashboard","AMDM", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>Claim Forward list</a>
+                </li>
+
+                <li class="nav_item">
+                    <a href="@Url.Action("Index","LegalSection", new { Area = "" })"><i class="fa-solid fa-gavel "></i>Legal Case</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index","Reports", new { Area = "Mediclaim" })"><i class="fa-solid fa-bug"></i>Report</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.Mediclaim_Disbursment_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index","Disbursment", new { Area = "Mediclaim" })">Mediclaim Disbursment Dashboard</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("ProcessingDashboard", "Disbursment", new { Area = "Mediclaim" })"><i class="fa fa-eye"></i>View Claim Details</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index","LegalSection", new { Area = "" })"><i class="fa-solid fa-gavel "></i>Legal Case</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Index","Reports", new { Area = "Mediclaim" })"><i class="fa-solid fa-bug"></i>Report</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("FullFinalSettlementIndex","Disbursment", new { Area = "Mediclaim" })">FullFinalSettlement</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("RequestForReleaseFullFinalIndex","Disbursment", new { Area = "Mediclaim" })">RequestForRelease</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("SbiIndex","Disbursment", new { Area = "Mediclaim" })">Sbi Report</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("PnbIndex1","Disbursment", new { Area = "Mediclaim" })">Pnb Report</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("Cheque","Disbursment", new { Area = "Mediclaim" })">Cheque Report</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.Hospital_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("HospitalDashboard", "Dashboard", new { Area = "Mediclaim" })"> Hospital Dashboard</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Index", "Cashless", new { Area = "Mediclaim" })"><i class="fa fa-plus"></i>Mediclaim Raise (IPD)</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="#"><i class="fa fa-eye"></i> View Claim</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("EmpanelledHospitalList", "EmpanelledHospitals", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>Empanelled Hospital List</a>
+                </li>
+                @*<li class="nav_item ">
+                    <a href="@Url.Action("Index", "CghsRateCard", new { Area = "Mediclaim" })"><i class="fa-solid fa-list"></i>CGHS Rate card list</a>
+                </li>*@
+                <li class="nav_item dropdown">
+                    <a href="@Url.Action("Index", "CghsRateCard", new { Area = "Mediclaim" })">
+                        <i class="fa-solid fa-list"></i>CGHS Rate Card List
+                    </a>
+                    @*<ul class="submenu">
+                        <li>
+                            <a href="@Url.Action("AIIMS", "CghsRateCard", new { Area = "Mediclaim" })">
+                                AIIMS Rate Cart List
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("SubMenuAction2", "ControllerName2", new { Area = "Mediclaim" })">
+                                Submenu Item 2
+                            </a>
+                        </li>
+                    </ul>*@
+                </li>
+
+
+            </ul>
+        }
+        else if (userDashboard == Constants.GPF_Processing_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Dashboard", "Processing", new { Area = "GPF" })">GPF Processing Dashboard</a>
+                </li>
+
+                <li class="nav_item ">
+                    <a href="@Url.Action("viewEmployeeList", "Employee", new { Area = "GPF" })"><i class="fa fa-check-square"></i>View Employee Profile</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("MonthlyProcessing", "Processing", new { Area = "GPF" })"><i class="fa fa-eye"></i> Monthly GPF Processing</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("GPFProcessingReport", "Reports", new { Area = "GPF" })"><i class="fa fa-balance-scale"></i>GPF Processing Report </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("StatementForm", "Processing", new { Area = "GPF" })"><i class="fa fa-eye"></i>GPF Statements  </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Summary", "Processing", new { Area = "GPF" })"><i class="fa fa-eye"></i>GPF Summary </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("CurrentGPFBalance", "Processing", new { Area = "GPF" })"><i class="fa fa-eye"></i>Current GPF Balance </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Index", "LegalSection", new { Area = "" })"><i class="fa fa-eye"></i>Legal Case </a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.GPF_Withdrawl_Processing_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index", "Withdrawal", new { Area = "GPF" })">GPF Withdrawl Processing Dashboard</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Index", "LoanProcessing", new { Area = "GPF" })"><i class="fa-solid fa-check-to-slot"></i>Loan Processing </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("settlementList", "Withdrawal", new { Area = "GPF" })"><i class="fa fa-check-square"></i>Settlement</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("EdlisList", "Withdrawal", new { Area = "GPF" })"><i class="fa fa-check-square"></i>EDLIS</a>
+                </li>
+
+                <li class="nav_item ">
+                    <a href="@Url.Action("CurrentGPFBalance", "Processing", new { Area = "GPF" })"><i class="fa fa-eye"></i>Current GPF Balance </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("ViewEmployeeList","Employee", new { Area="GPF" })"><i class="fa fa-check-square"></i>View Employee Profile </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Index", "LegalSection",new { Area=""})"><i class="fa fa-check-square"></i>Legal Case </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Index","Reports", new { Area="GPF" })"><i class="fa fa-check-square"></i>Report</a>
+                </li>
+
+            </ul>
+        }
+        else if (userDashboard == Constants.Grievance_Head_Dashboard)
+        {
+
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("", "Grievance")">Grievance Dashboard</a>
+                </li>
+
+
+                <li class="nav_item ">
+                    <a href="@Url.Action("GrievanceList", "Grievance")"><i class="fa fa-eye"></i> Create Grievance</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("RequestGrievanceList", "Grievance")"><i class="fa fa-balance-scale"></i>Request Grievance</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("RequestGrievanceList", "Grievance", new { isResolved = true })"><i class="fa fa-tasks"></i> Resolved Grievance</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.GPF_Disbursment_Dashboard)
+        {
+
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index", "Disbursment", new { Area = "GPF" })">GPF Disbursement Dashboard</a>
+                </li>
+
+                <li class="nav_item ">
+                    <a href="@Url.Action("LoanApplicationDashboard", "Disbursment", new { Area = "GPF" })"><i class="fa-solid fa-check-to-slot"></i>Loan Application</a>
+                </li>
+                @* <li class="nav_item">
+                    <a href="@Url.Action("VoucherApplicationDashboard", "Disbursment", new { Area = "GPF" })"><i class="fa-solid fa-ticket"></i>Voucher generation</a>
+                </li>*@
+                <li class="nav_item ">
+                    <a href="@Url.Action("settlementApproval", "Disbursment", new { Area = "GPF" })"><i class="fa fa-check-square"></i>Settlement Application</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("edlisApproval", "Disbursment", new { Area = "GPF" })"><i class="fa fa-eye"></i> EDLIS Applications</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Index", "LegalSection", new { Area = "" })"><i class="fa fa-eye"></i> Legal Cases</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("DisbusmentReport","Reports",new { Area="GPF" })"><i class="fa fa-eye"></i> Report</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.Finance_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("index", "FinanceManagement", new { Area = "" })">Finance Management Dashboard</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("BudgetManagement", "FinanceManagement")"><i class="fa-solid fa-check-to-slot"></i>Budget Management</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("PensionManagement", "FinanceManagement")"><i class="fa fa-check-square"></i>Pension Management</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("InvestmentManagement", "FinanceManagement")"><i class="fa fa-eye"></i> Investments</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("FinanceAnalysis", "FinanceManagement")"><i class="fa fa-balance-scale"></i>Financial Analysis</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="#"><i class="fa fa-tasks"></i> GPF Management</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.Legal_Advisor_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("index", "LegalAdvisor", new { Area = "" })"> Legal Advisor Dashboard</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("ViewLegalCases", "LegalAdvisor", new { Area = "" })"><i class="fa-solid fa-check-to-slot"></i>Legal Case Requests</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("ViewLegalCases", "LegalAdvisor", new { isReviewedOnly = true })"><i class="fa fa-check-square"></i>Approval/Reject Cases</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.GPF_AG2_dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index", "AG2", new { Area = "GPF" })">GPF Ag2 dashboard</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("LoanProcessingDashboard", "AG2", new { Area = "GPF" })"><i class="fa-solid fa-check-to-slot"></i>Loan Approvals</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("settlementApproval","AG2", new { Area="GPF" })"><i class="fa fa-check-square"></i>Settlement Approval</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("edlisApproval","AG2", new { Area="GPF" })"><i class="fa fa-check-square"></i>EDLIS Applications</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("CurrentGPFBalance","AG2", new { Area="GPF" })"><i class="fa fa-check-square"></i>Current GPF Balance</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("ViewEmployeeList","Employee", new { Area="GPF" })"><i class="fa fa-check-square"></i>View Employee Profile </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Index", "LegalSection",new { Area=""})"><i class="fa fa-check-square"></i>Legal Case </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Agreports","Reports", new { Area="GPF" })"><i class="fa fa-check-square"></i>Report</a>
+                </li>
+            </ul>
+        }
+        else if (userDashboard == Constants.GPF_AM_DM_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Index", "Am_Dm", new { Area ="GPF" })">GPF Am / Dm dashboard</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("LoanProcessingDashboard", "Am_Dm", new { Area = "GPF" })"><i class="fa-solid fa-check-to-slot"></i>Loan Approvals (Remarks)</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("settlementApproval","Am_Dm", new { Area="GPF" })"><i class="fa fa-check-square"></i>Settlement Approval</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("edlisApproval","Am_Dm", new { Area="GPF" })"><i class="fa fa-check-square"></i>EDLIS Applications</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("CurrentGPFBalance","Am_Dm", new { Area="GPF" })"><i class="fa fa-check-square"></i>Current GPF Balance</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("ViewEmployeeList","Employee", new { Area="GPF" })"><i class="fa fa-check-square"></i>View Employee Profile </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Index", "LegalSection",new { Area=""})"><i class="fa fa-check-square"></i>Legal Case </a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("Amdmreports","Reports", new { Area="GPF" })"><i class="fa fa-check-square"></i>Report</a>
+                </li>
+
+            </ul>
+        }
+
+        else if (userDashboard == Constants.Emp_Dashboard)
+        {
+            <ul class="sidebar_nav">
+                <li class="nav_item list_head">
+                    <a href="@Url.Action("Emp_Dashboard","Employee",new {Area="EmployeeDashboard" })">Employee Dashboard</a>
+                </li>
+                <li class="nav_item">
+                    <a href="@Url.Action("GetPPO_Data","PPO",new {Area="EmployeeDashboard" })"><i class="fa fa-check-square"></i>PPO</a>
+                </li>
+
+                <li class="nav_item ">
+                    <a href="@Url.Action("CashlessDisbursementList","EmployeeDisbursement",new {Area="EmployeeDashboard" })"><i class="fa-solid fa-check-to-slot"></i>Disbursement</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("CashlessMediclaim","Mediclaim",new {Area="EmployeeDashboard" })"><i class="fa fa-check-square"></i>Mediclaim</a>
+                </li>
+                <li class="nav_item ">
+                    <a href="@Url.Action("GetGPF_Data","EmployeeGPF",new {Area="EmployeeDashboard" })"><i class="fa fa-check-square"></i>GPF</a>
+                </li>
+            </ul>
+        }
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+     
+        $(".sidebar_nav li a").each(function () {
+            if (this.href == window.location.href) {
+                $(this).addClass("Active");
+            }
+        });
+    });
+  
+</script>

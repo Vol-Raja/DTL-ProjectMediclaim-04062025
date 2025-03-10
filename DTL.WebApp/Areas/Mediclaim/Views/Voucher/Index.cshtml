@@ -1,0 +1,119 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model List<MediclaimVoucherModel>
+@{
+    ViewData["Title"] = "Medical Vouchers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--NEW UI-->
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Mediclaim (@ViewBag.ClaimType) Voucher List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="/">Dashboard</a><span class="px-1">/</span>
+            <span>Vouchers</span>
+        </p>
+        <input type="hidden" id="hdnclaimtype" value="@ViewBag.ClaimType" />
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <!--<div class="my-4 border_bottom pb-4">-->
+                @*<a href="@Url.Action("AddNewVoucher","Voucher", new { Area="Mediclaim" })" class="btn btn-primary btn-sm mr-2">Add New Voucher</a>*@
+                @*<a href="/Mediclaim/Voucher/AddNewVoucher/@ViewBag.ClaimType" class="btn btn-primary btn-sm mr-2">Add New Voucher</a>*@
+            <!--</div>-->
+            <div class="my-4 border_bottom pb-4 row">
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Voucher No.</label>
+                    <input id="txtVoucherNo" type="number" class="form-control form-control-sm"
+                           placeholder="Voucher Number" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Claim No.</label>
+                    <input id="txtClaimNo" type="number" class="form-control form-control-sm"
+                           placeholder="Claim No." />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                    <label class="form-label d-block mb-1">Page No.</label>
+                    <input id="txtPageNo" type="text" class="form-control form-control-sm"
+                           placeholder="Page No." />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3  position-relative">
+                    <button type="button" id="btnSearch" class="btn btn-success  position-absolute bottom-0"><i class="fa fa-search"></i></button>
+                    <button type="button" id="btnClear" class="btn btn-danger position-absolute bottom-0 clear_btn"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="tblVoucher" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr. No.</th>
+                            <th>Date</th>
+                            <th>Voucher No.</th>
+                            <th>Page No.</th>
+                            <th>Claim No. </th>
+                            <th>Account No.</th>
+                            <th>Approved Amount</th>
+                            <th>IFSC No.</th>
+                            <th>BIC Code</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!--++++++-->
+<!--++++++-->
+
+@section MediclaimVoucher{
+    <script type="text/javascript" src="~/js/Mediclaim/Voucher/voucherlist.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#tblVoucher").DataTable({
+                ordering: true,
+                dom: 'lfrtip',
+                scrollX: true,
+            });
+
+            //var btnExcel = document.getElementsByClassName('buttons-excel');
+            //btnExcel.onClick = function () { alert("Finally"); };
+        })
+
+        function ApproveVoucher(voucherId) {
+            $.ajax({
+                type: 'POST',
+                url: "/Mediclaim/Voucher/Approve/" + voucherId,
+                data: '',
+                contentType: 'application/json; charset=utf-8',
+                //dataType: 'json',
+                success: function (response, status, xhr) {
+                    if (xhr.status == '200') {
+                        if (response != null || response != undefined) {
+                            setTimeout(function () {
+                                //window.location.assign("/Mediclaim/Processing/CashlessClaims");
+                                window.location.reload();
+                            }, 2000);
+                        }
+                        else {
+                        }
+                    }
+                },
+                error: function (xhr, status, error) {
+
+                }
+            });
+        }
+
+    </script>
+}

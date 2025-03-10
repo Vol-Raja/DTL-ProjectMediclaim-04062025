@@ -1,0 +1,162 @@
+﻿@using DTL.Model.Models
+@model LegalSectionModel
+@{
+    ViewData["Title"] = "Legal Section";
+}
+
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Legal case details</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("","LegalSection")">Legal Section Details</a></li>
+                    <li class="breadcrumb-item active">Add</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="LegalCaseForm">
+                            <input type="hidden" id="id" name="id" value="@Model.ID" />
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="CaseNo">Case No.:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="CaseNo" class="form-control" id="CaseNo" placeholder="Case Number" value="@(Model.CaseNo)" required>
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="CourtTypes">Court Type:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+
+                                    <select id="CourtTypes" name="CourtTypes" class="form-control">
+                                        <option value="">Select</option>
+                                        @foreach (var data in ViewBag.CourtTypeList)
+                                        {
+                                            if (data.CourtType.Equals(Model.CourtType))
+                                            {
+                                                <option value="@data.CourtType" selected>@data.CourtType</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@data.CourtType">@data.CourtType</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="PartiesInvolved">File Number:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="fileNumber" class="form-control" id="fileNumber" placeholder="File Number" value="@(Model.FileNumber)" required>
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="CaseInitialDate">Case Initial Date:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="date" name="CaseInitialDate" data-date="" data-date-format="DD-MM-YYYY" class="form-control" id="CaseInitialDate" placeholder="Initial Date"
+                                           value="@(Model.CaseInitialDate?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.CaseInitialDate?.ToString("yyyy-MM-dd"):"")" />
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="NextHearingDate">Next Date of Hearing:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="date" name="NextHearingDate" data-date="" data-date-format="DD-MM-YYYY" class="form-control" id="NextHearingDate" placeholder="Next Hearing Date"
+                                           value="@(Model.NextHearingDate?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.NextHearingDate?.ToString("yyyy-MM-dd"):"")" />
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="CaseEndDate">Case End Date:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="date" name="CaseEndDate" data-date="" data-date-format="DD-MM-YYYY" class="form-control" id="CaseEndDate" placeholder="End Date"
+                                           value="@(Model.CaseEndDate?.ToString("yyyy-MM-dd") != "0001-01-01"? Model.CaseEndDate?.ToString("yyyy-MM-dd"):"")" />
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="PartiesInvolved">Parties Involved:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="PartiesInvolved" class="form-control" id="PartiesInvolved" placeholder="Parties Involved" value="@(Model.PartiesInvolved)" required>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="NatureOfCase">Nature Of Case:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="NatureOfCase" class="form-control" id="NatureOfCase" placeholder="Nature Of Case" value="@(Model.NatureOfCase)">
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="SummaryOfCase">Summary Of Case:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="SummaryOfCase" class="form-control" id="SummaryOfCase" placeholder="Summary Of Case" value="@(Model.SummaryOfCase)">
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="NameOfCouncil">Name Of Council:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="NameOfCouncil" class="form-control" id="NameOfCouncil" placeholder="Name Of Council" value="@(Model.NameOfCouncil)">
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="SubjectOfCase">Subject Of Case:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="SubjectOfCase" class="form-control" id="SubjectOfCase" placeholder="Subject Of Case" value="@(Model.SubjectOfCase)">
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="CaseResult">Result:</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="CaseResult" class="form-control" id="CaseResult" placeholder="Case Result" value="@(Model.CaseResult)">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                    @switch (ViewBag.Mode)
+                                    {
+                                        case "Insert":
+                                        case "Update":
+                                            {
+                                                <button type="button" name="btnSubmit" id="btnSubmit" class="btn btn-primary">Submit</button>
+                                                break;
+                                            }
+                                    }
+
+                                
+                                    <a href="@Url.Action("Index","LegalSection")" class="btn btn-danger">Close</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Legal
+                                    {
+    <script src="~/js/Legal/LegalCase.js" asp-append-version="true"></script>
+}

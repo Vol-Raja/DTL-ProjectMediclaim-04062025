@@ -1,0 +1,143 @@
+﻿@using DTL.Model.Models.GPF
+@model List<GPFWithdrawalModel>
+@{
+    ViewData["Title"] = "Refundable List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="margin: 0px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Refundable Withdrawal List</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home", new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard", new { Area="GPF" })">GPF</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Withdrawal", new { Area="GPF" })">GPF Withdrawal</a></li>
+                        <li class="breadcrumb-item active">Refundable Withdrawal List</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-md-12" style="padding-bottom: 1%;">
+                                @if (Convert.ToBoolean(ViewBag.Create))
+                                {
+                                <a href="@Url.Action("AddRefundableGPF", "Withdrawal", new { Area = "GPF" })" class="btn btn-default">Add New Refundable Withdrawal Request</a>
+                                }
+                            </div>
+                            <hr />
+                            <table id="empTbl" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>GPF Account Holder</th>
+                                        @*<th>Employee ID</th>*@
+                                        <th>Designation</th>
+                                        <th>Employer</th>
+                                        <th>Application No.</th>
+                                        <th>Reject Reason</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            var viewUrl = "/GPF/Withdrawal/RefundableGPF/" + item.WithdrawId;
+                                            var editUrl = "/GPF/Modify/Refundable/" + item.WithdrawId;
+                                            string status = "";
+                                    <tr>
+                                        <td>@item.AccountHolderName</td>
+                                        @*<td>@item.EmployeId</td>*@
+                                        <td>@item.Designation</td>
+                                        <td>@item.Employer</td>
+                                        <td>
+                                            @if (item.ApplicationStatus != 0)
+                                            {
+                                                @item.UniqueNumber
+                                            }
+                                        </td>
+                                        <td>@item.RejectReason</td>
+                                        <td>
+                                            @switch (item.ApplicationStatus)
+                                            {
+                                                case 0: status = "Saved"; break;
+                                                case 1: status = "Submited"; break;
+                                                case 2: status = "Approved"; break;
+                                                case 3: status = "Rejected"; break;
+                                                default: break;
+                                            }
+                                            @status
+                                        </td>
+                                        <td class="d-flex justify-content-around">
+                                            @if (Convert.ToBoolean(ViewBag.View)) { 
+                                            <a href="@viewUrl" target="_blank"><i class="far fa-eye"></i></a>
+                                            }
+                                            @if (Convert.ToBoolean(ViewBag.Edit)) {
+                                                @if (item.ApplicationStatus == 0) {
+                                                    <a href="/GPF/Withdrawal/Edit/RefundableGPF/@item.WithdrawId"><i class="far fa-edit"></i></a>
+                                                }
+                                                @if (item.ApplicationStatus == 3) {
+                                                    <a href="@editUrl"><i class="far fa-edit"></i></a>
+                                                }
+                                            }
+                                            @if (Convert.ToBoolean(ViewBag.Delete)) {
+                                            <a href="#" onclick="DeleteGPFWithdrawal(@item.WithdrawId)"><i class="fa fa-trash"></i></a>
+                                            }
+                                        </td>
+                                    </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5">No data found</td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section RefundableList{ 
+<script>
+    function DeleteGPFWithdrawal(id) {
+        $.ajax({
+            type: 'DELETE',
+            url: "/GPF/Withdrawal/Refundable/Delete/" + id,
+            data: '',
+            contentType: 'application/json; charset=utf-8',
+            //dataType: 'json',
+            success: function (response, status, xhr) {
+                if (xhr.status == '200') {
+                    window.location.reload(true);
+                }
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+    }
+</script>
+}

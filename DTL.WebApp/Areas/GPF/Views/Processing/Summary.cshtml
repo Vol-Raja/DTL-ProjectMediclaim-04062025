@@ -1,0 +1,158 @@
+﻿@using DTL.Model.Models.GPF
+@model IEnumerable<GPFProcessing>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">GPF Summary</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Dashboard","Processing", new { Area="GPF" })">Dashboard</a>
+            <span class="px-1">/</span><span>GPF Summary</span>
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4 row">
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Organization </label>
+                    <select class="form-select" name="orgCode">
+                        <option value="all" selected>All</option>
+                        @foreach (var kvp in DTL.Model.Models.GPF.GPFEmployeeInfoModel.OrganisationNameByCode)
+                        {
+                            <option value="@kvp.Key">@kvp.Value</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Month & Year</label>
+                    <input type="month" name="month" class="form-control form-control-sm" />
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3  position-relative">
+                    <button class="btn btn-success  position-absolute bottom-0" onclick="GetData()"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-danger position-absolute bottom-0 clear_btn"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="table" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr. No.</th>
+                            <th class="text-center">Organization </th>
+                            <th class="text-center">Month-Year </th>
+                            <th class="text-center">Member Contribution</th>
+                            <th class="text-center">Member Interest</th>
+
+
+                            @*<th>Action</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @* <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">DPCL - Delhi Power Company Limited</td>
+                        <td class="text-center">June-2022 </td>
+                        <td class="text-center">898676<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"><span class="text-danger req_text">&#8377; </span></td>
+
+
+                        </tr>
+                        *@
+
+
+                    </tbody>
+                    <tfoot>
+
+                        <tr>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"><b>Total</b> </td>
+                            <td class="text-center"><b><span id="totalContribution"></span></b><span class="text-danger req_text">&#8377; </span></td>
+                            <td class="text-center"><b><span id="totalInterest"></span></b><span class="text-danger req_text">&#8377; </span></td>
+
+
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#table").DataTable({
+            buttons: [
+                'excel',
+                'pdfHtml5',
+                'csvHtml5'
+            ],
+            dom: 'lBfrtip',
+            "ordering": false,
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "bAutoWidth": false,
+            "bJQueryUI": true,
+            "bRetrieve": true,
+            "bAutoWidth": true
+        });
+        $('.clear_btn').click(function(){ 
+            $('[name="orgCode"]').val('all').trigger('change');
+            $('[name="month"]').val('').trigger('change');
+            GetData();
+        })
+        GetData();
+    })
+
+    const curr = c => `${c}<span class="text-danger req_text">&#8377; </span>`;
+
+    function GetData() {
+        var sr = 1;
+        $('#table').DataTable().destroy();
+        $('#table').find('tbody').empty();
+        $('#totalContribution,#totalInterest').text('0');
+        var month = $('[name="month"]').val() ? `&dtFrom=${$('[name="month"]').val()}-01&dtTo=${$('[name="month"]').val()}-01` : '';
+        $.get(`@Url.Action("GetSummary", "Data")?orgCode=${$('[name="orgCode"]').val()}${month}`).then(r => {
+            $('#totalContribution').html(r.map(q => q.memberContribution).reduce((a, b) => a + b));
+            $('#totalInterest').html(r.map(q => q.memberInterest).reduce((a, b) => a + b));
+            $("#table").DataTable({
+                buttons: [
+                    'excel',
+                    'pdfHtml5',
+                    'csvHtml5'
+                ],
+                dom: 'lBfrtip',
+                "ordering": false,
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bAutoWidth": false,
+                "bJQueryUI": true,
+                "bRetrieve": true,
+                "bAutoWidth": true,
+                data: r,
+                columns: [
+                    { render: _ => sr++ },
+                    { data: 'organisation' },
+                    { render: (a, b, c) => moment(`${c.year}-${c.month}-01`).format('MMMM YYYY'), className: 'text-center' },
+                    { data: 'memberContribution', className: 'text-center', render: curr },
+                    { data: 'memberInterest', className: 'text-center', render: curr },
+                ]
+            });
+        })
+    }
+
+</script>

@@ -1,0 +1,442 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model NonCashlessModel
+@{ ViewData["Title"] = "NonCashless";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="view_form">
+    <div class="container-fluid">
+        <div class="row header_section mx-0 px-0 ">
+            <div class="col-6 position-relative ps-0">
+                <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </span>
+                <h3 class="mb-0">Non-Cashless Mediclaim Application   </h3>
+
+            </div>
+            <p class="mb-0 col-6 top_link_Section">
+                <a href=" @Url.Action("Index", "OPD", new { Area = "Mediclaim" })">Dashboard</a><span class="px-1">/</span><span class="px-1">Non-Cashless</span>
+
+            </p>
+        </div>
+        <div class="card border-card mt-0 view_container_bg">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Employee number</label>
+                        <p class="View_text">8778789</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">PPO number</label>
+                        <p class="View_text">8778789</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Medical Section Page Number </label>
+                        <p class="View_text">20</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Name of medical card holder </label>
+                        <p class="View_text">Sanju sahu</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Medical Card number</label>
+                        <p class="View_text">2356998975464</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">Gender</label>
+                        <p class="View_text">Male</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Organization</label>
+                        <p class="View_text">Organization</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Designation</label>
+                        <p class="View_text">Designation</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Date Of Birth</label>
+                        <p class="View_text">01-03-1995</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">Age</label>
+                        <p class="View_text">29</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Address</label>
+                        <p class="View_text">Bhavdhan Pune</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Mobile Number</label>
+                        <p class="View_text">7845123698</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Email Id</label>
+                        <p class="View_text">Patient@gmail.com</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Card Category</label>
+
+                        <p class="View_text">general</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">If dependent relationship with retiree</label>
+
+                        <p class="View_text">Depended</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card border-card  border-top-0 mt-4 view_container_bg">
+            <div class="card-body">
+                <h4 class="form_title mt-3 ">
+                    Dependent Information
+                </h4>
+                <div class="row ">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1"> Name</label>
+                        <p class="View_text">Pratiksha Sen</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Date Of Birth</label>
+                        <p class="View_text">01-03-1995</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">Age</label>
+                        <p class="View_text">29</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card border-card  border-top-0 mt-4 view_container_bg">
+            <div class="card-body">
+                <h4 class="form_title mt-3 ">
+                    Bank Details
+                </h4>
+                <div class="row ">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Bank Name</label>
+                        <p class="View_text">Yes Bank</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">BIC Code</label>
+                        <p class="View_text">YES56464</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Branch Name</label>
+                        <p class="View_text">Bhavdhan Pune</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">IFSC code </label>
+                        <p class="View_text">yesBank004554</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Account Number</label>
+                        <p class="View_text">0552314589</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card border-card  border-top-0 mt-4 view_container_bg">
+            <div class="card-body">
+                <h4 class="form_title mt-3 ">
+                    Detail of Hospitalization
+                </h4>
+                <div class="row ">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Type of claim</label>
+                        <p class="View_text">IPD</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Hospital visit date</label>
+                        <p class="View_text">01-03-1995</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">Name Of Hospital </label>
+                        <p class="View_text">city hospital </p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">
+                            medicine<span class="text-danger req_text">&#8377;</span>
+                        </label>
+                        <p class="View_text">3000 </p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">
+                            Consultation Amount<span class="text-danger req_text">&#8377; </span>
+                        </label>
+                        <p class="View_text">1000 </p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">
+                            Investigation Amount<span class="text-danger req_text">&#8377; </span>
+                        </label>
+                        <p class="View_text">500 </p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">
+                            Other expenses<span class="text-danger req_text">&#8377; </span>
+                        </label>
+                        <p class="View_text">100 </p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                        <label class="form-label d-block mb-1">
+                            Total Amount<span class="text-danger req_text">&#8377; </span>
+                        </label>
+                        <p class="View_text">4600 </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card border-card border-top-0 mt-4 view_container_bg">
+
+            <div class="card-body">
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Claim Document Upload
+                </h4>
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <table id="example1" class="table table-bordered view_table">
+                            <thead>
+                                <tr>
+                                    <th width="7%" class="text-center">Sr. No.</th>
+                                    <th>Document Type</th>
+                                    <th width="15%" class="text-center">Attach file </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td class="text-center">1</td>
+                                    <td>Document Type</td>
+                                    <td class="text-center">
+                                        <a href="#" class="pdfIcons">
+                                            <i class="fa fa-file-pdf"
+                                               aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="row mb-3 submit_area submit_area_strip mt-5 mx-0">
+
+            <div class="col-sm-12">
+                <button class="btn btn-primary" id="printMe">
+                    <i class="fa fa-print mr-2"
+                       aria-hidden="true"></i>Print Application
+                </button>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div id="print_preview">
+    <div class=" view_container_bg mt-0">
+
+        <div class="card-body">
+
+            <h4 class="print_title">
+                Non Cashless Mediclaim
+            </h4>
+            <table class="table table-bordered w-100">
+                <tbody>
+                    <tr>
+                        <th scope="row">Employee No.</th>
+                        <td scope="row">2356998975464</td>
+                        <th scope="row">PPO Number</th>
+                        <td scope="row">PPO86589</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Page No.</th>
+                        <td scope="row">7845214889</td>
+                        <th scope="row">Name Of Medical Card Holder</th>
+                        <td scope="row">Sanju sahu</td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Medical Card Number</th>
+                        <td scope="row">GolBazar Pune</td>
+                        <th scope="row">Gender</th>
+                        <td scope="row">Male</td>
+
+
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Organization</th>
+                        <td scope="row">Vidya Online Service</td>
+                        <th scope="row">Designation</th>
+                        <td scope="row">UI Developer</td>
+
+
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Date Of Birth</th>
+                        <td scope="row">01-03-1995</td>
+                        <th scope="row">Age</th>
+                        <td scope="row">29</td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td scope="row">Bhavdhan Pune</td>
+                        <th scope="row">Mobile Number</th>
+                        <td scope="row">7845123698</td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Email Id</th>
+                        <td scope="row">Patient@gmail.com</td>
+                        <th scope="row">If Dependent Relationship With Retiree</th>
+                        <td scope="row">7845123698</td>
+
+
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Dependent Information</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td scope="row">Priyansha Tiwari</td>
+                        <th scope="row">Date Of Birth</th>
+                        <td scope="row">01-03-1995</td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Age</th>
+                        <td scope="row">29</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Bank Detail</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bank Name</th>
+                        <td scope="row">HDFC</td>
+                        <th scope="row">BIC Code</th>
+                        <td scope="row">khgjkfdhg</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">IFSC Number</th>
+                        <td scope="row">SBI0877887</td>
+                        <th scope="row">Account number</th>
+                        <td scope="row">546775755555</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Detail of Hospitalization</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Type Of Claim</th>
+                        <td scope="row">IPD</td>
+                        <th scope="row">Hospital Visit Date</th>
+                        <td scope="row">01-03-1995</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Name Of Hospital</th>
+                        <td scope="row">city hospital</td>
+                        <th scope="row">
+                            Medicine<span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">3000</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Consultation Amount<span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">3000</td>
+                        <th scope="row">
+                            Investigation Amount<span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">3000</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Other Expenses<span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">3000</td>
+                        <th scope="row">
+                            Total Amount<span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">3000</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Detail of Hospitalization</td>
+                    </tr>
+
+                    <tr>
+                        <th class="text-center">Sr. No.</th>
+                        <th colspan="3">Document Type</th>
+
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td colspan="3">Document Type</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Claim Approval status</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Approve Amount<span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">3000</td>
+                        <th scope="row">
+                            In Words
+                            <span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">3000</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Dealing Asistant Remark</th>
+                        <td scope="row">Remarks</td>
+                        <th scope="row">Aso Remark</th>
+                        <td scope="row">Remarks</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">So Remark</th>
+                        <td scope="row">Remarks</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section NonCashlessPrintPreview{
+    <script>
+        $('#printMe').click(function () {
+            $('#print_preview').addClass('show');
+            window.print();
+        });
+
+    </script>
+}
+

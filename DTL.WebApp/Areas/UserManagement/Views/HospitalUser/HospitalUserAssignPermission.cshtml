@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Cashless";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Hospital Assign Permission</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("HospitalUserList","HospitalUser",new { Area="UserManagement" })">Hospital Users</a></li>
+                        <li class="breadcrumb-item active">Hospital Assign Permission</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form action="/" method="post">
+                                <input type="hidden" id="hdnMediClaimId" />
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Module</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control mb-2">
+                                            <option>M1</option>
+                                            <option>M2</option>
+                                            <option>M3</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Sub Module</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control mb-2">
+                                            <option>SM1</option>
+                                            <option>SM2</option>
+                                            <option>SM3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Permission</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="create" value="create">
+                                            <label class="form-check-label" for="create">Create</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="view" value="view">
+                                            <label class="form-check-label" for="view">View</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="edit" value="edit">
+                                            <label class="form-check-label" for="edit">Edit</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="delete" value="delete">
+                                            <label class="form-check-label" for="delete">Delete</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <button class="btn btn-primary btn-sm">Add New</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Module</th>
+                                                    <th>Sub ModuleModule</th>
+                                                    <th>Permissions</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>M1</td>
+                                                    <td>SM1</td>
+                                                    <td>Create, View, Edit, Delete</td>
+                                                    <th><a href="#">Delete Permissions</a></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <a class="btn btn-primary" id="btnSubmit" data-toggle="modal" data-target="#exampleModal">Submit</a>
+                                        <a class="btn btn-danger">Cancel</a>
+                                        <a class="btn btn-info">Reset</a>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section CashlessRaise{
+    <script type="text/javascript" src="~/js/Mediclaim/Raise/cashless.js"></script>
+
+
+}

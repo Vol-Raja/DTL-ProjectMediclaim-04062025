@@ -1,0 +1,77 @@
+﻿@using DTL.WebApp.Areas.WebsiteCMS
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="container-fluid">
+
+        <div class="row header_section mx-0 px-0 border_bottom">
+            <div class="col-5 position-relative ps-0">
+                <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </span>
+                <h3 class="mb-0">Admin Dashboard</h3>
+            </div>
+            <p class="mb-0 col-7 top_link_Section"><span class="">Dashboard </span></p>
+        </div>
+        <div class="container-fluid pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="row row-xs pt-3">
+                <div class="col-sm-6 col-lg-3 mt-2">
+                    <div class="card dashboard background-lightpink">
+                        <a href="@Url.Action("HospitalUserList", "HospitalUser", new { Area = "UserManagement" })">
+                            <div class="card-body">
+                                <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                    <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Hospital User Creation</h5>
+                                    <i class="fa fa-h-square "></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div><!-- col -->
+
+                <div class="col-sm-6 col-lg-3 mt-2">
+                    <div class="card dashboard background-skyBlue">
+                        <a href="@Url.Action("DVBUserList", "DVBUser", new { Area = "UserManagement" })">
+                            <div class="card-body">
+                                <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                    <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">DVB User Creation</h5>
+                                    <i class="fa fa-users "></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div><!-- col -->
+                <div class="col-sm-6 col-lg-3 mt-2">
+                    <div class="card dashboard background-yellow">
+                        <a  href="@Url.Action("", "MasterUser", new { Area = "UserManagement" })">
+                            <div class="card-body">
+                                <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                    <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Master Management</h5>
+                                    <i class="fa fa-tasks"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div><!-- col -->
+                <div class="col-sm-6 col-lg-3 mt-2">
+                    <div class="card dashboard background-green">
+                        <a href="@Url.Action("Index", StringConstants.DASHBOARD, new { Area = StringConstants.CMS_AREA })">
+                            <div class="card-body">
+                                <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                    <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Website CMS</h5>
+                                    <i class="fa fa-globe"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div><!-- col -->
+
+            </div>
+        </div>
+
+
+
+    </div>
+

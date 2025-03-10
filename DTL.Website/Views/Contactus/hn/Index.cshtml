@@ -1,0 +1,298 @@
+﻿@using DTL.Model.Models.CMS;
+
+@{
+    ViewData["Title"] = "संपर्क करें";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+
+}
+@model IEnumerable<ContactUsModel>;
+
+
+
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>संपर्क करें</h1>
+                <p><a @Url.Action("", "home")>मुख पृष्ठ</a> / <span>संपर्क करें</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="main_page">
+    <div class="container">
+        <div class="contact_div">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contact_info">
+                        <h3 class="text-center">संपर्क करें</h3>
+                        <ul>
+                            <li>
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <h4>संपर्क करें</h4>
+                                <p>
+                                    डीवीबी कर्मचारी टर्मिनल लाभ निधि 2002
+                                    राजघाट पावर हाउस
+                                    नई दिल्ली-110002
+                                </p>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                <h4>ईमेल आईडी</h4>
+                                <p>ईमेलid@domain.com</p>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <h4>फ़ोन नंबर</h4>
+                                <p>+91 12345 67890</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="feedback">
+                        <h3 class="text-center my-3">हमें आपसे सुनना प्रिय लगेगा!!</h3>
+                        <form class="row g-3" id="AddEditFeedbackForm">
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-12">
+                                <label class="form-label">नाम</label>
+                                <input type="text" name="Name" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">मोबाइल/टेलीफोन नंबर </label>
+                                <input type="text" name="PhoneNumber" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">ईमेल आईडी</label>
+                                <input type="email" name="EmailAddress" class="form-control">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">पीपीओ/जीपीएफ नंबर के साथ विवरण</label>
+                                <textarea name="Details" class="form-control" aria-label="With textarea" rows="3"></textarea>
+                            </div>
+                            <div class="col-5">
+
+                                <div class="form-group">
+                                    <div>
+                                        <label class="form-label d-block mb-1" id="text_white"> केप्चा</label>
+                                        <div style="display:flex">
+                                            <div class="captcha_img position-relative">
+                                                <span id="captchaDiv">TIInWK</span>
+                                                <div class="copy">
+                                                </div>
+                                            </div>
+                                            <div class="captcha_button">
+                                                <a onclick="refreshCaptcha()" class="btn btn-primary btn-sm mr-2 text-white" style="margin-left:7px;">Refresh</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label"> केप्चा भरे</label>
+                                <input name="CaptchaCode" type="text" class="form-control" placeholder="Enter text shown in image">
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button id="btnSubmit" class="btn btn-primary">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="officers">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>क्रमांक</th>
+                        <th>नाम </th>
+                        <th>पदनाम </th>
+                        <th>फोन नंबर</th>
+                        <th>टेलीफोन नंबर</th>
+                        <th>ईमेल आईडी</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (Model.Count() > 0)
+                    {
+                        int counter = 0;
+                        @foreach (var item in Model)
+                        {
+                            counter++;
+                            <tr>
+                                <td>@counter</td>
+                                <td>@item.NameHindi</td>
+                                <td>@item.DesignationHindi</td>
+
+                                <td>@item.PhoneNumber</td>
+                                <td>@item.Telephone</td>
+                                <td>@item.EmailAddress</td>
+                            </tr>
+                        }
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="map">
+        <div style="width: 100%"><iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Rajghat%20Power%20House%20New%20Delhi-110002+(Manager%20Pension%20Trust%20DVB%20Employees)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div>
+    </div>
+
+    <style>
+
+        .captcha_img {
+            width: 69%;
+            letter-spacing: 1em;
+            font-size: 22px;
+            text-align: center;
+            background-image: url('/assets/images/captcha_bg.jpg');
+        }
+
+        .position-relative {
+            position: relative !important;
+        }
+    </style>
+
+
+
+    <script src="\plugin\jquery-validation\jquery.validate.min.js"></script>
+
+    <script src="\plugin\jquery-validation\additional-methods.min.js"></script>
+    <script>
+
+        function refreshCaptcha() {
+
+            $.ajax({
+                url: "/Captcha/",
+                method: "GET",
+                success: function (response) {
+                    document.getElementById("captchaDiv").innerHTML = response;
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            AddEditForm();
+            refreshCaptcha();
+
+        });
+
+
+
+        function BindAddEditFeedbackFormData() {
+            var frm = $('#AddEditFeedbackForm');
+            var formData = new FormData(frm[0]);
+            return formData;
+        }
+
+        function AddEditForm() {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    showConfirmSwal("Are you sure you want to submit?", function () {
+                        var formData = BindAddEditFeedbackFormData();
+
+                        $.ajax({
+                            url: "/Feedback/Save",
+                            type: "POST",
+                            dataType: "json",
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+
+
+                                if (isNaN(data) == false) {
+
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: "Success",
+                                        text: "Data saved successfully",
+
+
+                                    }).then((result) => { location = "/contactus" });
+
+                                }
+                                else {
+                                    if (data == "InvalidCaptchaCode") {
+                                        showErrorSwal("Invalid Captcha Code");
+                                        refreshCaptcha();
+                                    }
+
+                                }
+                            },
+                            error: function (err) {
+                                showErrorSwal("Error- " + err);
+                            }
+                        });
+                    });
+
+                }
+            });
+            $('#AddEditFeedbackForm').validate({
+                rules: {
+
+                    Name: {
+                        required: true
+
+                    },
+                    EmailAddress: {
+                        required: true,
+                        email: true
+                    },
+                    Details: {
+                        required: true,
+                    },
+                    CaptchaCode: {
+                        required: true,
+                    },
+                    PhoneNumber: {
+                        required: true,
+                        number: true,
+
+
+                    }
+
+                },
+                messages: {
+                    Title: {
+                        required: "Please provide Description.",
+                    },
+                    DocumentFileName: {
+                        required: "Please provide File.",
+
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    error.insertAfter($(element));
+                    //element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+
+            });
+        }
+
+
+    </script>
+
+
+</section>

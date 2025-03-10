@@ -1,0 +1,109 @@
+﻿@using DTL.Model.Models.CMS
+@using DTL.WebApp.Areas.WebsiteCMS
+
+
+@model NoticeModel
+@{
+    ViewData["Title"] = Model.IsNew ? "Add Notice" : Model.ViewOnly ? "View Notice" : "Edit Notice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Add Notice </h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home",new { Area="" })"><span class="">Dashboard </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index", StringConstants.DASHBOARD, new { Area = StringConstants.CMS_AREA })"><span>CMS</span></a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index", StringConstants.CMS_NOTICE, new { Area = StringConstants.CMS_AREA })"><span>Notice List</span></a>
+                <span class="px-1">/</span>
+            <span> Notice </span>
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+            <form id="AddNoticeForm" action="" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" value="@Model.ID" name="ID" id="ID" />
+                <input type="hidden" value="@Model.IsNew.ToString()" name="IsNew" id="IsNew" />
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">Title In English<span class="text-danger req_text">*</span></label>
+                        <input name="TitleInEnglish"  value="@Model.TitleInEnglish" disabled="@Model.ViewOnly" type="text" class="form-control form-control-sm" placeholder="Title In English" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1"> Title In hindi<span class="text-danger req_text">*</span></label>
+                        <input name="TitleInHindi" value="@Model.TitleInHindi" disabled="@Model.ViewOnly" type="text" class="form-control form-control-sm" placeholder="Title In English" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 mb-3 ">
+                        <label class="form-label d-block mb-1 ">Attachment english<span class="text-danger req_text">*</span></label>
+                        <input name="AttachmentFileInEnglish" id="Attachment_noticeE" value="@Model.AttachmentFileInEnglish" disabled="@Model.ViewOnly" class="form-control" accept="application/pdf" type="file" >
+                        @if (Model.IsNew == false)
+                        {
+                            <br />
+                            <a href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants.CMS_NOTICE, new { id =  Model.ID, lang="English"})"> View File</a>
+                            @Html.HiddenFor(x=> x.EnglishFileName)
+                            @Html.HiddenFor(x=> x.EnglishContentType)
+
+                        }
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 mb-3 ">
+                        <label class="form-label d-block mb-1 ">Attachment hindi<span class="text-danger req_text">*</span></label>
+                        <input name="AttachmentFileInHindi" id="Attachment_noticeH" value="@Model.AttachmentFileInHindi" disabled="@Model.ViewOnly" class="form-control" type="file" accept="application/pdf">
+                        @if (Model.IsNew == false)
+                        {
+                            <br />
+                            <a href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants.CMS_NOTICE, new { id =  Model.ID, lang="Hindi"})"> View File</a>
+                            @Html.HiddenFor(x=> x.HindiFileName)
+                            @Html.HiddenFor(x=> x.HindiContentType)
+
+                        }
+                    </div>
+                    <div class="col-sm-6  col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">Date<span class="text-danger req_text">*</span></label>
+                        <input name="NoticeDate" id="Notice_date" value="@(Model.IsNew?"": Model.NoticeDate.ToString(StringConstants.ASSIGN_DATE_FORMAT))" disabled="@Model.ViewOnly" type="date" class="form-control form-control-sm" placeholder="Date" />
+                    </div>
+                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                        @if (!Model.ViewOnly)
+                        {
+                            <button id="btnSubmit" type="submit" class="btn btn-brand me-2 @(Model.ViewOnly ? "hide" :"")">@(Model.IsNew ? "Submit" : "Update")</button>
+
+                        }
+
+                        @if (Model.ViewOnly)
+                        {
+                            <button class="btn btn-cancel me-2" onclick="location.href='/WebsiteCMS/Notice';return false;">Back</button>
+
+                        }
+                        else
+                        {
+                            <button class="btn btn-cancel me-2" onclick="showConfirmSwal('Are you sure you want cancel?', function() { location.href='/WebsiteCMS/Notice';}); return false;">Cancel</button>
+
+                        }
+                        <button class="btn btn-reset me-2 @(Model.ViewOnly ? "hide" :"")" onclick="showConfirmSwal('Are you sure you want Reset?', function() { window.location.reload();}); return false;">Reset</button>
+
+                      
+                    </div>
+
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section AddEditNotice{
+    <script type="text/javascript" src="~/js/CMS/Notice.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,62 @@
+﻿@using DTL.Model.Models.CMS;
+
+@{
+    ViewData["Title"] = "Notice List";
+
+}
+@model IEnumerable<NoticeModel>;
+
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>Public Notice</h1>
+                <p><a href="@Url.Action("","home")">Home</a> / <span>Notices</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidebar">
+
+                    <div class="tab">
+                        <a class="tablinks" href="@Url.Action("","whatsnew")">Latest News</a>
+                        <a class="tablinks active" href="#">Public Notice</a>
+                        <a class="tablinks" href="@Url.Action("","link")">Important links</a>
+                        <a class="tablinks" href="@Url.Action("","BannerImage")">Gallery</a>
+                        <a class="tablinks" href="@Url.Action("" , "event")">Events</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 shadow">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+                        <div class="Notices news">
+                            @if (Model.Count() > 0)
+                            {
+                                int counter = 0;
+                                @foreach (var item in Model)
+                                {
+                                    counter++;
+                                    <div class="Inner_Notices">
+                                        <p class="mb-0 icons"><i class="fa fa-calendar me-3"></i>@item.NoticeDate.ToString("dd-MM-yyyy")</p>
+                                        <p class="mb-2">@item.TitleInEnglish  <a target="_blank" class="download_link ms-3" href="@Url.Action("DownloadFile","notice", new { id= @item.ID})" aria-hidden="true"><i class="fa fa-file-pdf-o text-danger mx-2" aria-hidden="true"></i></a></p>
+
+                                    </div>
+
+                                }
+
+                            }
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,151 @@
+﻿<style>
+    .offset-md-9 {
+        display: inline-flex !important;
+    }
+
+    .fa-plus-circle {
+        cursor: pointer;
+    }
+
+    .subCatTbl {
+        height: 145px;
+        overflow: auto;
+        display: block;
+    }
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Finance Analysis</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("","FinanceManagement")">Finance Management</a></li>
+                    <li class="breadcrumb-item active">Finance Analysis</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<div class="content-wrapper" id="FinanceAnalysis">
+    <section class="content pt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline card-tabs">
+                        <div class="card-header p-0 pt-1 border-bottom-0">
+                            @*<input type="hidden" id="employeeRegistrationId" value="@ViewBag.EmpId" />*@
+                            <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="custom-tabs-four-budget-tab" data-toggle="pill" href="#custom-tabs-four-budgetflow" role="tab" aria-controls="custom-tabs-four-budgetflow" aria-selected="true">Budget</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-four-pension-tab" data-toggle="pill" href="#custom-tabs-four-penisonflow" role="tab" aria-controls="custom-tabs-four-pensionflow" aria-selected="false">Pension</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="custom-tabs-four-gpf-tab" data-toggle="pill" href="#custom-tabs-four-gpfflow" role="tab" aria-controls="custom-tabs-four-gpfflow" aria-selected="false">GPF</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="custom-tabs-four-investment-tab" data-toggle="pill" href="#custom-tabs-four-investmentflow" role="tab" aria-controls="custom-tabs-four-investmentflow" aria-selected="false">Investment</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card" id="searchCriteria">
+                            <div class="card-body">
+                                <div class="row col-md-12 p-2">
+                                    <div class="col-md-1">
+                                        <label for="datepicker">Month/Year</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" name="datepicker" id="datepicker" />
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="searchByEmployer">Employer</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select id="searchByEmployer" class="form-control" placeholder="Year">
+                                            <option value="">Employer Name</option>
+                                            @foreach (var data in ViewBag.DTLOfficeList)
+                                            {
+                                                <option value="@data.DTLOffice">@data.DTLOffice</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    @*<div class="col-md-1">
+                        <label for="searchByEmployeeId">Employee ID</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" name="searchByEmployeeId" id="searchByEmployeeId" />
+                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-2">
+                            <div class="tab-pane fade active show" id="custom-tabs-four-budgetflow" role="tabpanel" aria-labelledby="custom-tabs-four-budget-tab">
+                                <partial name="_budgetAnalysis" />
+
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-four-penisonflow" role="tabpanel" aria-labelledby="custom-tabs-four-pension-tab">
+                                <partial name="_pensionAnalysis" />
+
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-four-gpfflow" role="tabpanel" aria-labelledby="custom-tabs-four-gpf-tab">
+                                <partial name="_gpfAnalysis" />
+
+                            </div>
+
+                            <div class="tab-pane fade" id="custom-tabs-four-investmentflow" role="tabpanel" aria-labelledby="custom-tabs-four-investment-tab">
+                                <partial name="_investmentAnalysis" />
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section FinanceAnalysis{
+    <script src="~/js/FinanceManagement/FinanceAnalysis.js"></script>
+    <style>
+        .ui-datepicker-calendar {
+            display: none;
+        }
+    </style>
+
+    <script>
+    $(document).ready(function () {
+        $('#budgetTbl').DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            searching: false
+        });
+        $('#penisonTbl').DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            searching: false
+        });
+        $('#gpfTbl').DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            searching: false
+        });
+        $('#tblInvestment').DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            searching: false
+        });
+    });
+    </script>
+}
+

@@ -1,0 +1,14 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@model IdentityRole
+@{
+    ViewData["Title"] = "Add Edit Roles";
+}
+
+<div class="card-body">
+    <input type="hidden" name="id" id="id" value="@Model.Id" />
+    <div class="form-group">
+        <label for="name">Role Name</label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Role name" value="@Model.Name">
+    </div>
+</div>

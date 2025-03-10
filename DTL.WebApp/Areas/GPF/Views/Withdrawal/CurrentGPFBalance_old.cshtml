@@ -1,0 +1,134 @@
+﻿@using DTL.Model.Models.GPF
+@model IEnumerable<GPFProcessing>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .fade:not(.show) {
+        display: none;
+    }
+
+    .dataTables_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+        .dataTables_wrapper .dt-buttons.btn-group {
+            order: -1;
+        }
+
+        .dataTables_wrapper .dataTables_length {
+            order: -2;
+        }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="margin: 0px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Current GPF Balance</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home", new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard", new { Area="GPF" })">GPF</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Withdrawal", new { Area="GPF" })">GPF Withdrawal</a></li>
+                        <li class="breadcrumb-item active">Current GPF Balance</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>GPF Contribution (Monthwise)</h4>
+                            <div class="row mt-3" style="padding-bottom: 1%;">
+                                <div class="col-md-3">
+                                    <label>Employee Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter Employee Name" id="txtEmployeeName" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Employe ID</label>
+                                    <input type="text" class="form-control" placeholder="Enter Employee ID" id="txtEmployeeId" />
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label>Employer</label>
+                                    <select id="selEmployer" name="Employer" class="form-control">
+                                        <option value="">Select DVBETBF-2002 Office</option>
+                                        @foreach (var data in ViewBag.DTLOfficeList)
+                                        {
+                                            <option value="@data.DTLOffice">@data.DTLOffice</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-2 form-group text-center align-self-end">
+                                    <button class="btn btn-lg btn-primary" type="button" id="btnSearchGPFSummary">Search</button>
+                                    <button class="btn btn-lg btn-secondary" type="button" id="btnCancelGPFSummary">Cancel</button>
+                                </div>
+                            </div>
+                            <hr />
+                            <table id="tblGPFBalance" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Month - Year</th>
+                                        <th>Member Contribution</th>
+                                        <th>Member Interest</th>
+                                        <th>GPF Account Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>July - 2021</td>
+                                        <td>1000</td>
+                                        <td>1256</td>
+                                        <td>23600</td>
+                                    </tr>
+                                    <tr>
+                                        <td>August - 2021</td>
+                                        <td>3100</td>
+                                        <td>2136</td>
+                                        <td>56600</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section CurrentGPFBalance{
+    <script type="text/javascript" src="~/js/GPF/gpfbalance.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#tblGPFBalance").DataTable({
+                ordering: false,
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Medical Cards'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Medical Cards'
+                    }
+                ],
+            });
+        })
+    </script>
+}

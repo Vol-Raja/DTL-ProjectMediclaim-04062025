@@ -1,0 +1,230 @@
+﻿@{
+    string loanType = ViewBag.IsNonRefundable != null ? "Non-Refundable" : "Refundable";
+    string loanTypeAct = ViewBag.IsNonRefundable != null ? "NonRefundable" : "Refundable";
+    ViewData["Title"] = loanType + " List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">GPF @loanType Disbursment</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Disbursment", new { Area="GPF" })">Dashboard</a><span class="px-1">/</span><a href="@Url.Action("LoanApplicationDashboard","Disbursment", new { Area="GPF" })">Loan Application</a><span class="px-1">/</span><span>@loanType List</span>
+
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body pt-3 ps-0 pt-5">
+
+            <div class="table-responsive">
+                <table id="tblrefundable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Date</th>
+                            <th>Loan Application No.</th>
+                            <th>Employee Name</th>
+                            <th>Employee Id</th>
+                            <th>Voucher No</th>
+                            <th>Organization</th>
+                            <th> Approved Amount</th>
+                            <th>Account Number.</th>
+                            <th>Bank Name</th>
+                            <th>Branch Name</th>
+                            <th>IFSC Code</th>
+                            <th>BIC Code</th>
+                            <th>Payment Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Date</td>
+                            <td>787878</td>
+                            <td>Rahul</td>
+                            <td>Emp678</td>
+                            <td>Vou9889</td>
+                            <td>Organization</td>
+                            <td>100000</td>
+                            <td>account Number</td>
+                            <td>SBI</td>
+                            <td>Sihora</td>
+                            <td>Sbiooo89</td>
+                            <td>BIC090</td>
+                            <td class="text-center"><span class="bg-success Status_text">Paid</span></td>
+                            <td class="d-flex border-bottom-0">
+                                <a href="@Url.Action("RefundableView","Disbursment", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="@Url.Action("AddNewVoucher","Disbursment", new {Area="GPF" })" title="Voucher Generate" class="btn Generate_voucher_btn btn-sm mr-2 btn_small">
+
+                                    <img src="~/assets/images/ticket.png" style=" width: 17px" />
+                                </a>
+                                <a class="btn btn-success float-end text-white p-1" role="button" data-bs-toggle="modal" data-bs-target="#paid">Paid</a>
+                                <!-- Modal -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Date</td>
+                            <td>787878</td>
+                            <td>Rahul</td>
+                            <td>Emp678</td>
+                            <td>Vou9889</td>
+                            <td>Organization</td>
+                            <td>100000</td>
+                            <td>account Number</td>
+                            <td>SBI</td>
+                            <td>Sihora</td>
+                            <td>Sbiooo89</td>
+                            <td>BIC090</td>
+                            <td class="text-center"><span class="bg-warning Status_text">Pending</span></td>
+                            <td class="d-flex border-bottom-0">
+                                <a href="@Url.Action("RefundableView","Disbursment", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="@Url.Action("AddNewVoucher","Disbursment", new {Area="GPF" })" title="Voucher Generate" class="btn Generate_voucher_btn btn-sm mr-2 btn_small">
+                                    <img src="~/assets/images/ticket.png" style=" width: 17px" />
+                                </a>
+                                <a class="btn btn-success float-end text-white p-1" role="button" data-bs-toggle="modal" data-bs-target="#paid">Paid</a>
+                                <!-- Modal -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Date</td>
+                            <td>787878</td>
+                            <td>Rahul</td>
+                            <td>Emp678</td>
+                            <td>Vou9889</td>
+                            <td>Organization</td>
+                            <td>100000</td>
+                            <td>account Number</td>
+                            <td>SBI</td>
+                            <td>Sihora</td>
+                            <td>Sbiooo89</td>
+                            <td>BIC090</td>
+                            <td class="text-center"><span class="bg-warning Status_text">Pending</span></td>
+                            <td class="d-flex border-bottom-0">
+                                <a href="@Url.Action("RefundableView","Disbursment", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="@Url.Action("AddNewVoucher","Disbursment", new {Area="GPF" })" title="Voucher Generate" class="btn Generate_voucher_btn btn-sm mr-2 btn_small">
+
+                                    <img src="~/assets/images/ticket.png" style=" width: 17px" />
+                                </a>
+                                <a class="btn btn-success float-end text-white p-1" role="button" data-bs-toggle="modal" data-bs-target="#paid">Paid</a>
+                                <!-- Modal -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- col -->
+</div>
+<div class="modal fade" id="paid" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content p-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    <img src="~/assets/images/paid.png" class="icon_reject ">
+                    <p class="message-type text-blod  pt-3">
+                        Are you sure you want to Paid
+                    </p>
+
+
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" onclick="updateLoanPaid()">Yes</button>
+                    <button type="button" class="btn btn-danger popUp_btn me-2"
+                            data-bs-dismiss="modal">
+                        No
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    var srno = 1, appNo = '';
+
+    const buttons = c => `
+            <a href="@Url.Action(loanTypeAct + "View","Disbursment", new {Area="GPF" })?applicationNumber=${encodeURIComponent(c.applicationNumber)}" class="btn btn-primary btn-sm mr-2 btn_small">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+            <!--<a href="@Url.Action("AddNewVoucher","Disbursment", new {Area="GPF" })?loanNumber=${encodeURIComponent(c.applicationNumber)}" title="Voucher Generate" class="btn Generate_voucher_btn btn-sm mr-2 btn_small">
+                    <img src="@Url.Content("~/assets/images/ticket.png")" style=" width: 17px" />-->
+            </a>
+                <a class="btn btn-success float-end text-white p-1" role="button" data-bs-toggle="modal" data-bs-target="#paid" onclick="appNo = '${c.applicationNumber}'">Paid</a>
+        `
+
+    const color = status => status == 'Pending' ? 'orange' : (status == "Rejected" ? 'danger' : (status == 'Completed' ? 'success' : 'white'));
+    $(document).ready(function () {
+        $("#tblrefundable").DataTable({
+            ordering: true,
+            dom: 'Blfrtip',
+            scrollX: true,
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'Medical Cards'
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: 'Medical Cards'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Medical Cards',
+                    orientation: 'landscape',
+                }
+            ],
+            ajax: {
+                url: `@Url.Action("GetLoanApplicationsDisburs", "Data")`,
+                data: d => { d["type"] = "@loanType"; },
+                dataSrc: ''
+            },
+            columns: [
+                { render: _ => srno++ },
+                { data: 'createdOn', render: a => moment(a).format('DD-MMM-YYYY') },
+                { data: 'applicationNumber' },
+                { data: 'employeeName' },
+                { data: 'employeeCode' },
+                { data: 'applicationNumber', render: a => `V/${a}` },
+                { data: 'organisationName' },
+                { data: 'loanAmount', render: a => `&#8377;&nbsp;${a.toFixed(2)}` },
+                { data: 'accountNumber' },
+                { data: 'bankName' },
+                { data: 'branchName' },
+                { data: 'bic' },
+                { data: 'ifsc' },
+                { data: 'paymentDone', render: (a, b, c) => `<span class="bg-${color(c.loanStatus)} Status_text w-100 text-center d-block">${(a ? 'Done' : 'Pending')}</span>` },
+                { render: (a, b, c) => buttons(c), className: 'd-flex border-bottom-0' }
+            ]
+
+        });
+
+    })
+
+    function updateLoanPaid() {
+        if (!appNo) return;
+        $.get(`@Url.Action("UpdateLoanDisburs", "Data")?applicationNumber=${encodeURIComponent(appNo)}`).then(r => {
+            toastr.success('Updated Successfully');
+            $('#paid').modal('hide');
+            window.setTimeout(_ => $("#tblrefundable").DataTable().ajax.reload());
+        })
+    }
+</script>

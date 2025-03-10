@@ -1,0 +1,205 @@
+﻿@using DTL.Model.Models.GPF
+@model List<GPFWithdrawalModel>
+@{
+    string loanType = ViewBag.IsNonRefundable != null ? "Non-Refundable" : "Refundable";
+    string loanTypeAct = ViewBag.IsNonRefundable != null ? "NonRefundable" : "Refundable";
+    ViewData["Title"] = loanType + " List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">@loanType List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Withdrawal", new { Area="GPF" })"> Dashboard</a><span class="px-1">/</span><a href="@Url.Action("Index","LoanProcessing", new { Area="GPF" })">Loan Application</a><span class="px-1">/</span><span>@loanType List</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4">
+                <button type="button" class="btn btn-primary btn-sm mr-2 "
+                        onclick="location.href='@Url.Action("Add" + loanTypeAct + "GPF","Withdrawal", new { Area="GPF" })'">
+                    Add New @loanType
+                </button>
+
+            </div>
+            <div class="table-responsive">
+                <table id="example1" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Date</th>
+                            <th>Loan Application No.</th>
+                            <th>Employee Name</th>
+                            <th>Emp id</th>
+                            <th>Organization</th>
+
+                            <th>Application Status</th>
+                            <th>Loan Amount</th>
+                            <th> Eligible Loan Amount</th>
+                            <th>Remarks</th>
+                            <th>Loan status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td>20/02/2022</td>
+                            <td>123456</td>
+                            <td>Rahul Sahu</td>
+                            <td>7686876</td>
+
+                            <td>DTL</td>
+
+                            <td class="text-center"><span class="bg-orange Status_text w-100 d-block">Under Processing </span></td>
+                            <td>15000</td>
+                            <td>10000</td>
+                            <td>Remarks</td>
+                            <td class="text-center"><span class="bg-danger Status_text">Reject</span></td>
+                            <td class="d-flex border-bottom-0">
+
+                                <a href="@Url.Action(loanTypeAct + "View","Withdrawal", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="btn btn-info btn-sm mr-2 btn_small">
+                                    <i class="fa fa-pencil"
+                                       aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm mr-2 btn_small">
+                                    <i class="fa fa-trash"
+                                       aria-hidden="true"></i>
+                                </a>
+
+
+
+                                <!-- Modal -->
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>20/02/2022</td>
+                            <td>123456</td>
+                            <td>Rahul Sahu</td>
+                            <td>7686876</td>
+
+                            <td>DTL</td>
+
+                            <td class="text-center"><span class="bg-orange Status_text w-100 d-block">Under Processing With AG/DM</span></td>
+                            <td>15000</td>
+                            <td>10000</td>
+                            <td>Remarks</td>
+                            <td class="text-center"><span class="bg-warning Status_text">Pending</span></td>
+                            <td class="d-flex border-bottom-0">
+
+                                <a href="@Url.Action(loanTypeAct + "View","Withdrawal", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="btn btn-info btn-sm mr-2 btn_small">
+                                    <i class="fa fa-pencil"
+                                       aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm mr-2 btn_small">
+                                    <i class="fa fa-trash"
+                                       aria-hidden="true"></i>
+                                </a>
+
+
+
+                                <!-- Modal -->
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>20/02/2022</td>
+                            <td>123456</td>
+                            <td>Rahul Sahu</td>
+                            <td>7686876</td>
+
+                            <td>DTL</td>
+
+                            <td class="text-center"><span class="bg-success Status_text">Completed</span></td>
+                            <td>15000</td>
+                            <td>10000</td>
+                            <td>Remarks</td>
+                            <td class="text-center"><span class="bg-success Status_text">Approved</span></td>
+                            <td class="d-flex border-bottom-0">
+
+                                <a href="@Url.Action(loanTypeAct + "View","Withdrawal", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="btn btn-info btn-sm mr-2 btn_small">
+                                    <i class="fa fa-pencil"
+                                       aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm mr-2 btn_small">
+                                    <i class="fa fa-trash"
+                                       aria-hidden="true"></i>
+                                </a>
+
+
+
+                                <!-- Modal -->
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var srno = 1;
+
+    const buttons = c => `
+                        <a href="@Url.Action(loanTypeAct + "View","Withdrawal", new {Area="GPF" })?applicationNumber=${encodeURIComponent(c.applicationNumber)}" class="btn btn-primary btn-sm mr-2 btn_small">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <!--<a href="#" class="btn btn-info btn-sm mr-2 btn_small">
+                    <i class="fa fa-pencil"
+                        aria-hidden="true"></i>
+                </a>
+                <a href="#" class="btn btn-danger btn-sm mr-2 btn_small">
+                    <i class="fa fa-trash"
+                        aria-hidden="true"></i>
+                </a>-->
+            `
+
+    const color = status => status == 'Pending' ? 'orange' : (status == "Rejected" ? 'danger' : (status == 'Completed' ? 'success' : 'white'));
+
+    $(document).ready(function () {
+        $("#example1").DataTable({
+            ordering: true,
+            dom: 'lfrtip',
+            scrollX: true,
+            ajax: {
+                url: '@Url.Action("GetLoanApplications", "Data")',
+                data: d => { d["type"] = "@loanType" },
+                dataSrc: ''
+            },
+            columns: [
+                { render: _ => srno++ },
+                { data: 'createdOn', render: a => moment(a).format('DD-MMM-YYYY') },
+                { data: 'applicationNumber' },
+                { data: 'employeeName' },
+                { data: 'employeeCode' },
+                { data: 'organisationName' },
+                { data: 'applicationStatus', render: (a, b, c) => `<span class="bg-${color(c.loanStatus)} Status_text text-center w-100 d-block">${a}</span>` },
+                { data: 'loanAmount', render: a => `&#8377;&nbsp;${a.toFixed(2)}` },
+                { data: 'eligibleAmount', render: a => `&#8377;&nbsp;${a.toFixed(2)}` },
+                { data: 'remark' },
+                { data: 'loanStatus', render: (a, b, c) => `<span class="bg-${color(c.loanStatus)} Status_text w-100 text-center d-block">${a}</span>` },
+                { render: (a, b, c) => buttons(c) }
+            ]
+        });
+    });
+
+</script>   

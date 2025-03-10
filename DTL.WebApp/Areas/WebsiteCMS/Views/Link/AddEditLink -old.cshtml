@@ -1,0 +1,117 @@
+﻿@using DTL.WebApp.Areas.WebsiteCMS
+@using DTL.Model.Models.CMS;
+@model LinkModel
+
+@{
+    ViewData["Title"] = Model.IsNew ? "Add Link" : Model.ViewOnly ? "View Link" : "Edit Link";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label.error {
+        display: none !important;
+    }
+</style>
+
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Important Links Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", StringConstants.DASHBOARD, new { Area = StringConstants.CMS_AREA })">CMS</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("", StringConstants.CMS_LINK , new { Area = StringConstants.CMS_AREA})">Important Links List</a></li>
+                        <li class="breadcrumb-item active">Important Links Form</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form id="AddLinkForm" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" value="@Model.ID" name="ID" id="ID" />
+                                <input type="hidden" value="@Model.IsNew.ToString()" name="IsNew" id="IsNew" />
+
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Important Links Title</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" value="@Model.Title" disabled="@Model.ViewOnly" class="form-control mb-2" placeholder="Enter Important Links Title" name="Title" id="" required />
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Upload Document</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="file" name="DocumentFileName" accept="application/pdf" disabled="@Model.ViewOnly" class=" mb-2" required />
+                                        @if (Model.IsNew == false)
+                                        {
+                                            <input type="hidden" name="FileContentBase64" value="@(@Model.FileContent == null ?  "" :Convert.ToBase64String(@Model.FileContent))" />
+                                            <br />
+                                            <a href="javascript:downloadPDF('FileContentBase64')"> View File</a>
+                                            @:&nbsp; &nbsp; &nbsp;
+                                            <a href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants.CMS_LINK, new { linkId =  Model.ID})">Download File</a>
+                                        }
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button id="btnSubmit" type="button" class="btn btn-primary @( Model.ViewOnly ? "hide" : "" )">Submit</button>
+                                        <button onclick='window.location.href="@Url.Action("", StringConstants.CMS_LINK, new { Area = StringConstants.CMS_AREA })"' type="reset" class="btn btn-danger" id="btnReset"> @( Model.ViewOnly ? "Back" : "Cancel" ) </button>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Important Link</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                                                <p>Important Link Added Successfully</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+</div>
+@section AddEditLink{
+<script type="text/javascript" src="~/js/CMS/Link.js"></script>
+}

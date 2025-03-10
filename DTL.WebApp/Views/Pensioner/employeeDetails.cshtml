@@ -1,0 +1,103 @@
+﻿@using DTL.Model.Models
+@model EmployeeModel
+@{
+    ViewData["Title"] = "Employee Details";
+}
+@*
+    <input type="hidden" id="DOB" name="DOB" value="@Model.employeeProfile.DOB.ToString("yyyy-MM-dd")" />
+    <input type="hidden" id="ServiceStartDate" name="ServiceStartDate" value="@Model.employeeProfile.ServiceStartDate.ToString("yyyy-MM-dd")" />
+    <input type="hidden" id="ServiceEndDate" name="ServiceEndDate" value="@Model.employeeProfile.ServiceEndDate.ToString("yyyy-MM-dd")" />
+*@
+<div class="content-wrapper" id="EmployeeRegistration">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Generate PPO</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("","Pensioner")">Pensioner</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("GeneratePPO","Pensioner")">Generate PPO</a></li>
+                        <li class="breadcrumb-item active">Employee Details</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content pt-3">
+        <div class="container">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- jquery validation -->
+
+                    <div class="card card-primary card-outline card-tabs">
+                        @*<div class="card-header">
+                                <h3 class="card-title">Employee Registration</h3>
+                            </div>*@
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        @*<div class="card-body">
+                            <div class="card card-primary ">*@
+                        <div class="card-header p-0 pt-1 border-bottom-0">
+                            <input type="hidden" id="employeeRegistrationId" value="@ViewBag.EmpId" />
+                            <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                @*<li class="nav-item">
+                                        <a class="nav-link active" id="custom-tabs-three-empProfile-tab" data-toggle="pill" href="#custom-tabs-three-empProfile" role="tab" aria-controls="custom-tabs-three-empProfile" aria-selected="false">Employee Profile</a>
+                                    </li>*@
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="custom-tabs-three-form5-tab" data-toggle="pill" href="#custom-tabs-three-form5" role="tab" aria-controls="custom-tabs-three-form5" aria-selected="false">Form 5</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-three-familyNominee-tab" data-toggle="pill" href="#custom-tabs-three-familyNominee" role="tab" aria-controls="custom-tabs-three-familyNominee" aria-selected="false">Family & Nominee</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="custom-tabs-three-serviceHistory-tab" data-toggle="pill" href="#custom-tabs-three-serviceHistory" role="tab" aria-controls="custom-tabs-three-serviceHistory" aria-selected="true">Service History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-three-pensionSlip-tab" data-toggle="pill" href="#custom-tabs-three-pensionSlip" role="tab" aria-controls="custom-tabs-three-pensionSlip" aria-selected="true">Pension Slip</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="custom-tabs-three-tabContent">
+                                @*<div class="tab-pane fade active show" id="custom-tabs-three-empProfile" role="tabpanel" aria-labelledby="custom-tabs-three-empProfile-tab">
+                                        <partial name="_employeeProfileForm" for="employeeProfile" />
+                                    </div>*@
+                                <div class="tab-pane fade active show" id="custom-tabs-three-form5" role="tabpanel" aria-labelledby="custom-tabs-three-form5-tab">
+                                    <partial name="_form5Form" for="form5" />
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-three-familyNominee" role="tabpanel" aria-labelledby="custom-tabs-three-familyNominee-tab">
+                                    <partial name="_familyNomineeForm" for="nomineeDetails" />
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-three-serviceHistory" role="tabpanel" aria-labelledby="custom-tabs-three-serviceHistory-tab">
+                                    <partial name="_serviceHistoryForm" for="serviceHistory" />
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-three-pensionSlip" role="tabpanel" aria-labelledby="custom-tabs-three-pensionSlip-tab">
+                                    <partial name="_pensionSlipForm" for="pensionSlip" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!--/.col (left) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+@section Pensioner{
+    <script src="~/js/Pensioner/Form5.js" asp-append-version="true"></script>
+    <script src="~/js/Pensioner/NomineeDetails.js" asp-append-version="true"></script>
+    <script src="~/js/Pensioner/ServiceHistory.js" asp-append-version="true"></script>
+    <script src="~/js/Pensioner/pensionSlip.js" asp-append-version="true"></script>
+    <script src="~/js/Pensioner/AMApproval.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,74 @@
+﻿
+
+<div class="card" id="searchCriteria">
+    <div class="card-body">
+        <div class="row p-2">
+            <div class="col-md-3">
+                <label for="lblFinancialYear">Financial Year</label>
+            </div>
+            <div class="col-md-3 form-group">
+                <select id="FinancialYear" name="FinancialYear" class="form-control">
+                    <option value="">Select</option>
+                    @foreach (var data in ViewBag.FinancialYear)
+                    {
+                        <option value="@data">@data</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+   
+    <div class="col-md-12">
+        <div class="float-sm-right">
+            <a class="btn btn-primary btn-sm" id="budgetGraph" href="#"><i class="fas fa-chart-bar"></i> Graph</a>
+            <a class="btn btn-primary btn-sm" id="budgetTable" href="#"><i class="fas fa-table"></i> Table</a>
+        </div>
+        <h4>Budget Analysis</h4>
+    </div>
+
+</div>
+<div class="row justify-content-center align-items-center" id="budgettables">
+    <div class="col-md-12">
+        <table id="budgetTbl" class="table table-striped projects">
+            <thead>
+                <tr>
+                    <th>Particular</th>
+                    <th>Allocated Amount</th>
+                    <th>Disbursement Period</th>
+                    <th>Authorized Person</th>
+                    <th>Disbursed Amount</th>
+                    <th>Outstanding</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    
+</div>
+
+<div id="budgetGraphs">
+    <div class="row">
+        <div class="col-md-8">
+            <canvas id="mybudgetinoutFlowChart" width="800" height="400"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <h5 class="justify-content-center align-items-center">Budget Allocation</h5>
+            <canvas id="mybudgetinFlowChart" width="500" height="300"></canvas>
+        </div>
+        <div class="col-md-5">
+            <h5 class="justify-content-center align-items-center">Budget Expenditure</h5>
+            <canvas id="mybudgetoutFlowChart" width="500" height="300"></canvas>
+        </div>
+    </div>
+
+    <div class="col-sm-12 p-2">
+        <div class="row justify-content-center">
+            <button type="button" name="btnPrint" id="btnPrint" class="btn btn-primary">Print</button>
+        </div>
+    </div>
+</div>

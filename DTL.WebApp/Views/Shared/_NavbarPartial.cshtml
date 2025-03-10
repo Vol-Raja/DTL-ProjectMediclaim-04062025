@@ -1,0 +1,187 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var roles = ((ClaimsIdentity)User.Identity).Claims
+                             .Where(c => c.Type == ClaimTypes.Role)
+                             .Select(c => c.Value);
+    var user = UserManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+}
+<!-- Navbar -->
+<!--<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <div class="container">
+        <a href="@Url.Action("","Home", new { Area=""})" class="navbar-brand">
+            <img src="~/logo/Logo.jpeg" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">DVBETBF</span>
+        </a>
+
+        <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">-->
+@*Left navbar links*@
+<!--<ul class="navbar-nav">
+    <li class="nav-item">
+        <a href="@Url.Action("","Home", new { Area=""})" class="nav-link">Home</a>
+    </li>-->
+@*
+                    @if (roles.FirstOrDefault().Trim().ToLower() == "admin")
+                    {
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Settings</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li><a href="@Url.Action("", "Users")" class="dropdown-item">User @User.Claims.Where(x => x.Type == "role").Select(x => x.Value).FirstOrDefault()</a></li>
+                                <li><a href="@Url.Action("", "Roles")" class="dropdown-item">Roles</a></li>
+                                <li class="dropdown-divider"></li>
+                            </ul>
+                        </li>
+                    }
+                *@
+
+<!--<li class="nav-item">
+    <a href="@Url.Action("","Grievance",new { Area="" })" class="nav-link">Grievance</a>
+</li>-->
+@*<li class="nav-item">
+                        <a href="@Url.Action("Index","Admin",new { Area="UserManagement" })" class="nav-link">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Master",new { Area="UserManagement" })" class="nav-link">Master</a>
+                    </li>*@
+<!--</ul>
+</div>
+
+<!-- Right navbar links -->
+<!--<ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+    <li class="nav-item">
+        <a href="javascript:void(0)" class="nav-link">
+@if (user != null)
+{
+    @user.fullName
+}-->
+@*Session Over in <span id="sessionTime"></span>*@
+<!--</a>
+</li>-->
+<!-- Notifications Dropdown Menu -->
+<!--<li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" href="#">
+        <i class="fa fa-power-off"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">-->
+@*<span class="dropdown-header">15 Notifications</span>*@
+@*<div class="dropdown-divider"></div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+            <button type="submit" class="nav-link btn btn-link text-dark"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
+        </form>}
+                    <div class="dropdown-divider"></div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</nav>-->*@
+<!--New Navbar Start -->
+
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8  py-2">
+                <a href="@Url.Action("","Home", new { Area=""})" class="d-flex">
+                    <img src="~/logo/Logo.jpeg" alt="DVEBTBF PTIS (Pension Trust Information System)" width="50px">
+
+                    <div class="my-auto ms-3">
+                        <h5 class="text-white">DVEBTBF</h5>
+                        <span class="d-block text-white">PTIS (Pension Trust Information System)</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 my-auto text-end d-flex justify-content-end">
+                <div class="dropdown dropdown-notification notification_icon px-2">
+                    <a class="dropdown-link new-indicator" id="notification_btn" data-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"></path></svg>
+                        <span id="notiSize"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" id="notification_view">
+                        <div class="dropdown-header">Notifications</div>
+                        <a href="@Url.Action("","Home", new { Area=""})" class="notification_para"><i class="fa-solid fa-globe"></i><span>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</span></a>
+                        <a href="@Url.Action("","Home", new { Area=""})" class="notification_para"><i class="fa-solid fa-globe"></i><span>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</span></a>
+                        <a href="@Url.Action("","Home", new { Area=""})" class="notification_para"><i class="fa-solid fa-globe"></i><span>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</span></a>
+                        <a href="@Url.Action("","Home", new { Area=""})" class="notification_para"><i class="fa-solid fa-globe"></i><span>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</span></a>
+                        <a href="@Url.Action("","Home", new { Area=""})" class="notification_para"><i class="fa-solid fa-globe"></i><span>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</span></a>
+                        <a href="@Url.Action("","Home", new { Area=""})" class="notification_para"><i class="fa-solid fa-globe"></i><span>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</span></a>
+                        <div class="dropdown-footer"><a href="#">View all Notifications</a></div>
+                    </div><!-- dropdown-menu -->
+                </div><!-- dropdown -->
+                <div class="profile_btn">
+                    <a class="btn dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <label>
+                            @if (user != null)
+                            {
+                                @user.UserName
+                            }
+                        </label>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="/home/ViewSelfProfile">
+                                <i class="fa fa-eye profile_icon"
+                                   aria-hidden="true"></i>View Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/home/ViewSelfProfile?isReadOnly=false">
+                                <i class="fa fa-pencil profile_icon"
+                                   aria-hidden="true"></i>Edit Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("ChangePassword","Account", new { Area = "Identity"})">
+                                <i class="fa fa-unlock-alt profile_icon" aria-hidden="true"></i>Change Password
+                            </a>
+                        </li>
+                        <li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @*<a class="dropdown-item" href="#">*@
+                                @*<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                            <i class="fa fa-sign-out profile_icon"
+                            aria-hidden="true"></i>Log out
+                            </form>*@
+
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fa fa-sign-out profile_icon"
+                                       aria-hidden="true"></i>Logout
+                                    </button>
+                                </form>
+                                @*</a>*@
+                            }
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Navbar end -->
+<script>
+    $('#notification_btn').click(function(){
+        console.log('hello')
+        $('#notification_view').toggle("slide");
+        event.stopPropagation();
+    });
+    $('body').click(function () {
+       // console.log('hello')
+        $("#notification_view").hide("fast");                       
+    
+    });
+
+</script>

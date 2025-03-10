@@ -1,0 +1,542 @@
+﻿
+@{
+    ViewData["Title"] = "ViewGPFEmployeeProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">View GPF Employee Profile</h3>
+        </div>
+        @*<p class="mb-0 col-6 top_link_Section">
+                <a class="" href="/">Dashboard </a><span class="px-1">/</span><a class="" href="@Url.Action("ViewEmployeeList","Employee",new { Area="GPF" })">Employee List </a><span class="px-1">/</span>
+                <span>Employee Profile</span>
+            </p>*@
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body">
+            <div class="">
+                <div class="position-relative">
+                    <div id="material-tabs">
+                        <a id="tab1-tab" href="#tab1" class="active">Employee Master</a>
+                        @*<a id="tab2-tab" href="#tab2"> Family Master</a>
+                            <a id="tab3-tab" href="#tab3">Nominee Master </a>*@
+                        <span class="yellow-bar"></span>
+                    </div>
+                </div>
+                <div class="tab-content view_container_bg ">
+                    <div id="tab1">
+
+
+                        <div class="row">
+
+                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3 position-relative">
+                                <div class="smal-12 medium-2 large-2 columns profile-section shadow-2-strong">
+
+                                    <div class="profile_image">
+                                        <img class="profile-pic" src="~/assets/images/defultimage.jpg">
+                                    </div>
+                                    <div class="text-container">
+                                        <span class="title-view-text"><i class="fa fa-user"></i><span name="name"></span></span>
+                                        <span class="title-view-text"><i class="fa fa-envelope "></i><span name="email"></span></span>
+                                        <span class="title-view-text"><i class="fa fa-phone"></i><span name="mobile"></span></span>
+                                        <span class="title-view-text"><i class="fa fa-venus-mars "></i><span name="gender"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-8 col-lg-9 basicDetails">
+                                <h4 class="form_title mt-3 ">
+                                    Basic Details
+                                </h4>
+                                <div class="row">
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Father / Husband Name </label>
+                                        <p class="View_text"><span name="fatherName"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date Of Birth</label>
+                                        <p class="View_text"><span class="date" name="dateOfBirth"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Contact Number</label>
+                                        <p class="View_text"><span name="contactNumber"></span></p>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date Of Joining </label>
+                                        <p class="View_text"><span class="date" name="dateOfJoining"></span></p>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Maritial Status </label>
+                                        <p class="View_text"><span name="maritalStatus"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date Of Leaving </label>
+                                        <p class="View_text"><span class="date" name="dateOfLeaving"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Level</label>
+                                        <p class="View_text"><span name="level"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Basic Pay</label>
+                                        <p class="View_text"><span name="basicPay"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Blood Group</label>
+                                        <p class="View_text"><span name="bloodGroup"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Designation</label>
+                                        <p class="View_text"><span name="designation"></span></p>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Department</label>
+                                        <p class="View_text"><span name="department"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Pay Scale</label>
+                                        <p class="View_text"><span name="payScale"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Physically Disable</label>
+                                        <p class="View_text"><span name="physicalDisability"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Identification Marks</label>
+                                        <p class="View_text"><span name="identificationMarks"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date of Retirement</label>
+                                        <p class="View_text"><span class="date" name="dateOfRetirement"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date of Death</label>
+                                        <p class="View_text"><span class="date" name="dateOfDeath"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Emp Type</label>
+                                        <p class="View_text"><span name="employeeType"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bankDetails">
+                            <h4 class="form_title mt-3 ">
+                                Bank Master
+                            </h4>
+                            <div class="row ">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Bank Name</label>
+                                    <p class="View_text"><span name="bankName"></span></p>
+
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Branch Name</label>
+                                    <p class="View_text"><span name="branch"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">Bank Account No</label>
+                                    <p class="View_text"><span name="accountNo"></span></p>
+
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">IFSC Code</label>
+                                    <p class="View_text"><span name="ifsc"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">Aadhar No </label>
+                                    <p class="View_text"><span name="aadharNo"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">Pan No </label>
+                                    <p class="View_text"><span name="panNo"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">Bank Address</label>
+                                    <p class="View_text"><span name="address"></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="currentAddress">
+                            <h4 class="form_title mt-3 ">
+                                Current Address
+                            </h4>
+                            <div class="row ">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Address</label>
+                                    <p class="View_text"><span name="address"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Street </label>
+                                    <p class="View_text"><span name="street"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">City</label>
+                                    <p class="View_text"><span name="city"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">State</label>
+                                    <p class="View_text"><span name="state"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">PinCode</label>
+                                    <p class="View_text"><span name="pinCode"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">Nominee</label>
+                                    <p class="View_text"><span name="nominee"></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="permanentAddress">
+                            <h4 class="form_title mt-3 ">
+                                Permanent Address
+                            </h4>
+                            <div class="row ">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Address</label>
+                                    <p class="View_text"><span name="address"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Street </label>
+                                    <p class="View_text"><span name="street"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">City</label>
+                                    <p class="View_text"><span name="city"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">State</label>
+                                    <p class="View_text"><span name="state"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                    <label class="form-label d-block mb-1">PinCode</label>
+                                    <p class="View_text"><span name="pinCode"></span></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h4 class="form_title mt-3 ">
+                            Attachment Details
+                        </h4>
+                        <div class="row ">
+                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3 position-relative">
+                                <div class="smal-12 medium-2 large-2 columns profile-section shadow-2-strong">
+                                    <div class="profile_image">
+                                        <img class="profile-pic" src="https://jjjconsultancysolutions.com/wp-content/uploads/2022/05/searchpng.com-sample-aadhaar-card-icon-png-image-free-download-1024x658-1-768x494.png">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3 position-relative">
+                                <div class="smal-12 medium-2 large-2 columns profile-section shadow-2-strong">
+                                    <div class="profile_image">
+                                        <img class="profile-pic" src="http://www.reward4u.in/assets/img/rewards/pan.jpeg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    @*<div id="tab2>
+                            <div class="familyDetails">
+                                <h4 class="form_title mt-3 ">
+                                    Family Master
+                                </h4>
+                                <div class="row ">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Employee code</label>
+                                        <p class="View_text"><span name="employeeCode"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Employee Name </label>
+                                        <p class="View_text"><span name="employeeName"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Member Name</label>
+                                        <p class="View_text"><span name="memberName"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Relationship</label>
+                                        <p class="View_text"><span name="relationship"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Physical Disorder</label>
+                                        <p class="View_text"><span name="physicalDisorder"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date of Birth</label>
+                                        <p class="View_text"><span name="dateOfBirth"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Govt Employee</label>
+                                        <p class="View_text"><span name="govtEmployee"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Eligible</label>
+                                        <p class="View_text"><span name="eligible"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">H.no </label>
+                                        <p class="View_text"><span name="hNo"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Locality</label>
+                                        <p class="View_text"><span name="locality"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">City</label>
+                                        <p class="View_text"><span name="city"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">State</label>
+                                        <p class="View_text"><span name="state"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Dis</label>
+                                        <p class="View_text"><span name="dis"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">PinCode</label>
+                                        <p class="View_text"><span name="pinCode"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Transfer To Nominee</label>
+                                        <p class="View_text"><span name="transferToNominee"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1"> Bank Name</label>
+                                        <p class="View_text"><span name="bankName"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1"> Bank Account No</label>
+                                        <p class="View_text"><span name="accountNo"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1"> Contact No</label>
+                                        <p class="View_text"><span name="contactNo"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Mobile No</label>
+                                        <p class="View_text"><span name="mobileNo"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date of death</label>
+                                        <p class="View_text"><span name="dateOfDeath"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Pan No</label>
+                                        <p class="View_text"><span name="panNo"></span></p>
+
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Remarks</label>
+                                        <p class="View_text"><span name="remarks"></span></p>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">   Life Time Pension</label>
+                                        <p class="View_text"><span name="lifeTimePension"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3  view_text_border">
+                                        <label class="form-label d-block mb-1"> Reason</label>
+                                        <p class="View_text"><span name="reason"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="familyGuardianDetails">
+                                <h4 class="form_title mt-3 ">
+                                    Guardian Details
+                                </h4>
+                                <div class="row ">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Name</label>
+                                        <p class="View_text"><span name="guardianName"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Relation </label>
+                                        <p class="View_text"><span name="relation"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">H.no</label>
+                                        <p class="View_text"><span name="hNo"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Locality</label>
+                                        <p class="View_text"><span name="locality"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">State</label>
+                                        <p class="View_text"><span name="state"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">PinCode</label>
+                                        <p class="View_text"><span name="pinCode"></span></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab3">
+
+                            <div class="nomineeDetails">
+                                <h4 class="form_title mt-3 ">
+                                    Nominee Master
+                                </h4>
+                                <div class="row ">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Employee code</label>
+                                        <p class="View_text"><span name="employeeCode"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Nominee Name </label>
+                                        <p class="View_text"><span name="nomineeName"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Share</label>
+                                        <p class="View_text"><span name="share"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Nominee DOB</label>
+                                        <p class="View_text"><span name="dateOfBirth"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Relationship</label>
+                                        <p class="View_text"><span name="relationship"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Relation_other</label>
+                                        <p class="View_text"><span name="relationshipOther"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Nominee Type</label>
+                                        <p class="View_text"><span name="nomineeType"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Eligible</label>
+                                        <p class="View_text"><span name="eligible"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">As per Share %</label>
+                                        <p class="View_text"><span name="asPerShare"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">H.no </label>
+                                        <p class="View_text"><span name="hNo"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Locality</label>
+                                        <p class="View_text"><span name="locality"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">City</label>
+                                        <p class="View_text"><span name="city"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">State</label>
+                                        <p class="View_text"><span name="state"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Dis</label>
+                                        <p class="View_text"><span name="dis"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">PinCode</label>
+                                        <p class="View_text"><span name="pinCode"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1"> Reason</label>
+                                        <p class="View_text"><span name="reason"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="nomineeGuardianDetails">
+                                <h4 class="form_title mt-3 ">
+                                    Guardian Details
+                                </h4>
+                                <div class="row ">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Name</label>
+                                        <p class="View_text"><span name="guardianName"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Relation </label>
+                                        <p class="View_text"><span name="relation"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">H.no</label>
+                                        <p class="View_text"><span name="hNo"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">Locality</label>
+                                        <p class="View_text"><span name="locality"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">State</label>
+                                        <p class="View_text"><span name="state"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                        <label class="form-label d-block mb-1">PinCode</label>
+                                        <p class="View_text"><span name="pinCode"></span></p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/assets/js/tab.js"></script>
+
+<script>
+
+    const paramString = window.location.href.split('?')[1];
+    const queryString = new URLSearchParams(paramString);
+    var empInfo;
+
+    function BindData(obj, sel = '') {
+        var parent = $(sel || '#main-content');
+        Object.keys(obj).forEach(k => {
+            var el = $(`[name="${k}"]`);
+            if (!el.length || !el.prop('tagName')) { return; }
+            if (el.prop('tagName').toLowerCase() == "span" && el.hasClass('date')) $(el).text(obj[k] ? moment(obj[k]).format('DD-MMM-YYYY') : '');
+            else if (el.prop('tagName').toLowerCase() == "span") $(el).text(obj[k]);
+        });
+    }
+
+    $(document).ready(function () {
+        $.get('@Url.Action("GetEmployeeDetails", "EmployeeGPF")?externalCode=' + encodeURIComponent(queryString.get('emp'))).then(r => {
+            empInfo = r;
+            window.setTimeout(_ => BindData(empInfo), 100);
+            window.setTimeout(_ => BindData(empInfo.basicDetails, '.basicDetails'), 100);
+            window.setTimeout(_ => BindData(empInfo.bankDetails, '.bankDetails'), 100);
+            window.setTimeout(_ => BindData(empInfo.currentAddress, '.currentAddress'), 100);
+            window.setTimeout(_ => BindData(empInfo.permanentAddress, '.permanentAddress'), 100);
+            window.setTimeout(_ => BindData(empInfo.familyDetails, '.familyDetails'), 100);
+            window.setTimeout(_ => BindData(empInfo.familyGuardianDetails, '.familyGuardianDetails'), 100);
+            window.setTimeout(_ => BindData(empInfo.nomineeDetails, '.nomineeDetails'), 100);
+            window.setTimeout(_ => BindData(empInfo.nomineeGuardianDetails, '.nomineeGuardianDetails'), 100);
+        });
+    });
+
+</script>
+

@@ -1,0 +1,54 @@
+﻿@{ ViewData["Title"] = "Department Archives List";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0 border_bottom">
+        <div class="col-5 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Department Archives List</h3>
+        </div>
+        <p class="mb-0 col-7 top_link_Section"><a href="@Url.Action("Index","Home", new { Area="" })"> Dashboard </a><span class="px-1">/</span><a href="@Url.Action("", "MasterUser", new { Area = "UserManagement" })">Master Management</a><span class="px-1">/</span><span> Department Archives List</span></p>
+    </div>
+    <div class="card border-card mt-0">
+
+        <div class="card-body pt-0 ps-0 pr-2">
+
+
+            <div class="my-4 border_bottom pb-4">
+                <a href="@Url.Action("DepartmentList", "MasterUser", new { Area = "UserManagement" })" class="btn btn-primary btn-sm mr-2" >
+                    Active Department
+                </a>
+
+            </div>
+            <div class="table-responsive">
+            <table id="example1" class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Sr.No.</th>
+                        <th>Department</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Department</td>
+                    </tr>
+                </tbody>
+            </table>
+                </div>
+        </div>
+    </div>
+
+
+</div>
+<script>
+    $('#example1').DataTable({
+        "ordering": false,
+        "sScrollX": "100%",
+        "sScrollXInner": "100%",
+        "bAutoWidth": false,
+        "bJQueryUI": true,
+        "bRetrieve": true,
+        "bAutoWidth": true
+    });
+</script>

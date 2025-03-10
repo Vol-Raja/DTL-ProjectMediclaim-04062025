@@ -1,0 +1,165 @@
+﻿@using DTL.Model.Models
+@model GPFManagementModel
+
+@{
+    ViewData["Title"] = "GPF Management";
+}
+<style>
+    .offset-md-9 {
+        display: inline-flex !important;
+    }
+
+    .fa-plus-circle {
+        cursor: pointer;
+    }
+
+    .subCatTbl {
+        height: 145px;
+        overflow: auto;
+        display: block;
+    }
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>GPF Management</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("","FinanceManagement")">Finance Management</a></li>
+                    <li class="breadcrumb-item active">GPF Management</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<div class="content-wrapper" id="GPFManagement">
+    <section class="content pt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline card-tabs">
+                        <div class="card-header p-0 pt-1 border-bottom-0">
+                            @*<input type="hidden" id="employeeRegistrationId" value="@ViewBag.EmpId" />*@
+                            <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="custom-tabs-three-gpfinflow-tab" data-toggle="pill" href="#custom-tabs-three-gpfinflow" role="tab" aria-controls="custom-tabs-three-gpfinflow" aria-selected="true">Inflow</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="custom-tabs-three-gpfoutflow-tab" data-toggle="pill" href="#custom-tabs-three-gpfoutflow" role="tab" aria-controls="custom-tabs-three-gpfoutflow" aria-selected="false">Outflow</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link Active" id="custom-tabs-three-gpfioflow-tab" data-toggle="pill" href="#custom-tabs-three-gpfioflow" role="tab" aria-controls="custom-tabs-three-gpfioflow" aria-selected="false">Inflow Vs Outflow</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row col-md-12 p-2">
+                                    <div class="col-md-2">
+                                        <label class="d-block text-right" for="datepicker">Month/Year</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" name="datepicker" id="datepicker" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="d-block text-right" for="searchByEmployer">Employer</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select id="searchByEmployer" class="form-control" placeholder="Year">
+                                            <option value="">Employer Name</option>
+                                            @foreach (var data in ViewBag.DTLOfficeList)
+                                            {
+                                                <option value="@data.DTLOffice">@data.DTLOffice</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="d-block text-right" for="searchByEmployeeId">Employee ID</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" name="searchByEmployeeId" id="searchByEmployeeId" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 p-2">
+                            <div class="card card-primary card-outline card-tabs">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row col-sm-12">
+                                            <div class="col-sm-6">
+                                                <div class="tab-pane fade active show" id="custom-tabs-three-gpfinflow" role="tabpanel" aria-labelledby="custom-tabs-three-gpfinflow-tab">
+                                                    <partial name="_gpfInflow" />
+                                                    <table id="gpfRptTbl1" class="table table-striped projects">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Month</th>
+                                                                <th>Employee Name</th>
+                                                                <th>Emp ID</th>
+                                                                <th>GPF Contribution</th>
+                                                                <th>Employer</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="custom-tabs-three-gpfoutflow" role="tabpanel" aria-labelledby="custom-tabs-three-gpfoutflow-tab">
+                                                    <partial name="_gpfOutflow" />
+
+                                                    <table id="gpfRptTbl" class="table table-striped projects">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Month</th>
+                                                                <th>Employee Name</th>
+                                                                <th>Emp ID</th>
+                                                                <th>GPF Withdrawal</th>
+                                                                <th>Employer</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+
+                                                </div>
+                                                <div class="tab-pane fade" id="custom-tabs-three-gpfioflow" role="tabpanel" aria-labelledby="custom-tabs-three-gpfioflow-tab">
+                                                    <partial name="_gpfInOutflow" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <table id="chart_box" class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <canvas id="myChart" height="400" style="width:100%"></canvas>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+</div>
+
+@section PensionManagement{
+    <script src="~/js/FinanceManagement/GPFManagement.js"></script>
+    <style>
+        .ui-datepicker-calendar {
+            display: none;
+        }
+    </style>
+}

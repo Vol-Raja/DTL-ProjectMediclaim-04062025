@@ -1,0 +1,63 @@
+﻿@using DTL.Model.Models.CMS
+@model IEnumerable<AboutModel>;
+@{
+    ViewData["Title"] = "हमारे बारे में";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+
+    var aboutModel = Model?.LastOrDefault();
+    var content = aboutModel?.TextContent;
+    var image = aboutModel?.Image;
+    string ImageUrl = "/assets/images/galleryImage/3.webp";
+
+    @if (image != null)
+    {
+        var base64 = Convert.ToBase64String(image);
+        ImageUrl = String.Format("data:{0};base64,{1}", aboutModel.ImageContentType, base64);
+    }
+}
+
+<section id="welcome_text">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>हमारे बारे में</h1>
+                <p><a href="@Url.Action("","home")">Home</a> / <span>हमारे बारे में / हमारे बारे में</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 px-0">
+                <div class="sidebar">
+                    <div class="tab">
+                        <a class="tablinks active" href="@Url.Action("","About")">हमारे बारे में</a>
+                        <a class="tablinks" href="@Url.Action("","Trustee")">न्यासी बोर्ड</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12 shadow mb-5">
+                <div class="main_content">
+                    <div class="tabcontent">
+                        <div class="media About">
+                            <img class="shadow" src="@ImageUrl">
+
+                            <div class="media-body">
+                                <ul>
+                                    @Html.Raw(Model?.LastOrDefault()?.TextContentHindi)
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+

@@ -1,0 +1,320 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    ViewData["Title"] = "Yearly Statements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Statements Form</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Dashboard","Processing", new { Area="GPF" })">Dashboard</a><span class="px-1">/</span><span>Statements Form</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <form id="frmStatement" method="post" action="@Url.Action("YearlyStatements")">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm-4 mb-, mm3">
+                        <label class="form-label d-block mb-1">Annual  Year </label>
+                        <select name="fy" id="" class="form-select validateThis">
+                            <option value="" selected disabled>Select</option>
+                            @for (int i = DateTime.Now.Year + 1; i > DateTime.Now.Year - 2; i--)
+                            {
+                                <option value="@i" @(i == DateTime.Now.Year ? "selected" : "")>FY @(i - 1)-@(i % 100)</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Organization</label>
+                        <select name="orgCode" id="" class="form-select validateThis">
+                            <option value="" selected disabled>Select</option>
+                            @foreach (var kvp in DTL.Model.Models.GPF.GPFEmployeeInfoModel.OrganisationNameByCode)
+                            {
+                                <option value="@kvp.Key">@kvp.Value</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">GPF Account Number</label>
+                        <input type="hidden" id="name" name="accountNumber" />
+                        <input type="text" id="name" name="accNo" class="form-control form-control-sm validateThis"
+                               placeholder="GPF Account Number" />
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Mobile Number</label>
+                        <input type="text" class="form-control form-control-sm"
+                               placeholder="Mobile Number" />
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">DOB</label>
+                        <input type="date" class="form-control form-control-sm" />
+                    </div>
+                    <div class="col-sm-12 mb-3 submit_area submit_area_strip">
+                        <a class="btn btn-brand me-2" href="javascript:void(0)" onclick="GetData()">Submit</a>
+                        @*<a class="btn btn-brand me-2" href="@Url.Action("YearlyStatements", "Processing", new { Area = "GPF" })">Submit</a>*@
+                        <a href="@Url.Action("Dashboard","Processing", new { Area="GPF" })" class="btn btn-cancel me-2">Cancel</a>
+                        <button class="btn btn-reset me-2">Reset</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+
+    <div class="card border-card mt-4" id="dMain" style="display:none">
+        <div class="card-body">
+            <div class="text-center">
+                <h4><span name="org"></span></h4>
+                <p class="subtitle">Annual Statement (<span name="fy"></span>)</p>
+            </div>
+            <div class="table-responsive mt-4">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>GPF No</th>
+                        <td><span name="accountNo"></span></td>
+                        <th>Name</th>
+                        <td><span name="name"></span></td>
+                        <th>Year</th>
+                        <td><span name="year"></span></td>
+                    </tr>
+                    <tr>
+
+                        <th>Emp  Id</th>
+                        <td><span name="email"></span></td>
+                        <th>Father / Husband Name</th>
+                        <td><span name="fatherName"></span></td>
+                        <th>DOB</th>
+                        <td><span name="dob"></span></td>
+                    </tr>
+                    <tr>
+
+                        <th>Joining Date</th>
+                        <td colspan="5"><span name="doj"></span></td>
+
+                    </tr>
+                </table>
+                <table id="table" class="table table-bordered ">
+
+                    <thead>
+                        <tr>
+
+                            <th colspan="2">Opening Balance</th>
+
+                            <th colspan="6"><span name="opening"></span> <span class="text-danger req_text">&#8377; </span></th>
+                        </tr>
+                        <tr>
+
+                            <th class="text-left">Month-Year </th>
+                            <th class="text-center">GPF Contribution</th>
+                            <th class="text-center">Refundable Advance</th>
+                            <th class="text-center">Advance Refund</th>
+                            <th class="text-center">Interest Rate </th>
+                            <th class="text-center">Interest Amt </th>
+                            <th class="text-center">Non Refundable Advance</th>
+                            <th class="text-right">Total Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @* <tr>
+
+                        <td class="text-left">Apr-2000 </td>
+                        <td class="text-center">2000<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">7.1% </td>
+                        <td class="text-center">142<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-right">65765<span class="text-danger req_text">&#8377; </span></td>
+                        </tr>
+                        <tr>
+
+                        <td class="text-left">May-2000 </td>
+                        <td class="text-center">2000<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">8%</td>
+                        <td class="text-center">169<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-right">655<span class="text-danger req_text">&#8377; </span></td>
+                        </tr>
+                        <tr>
+
+                        <td class="text-left">May-2000 </td>
+                        <td class="text-center">2000<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">8%</td>
+                        <td class="text-center">169<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-right">655<span class="text-danger req_text">&#8377; </span></td>
+                        </tr>
+                        <tr>
+
+                        <td class="text-left">Jun-2000 </td>
+                        <td class="text-center">2000<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center">5000<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">7.1%</td>
+                        <td class="text-center">142<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-right">655<span class="text-danger req_text">&#8377; </span></td>
+                        </tr>
+                        <tr>
+
+                        <td class="text-left">July-2000 </td>
+                        <td class="text-center">2000<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">1000<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center">7.1%</td>
+                        <td class="text-center">142<span class="text-danger req_text">&#8377; </span></td>
+                        <td class="text-center"></td>
+                        <td class="text-right">655<span class="text-danger req_text">&#8377; </span></td>
+                        </tr>
+
+
+                        *@
+                        <tr>
+                            <th class="text-center"><strong>Total</strong> </th>
+                            <th class="text-center"><strong><span class="sum deposit"></span><span class="text-danger req_text">&#8377; </span></strong></th>
+                            <th class="text-center"></th>
+                            <th class="text-center"><strong><span class="sum advanceRefund"></span><span class="text-danger req_text">&#8377; </span></strong></th>
+                            <th class="text-center"> </th>
+                            <th class="text-center"><strong><span class="sum interest"></span><span class="text-danger req_text">&#8377; </span> </strong></th>
+                            <th class="text-center"></th>
+                            <th class="text-right"><strong><span class="sum total"></span><span class="text-danger req_text">&#8377; </span></strong></th>
+                        </tr>
+                        <tr>
+                            <td colspan="5" rowspan="6"></td>
+                            <th>Opening Balance</th>
+                            <th></th>
+                            <th class="text-right"><span name="opening"></span><span class="text-danger req_text">&#8377; </span></th>
+                        </tr>
+                        <tr>
+
+                            <th>Total Deposit</th>
+                            <th></th>
+                            <th class="text-right"><span name="totalDeposit"></span><span class="text-danger req_text">&#8377; </span></th>
+                        </tr>
+                        <tr>
+
+                            <th>Total Interest</th>
+                            <th></th>
+                            <th class="text-right"><span name="totalInterest"></span><span class="text-danger req_text">&#8377; </span></th>
+                        </tr>
+                        <tr>
+
+                            <th>Total</th>
+                            <th></th>
+                            <th class="text-right"><span name="totalAmount"></span><span class="text-danger req_text">&#8377; </span></th>
+                        </tr>
+                        <tr>
+
+                            <th>Withdrawl</th>
+                            <th></th>
+                            <th class="text-right"><span name="totalWithdrawal"></span><span class="text-danger req_text">&#8377; </span></th>
+                        </tr>
+                        <tr>
+
+                            <th>Current Balance</th>
+                            <th></th>
+                            <th class="text-right"><span name="currentBalance"></span><span class="text-danger req_text">&#8377; </span></th>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="tmplRow">
+    <tr>
+        <td class="text-left"><span name="month"></span></td>
+        <td class="text-center"><span name="deposit"></span><span class="text-danger req_text">&#8377; </span></td>
+        <td class="text-center"><span name="refundableAdvance"></span></td>
+        <td class="text-center"><span name="advanceRefund"></span></td>
+        <td class="text-center"><span name="interestRate"></span></td>
+        <td class="text-center"><span name="interest"></span><span class="text-danger req_text">&#8377; </span></td>
+        <td class="text-center"><span name="nonRefundable"></span></td>
+        <td class="text-right"><span name="total"></span><span class="text-danger req_text">&#8377; </span></td>
+    </tr>
+</template>
+
+<script>
+    $(document).ready(function () {
+
+        $('[name="accNo"]').autocomplete({
+            source: (req, res) => {
+                if (!$('[name="orgCode"]').val()) { res([]); return; }
+                $.get(`@Url.Action("EmployeeAutocomplete", "Data")?term=${req.term}&orgCode=` + $('[name="orgCode"]').val()).then(r => res(r));
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                $(event.target).attr('selected-id', ui.item.id);
+                $('[name="accountNumber"]').val(ui.item.id);
+                $(event.target).val(ui.item.label);
+            }
+        });
+
+        $('#resetBtn').click(function () {
+            $('[name="fy"]').val(@DateTime.Now.Year).trigger('change');
+            $('[name="orgCode"]').val('').trigger('change');
+            $('[name="accNo"]').attr('selected-id', '').trigger('change');
+            $('[name="accNo"]').val('').trigger('change');
+        })
+    })
+
+    function GetData() {
+        var valid = true;
+        var obj = {
+            fy: $('[name="fy"]').val(),
+            orgCode: $('[name="orgCode"]').val(),
+            accNo: $('[name="accNo"]').attr('selected-id'),
+        }
+        if (!obj.fy) { $('[name="fy"]').validate(false, 'Year is required'); valid = false; }
+        else $('[name="fy"]').validate(true);
+        if (!obj.orgCode) { $('[name="orgCode"]').validate(false, 'Organisation is required'); valid = false; }
+        else $('[name="orgCode"]').validate(true);
+        if (!obj.accNo) { $('[name="accNo"]').validate(false, 'Account Number is required'); valid = false; }
+        else $('[name="accNo"]').validate(true);
+        if (!valid) return;
+
+
+        $.get(`@Url.Action("GetStatement", "Data")?orgCode=${encodeURIComponent(obj.orgCode)}&accNo=${encodeURIComponent(obj.accNo)}&year=${obj.fy}`).then(r => {
+            if (r) {
+                $('#frmStatement')[0].submit();
+
+
+            }
+        });
+
+    }
+
+
+
+    $.fn.validate = function (isValid, msg = '') {
+        if (isValid) $(this).removeClass('is-invalid');
+        else {
+            if (!$(this).hasClass('is-invalid')) $(this).addClass('is-invalid');
+            $(this).closest('.form-group').find('.invalid-feedback').text(msg);
+        }
+    }
+
+</script>

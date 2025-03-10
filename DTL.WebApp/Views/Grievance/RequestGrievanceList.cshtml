@@ -1,0 +1,108 @@
+﻿@using DTL.Model.Models
+
+@model IEnumerable<GrievanceModel>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Grievance Details";
+    int counter = 0;
+    string dateFormat = "dd-MM-yyyy";
+    bool isResolved = ViewBag.isResolved != null && ViewBag.isResolved;
+}
+
+    <div class="container-fluid">
+
+        <div class="row header_section mx-0 px-0">
+            <div class="col-6 position-relative ps-0">
+                <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </span>
+                <h3> @(isResolved ? "Resolved Grievance" : "Grievance Request")</h3>
+            </div>
+
+            <p class="mb-0 col-6 top_link_Section">
+                <a href="@Url.Action("Index","Home",new { Area="" })"><span class="">Dashboard </span> </a>
+                <span class="px-1">/</span>
+                <a href="@Url.Action("Index","Grievance")"><span class=""> Grievance </span> </a>
+                <span class="px-1">/</span>
+                @(isResolved ? "Resolved Grievance" : "Grievance Request")
+            </p>
+
+        </div>
+            <div class="card border-card mt-0">
+                <div class="card-body ">
+                    <div class="table-responsive">
+                        <table id="grvTbl" class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Sr. No.</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Grievance ID</th>
+                                    <th>User Type</th>
+                                    <th>Name</th>
+                                    <th>Subject</th>
+                                    <th  class="text-center">Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var data in Model)
+                                {
+                                    counter++;
+                    <tr>
+                        <td class="text-center">@counter</td>
+                        <td class="text-center">@data.CreatedDate.ToString(dateFormat)</td>
+                        <td class="text-center">@data.GrievanceID</td>
+                        <td>@data.UserType</td>
+                        <td>@data.Name</td>
+                        <td>@data.Subject</td>
+                        <td class="text-center">@data.Status</td>
+                        <td class="d-flex border-bottom-0 justify-content-center">
+                            <a href="@Url.Action("RequestViewGrievance", "Grievance", new {Id=data.ID, isResolved = isResolved})" class="btn btn-primary btn-sm mr-2 btn_small">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </td>
+
+
+
+                    </tr>}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      
+    </div><!-- col -->
+
+
+
+
+
+<div class="modal fade" id="replyGrievanceModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reply</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txtReply">Reason</label>
+                    <textarea class="form-control" id="txtReply" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" onclick="PostReplyMessage()">Reply</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Grievance{
+    <script src="~/js/Grievance/GrievanceList.js" asp-append-version="true"></script>
+}

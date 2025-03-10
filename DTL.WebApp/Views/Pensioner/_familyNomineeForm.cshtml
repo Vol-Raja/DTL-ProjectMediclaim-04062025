@@ -1,0 +1,132 @@
+﻿@using DTL.Model.Models
+@model IEnumerable<NomineeDetailsModel>
+@{
+}
+<form id="NomineeDetails" method="post" novalidate="novalidate">
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <input type="hidden" id="hfRowIndex">
+            <label for="MemberName">Family Member Name</label>
+            <input type="text" name="MemberName" class="form-control" id="MemberName" placeholder="Family Member Name">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="Relationship">Relationship</label>
+            <select id="Relationship" name="Relationship" class="form-control" aria-invalid="false">
+                <option value="">Select Relationship</option>
+                <option value="Father">Father</option>
+                <option value="Mother">Mother</option>
+                <option value="Husband">Husband</option>
+                <option value="Wife">Wife</option>
+                <option value="Son">Son</option>
+                <option value="Daughter">Daughter</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="DateOfBirth">Date Of Birth</label>
+            <input type="date" data-date="" data-date-format="DD-MM-YYYY" name="DateOfBirth" class="form-control" id="DateOfBirth" placeholder="Date of Birth">
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label for="GuardianName">Guardian Name</label>
+            <input type="text" name="GuardianName" class="form-control" id="GuardianName" placeholder="Guardian Name">
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label for="GuardianRelation">Guardian Relation</label>
+            <input type="text" name="GuardianRelation" class="form-control" id="GuardianRelation" placeholder="Guardian Relation">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="GuardianAddress">Guardian Address</label>
+            <textarea id="GuardianAddress" name="GuardianAddress" class="form-control" rows="2" cols="50" placeholder="Guardian Address"></textarea>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label for="Share">Share %</label>
+            <input type="text" name="Arrear" class="form-control number" id="Arrear" placeholder="Share %" value="0">
+        </div>
+        <div class="col-md-4 mb-2">
+            <label for="photo_doc">Upload Photo</label>
+            <input type="file" id="photo_doc" name="photo_doc" class="form-control-file">
+            <small>Only .pdf, .jpg, .png file allowed, max size 2MB</small>
+        </div>
+        <div class="col-md-4" style=" padding-top: 2.5%;">
+            <button type="button" data-toggle="modal" data-target="#photo_docPreview" class="btn btn-primary btn-sm">Preview Photo</button>
+        </div>
+        <!-- Modal -->
+        <div class="modal preview fade" id="photo_docPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width: 700px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Photo Preview</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe src="" id="photo_Preview" width="100%" style="height: calc(100vh - 145px);"></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center my-3">
+            <button type="button" class="btn btn-primary" id="addNomineeTbl">Add</button>
+            <button type="button" class="btn btn-primary" id="updateNomineeTbl" style="display: none;">Update</button>
+            <button type="button" class="btn btn-warning" id="clearBtn">Clear</button>
+        </div>
+    </div>
+
+    <table id="nomineeTbl" class="table table-bordered">
+        <thead>
+            <tr>
+                <th data-col="id" style="display:none"></th>
+                <th data-col="employeeRegistrationId" style="display:none"></th>
+                <th data-col="memberName">Family Member</th>
+                <th data-col="relationship">Relation</th>
+                <th data-col="guardianName">Guardian Name</th>
+                <th data-col="guardianRelation">Guardian Relation</th>
+                <th data-col="guardianAddress">Guardian Address</th>
+                <th data-col="dateOfBirth">Date Of Birth</th>
+                @*<th data-col="commutation">Commutation %</th>*@
+                <th data-col="arrear">Share %</th>
+                @*<th data-col="contigencyReason">Contigency</th>*@
+                <th data-col="Action">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td style="display:none">@data.ID</td>
+                    <td style="display:none">@data.EmployeeRegistrationId</td>
+                    <td>@data.MemberName</td>
+                    <td>@data.RelationShip</td>
+                    <td>@data.GuardianName</td>
+                    <td>@data.GuardianRelation</td>
+                    <td>@data.GuardianAddress</td>
+                    <td>@data.DateOfBirth?.ToString("dd-MM-yyyy")</td>
+                    @*<td>@data.Commutation</td>*@
+                    <td class="sharePercent">@data.Arrear</td>
+                    @*<td>@data.ContigencyReason</td>*@
+                    <td><a class='edit' href='JavaScript:void(0);'></a>
+                        <a class='delete' href='JavaScript:void(0);'>delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <!-- /.card-body -->
+    <div class="card-footer text-center">
+        <button type="button" class="btn btn-success mr-2" id="btnNomineeSave">Save &amp; Next&gt;&gt;</button>
+        <a href="@Url.Action("","Pensioner")" class="btn btn-warning">Close</a>
+    </div>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8BkYpfygUtZMrAG-5-bLaeSapB52K2XEIjRLv2jv7jCdomx8q-mth08CYCdTOyMzX57rvt-40MFRNgjVZmC_p_rua-5-5otoJU_yXKTVrekRh44y4Nh-e3tkGEal5a9_nqsy2Db6emA2HEZWNOyrOHT9R72dFiouIGmtCNPEQX9VkpvpQOUsxScPcn9S8cwu6g">
+</form>

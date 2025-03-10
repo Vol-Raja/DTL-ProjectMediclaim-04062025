@@ -1,0 +1,682 @@
+Use [DtlPension]
+GO
+
+alter table dbo.MediclaimCashless
+drop constraint 
+	DF_MediclaimCashless_MedicalCard
+	,DF_MediclaimCashless_PhotoId
+	,DF_MediclaimCashless_Bills
+	,DF_MediclaimCashless_DoctorPrescription
+	,DF_MediclaimCashless_MPC
+	,DF_MediclaimCashless_ReferralLetter
+	,DF_MediclaimCashless_FormB
+	,DF_MediclaimCashless_Investigations
+	,DF_MediclaimCashless_StentBill
+	,DF_MediclaimCashless_ImplantBill
+
+go
+alter table dbo.MediclaimCashless
+drop column 
+	MedicalCard
+	,BillCashMemo
+	,OriginalBill
+	,CoveringLetter
+	,MPC
+	,ReferralLetter
+	,FormB
+	,Investigations
+	,StentBill
+	,ImplantBill
+GO
+
+Use [DtlPension]
+GO
+
+Alter Table dbo.MediclaimCashless
+Add AccountHolderName NVARCHAR(50);
+
+Alter Table dbo.MediclaimCashless
+Add AccountNumber NVARCHAR(20);
+
+Alter Table dbo.MediclaimCashless
+Add BankName NVARCHAR(150);
+
+alter table dbo.MediclaimCashless
+add BranchName NVARCHAR(100)
+
+Alter Table dbo.MediclaimCashless
+Add BICCode NVARCHAR(20);
+
+Alter Table dbo.MediclaimCashless
+Add IFSCNumber NVARCHAR(20);
+GO
+
+Alter Table dbo.MediclaimCashless
+Add PatientEmailId NVARCHAR(150);
+GO
+
+
+USE [DtlPension]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetCashlessClaimByParam]    Script Date: 09-09-2022 19:51:34 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[GetCashlessClaimByParam](
+	@Date Date = NULL,
+	@ClaimId INT = NULL,
+	@PageNumber INT = NULL 
+)
+AS
+BEGIN
+	SELECT [ClaimId],
+	[NameOfHospital],
+	[HospitalPhoneNumber],
+	[HospitalAddress],
+	[HospitalId],
+	[EmailId],
+	[NameOfPatient],
+	[PatientEmailId],
+	[Gender],
+	[PatientPhoneNumber],
+	[PatientAddress],
+	[DateOfBirth],
+	[Age],
+	[MedicalSectionPageNumber],
+	[NameOfCardHolder],
+	[MedicalCardNumber],
+	[AdmissionNumber],
+	[CardCategory],
+	[CaseType],
+	[TypeOfTreatment],
+	[Amount],
+	[DateOfAdmission],
+	[DateOfDischargeOrDeath],
+	[ClaimStatusId],
+	[RejectReason],
+	[PhysicalSubmit],
+	[ApprovedAmount],
+	[CreatedBy],
+	[CreatedDate],
+	[ModifiedBy],
+	[ModifiedDate],
+	[AccountHolderName],
+	[AccountNumber],
+	[BankName],
+	[BICCode],
+	[IFSCNumber],
+	[BranchName]
+  FROM [dbo].[MediclaimCashless]
+  WHERE 
+	(CONVERT(DATE,[CreatedDate],102) = (CONVERT(DATE,@DATE,102)) OR @Date IS NULL)
+	AND ((ClaimId = @ClaimId) OR @ClaimId IS NULL)
+	AND ((MedicalSectionPageNumber = @PageNumber) OR @PageNumber IS NULL)
+	AND (IsDelete = 0)
+END
+GO
+
+
+USE [DtlPension]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetCashlessListByClaimId]    Script Date: 09-09-2022 19:51:48 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[GetCashlessListByClaimId]
+(
+	@ClaimId int
+)
+AS
+BEGIN
+SELECT [ClaimId],
+	[NameOfHospital],
+	[HospitalPhoneNumber],
+	[HospitalAddress],
+	[HospitalId],
+	[EmailId],
+	[NameOfPatient],	
+	[PatientEmailId],
+	[Gender],
+	[PatientPhoneNumber],
+	[PatientAddress],
+	[DateOfBirth],
+	[Age],
+	[MedicalSectionPageNumber],
+	[NameOfCardHolder],
+	[MedicalCardNumber],
+	[AdmissionNumber],
+	[CardCategory],
+	[CaseType],
+	[TypeOfTreatment],
+	[Amount],
+	[DateOfAdmission],
+	[DateOfDischargeOrDeath],
+	[ClaimStatusId],
+	[RejectReason],
+	[PhysicalSubmit],
+	[ApprovedAmount],
+	[CreatedBy],
+	[CreatedDate],
+	[ModifiedBy],
+	[ModifiedDate],
+	[AccountHolderName],
+	[AccountNumber],
+	[BankName],
+	[BICCode],
+	[IFSCNumber],
+	[BranchName]
+  FROM [dbo].[MediclaimCashless]
+  WHERE
+	[CLaimId] = @ClaimId AND
+	[IsDelete] = 0
+END
+GO
+
+
+USE [DtlPension]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetCashlessListByCreatedBy]    Script Date: 09-09-2022 19:51:54 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[GetCashlessListByCreatedBy]
+(
+	@CreatedBy nvarchar(50)
+)
+AS
+BEGIN
+SELECT [CLaimID]
+      ,[NameOfHospital]
+      ,[HospitalPhoneNumber]
+      ,[HospitalAddress]
+      ,[HospitalId]
+      ,[EmailId]
+      ,[NameOfPatient]	  
+	  ,[PatientEmailId]
+      ,[Gender]
+      ,[PatientPhoneNumber]
+      ,[PatientAddress]
+      ,[MedicalSectionPageNumber]
+      ,[MedicalCardNumber]
+      ,[AdmissionNumber]
+      ,[CardCategory]
+      ,[CaseType]
+      ,[TypeOfTreatment]
+      ,[DateOfAdmission]
+      ,[DateOfDischargeOrDeath]
+	  ,[ClaimStatusId]
+	  ,[RejectReason]
+	  ,[PhysicalSubmit]
+	  ,[ApprovedAmount]
+      ,[CreatedBy]
+      ,[CreatedDate]
+      ,[ModifiedBy]
+      ,[ModifiedDate]
+	  ,[AccountHolderName]
+	,[AccountNumber]
+	,[BankName]
+	,[BICCode]
+	,[IFSCNumber]
+	,[BranchName]
+  FROM [dbo].[MediclaimCashless]
+  WHERE
+	[CreatedBy] = @CreatedBy AND
+	[IsDelete] = 0
+END
+GO
+
+
+USE [DtlPension]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetPendingCashlessClaims]    Script Date: 09-09-2022 19:52:05 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[GetPendingCashlessClaims]    
+AS    
+BEGIN    
+ SELECT [ClaimId],    
+ [NameOfHospital],    
+ [HospitalPhoneNumber],    
+ [HospitalAddress],    
+ [HospitalId],    
+ [EmailId],    
+ [NameOfPatient], 
+ [PatientEmailId],
+ [Gender],    
+ [PatientPhoneNumber],    
+ [PatientAddress],    
+ [DateOfBirth],    
+ [Age],    
+ [MedicalSectionPageNumber],    
+ [NameOfCardHolder],    
+ [MedicalCardNumber],    
+ [AdmissionNumber],    
+ [CardCategory],    
+ [CaseType],    
+ [TypeOfTreatment],    
+ [Amount],    
+ [DateOfAdmission],    
+ [DateOfDischargeOrDeath], 
+ [ClaimStatusId],    
+ [RejectReason],    
+ [PhysicalSubmit],    
+ [ApprovedAmount],    
+ [CreatedBy],    
+ [CreatedDate],    
+ [ModifiedBy],    
+ [ModifiedDate],
+ [AccountHolderName],
+	[AccountNumber],
+	[BankName],
+	[BICCode],
+	[IFSCNumber],
+	[BranchName]
+  FROM [dbo].[MediclaimCashless]    
+  WHERE ClaimStatusId IN (1,2,3)    
+END 
+GO
+
+
+USE [DtlPension]
+GO
+/****** Object:  StoredProcedure [dbo].[SaveMediclaimCashless]    Script Date: 09-09-2022 20:00:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[SaveMediclaimCashless]
+(
+	 @NameOfHospital nvarchar(100)
+	,@HospitalPhoneNumber nvarchar(16) 
+	,@HospitalAddress nvarchar(250)
+	,@HospitalId nvarchar(15)
+	,@EmailId nvarchar(50)
+	,@NameOfPatient nvarchar(50)	
+	,@PatientEmailId nvarchar(150)
+	,@Gender nvarchar(6)
+	,@PatientPhoneNumber nvarchar(16)
+	,@PatientAddress nvarchar(250)
+	,@DateOfBirth date
+	,@Age nvarchar(5)
+	,@MedicalSectionPageNumber nvarchar(50)
+	,@NameOfCardHolder nvarchar(80)
+	,@MedicalCardNumber nvarchar(16)
+	,@AdmissionNumber nvarchar(50)
+	,@CardCategory nvarchar(20)
+	,@CaseType nvarchar(50)
+	,@TypeOfTreatment nvarchar(50)
+	,@Amount money
+	,@DateOfAdmission date
+	,@DateOfDischargeOrDeath date
+	,@ClaimStatusId int
+	,@CreatedBy nvarchar(50) NULL
+	,@AccountHolderName nvarchar(50)
+	,@AccountNumber nvarchar(20)
+	,@BankName nvarchar(150)
+	,@BICCode nvarchar(20)
+	,@IFSCNumber nvarchar(20)
+	,@BranchName nvarchar(100)
+	,@ClaimId int output
+)
+AS
+BEGIN TRAN
+BEGIN TRY 
+	INSERT INTO [dbo].[MediclaimCashless]
+			   ([NameOfHospital]
+			   ,[HospitalPhoneNumber]
+			   ,[HospitalAddress]
+			   ,[HospitalId]
+			   ,[EmailId]
+			   ,[NameOfPatient]			   
+			   ,[PatientEmailId]
+			   ,[Gender]
+			   ,[PatientPhoneNumber]
+			   ,[PatientAddress]
+			   ,[DateOfBirth]
+			   ,[Age]
+			   ,[MedicalSectionPageNumber]
+			   ,[NameOfCardHolder]
+			   ,[MedicalCardNumber]
+			   ,[AdmissionNumber]
+			   ,[CardCategory]
+			   ,[CaseType]
+			   ,[TypeOfTreatment]
+			   ,[Amount]
+			   ,[DateOfAdmission]
+			   ,[DateOfDischargeOrDeath]
+			   ,[CreatedBy]
+			   ,[AccountHolderName]
+			   ,[AccountNumber]
+			   ,[BankName]
+			   ,[BICCode]
+			   ,[IFSCNumber]
+			   ,[BranchName])
+		 VALUES
+			   (@NameOfHospital
+				,@HospitalPhoneNumber 
+				,@HospitalAddress
+				,@HospitalId
+				,@EmailId
+				,@NameOfPatient
+				,@PatientEmailId
+				,@Gender
+				,@PatientPhoneNumber
+				,@PatientAddress
+				,@DateOfBirth
+				,@Age
+				,@MedicalSectionPageNumber
+				,@NameOfCardHolder
+				,@MedicalCardNumber
+				,@AdmissionNumber
+				,@CardCategory
+				,@CaseType
+				,@TypeOfTreatment
+				,@Amount
+				,@DateOfAdmission
+				,@DateOfDischargeOrDeath
+				,@CreatedBy				
+			    ,@AccountHolderName
+			    ,@AccountNumber
+			    ,@BankName
+			    ,@BICCode
+			    ,@IFSCNumber
+				,@BranchName)
+			COMMIT TRAN
+			
+			SET @ClaimId = SCOPE_IDENTITY();
+	
+END TRY
+BEGIN CATCH
+   ROLLBACK TRAN
+    -- Raise an error and return
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    -- Use RAISERROR inside the CATCH block to return error  
+    -- information about the original error that caused  
+    -- execution to jump to the CATCH block.  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );  
+END CATCH
+GO
+
+USE [DtlPension]
+GO
+
+/****** Object:  StoredProcedure [dbo].[UpdateCashless]    Script Date: 09-09-2022 20:00:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[UpdateCashless]
+(
+	@ClaimId int
+	,@NameOfHospital nvarchar(100)
+	,@HospitalPhoneNumber nvarchar(16) 
+	,@HospitalAddress nvarchar(250)
+	,@HospitalId nvarchar(15)
+	,@EmailId nvarchar(50)
+	,@NameOfPatient nvarchar(50)	
+	,@PatientEmailId nvarchar(150)
+	,@Gender nvarchar(6)
+	,@PatientPhoneNumber nvarchar(16)
+	,@PatientAddress nvarchar(250)
+	,@DateOfBirth date
+	,@Age nvarchar(5)
+	,@MedicalSectionPageNumber nvarchar(50)
+	,@NameOfCardHolder nvarchar(80)
+	,@MedicalCardNumber nvarchar(16)
+	,@AdmissionNumber nvarchar(50)
+	,@CardCategory nvarchar(20)
+	,@CaseType nvarchar(50)
+	,@TypeOfTreatment nvarchar(50)
+	,@Amount money
+	,@DateOfAdmission date
+	,@DateOfDischargeOrDeath date	
+	,@ClaimStatusId int
+	,@RejectReason nvarchar(200)
+	,@ModifiedBy nvarchar(30)	
+	,@AccountHolderName nvarchar(50)
+	,@AccountNumber nvarchar(20)
+	,@BankName nvarchar(150)
+	,@BICCode nvarchar(20)
+	,@IFSCNumber nvarchar(20)
+	,@BranchName nvarchar(100)
+)
+As
+BEGIN TRAN
+BEGIN TRY 
+	UPDATE [dbo].[MediclaimCashless]
+	   SET [NameOfHospital] = @NameOfHospital
+		  ,[HospitalPhoneNumber] = @HospitalPhoneNumber
+		  ,[HospitalAddress] = @HospitalAddress
+		  ,[HospitalId] = @HospitalId
+		  ,[EmailId] = @EmailId
+		  ,[NameOfPatient] = @NameOfPatient
+		  ,[PatientEmailId] = @NameOfPatient
+		  ,[Gender] = @Gender
+		  ,[PatientPhoneNumber] = @PatientPhoneNumber
+		  ,[PatientAddress] = @PatientAddress
+		  ,[DateOfBirth] = @DateOfBirth
+		  ,[Age] = @Age
+		  ,[MedicalSectionPageNumber] = @MedicalSectionPageNumber
+		  ,[NameOfCardHolder] = @NameOfCardHolder
+		  ,[MedicalCardNumber] = @MedicalCardNumber
+		  ,[AdmissionNumber] = @AdmissionNumber
+		  ,[CardCategory] = @CardCategory
+		  ,[CaseType] = @CaseType
+		  ,[TypeOfTreatment] = @TypeOfTreatment
+		  ,[Amount] = @Amount
+		  ,[DateOfAdmission] = @DateOfAdmission
+		  ,[DateOfDischargeOrDeath] = @DateOfDischargeOrDeath
+		  ,[ClaimStatusId] = @ClaimStatusId
+		  ,[ModifiedBy] = @ModifiedBy
+		  ,[RejectReason] = NULL
+		  ,[ModifiedDate] = GETDATE()
+		  ,[AccountHolderName] = @AccountHolderName
+		  ,[AccountNumber]	   = @AccountNumber
+		  ,[BankName]		   = @BankName
+		  ,[BICCode]		   = @BICCode
+		  ,[IFSCNumber]		   = @IFSCNumber
+		  ,[BranchName]		=@BranchName
+	 WHERE 
+			ClaimId = @ClaimId
+      
+	COMMIT TRAN  
+	
+END TRY
+BEGIN CATCH
+   ROLLBACK TRAN
+    -- Raise an error and return
+    DECLARE @ErrorMessage NVARCHAR(4000);  
+    DECLARE @ErrorSeverity INT;  
+    DECLARE @ErrorState INT;  
+  
+    SELECT   
+        @ErrorMessage = ERROR_MESSAGE(),  
+        @ErrorSeverity = ERROR_SEVERITY(),  
+        @ErrorState = ERROR_STATE();  
+  
+    -- Use RAISERROR inside the CATCH block to return error  
+    -- information about the original error that caused  
+    -- execution to jump to the CATCH block.  
+    RAISERROR (@ErrorMessage, -- Message text.  
+               @ErrorSeverity, -- Severity.  
+               @ErrorState -- State.  
+               );  
+END CATCH
+GO
+
+USE [dtlpension]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SaveDocument]    Script Date: 11-09-2022 21:31:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[SaveDocument]    
+(    
+ @DocumentPath NVARCHAR(200),    
+ @ApplicationArea NVARCHAR(20),    
+ @ApplicationSubArea NVARCHAR(20),    
+ @ReferenceId INT,    
+ @DocumentFor NVARCHAR(200) = NULL,
+ @FileName NVARCHAR(200),
+ @CreatedBy NVARCHAR(50),    
+     
+ @DocumentId  INT OUTPUT    
+)    
+AS    
+BEGIN    
+BEGIN TRANSACTION    
+ BEGIN TRY    
+  INSERT INTO dbo.Document    
+  (    
+   DocumentPath    
+   ,ApplicationArea    
+   ,ApplicationSubArea    
+   ,ReferenceId    
+   ,DocumentFor  
+   ,[FileName]
+   ,CreatedBy    
+  )    
+  VALUES    
+  (    
+   @DocumentPath    
+   ,@ApplicationArea    
+   ,@ApplicationSubArea    
+   ,@ReferenceId    
+   ,@DocumentFor    
+   ,@FileName
+   ,@CreatedBy    
+  )    
+  COMMIT TRANSACTION    
+  SET @DocumentId = SCOPE_IDENTITY();    
+ END TRY    
+ BEGIN CATCH    
+  ROLLBACK TRANSACTION    
+   -- Raise an error and return    
+  DECLARE @ErrorMessage NVARCHAR(4000);      
+  DECLARE @ErrorSeverity INT;      
+  DECLARE @ErrorState INT;      
+     
+  SELECT       
+   @ErrorMessage = ERROR_MESSAGE(),      
+   @ErrorSeverity = ERROR_SEVERITY(),      
+   @ErrorState = ERROR_STATE();      
+     
+  -- Use RAISERROR inside the CATCH block to return error      
+  -- information about the original error that caused      
+  -- execution to jump to the CATCH block.      
+  RAISERROR (@ErrorMessage, -- Message text.      
+    @ErrorSeverity, -- Severity.      
+    @ErrorState -- State.      
+    );      
+ END CATCH    
+END    
+GO
+
+
+USE [dtlpension]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetDocumentsByParam]    Script Date: 11-09-2022 21:59:56 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[GetDocumentsByParam]
+(
+	@DocumentId  INT = NULL,
+	@ReferenceId INT = NULL,
+	@Active BIT = 1
+)
+AS
+BEGIN
+
+		SELECT 		
+			DocumentId 
+			,DocumentPath
+			,ApplicationArea
+			,ApplicationSubArea
+			,ReferenceId
+			,DocumentFor
+			,[FileName]
+			,CreatedBy
+			,CreatedDate
+			,ModifiedBy
+			,ModifiedDate
+		FROM dbo.Document
+		WHERE 
+			((DocumentId = @DocumentId) OR @DocumentId IS NULL)
+			AND ((ReferenceId = @ReferenceId) OR @ReferenceId IS NULL)
+			AND Active = @Active
+			
+END
+GO
+
+
+
+USE [dtlpension]
+GO
+
+alter table dbo.document
+alter column DocumentFor NVARCHAR(200)
+GO
+
+USE [dtlpension]
+GO
+alter table dbo.document
+add [FileName] NVARCHAR(200)
+GO
+
+USE [dtlpension]
+GO
+
+CREATE TABLE ApprovalLadder
+(
+	LadderId INT PRIMARY KEY IDENTITY(1,1),
+	ReferenceId INT NULL,
+	Module NVARCHAR(100) NULL,
+	LadderName NVARCHAR(50),
+	Comment NVARCHAR(250) NULL,
+	LadderStatus NCHAR(15),
+	CreatedBy NVARCHAR(60),
+	CreatedDate DATETIME DEFAULT GETDATE(),
+	ModifiedBy NVARCHAR(60) NULL,
+	ModifiedDate DATETIME NULL
+)
+
+GO

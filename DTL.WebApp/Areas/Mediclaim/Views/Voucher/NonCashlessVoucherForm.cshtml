@@ -1,0 +1,152 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Mediclaim Vouchers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Voucher  Form </h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","OPD", new { Area="Mediclaim" })">Dashboard</a>
+            <span class="px-1">/</span><a href="@Url.Action("OPDProcessingMediclaimList","Processing",new { Area="Mediclaim" })">Processing</a><span class="px-1">/</span>
+            <span>Voucher form</span>
+        </p>
+    </div>
+
+    <input type="hidden" id="hdnMediclaimVoucherId" value="@ViewBag.VoucherId" />
+
+    <div class="card border-card mt-0">
+        <div class="card-body">
+            <form id="voucherForm">
+                <div class="my-4 border_bottom pb-4 row">
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2 ">
+                        <label class="form-label d-block mb-1">
+                            Claim No.<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtClaimId" type="Number" class="form-control form-control-sm" placeholder="Claim No." disabled />
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <label class="form-label d-block mb-1">
+                            Claim Type<span class="text-danger req_text">*</span>
+                        </label>
+                        @*<input type="text" class="form-control form-control-sm" id="cashless_noncashless" Value="Non cashless" disabled placeholder="page No" />*@
+
+                        <select id="selClaimType" name="ClaimType" class="form-select" disabled>
+                            <option value="">Select</option>
+                            <option value="cashless">Cashless</option>
+                            <option value="noncashless">Non-Cashless</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3  position-relative">
+                        <button class="btn btn-success  position-absolute bottom-0" id="search"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="row" id="voucher_show_hide">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Medical Section Page No.<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtEntryPageNo" type="text" class="form-control form-control-sm " placeholder="page No" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3" id="nonCashless">
+                        <label class="form-label d-block mb-1" for="name">
+                            Pay To shri / smt<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtPayTo" type="text" class="form-control form-control-sm " placeholder="Pay To shri / smt" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            Approved Amount<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtApprovedAmount" type="text" class="form-control form-control-sm " placeholder="Approved Amount" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            In Words<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtApprovedAmountInWords" type="text" class="form-control form-control-sm " placeholder="In Words" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            Bank name<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtBankName" type="text" class="form-control form-control-sm " placeholder="Bank name" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Branch Name<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtBankBranch" type="text" class="form-control form-control-sm " placeholder="Branch Name" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1">
+                            BIC Code<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtBICCode" type="text" class="form-control form-control-sm" placeholder="BIC Code" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">
+                            IFSC Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtIFSCCode" type="text" class="form-control form-control-sm" placeholder="IFSC Number" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Account Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input id="txtAccountNo" type="text" class="form-control form-control-sm" placeholder="Account Number" />
+                    </div>
+                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                        @*<a class="btn btn-brand me-2" data-bs-toggle="modal"
+                    data-bs-target="#approve">Submit </a>*@
+
+                        <button type="button" class="btn btn-brand me-2" id="btnSubmit" data-toggle="modal" data-bs-target="#approve">Submit</button>
+                        <a role="button" href="/Mediclaim/Noncashless/Vouchers" class="btn btn-cancel me-2">Cancel</a>
+                        <button type="reset" class="btn btn-reset me-2">Reset</button>
+                    </div>
+                    <div class="modal fade" id="approve" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+
+                                <div class="modal-body ">
+                                    <div class="content p-0">
+                                        <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+
+                                        <img src="~/assets/images/thumbs-up.png" class="icon_reject " />
+                                        <p class="message-type text-blod  pt-3">
+                                            Are you sure you want to submit the application ?
+                                        </p>
+
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-brand popUp_btn me-2" onclick="location.href='@Url.Action("NonCaslessVoucherList","Voucher", new { Area="Mediclaim" })'">Submit</button>
+                                        <button type="button" class="btn btn-danger popUp_btn me-2"
+                                                data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/Mediclaim/Voucher/modify.js"></script>

@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewData["Title"] = "Add New Voucher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Mediclaim Voucher Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <a href="@Url.Action("Index","Home",new { Area="Mediclaim" })">Dashboard</a>
+                    <span class="px-1">/</span><a href="/Mediclaim/@ViewBag.ClaimType/Vouchers">Vouhcher List</a>
+                    <span class="px-1">/</span><span>Voucher Form</span>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form id="voucherForm">
+
+                                <input type="hidden" id="hdnMediclaimVoucherId" value="@ViewBag.VoucherId" />
+
+                                <h4 class="bg-gray-light p-1 mb-3">Medical Bill (Pensioner) A/C Allocation O.A. 75, 611</h4>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Page.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Page No." id="txtEntryPageNo" name="txtEntryPageNo" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Claim Type</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="selClaimType" name="ClaimType" class="form-select">
+                                            <option value="">Select</option>
+                                            <option value="cashless">Cashless</option>
+                                            <option value="noncashless">Non-Cashless</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Claim Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name" id="txtClaimId" name="txtClaimId" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Pay to Shri/smt</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name" id="txtPayTo" name="txtPayTo" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Approved Amount (Rs.)</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Approved Amount in Rs." id="txtApprovedAmount" name="txtApprovedAmount" onkeypress="return decimalNumberKey(event, this)" required readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">In Words</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Approved Amount in words" id="txtApprovedAmountInWords" name="txtApprovedAmountInWords" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Entry No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Entry No." id="txtEntryNo" name="txtEntryNo" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Bank/ Branch</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Bank/ Branch" id="txtBankBranch" name="txtBankBranch" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Account No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Account No." id="txtAccountNo" name="txtAccountNo" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">BIC</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter BIC" id="txtBICCode" name="txtBICCode" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">IFSC No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter IFSC No." id="txtIFSCCode" name="txtIFSCCode" required />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        @*<a class="btn btn-primary" id="btnSubmit" data-toggle="modal">Generate Voucher</a><!-- data-target="#approvemsg"-->*@
+                                        <button type="button" class="btn btn-primary" id="btnSubmit" data-toggle="modal" data-target="">Submit</button>
+                                        <button type="reset" class="btn btn-danger" id="btnReset">Cancel</button>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="approvemsg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Mediclaim Voucher</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                                                <p>Mediclaim voucher data updated successfully</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+@section AddMediclaimVoucher{
+    <script type="text/javascript" src="~/js/Mediclaim/Voucher/modify.js"></script>
+
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function decimalNumberKey(evt, obj) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            var value = obj.value;
+            var dotcontains = value.indexOf(".") != -1;
+            if (dotcontains)
+                if (charCode == 46) return false;
+            if (charCode == 46) return true;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+}

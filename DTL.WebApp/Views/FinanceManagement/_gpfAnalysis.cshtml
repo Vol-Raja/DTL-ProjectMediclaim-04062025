@@ -1,0 +1,52 @@
+﻿<div class="row">
+    
+    <div class="col-md-12">
+        <div class="float-sm-right">
+            <a class="btn btn-primary btn-sm" id="gpfGraph" href="#"><i class="fas fa-chart-bar"></i> Graph</a>
+            <a class="btn btn-primary btn-sm" id="gpfTable" href="#"><i class="fas fa-table"></i> Table</a>
+        </div>
+        <h4>GPF Analysis</h4>
+    </div>
+</div>
+
+
+<div class="row justify-content-center align-items-center" id="gpftables">
+    <div class="col-md-12">
+        <table id="gpfTbl" class="table table-striped projects">
+            <thead>
+                <tr>
+                    <th>Emp ID</th>
+                    <th>Employee Name</th>
+                    <th>GPF Contribution</th>
+                    <th>Employer</th>
+                    <th>GPF Withdrwal</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    
+</div>
+
+<div id="gpfGraphs">
+    <div class="row">
+        <div class="col-md-8">
+            <canvas id="mygpfinoutFlowChart" width="600" height="300"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <h5 class="justify-content-center align-items-center">GPF Contribution</h5>
+            <canvas id="mygpfinFlowChart" width="250" height="150"></canvas>
+        </div>
+        <div class="col-md-5">
+            <h5 class="justify-content-center align-items-center">GPF Withdrawls</h5>
+            <canvas id="mygpfoutFlowChart" width="250" height="150"></canvas>
+        </div>
+    </div>
+    <div class="col-sm-12 p-2">
+        <div class="row justify-content-center">
+            <button type="button" name="btnPrint" id="btnPrint" class="btn btn-primary">Print</button>
+        </div>
+    </div>
+</div>

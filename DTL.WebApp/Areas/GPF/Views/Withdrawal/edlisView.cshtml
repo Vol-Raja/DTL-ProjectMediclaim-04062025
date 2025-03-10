@@ -1,0 +1,737 @@
+﻿
+@{ ViewData["Title"] = "Edlis settlement View";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="container-fluid view_form">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Edlis Settlement Form View</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Withdrawal", new { Area="GPF" })" class="">Dashboard</a><span class="px-1">/</span><a href="@Url.Action("EdlisList","Withdrawal", new { Area="GPF" })">GPF Edlis List</a><span class="px-1">/</span><span>Settlement View</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0 view_container_bg">
+        <div class="card-body">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+
+                            <h4 class="accordion m-0">
+                                Personal Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Employee Code</label>
+                                    <p class="View_text"><span class="ds" name="employee.basicDetails.employeeCode"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Employee Name</label>
+                                    <p class="View_text"><span class="ds" name="employee.basicDetails.employeeName"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Father/ Husband Name</label>
+                                    <p class="View_text"><span class="ds" name="employee.basicDetails.fatherName"></span></p>
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Date of Birth</label>
+                                    <p class="View_text"><span class="ds date" name="employee.basicDetails.dateOfBirth"></span></p>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Age</label>
+                                    <p class="View_text"><span class="ds2" name="age"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Blood Group</label>
+                                    <p class="View_text"><span class="ds" name="employee.basicDetails.bloodGroup"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Gender</label>
+                                    <p class="View_text"><span class="ds" name="employee.gender"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Email Id</label>
+                                    <p class="View_text"><span class="ds" name="employee.email"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Mobile Number</label>
+                                    <p class="View_text"><span class="ds" name="employee.mobile"></span></p>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Address</label>
+                                    <p class="View_text"><span class="ds2" name="address"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <h4 class="accordion m-0">
+                                Organization Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="accordion-body">
+                                <div class="row mt-3">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Employee Type</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.employeeType"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">GPF Account Number</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.gpfNumber"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Organization</label>
+                                        <p class="View_text"><span class="ds" name="employee.organisation"></span></p>
+                                    </div>
+
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Designation</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.designation"></span></p>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Level </label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.level"></span> </p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Department</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.department"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Pay Scale</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.payScale"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Basic Pay</label>
+                                        <p class="View_text"><span class="ds curr" name="employee.basicDetails.basicPay"></span></p>
+
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Date Of Joining</label>
+                                        <p class="View_text"><span class="ds date" name="employee.basicDetails.dateOfJoining"></span></p>
+                                    </div> <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">
+                                            Date Of Retirment
+                                        </label>
+                                        <p class="View_text"><span class="ds date" name="employee.basicDetails.dateOfRetirement"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Contact Number</label>
+                                        <p class="View_text"><span class="ds" name="employee.basicDetails.contactNumber"></span></p>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">Address</label>
+                                        <p class="View_text"><span class="ds2" name="address"></span></p>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                        <label class="form-label d-block mb-1">PIN Code</label>
+                                        <p class="View_text"><span class="ds" name="employee.currentAddress.pinCode"></span></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingEight">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFamily" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <h4 class="accordion m-0">
+                                Family Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFamily" class="accordion-collapse collapse" aria-labelledby="flush-headingFamily" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="mt-3">
+                            <table id="tblFamily" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.no</th>
+                                        <th>Member Name</th>
+                                        <th>DOB</th>
+                                        <th>Age</th>
+                                        <th>Address</th>
+                                        <th>Contact</th>
+                                        <th>Email Id</th>
+                                        <th>Relations</th>
+                                    </tr>
+                                </thead>
+                               <tbody></tbody>
+                            </table>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <h4 class="accordion m-0">
+                                Nominee Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" id="divNominee">
+                            <div class="table-responsive">
+                                <table id="tblNominee" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.no</th>
+                                            <th>Name of nominee</th>
+                                            <th>Nominee DOB</th>
+                                            <th> Age</th>
+                                            <th>Relation With Employee</th>
+                                            <th>Share</th>
+                                            <th>Share(%)</th>
+                                            <th>Address</th>
+                                            <th>Contact</th>
+                                            <th>Email id</th>
+                                            <th>Nominee Type</th>
+                                            <th>Guardian Name</th>
+                                            <th>Guardian Relation with employee</th>
+                                            <th>Guardian Contact </th>
+                                            <th>Guardian Address</th>
+                                            <th class="d-none"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                            <h4 class="accordion m-0">
+                                Other Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">If any loan from GPF Account Balance</label>
+                                    <p class="View_text"><span class="ds2" name="isLoan"></span></p>
+                                </div>
+                                <div class="row mt-2 ms-2 d-none">
+                                    <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 mb-3 ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="refucheckbox" checked>
+                                            <label class="form-check-label" for="minor">
+                                                Refundable
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 mb-3 ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="nonrefunCheckbox" checked>
+                                            <label class="form-check-label" for="minor">
+                                                Non Refundable
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row refund" id="refund">
+                                    <div class="col-sm-12">
+                                        <h5 class="my-2">Refundable</h5>
+                                        <table id="tblLoanRef" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Loan No</th>
+                                                    <th>Loan Date</th>
+                                                    <th>Loan Amount</th>
+                                                    <th>Loan Reason</th>
+                                                    <th>OutStanding Balance</th>
+                                                    <th>EMI's pending </th>
+                                                    <th>Total GPF Balance</th>
+                                                    <th>Loan Status</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row nonrefun" id="nonrefun">
+                                    <div class="col-sm-12">
+                                        <h5 class="my-2">Non-Refundable</h5>
+                                        <table id="tblLoanNonRef" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Loan No</th>
+                                                    <th>Loan Date</th>
+                                                    <th>Loan Amount</th>
+                                                    <th>Loan Reason</th>
+                                                    <th>Total GPF Balance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                            <h4 class="accordion m-0">
+                                Edlis Settlement Details
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body ">
+                            <div class="row mt-3">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Transfer To Nominee</label>
+                                    <p class="View_text"><span class="ds2" name="transferToNominee"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Reason </label>
+                                    <p class="View_text"><span class="ds" name="transferToNomineeReason"></span>  </p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Current GPF Account Balance </label>
+                                    <p class="View_text"><span class="ds2" name="gpfAccountBalance"></span> </p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Edlis Amount  </label>
+                                    <p class="View_text"><span class="ds" name="edlisAmount"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1"> Outstanding Balance  </label>
+                                    <p class="View_text"><span class="ds2" name="outstanding"></span> </p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Final Settlement Amount  </label>
+                                    <p class="View_text"><span class="ds curr" name="finalSettlementAmount"></span> </p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Settlement Date   </label>
+                                    <p class="View_text"><span class="ds date" name="settlementDate"></span> </p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Date Of Death </label>
+                                    <p class="View_text"><span class="ds date" name="dateOfDeath"></span> </p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Reason Of Death </label>
+                                    <p class="View_text"><span class="ds" name="reasonOfDeath"></span> </p>
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Date Of Retirment  </label>
+                                    <p class="View_text"><span class="ds date" name="dateOfRetirement"></span> </p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Upload Death Certificate  </label>
+                                    <a href="#" target="_blank" class="btn btn-primary">Preview</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                            <h4 class="accordion m-0">
+                                Bank Detail
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Account Holder Name</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.accountHolderName"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Bank Name </label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.bankName"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Branch Name</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.branchName"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">Account Number</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.accountNumber"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">IFSC Code</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.ifsc"></span></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 view_text_border">
+                                    <label class="form-label d-block mb-1">BIS Code</label>
+                                    <p class="View_text"><span class="ds" name="bankDetails.bis"></span></p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingSeven">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                            <h4 class="accordion m-0">
+                                Upload Attachment
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered view_table">
+                                        <thead>
+                                            <tr>
+                                                <th width="7%" class="text-center">Sr. No.</th>
+                                                <th>Document Type</th>
+                                                <th width="15%" class="text-center">Attach file </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @*
+                                            <tr>
+                                            <td class="text-center">1</td>
+                                            <td>Document Type</td>
+                                            <td class="text-center">
+                                            <a href="#" class="pdfIcons">
+                                            <i class="fa fa-file-pdf"
+                                            aria-hidden="true"></i>
+                                            </a>
+                                            </td>
+
+                                            </tr>*@
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingEight">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                            <h4 class="accordion m-0">
+                                Approve Status
+                            </h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseEight" class="accordion-collapse collapse show" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                                    <label class="form-label d-block mb-1">Edlis Final Amount<span class="text-danger req_text">*</span></label>
+                                    <input type="text" id="txtApprovedAmount" name="finalSettlementAmount" class="form-control form-control-sm" value="0">
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                                    <label class="form-label d-block mb-1">In Words<span class="text-danger req_text">*</span></label>
+                                    <input type="text" id="txtApproveAmountInWords" name="finalSettlementAmountWords" class="form-control form-control-sm" disabled="" placeholder="Approve Amount in Words">
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                                    <label class="form-label d-block mb-1">Remark<span class="text-danger req_text">*</span></label>
+                                    <textarea placeholder="Remark" name="remark" class="form-control"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12" style="float:right">
+                                    <button id="btnModalApprove" type="button" class="btn btn-success me-2 text-white" onclick="preSave(true)">Approve</button>
+                                    <button id="btnModalReject" type="button" class="btn btn-danger me-2 text-white" onclick="preSave(false)">Reject</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="approvemsg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content p-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="/assets/images/thumbs-up.png" class="icon_reject ">
+                    <p class="message-type text-blod  pt-3">
+                        Are you sure you want to approve the application ?
+                    </p>
+
+
+                </div>
+                <div class="text-center mt-3">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" data-backdrop="static" data-keyboard="false" id="btnApprove" onclick="Save(true)"> Approve</button>
+                    <button type="button" class="btn btn-danger popUp_btn me-2" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rejectmsg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content p-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="/assets/images/rejected.png" class="icon_reject ">
+                    <p class="message-type text-blod mb-0 pt-3">
+                        Are you sure you want to reject the application ?
+                    </p>
+
+
+                </div>
+                <div class="text-center mt-3">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" data-backdrop="static" data-keyboard="false" id="btnReject" onclick="Save(false)">Reject</button>
+                    <button type="button" class="btn btn-danger popUp_btn me-2" data-bs-dismiss="modal">Close</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<template id="tr_Family">
+    <tr>
+        <td>${i++}</td>
+        <td>${obj.name}</td>
+        <td>${moment(obj.dateOfBirth).format('DD-MMM-YYYY')}</td>
+        <td>${moment().diff(moment(obj.dateOfBirth), 'YEAR')}</td>
+        <td>${obj.address}</td>
+        <td>${obj.contact}</td>
+        <td>${obj.email}</td>
+        <td>${obj.relationship}</td>
+        <td class="d-none rowData">${ btoa(JSON.stringify(obj)) }</td>
+    </tr>
+</template>
+
+<template id="tr_Nominee">
+    <tr>
+        <td>${i++}</td>
+        <td>${obj.name}</td>
+        <td>${moment(obj.dateOfBirth).format('DD-MMM-YYYY')}</td>
+        <td>${moment().diff(moment(obj.dateOfBirth), 'YEAR')}</td>
+        <td>${obj.relationship}</td>
+        <td>${obj.share}</td>
+        <td>${obj.asPerShare}%</td>
+        <td>${obj.address}</td>
+        <td>${obj.contact}</td>
+        <td>${obj.email}</td>
+        <td>${obj.nomineeType}</td>
+        <td>${obj.guardianName}</td>
+        <td>${obj.guardianRelationship}</td>
+        <td>${obj.guardianContact}</td>
+        <td>${obj.guardianAddress}</td>
+        <td class="d-none rowData">${ btoa(JSON.stringify(obj)) }</td>
+    </tr>
+</template>
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $('[name="finalSettlementAmount"]').change(function () { $('[name="finalSettlementAmountWords"]').val(intoWords($(this).val())); })
+
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        var appNo = params['applicationNumber'];
+        if (appNo) {
+            $.get('@Url.Action("GetEDLISApplication", "Data")?applicationNumber=' + encodeURIComponent(appNo)).then(r => {
+                data = r;
+                const curr = amt => `&#8377;&nbsp;${amt}`
+                const perc = amt => `${amt}&nbsp;%`
+                $('.ds').each(function () {
+                    var prop = $(this).attr('name');
+                    var val = eval(`r.${prop}`);
+                    if ($(this).hasClass('date')) $(this).html(val ? moment(val).format('DD-MMM-YYYY') : '');
+                    else if ($(this).hasClass('perc')) $(this).html(val ? perc(val) : '');
+                    else if ($(this).hasClass('curr')) $(this).html(val ? curr(val) : '');
+                    else $(this).html(val);
+                });
+                var ds2 = name => $(`.ds2[name="${name}"]`);
+                const getAddress = ad => `${ad.address || ''} ${ad.street || ''} ${ad.city || ''} ${ad.pinCode || ''} ${ad.state || ''}`.replaceAll(/\s+/gm, ' ').trim();
+                ds2('age').html(moment().diff(moment(r.employee.basicDetails.dateOfBirth), 'YEAR'));
+                ds2('address').html(getAddress(r.employee.currentAddress));
+                ds2('lifeTimePension').html(r.lifeTimePension ? 'Yes' : 'No');
+                ds2('transferToNominee').html(r.transferToNominee ? 'Yes' : 'No');
+                if (r.lifeTimePension) { $('[name="lifeTimePensionReason"]').closest('.view_text_border').hide() }
+                if (r.transferToNominee) { $('[name="transferToNomineeReason"]').closest('.view_text_border').hide() }
+                var currentFy = moment().month() > 2 ? (moment().year() + 1) : moment().year();
+                $.get(`@Url.Action("GetCurrentBalance", "Data")?orgCode=${encodeURIComponent(r.employee.organisationCode)}&accNo=${encodeURIComponent(r.employeeExternalCode)}&year=${currentFy}`).then(r1 => {
+                    ds2('gpfAccountBalance').html(curr(r1.gpfBalance));
+                    $.get(`@Url.Action("GetLoanApplicationsByEmployee", "Data")?&externalCode=${encodeURIComponent(r.employeeExternalCode)}`).then(r2 => {
+                        var outstanding = 0;
+                        if (r2.length) {
+                            ds2('isLoan').html('Yes')
+                            if (r2.some(q => q.loanType == 'Refundable')) {
+                                $('#refund').show();
+                                $('#tblLoanRef').find('tbody').html(r2.filter(q => q.loanType == 'Refundable').map(q => {
+                                    outstanding += q.details.numEMI ? (moment(q.details.emiEnd).diff(moment(), 'MONTH') * (Math.min(q.loanAmount, q.eligibleAmount) / q.details.numEMI)) : 0;
+                                    return `
+                                            <tr>
+                                                <td>${q.applicationNumber}</td>
+                                                <td>${moment(q.createdOn).format('DD-MMM-YYYY')}</td>
+                                                <td>${q.loanAmount}</td>
+                                                <td>${q.details.loanPurpose}</td>
+                                                <td>${q.details.numEMI ? (moment(q.details.emiEnd).diff(moment(), 'MONTH') * (Math.min(q.loanAmount, q.eligibleAmount) / q.details.numEMI)) : ''}</td>
+                                                <td>${q.details.emiEnd ? (moment(q.details.emiEnd) > moment() ? 'Pending' : 'Completed') : ''}</td>
+                                                <td>&#8377;&nbsp;${r1.gpfBalance}</td>
+                                                <td>${q.loanStatus}</td>
+                                                <td class="d-none">${btoa(JSON.stringify(q))}</td>
+                                            </tr>
+                                        `}).join(''))
+                            }
+                            else { $('#refund').hide(); } 
+                            if (r2.some(q => q.loanType == 'Non-Refundable')) {
+                                $('#nonrefun').show();
+                                $('#tblLoanNonRef').find('tbody').html(r2.filter(q => q.loanType == 'Non-Refundable').map(q => `
+                                            <tr>
+                                                <td>${q.applicationNumber}</td>
+                                                <td>${moment(q.createdOn).format('DD-MMM-YYYY')}</td>
+                                                    <td>${q.loanAmount}</td>
+                                                    <td>${q.details.loanPurpose}</td>
+                                                <td>&#8377;&nbsp;${r1.gpfBalance}</td>
+                                                <td class="d-none">${btoa(JSON.stringify(q))}</td>
+                                            </tr>
+                                        `).join(''))
+                            }
+                            else { $('#nonrefun').hide(); }
+                            ds2('outstanding').html('&#8377;&nbsp;' + outstanding);
+                        }
+                        else {
+                            ds2('isLoan').html('No')
+                            ds2('outstanding').html('&#8377;&nbsp;0');
+                            $('#refund').hide();
+                            $('#nonrefun').hide();
+                        }
+                    });
+                });
+                i = 1;
+                r.nominees.forEach(obj => {
+                    $('#tblNominee').find('tbody').append(eval('`' + $('#tr_Nominee').html() + '`'));
+                })
+                i = 1;
+                r.family.forEach(obj => {
+                    $('#tblFamily').find('tbody').append(eval('`' + $('#tr_Family').html() + '`'));
+                })
+                var docSr = 1;
+                r.documents.forEach(dd => {
+                    var uri = `data:application/pdf;base64,${dd.documentData}`;
+                    var blob = dataURItoBlob(uri);
+                    var objectURL = URL.createObjectURL(blob);
+                    var icon = `<a href="${objectURL}" download="${dd.documentType}.pdf" class="pdfIcons"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>`
+                    var id = docSr++;
+                    var tr = `<tr><td>${id}</td><td>${dd.documentType}</td><td class="text-center">${icon}</td></tr>`
+                    var tr2 = `<tr><td class="text-center">${id}</td><td colspan="3">${dd.documentType}</td></tr>`
+                    $('#example1').find('tbody').append(tr);
+                    $('#docPrint').before(tr2);
+                });
+                $('[name="finalSettlementAmount"]').val(r.finalSettlementAmount).trigger('change');
+                $('[name="remark"]').val(r.remark);
+                if (r.edlisStatus != 'Pending') {
+                    $('input,textarea').prop('readonly', true);
+                    $('.actions *').remove();
+                }
+            });
+        }
+    })
+
+
+    function dataURItoBlob(dataURI) {
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataURI.split(',')[1]);
+        else
+            byteString = unescape(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ia = new Uint8Array(byteString.length);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ia], { type: mimeString });
+    }
+
+    function intoWords(num) {
+        var a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+        var b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        if ((num = num.toString()).length > 9) return 'overflow';
+        n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!n) return; var str = '';
+        str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+        str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+        str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+        str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+        str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'Only ' : 'Only';
+        return str;
+    }
+
+    function preSave(approve) {
+        if (!$('[name="finalSettlementAmount"]').val()) { toastr.warning('Final EDLIS Amount is mandatory'); return; }
+        if (!$('[name="remark"]').val()) { toastr.warning('Remarks are mandatory'); return; }
+        $(approve ? '#approvemsg' : '#rejectmsg').modal('show');
+    }
+
+    function Save(approve) {
+        $.get(`@Url.Action("UpdateEDLISWithdrawal", "Data")?applicationNumber=${encodeURIComponent(data.applicationNumber)}&finalSettlementAmount=${$('[name="finalSettlementAmount"]').val()}&approve=${approve}&remarks=${encodeURIComponent($('[name="remark"]').val())}`).then(r => {
+            if (r.status) {
+                toastr.success('Saved Successfully');
+                window.setTimeout(_ => window.location = '@Url.Action("EdlisList", "Withdrawal")', 500)
+            }
+            else toastr.error('An error occurred while saving');
+        })
+    }
+
+</script>

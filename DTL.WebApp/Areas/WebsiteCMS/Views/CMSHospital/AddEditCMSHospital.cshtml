@@ -1,0 +1,97 @@
+﻿@using DTL.Model.Models.CMS
+@using DTL.WebApp.Areas.WebsiteCMS
+@model CMSHospitalModel
+@{
+    ViewData["Title"] = Model.IsNew ? "Add Hospital" : Model.ViewOnly ? "View Hospital" : "Edit Hospital";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">@ViewData["Title"]</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home",new { Area="" })"><span class="">Dashboard </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index", StringConstants.DASHBOARD, new { Area = StringConstants.CMS_AREA })"><span>CMS</span></a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index", StringConstants.CMS_Hospital, new { Area = StringConstants.CMS_AREA })"><span>Hospital List</span></a>
+            <span class="px-1">/</span>
+            <span>@ViewData["Title"]</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body">
+            <form id="AddCMSHospitalForm" action="" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" value="@Model.ID" name="ID" id="ID" />
+                <input type="hidden" value="@Model.IsNew.ToString()" name="IsNew" id="IsNew" />
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">Name<span class="text-danger req_text">*</span></label>
+                        <input name="NameInEnglish" value="@Model.NameInEnglish" disabled="@Model.ViewOnly" type="text" class="form-control form-control-sm" placeholder="Name" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">Name in Hindi<span class="text-danger req_text">*</span></label>
+                        <input name="NameInHindi" value="@Model.NameInHindi" disabled="@Model.ViewOnly" type="text" class="form-control form-control-sm" placeholder="Name in hindi" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1 ">Upload Document<span class="text-danger req_text">*</span></label>
+                        <input disabled="@Model.ViewOnly" id="Attachment_E" name="AttachmentFileInEnglish" class="form-control" type="file" accept="application/pdf">
+                        <input id="isEnglishFileRequired" type="hidden" value="@(Model.AttachmentFileInEnglish == null? 1:0)" />
+                        @if (Model.IsNew == false)
+                        {
+                            @Html.HiddenFor(x=> x.EnglishFileName)
+                            @Html.HiddenFor(x=> x.EnglishContentType)
+                            <br />
+                            <a target="_blank" href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants.CMS_Hospital, new { id =  Model.ID, lang="English"})"> @Model.EnglishFileName</a>
+                        }
+                    </div>
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1 ">Upload Document In Hindi<span class="text-danger req_text">*</span></label>
+                        <input disabled="@Model.ViewOnly" id="Attachment_H" name="AttachmentFileInHindi" class="form-control" type="file" accept="application/pdf">
+                        <input id="isHindiFileRequired" type="hidden" value="@(Model.AttachmentFileInHindi == null? 1:0)" />
+
+                        @if (Model.IsNew == false)
+                        {
+                            @Html.HiddenFor(x=> x.HindiFileName)
+                            @Html.HiddenFor(x=> x.HindiContentType)
+                            <br />
+                            <a target="_blank" href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants. CMS_Hospital, new { id =  Model.ID, lang="Hindi"})"> @Model.HindiFileName</a>
+                        }
+
+                    </div>
+                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                        @if (!Model.ViewOnly)
+                        {
+                            <button id="btnSubmit" type="submit" class="btn btn-brand me-2 @(Model.ViewOnly ? "hide" :"")">@(Model.IsNew ? "Submit" : "Update")</button>
+                        }
+                        @if (Model.ViewOnly)
+                        {
+                            <button class="btn btn-cancel me-2" onclick="location.href='/WebsiteCMS/CMSHospital';return false;">Back</button>
+                        }
+                        <button onclick="showConfirmSwal('Are you sure you want cancel?',function(){ location.href='/WebsiteCMS/CMSHospital';  }); return false;" class="btn btn-cancel me-2">Cancel</button>
+                        <button onclick="showConfirmSwal('Are you sure you want to Reset?', function(){ location.reload();}); return false; " class="btn btn-reset me-2">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/CMS/CMSHospital.js" asp-append-version="true"></script>
+
+<script>
+
+    $("#Attachment_E").on("change", function () {
+        $("#Attachment_noticeE-error").css('display', 'None');
+        $(this).removeClass('is-invalid');
+
+    });
+    $("#Attachment_H").on("change", function () {
+        $(this).removeClass('is-invalid');
+        $("#Attachment_noticeH-error").css('display', 'None');
+    });
+</script>

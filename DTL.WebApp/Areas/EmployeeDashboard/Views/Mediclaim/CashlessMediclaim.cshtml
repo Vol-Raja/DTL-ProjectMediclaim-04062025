@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "CashlessMediclaim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Dashboard</title>
+
+    <!-- Bootstrap for styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-2">
+        <h2 class="text-center">📊 Live Dashboard Mediclaim</h2>
+
+        <div class="row mt-2">
+            <!-- Live Metrics Cards -->
+            <div class="col-md-4">
+                <div class="card dashboard background-lightpink text-center p-1">
+                    <h5>Approved Claim</h5>
+                    <h2 id="totalUsers">0</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card dashboard background-green text-center p-1">
+                    <h5>Pending Claim</h5>
+                    <h2 id="activeSessions">0</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card dashboard background-blue text-center p-1">
+                    <h5>Reject Claim</h5>
+                    <h2 id="revenue">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="justify-content-end d-flex">
+                    <input type="text" id="searchInput" class="form-control-sm" placeholder="Enter PPO Number "><br /> <button id="searchButton" class="btn btn-dark  ms-1">Search</button>
+                </div>
+                <div class="card p-3">
+                    <div id="example1_wrapper" class="dataTables_wrapper no-footer">
+                        <div class="dataTables_scroll">
+                            <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%;">
+                                <table class="table table-bordered dataTable no-footer" aria-describedby="example1_info" style="width: 100%;">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>PPO-No</th>
+                                            <th>Claim Date</th>
+                                            <th>Claim No</th>
+                                            <th>Claim Amount</th>
+                                            <th>Approved Amount</th>
+                                            <th>Card Category</th>
+                                            <th>Patient Name</th>
+                                            <th>Claim Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblProcessingCashlessClaim">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*changed by nirbhay 27/02/2025*@ 
+    <script src="~/js/Employee/CashlessMediclaim.js"></script>
+    @*end*@
+</body>
+</html>
+

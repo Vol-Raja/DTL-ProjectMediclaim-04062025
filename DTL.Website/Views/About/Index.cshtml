@@ -1,0 +1,65 @@
+﻿@using DTL.Model.Models.CMS
+
+@{
+    ViewData["Title"] = "About us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model IEnumerable<AboutModel>;
+
+@{
+    var aboutModel = Model?.LastOrDefault();
+    var content = aboutModel?.TextContent;
+    var image = aboutModel?.Image;
+    string ImageUrl = "/assets/images/galleryImage/3.webp";
+
+    @if (image != null)
+    {
+        var base64 = Convert.ToBase64String(image);
+        ImageUrl = String.Format("data:{0};base64,{1}", aboutModel.ImageContentType, base64);
+    }
+
+}
+
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>About Us</h1>
+                <p><a href="@Url.Action("","home")">Home</a> / <span>About Us / About</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 px-0">
+                <div class="sidebar">
+                    <div class="tab">
+                        <a class="tablinks active" href="@Url.Action("","About")">About</a>
+                        <a class="tablinks" href="@Url.Action("", "Trustee")">Board of Trustee</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12 shadow mb-5">
+                <div class="main_content">
+                    <div class="tabcontent">
+                        <div class="media About">
+                            <img class="shadow" src="@ImageUrl">
+                            <div class="media-body">
+                                <ul>
+                                    @Html.Raw(Model?.LastOrDefault()?.TextContent)
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+             </div>
+        
+        </div>
+    </div>
+</section>

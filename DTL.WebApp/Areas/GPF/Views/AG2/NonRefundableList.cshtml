@@ -1,0 +1,135 @@
+﻿@using DTL.Model.Models.GPF
+@model List<GPFWithdrawalModel>
+@{
+    ViewData["Title"] = "Nonrefundable List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Non Refundable List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section"> 
+            <a href="@Url.Action("Index","AG2", new { Area="GPF" })"> Dashboard</a><span class="px-1">/</span><a href="@Url.Action("LoanProcessingDashboard","AG2", new { Area="GPF" })">Loan Application</a><span class="px-1">/</span><span>Non Refundable List</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body pt-5 ps-0 pr-2">
+            <div class="table-responsive">
+                <table id="Nonrefundable" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Date</th>
+                            <th>Loan Application No.</th>
+                            <th>Employee Name</th>
+                            <th>Employee id</th>
+                            <th>Organization</th>
+
+                            <th>Application Status</th>
+                            <th>Loan Amount</th>
+                            <th> Eligible Loan Amount</th>
+                            <th>Remarks</th>
+                            <th>Loan status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td>20/02/2022</td>
+                            <td>123456</td>
+                            <td>Rahul Sahu</td>
+                            <td>7686876</td>
+
+                            <td>DTL</td>
+
+                            <td class="text-center"><span class="bg-orange Status_text w-100 d-block">Under Processing </span></td>
+                            <td>15000</td>
+                            <td>10000</td>
+                            <td>Remarks</td>
+                            <td class="text-center"><span class="bg-danger Status_text">Reject</span></td>
+                            <td class="d-flex border-bottom-0">
+
+                                <a href="@Url.Action("NonRefundableView","AG2", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                             
+
+
+                                <!-- Modal -->
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>20/02/2022</td>
+                            <td>123456</td>
+                            <td>Rahul Sahu</td>
+                            <td>7686876</td>
+
+                            <td>DTL</td>
+
+                            <td class="text-center"><span class="bg-orange Status_text w-100 d-block">Under Processing With AG/DM</span></td>
+                            <td>15000</td>
+                            <td>10000</td>
+                            <td>Remarks</td>
+                            <td class="text-center"><span class="bg-warning Status_text">Pending</span></td>
+                            <td class="d-flex border-bottom-0">
+
+                                <a href="@Url.Action("NonRefundableView","AG2", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                               
+
+
+
+                                <!-- Modal -->
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>20/02/2022</td>
+                            <td>123456</td>
+                            <td>Rahul Sahu</td>
+                            <td>7686876</td>
+
+                            <td>DTL</td>
+
+                            <td class="text-center"><span class="bg-success Status_text">Completed</span></td>
+                            <td>15000</td>
+                            <td>10000</td>
+                            <td>Remarks</td>
+                            <td class="text-center"><span class="bg-success Status_text">Approved</span></td>
+                            <td class="d-flex border-bottom-0">
+
+                                <a href="@Url.Action("NonRefundableView","AG2", new {Area="GPF" })" class="btn btn-primary btn-sm mr-2 btn_small">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                             
+
+
+                                <!-- Modal -->
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#Nonrefundable").DataTable({
+        ordering: true,
+        dom: 'lfrtip',
+        scrollX: true,
+    });
+
+</script>

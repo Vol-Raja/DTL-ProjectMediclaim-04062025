@@ -1,0 +1,273 @@
+{
+  "DTLOfficeList": [
+    {
+      "DTLOffice": "DPCL - Delhi Power Company Limited"
+    },
+    {
+      "DTLOffice": "IPGCL - Indraprastha Power Generation Company Limited"
+    },
+    {
+      "DTLOffice": "DTL - Delhi Transco Limited"
+    },
+    {
+      "DTLOffice": "BRPL - BSES Rajdhani Power Limited"
+    },
+    {
+      "DTLOffice": "BYPL - BSES Yamuna Power Limited"
+    },
+    {
+      "DTLOffice": "TPDDL - Tata Power Delhi Distribution Limited"
+    }
+  ],
+  "AgeGroupList": [
+    {
+      "AgeGroup": "70 - 75"
+    },
+    {
+      "AgeGroup": "75 - 80"
+    },
+    {
+      "AgeGroup": "80 - 85"
+    },
+    {
+      "AgeGroup": "85 - 90"
+    },
+    {
+      "AgeGroup": "90 - 95"
+    },
+    {
+      "AgeGroup": "95 - 100"
+    },
+    {
+      "AgeGroup": "100 or more"
+    }
+  ],
+  "ChangeTypeList": [
+    {
+      "ChangeType": "Allowance"
+    },
+    {
+      "ChangeType": "Recovery"
+    }
+  ],
+  "ReasonList": [
+    {
+      "Reason": "Access Pension (incase of Death)"
+    },
+    {
+      "Reason": "Court Case Recovery"
+    },
+    {
+      "Reason": "Tenureablity"
+    },
+    {
+      "Reason": "HRA Recovery"
+    }
+  ],
+  "DesignationList": [
+    {
+      "Designation": "HOD"
+    },
+    {
+      "Designation": "CEO"
+    },
+    {
+      "Designation": "GM"
+    },
+    {
+      "Designation": "HRVP"
+    },
+    {
+      "Designation": "ASO"
+    },
+    {
+      "Designation": "AM"
+    },
+    {
+      "Designation": "AG II"
+    },
+    {
+      "Designation": "AG III"
+    }
+  ],
+  "GPFWithdrawalPurposeList": [
+    {
+      "GPFWithdrawalPurpose": "Education"
+    },
+    {
+      "GPFWithdrawalPurpose": "Obligatory Expenses"
+    },
+    {
+      "GPFWithdrawalPurpose": "Illness of self,family members or dependants"
+    },
+    {
+      "GPFWithdrawalPurpose": "Purchase of consumer durables"
+    },
+    {
+      "GPFWithdrawalPurpose": "Housing including building or acquiring a suitable house or ready built flat for residence"
+    },
+    {
+      "GPFWithdrawalPurpose": "Repayment of outstanding housing loan"
+    },
+    {
+      "GPFWithdrawalPurpose": "Purchase of house site for building a house"
+    },
+    {
+      "GPFWithdrawalPurpose": "Constructing a house on site acquired"
+    },
+    {
+      "GPFWithdrawalPurpose": "Reconstructing or making additions on a house already acquried"
+    },
+    {
+      "GPFWithdrawalPurpose": "Rennovating,addition or alteration of ancestral house"
+    },
+    {
+      "GPFWithdrawalPurpose": "Purchase of motor car/motor cycle/scooter etc or repayment of loan already taken for the purpose"
+    },
+    {
+      "GPFWithdrawalPurpose": "Extensive repairs/overhauling of motor car"
+    },
+    {
+      "GPFWithdrawalPurpose": "Making deposit to book a motor car/motor cycle/scooter,moped"
+    }
+
+
+  ],
+  "RecoveryOptionList": [
+    {
+      "RecoveryOption": "EMI"
+    },
+    {
+      "RecoveryOption": "One Time"
+    }
+  ],
+  "TypeOfRecoveryList": [
+    {
+      "TypeOfRecovery": "Type Of Recovery 1"
+    },
+    {
+      "TypeOfRecovery": "Type Of Recovery 2"
+    },
+    {
+      "TypeOfRecovery": "Type Of Recovery 3"
+    },
+    {
+      "TypeOfRecovery": "Type Of Recovery 4"
+    }
+  ],
+  "BudgetAllocationProgramList": [
+    {
+      "BudgetAllocationProgram": "Provident Fund"
+    },
+    {
+      "BudgetAllocationProgram": "Pension Department"
+    },
+    {
+      "BudgetAllocationProgram": "Welfare"
+    },
+    {
+      "BudgetAllocationProgram": "ECR"
+    },
+    {
+      "BudgetAllocationProgram": "Medical"
+    },
+    {
+      "BudgetAllocationProgram": "GPF"
+    },
+    {
+      "BudgetAllocationProgram": "Sports"
+    }
+
+  ],
+  "DisbursementPeriodList": [
+    {
+      "DisbursementPeriod": "Monthly"
+    },
+    {
+      "DisbursementPeriod": "Half Yearly"
+    },
+    {
+      "DisbursementPeriod": "Yearly"
+    },
+    {
+      "DisbursementPeriod": "3 Yearly"
+    },
+    {
+      "DisbursementPeriod": "6 Yearly"
+    }
+  ],
+  "InvestmentTypeList": [
+    {
+      "InvestmentType": "Debentures"
+    },
+    {
+      "InvestmentType": "Mutual Funds"
+    },
+    {
+      "InvestmentType": "Shares"
+    }
+  ],
+  "CourtTypeList": [
+    {
+      "CourtType": "District Court"
+    },
+    {
+      "CourtType": "High Court"
+    },
+    {
+      "CourtType": "Supreme Court"
+    },
+    {
+      "CourtType": "Labour Commission"
+    }
+  ],
+   "LegalCaseStatusTypeList": [
+    {
+      "StatusType": "Pending"
+    },
+    {
+      "StatusType": "on going"
+    },
+    {
+      "StatusType": "Resolved"
+    }
+  ],
+  "GrievanceDepartmentList": [
+    {
+      "GrievanceDepartment": "PPO"
+    },
+    {
+      "GrievanceDepartment": "GPF"
+    },
+    {
+      "GrievanceDepartment": "Medicalim"
+    },
+    {
+      "GrievanceDepartment": "Disburstment"
+    },
+    {
+      "GrievanceDepartment": "Finance"
+    }
+  ],
+  "EmailConnectionList": [
+    {
+      "EmailAddress": "systemdvbetbf@gmail.com",
+      "Password": "vtymfekzgcjjkufm"
+    }
+  ],
+  "MediclaimCashlessDocumentList": [
+    {
+      "Doc1": "Photocopy of Medical Card (front and back page)",
+      "Doc2": "Bill / cash memo (with break-up) of investigation and copy of reports",
+      "Doc3": "Original Bill",
+      "Doc4": "Covering Letter",
+      "Doc5": "Photo of identity - Photocopy of MPC Identity Card",
+      "Doc6": "Referral Letter",
+      "Doc7": "Form B - Duly filled and signed by treating doctor countersigned by Medical Superintendent (M.S)",
+      "Doc8": "Investigations - Name of Test, Code Number and Rates",
+      "Doc9": "In case of PTCA - Empty Cover/ pouch of the stent with original bill receipt of the Stent",
+      "Doc10": "In case of Implant - original invoice for single purchase/photocopy of the invoice for bulk purchase with certification from hospital of the implant duly verified with stickers"
+    }
+  ]
+
+}

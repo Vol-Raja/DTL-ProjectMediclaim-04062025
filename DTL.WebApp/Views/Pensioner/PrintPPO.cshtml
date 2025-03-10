@@ -1,0 +1,247 @@
+﻿@using DTL.Model.Models
+@model EmployeeModel
+@{
+    ViewData["Title"] = "Print PPO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /*
+    tr, th, td {
+        border-collapse:collapse;
+        border:1px solid #444444;
+    }
+        */
+</style>
+
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Print PPO</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("ViewPPO","Pensioner",new { Area="" })">PPO</a></li>
+                        <li class="breadcrumb-item active">Print PPO</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-primary btn-sm top_print_btn float-right d-print-none printMe"><i class="fa fa-print mr-2" aria-hidden="true"></i>Print</button>
+                    <table width="100%">
+                        <tr><td align="center" colspan="2"><h3>D.V.B.E.T.B.F. Pension Trust 2002</h3></td></tr>
+                        <tr><td align="center" colspan="2"><h3>Pre-Fab, Building, Rajghat Power House, New Delhi-11002</h3></td></tr>
+                        <tr><td align="center" colspan="2"><h3>PPO/GPO/CPO</h3></td></tr>
+                        <tr>
+                            <td width="50%"><b>Pension Payment Order No: </b>@Model.employeeProfile.PPOOrderId</td>
+                            <td width="50%" align="right"><b>Employee Code: </b>@Model.employeeProfile.EmployeeId</td>
+                        </tr>
+                    </table>
+                    <table width="100%" border="1" cellpadding="3">
+                        <tr>
+                            <td colspan="4">
+                                &nbsp;
+                                @if (Model.employeeProfile.ProfileImage != null)
+                                {
+                                    <img id="profilePic" class="pic" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.employeeProfile.ProfileImage)" />
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Employee Name</td>
+                            <td>@Model.employeeProfile.EmployeeName</td>
+                            <td>Father/Husband Name</td>
+                            <td>@Model.employeeProfile.FatherName</td>
+                        </tr>
+                        <tr>
+                            <td>Date Of Membership</td>
+                            <td>@Model.employeeProfile.ServiceStartDate.ToString("dd/MM/yyyy")</td>
+                            <td>Date Of Birth</td>
+                            <td>@Model.employeeProfile.DOB.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td>Date Of Retirement</td>
+                            <td>@Model.employeeProfile.ServiceEndDate.ToString("dd/MM/yyyy")</td>
+                            <td>Date Of Leaving</td>
+                            <td>@Model.employeeProfile.ServiceEndDate.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td>Department Name</td>
+                            <td>@Model.employeeProfile.DTLOffice</td>
+                            <td>Designation</td>
+                            <td>@Model.employeeProfile.Designation</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td colspan="3">@Model.employeeProfile.PermanentAddress</td>
+                        </tr>
+                        <tr>
+                            <td>Pay Scale</td>
+                            <td></td>
+                            <td>Grade Pay</td>
+                            <td></td>
+                        </tr>
+                        <tr><td colspan="4">&nbsp;</td></tr>
+                    </table>
+                    <p><b>Calculation Of Monthly Pension</b></p>
+                    <table width="100%" border="1" cellpadding="3">
+                        <tr>
+                            <td width="40%">Net Qualifying Service</td>
+                            <td width="40%">@Model.serviceHistory.QualifyingServiceYear</td>
+                            <td width="20%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="40%">Non Serving Period</td>
+                            <td width="40%"></td>
+                            <td width="20%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="40%">Weightage Period</td>
+                            <td width="40%"></td>
+                            <td width="20%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="40%">10 Months Avg. Emoluments</td>
+                            <td width="40%" align="right">@Model.pensionSlip.ABPLast10Months</td>
+                            <td width="20%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="40%">Last Month Emoluments</td>
+                            <td width="40%" align="right">@Model.pensionSlip.EmolumentsForPension</td>
+                            <td width="20%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="40%">Last DA Amount</td>
+                            <td width="40%" align="right">@Model.serviceHistory.DA</td>
+                            <td width="20%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="40%">Leave Encashment Days</td>
+                            <td width="40%" align="right">@Model.pensionSlip.LeaveEncashmentDays</td>
+                            <td width="20%">&nbsp;</td>
+                        </tr>
+                    </table>
+                    <br />
+                    <table width="100%" border="1" cellpadding="3">
+                        <tr>
+                            <td width="25%">BASIC PENSION</td>
+                            <td width="25%" align="right">@Model.serviceHistory.BasicPay</td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td width="25%">DEARNESS ALLOWANCE</td>
+                            <td width="25%" align="right">@Model.serviceHistory.DA</td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td width="25%"><b>Total Monthly Pension</b></td>
+                            <td width="25%" align="right"><b>@Model.pensionSlip.PensionAtNormalRate</b></td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="25%">COMMUTATION</td>
+                            <td width="25%" align="right">@Model.pensionSlip.PSCommutation</td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td width="25%"><b>Pension Payable</b></td>
+                            <td width="25%" align="right"><b>@Model.pensionSlip.PensionAtNormalRate</b></td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr><td colspan="3">&nbsp;</td></tr>
+                        <tr>
+                            <td width="25%"><b>Benefits</b></td>
+                            <td width="25%"></td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td width="25%">LEAVE ENCASHMENT</td>
+                            <td width="25%" align="right">@Model.pensionSlip.LeaveEncashment</td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td width="25%">GRATUITY</td>
+                            <td width="25%" align="right">@Model.pensionSlip.Gratuity</td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td width="25%">COMMUTATION AMOUNT</td>
+                            <td width="25%" align="right">@Model.pensionSlip.LumsumPayableCommutation</td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td width="25%"><b>Total Benefits</b></td>
+                            <td width="25%" align="right"><b>@Model.pensionSlip.LumsumPayableCommutation</b></td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr><td colspan="3">&nbsp;</td></tr>
+                        <tr>
+                            <td width="25%"><b>Deduction</b></td>
+                            <td width="25%" align="right"><b>&nbsp;</b></td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr><td colspan="3">&nbsp;</td></tr>
+                        <tr>
+                            <td width="25%"><b>Net Benefits Payable</b></td>
+                            <td width="25%" align="right"><b></b></td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr><td colspan="3">&nbsp;</td></tr>
+                        <tr>
+                            <td width="25%"><b>Family Pension:</b></td>
+                            <td width="25%"></td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td width="25%">ENHANCED FAMILY PENSION</td>
+                            <td width="25%" align="right">@Model.pensionSlip.PensionEnhancedRate</td>
+                            <td width="50%">UPTO(mm/dd/yyyy)</td>
+                        </tr>
+                        <tr>
+                            <td width="25%">ORDINARY FAMILY PENSION</td>
+                            <td width="25%" align="right">@Model.pensionSlip.PensionAtNormalRate</td>
+                            <td width="50%">UPTO(mm/dd/yyyy)</td>
+                        </tr>
+                        <tr><td colspan="3">&nbsp;</td></tr>
+                        <tr>
+                            <td width="25%"><b>Family Pension Beneficiary:</b></td>
+                            <td width="25%"></td>
+                            <td width="50%"></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td width="25%" valign="top"><b>Validity of Family Pension:</b></td>
+                            <td width="75%" valign="top">
+                                <p>For Spouse:- Till death/Re-marriage which ever is earlier.</p>
+                                <p>For Dependent Children:- Till 25 Year of Age/Start Earning an amount of Rs.3500PM which ever is earlier.</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+@section CashlessPrintPreview{
+    <script>
+        $('.printMe').click(function () {
+            window.print();
+        });
+    </script>
+}

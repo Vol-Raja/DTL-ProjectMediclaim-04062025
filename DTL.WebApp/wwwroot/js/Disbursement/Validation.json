@@ -1,0 +1,105 @@
+{
+    "DTLOfficeList": [
+        {
+            "DTLOffice": "DPCL - Delhi Power Company Limited"
+        },
+        {
+            "DTLOffice": "IPGCL - Indraprastha Power Generation Company Limited"
+        },
+        {
+            "DTLOffice": "DTL - Delhi Transco Limited"
+        },
+        {
+            "DTLOffice": "BRPL - BSES Rajdhani Power Limited"
+        },
+        {
+            "DTLOffice": "BYPL - BSES Yamuna Power Limited"
+        },
+        {
+            "DTLOffice": "TPDDL - Tata Power Delhi Distribution Limited"
+        }
+    ],
+    "Ex80C": [ { "Amount": 150000 } ],
+
+    "Ex80DD": [
+        {
+            "Disability": "40%-80%",
+            "Amount": 75000
+        },
+        {
+            "Disability": "More than 80%",
+            "Amount": 125000
+
+        }
+    ],
+
+    "IncomeTax": [
+        {
+            "TaxSlab": "Upto 2.5Lac",
+            "TDSDeduction": 0,
+            "TaxPay": 0
+
+        },
+        {
+            "TaxSlab": "2.5Lac to 5Lac",
+            "TDSDeduction": "5%",
+            "TaxPay": 12500
+        },
+        {
+            "TaxSlab": "5Lac to 6.33Lac",
+            "TDSDeduction": "20%",
+            "TaxPay": 26600
+        }
+    ],
+    "TDSOnIncome": [
+        {
+            "Type": "Salary",
+            "val": "According to Income Tax Slab"
+        },
+        {
+            "Type": "Interest from securities",
+            "val": "10%"
+        },
+        {
+            "Type": "Dividend",
+            "val": "10%"
+        },
+        {
+            "Type": "Interest income up to Rs.50,000",
+            "val": "10%"
+        },
+        {
+            "Type": "Lottery, card games and other such sources",
+            "val": "30%"
+        },
+        {
+            "Type": "Income from winning a horse race",
+            "val": "30%"
+        },
+        {
+            "Type": "Payments for Contractor/ sub-contractors(Hindu Undivided Family/Individuals)",
+             "val": "1%"
+        },
+        {
+            "Type": "Payments for Contractor/ sub-contractors(Other Persons)",
+            "val": "2%"
+        },
+        {
+            "Type": "Insurance Commission",
+            "val": "5%"
+        },
+        {
+            "Type": "Rent",
+            "val": "2%"
+        },
+        {
+            "Type": "Payment upon the transfer of immovable property",
+            "val": "1%"
+        },
+        {
+            "Type": "Amount paid for professional services/ technical services/ remuneration/ fee/ commission for directors/ royalty/ copyright",
+            "val": "10%"
+        }
+
+    ]
+}

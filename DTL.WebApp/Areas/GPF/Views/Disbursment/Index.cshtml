@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12  border-bottom mb-2">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3>GPF Disbursement Dashboard</h3>
+        </div>
+    </div>
+    <div class="container-fluid pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="row row-xs">
+
+            <div class="col-sm-6 col-lg-3 mt-3">
+                <div class="card dashboard bg-warning">
+                    <a href="@Url.Action("LoanApplicationDashboard","Disbursment",new { Area="GPF" })">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Loan Application</h5>
+                                <i class="fa fa-gavel"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+            <div class="col-sm-6 col-lg-3 mt-3">
+                <div class="card dashboard background-skyBlue">
+                    <a href="@Url.Action("settlementApproval", "Disbursment",new { Area="GPF"})">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">settlement Application</h5>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+            <div class="col-sm-6 col-lg-3 mt-3">
+                <div class="card dashboard background-purple">
+                    <a href="@Url.Action("edlisApproval", "Disbursment",new { Area="GPF"})">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Edlis Application</h5>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+            @*<div class="col-sm-6 col-lg-3 mt-2">
+                <div class="card dashboard background-green ">
+                    <a href="@Url.Action("VoucherApplicationDashboard", "Disbursment",new { Area="GPF"})">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Voucher generation</h5>
+                                <i class="fa-solid fa-list"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->*@
+            <div class="col-sm-6 col-lg-3 mt-3">
+                <div class="card dashboard background-orange">
+                    <a href="@Url.Action("Index", "LegalSection",new { Area=""})">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Legal Case</h5>
+                                <i class="fa-solid fa-list"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+            <div class="col-sm-6 col-lg-3 mt-3">
+                <div class="card dashboard background-blue">
+                    <a href="@Url.Action("DisbusmentReport","Reports",new { Area="GPF" })">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 box_title">Report</h5>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col -->
+        </div>
+    </div>
+</div>

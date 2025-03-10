@@ -1,0 +1,128 @@
+﻿@using DTL.WebApp.Areas.WebsiteCMS
+@using DTL.Model.Models.CMS;
+@model AimVisionModel
+
+@{
+    ViewData["Title"] = Model.IsNew ? "Add AimVision" : Model.ViewOnly ? "View AimVision" : "Edit AimVision";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label.error {
+        display: none !important;
+    }
+</style>
+
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"> AimVisions Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", StringConstants.DASHBOARD, new { Area = StringConstants.CMS_AREA })">CMS</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("", StringConstants.CMS_AIMVISION , new { Area = StringConstants.CMS_AREA})"> AimVisions List</a></li>
+                        <li class="breadcrumb-item active">  AimVisions Form</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form id="AddAimVisionForm" method="post" action="@Url.Action(StringConstants.CMS_SAVE, StringConstants.CMS_AIMVISION, new { Area = StringConstants.CMS_AREA } )">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" value="@Model.ID" name="ID" id="ID" />
+                                <input type="hidden" value="@Model.IsNew.ToString()" name="IsNew" id="IsNew" />
+                                <strong style="font-size:large">  Aim </strong>
+                                <div class="row form-group">
+
+                                    <div class="col-md-12">
+                                        <textarea type="text" style="height: 100px;" disabled="@Model.ViewOnly" class="form-control mb-2 RichTextContent" placeholder="Enter  AimVision" name="AimContent" id="AimContent" required> 
+                                            @Model.AimContent
+                                         </textarea>
+                                    </div>
+                                </div>
+                                <strong style="font-size:large">  Vision </strong>
+
+                                <div class="row form-group">
+
+                                    <div class="col-md-12">
+                                        <textarea type="text" style="height: 200px;" disabled="@Model.ViewOnly" class="form-control mb-2 RichTextContent" placeholder="Enter  AimVision" name="VisionContent" id="VisionContent" required> 
+                                            @Model.VisionContent
+                                         </textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button id="btnSubmit" type="submit" class="btn btn-primary @( Model.ViewOnly ? "hide" : "" )">Submit</button>
+                                        <button onclick='window.location.href="@Url.Action("", StringConstants.CMS_AIMVISION, new { Area = StringConstants.CMS_AREA })"' type="reset" class="btn btn-danger" id="btnReset"> @( Model.ViewOnly ? "Back" : "Cancel" ) </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!-- Modal -->
+                            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">AimVision Form</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                                            <p>Aim Vision Text Added Successfully</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+</div>
+@section AddEditAimVision{
+@*<script type="text/javascript" src="~/js/CMS/AimVision.js"></script>*@
+@*<script src="~/plugins/tinymce/jquery.tinymce.min.js"> </script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+      selector: '.RichTextContent',
+      plugins: [
+        'autolink',
+        'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+        'fullscreen','insertdatetime','media','table','help','wordcount'
+      ],
+      toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+        'alignleft aligncenter alignright alignjustify | ' +
+        'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+    });
+
+
+</script>
+}

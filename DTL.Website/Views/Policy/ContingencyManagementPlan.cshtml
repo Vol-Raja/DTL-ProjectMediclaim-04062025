@@ -1,0 +1,33 @@
+﻿@using DTL.Model.Models.CMS
+@model FooterLegalSectionModel
+@{
+    ViewData["Title"] = "Contingency Management Plan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>Contingency Management Plan</h1>
+                <p><a href="@Url.Action("","home")">Home</a> / <span>Contingency Management Plan</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="main_page">
+    <div class="container">
+        <div class="accesibility_div">
+
+            <div class="row shadow pt-4 px-3">
+                <p>
+                    @Model?.ContingencyManagementPlanPolicy
+                </p>
+
+
+            </div>
+
+        </div>
+    </div>
+</section>

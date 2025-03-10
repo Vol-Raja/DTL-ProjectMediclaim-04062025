@@ -1,0 +1,198 @@
+﻿@using DTL.WebApp.Areas.WebsiteCMS;
+@using DTL.Model.Models.CMS;
+@model TenderModel
+@{
+
+    ViewData["Title"] = Model.IsNew ? "Add Tender" : Model.ViewOnly ? "View Tender" : "Edit Tender";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0"> Add Tender</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home",new { Area="" })"><span class="">Dashboard </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index", StringConstants.DASHBOARD, new { Area = StringConstants.CMS_AREA })"><span>CMS</span></a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("Index", StringConstants.CMS_TENDER, new { Area = StringConstants.CMS_AREA })"><span>Tender List</span></a>
+            <span class="px-1">/</span>
+            <span> Add Tender </span>
+        </p>
+
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body">
+            <form id="AddTenderForm">
+                @Html.AntiForgeryToken()
+                <input type="hidden" value="@Model.ID" name="ID" id="ID" />
+                <input type="hidden" value="@Model.IsNew.ToString()" name="IsNew" id="IsNew" />
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">Title in English<span class="text-danger req_text">*</span></label>
+                        <input disabled="@Model.ViewOnly" name="TitleInEnglish" value="@Model.TitleInEnglish" type="text" class="form-control form-control-sm" placeholder="Title in English" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">Title in Hindi<span class="text-danger req_text">*</span>  </label>
+                        <input disabled="@Model.ViewOnly" name="TitleInHindi" value="@Model.TitleInHindi" type="text" class="form-control form-control-sm" placeholder="Title in Hindi" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">Tender ID in English<span class="text-danger req_text">*</span></label>
+                        <input disabled="@Model.ViewOnly" name="TenderIdEnglish" value="@Model.TenderIdEnglish" type="text" class="form-control form-control-sm" placeholder="Tender ID in English" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">Tender ID in Hindi<span class="text-danger req_text">*</span> </label>
+                        <input disabled="@Model.ViewOnly" name="TenderIdInHindi" value="@Model.TenderIdInHindi" type="text" class="form-control form-control-sm" placeholder="Tender ID in Hindi " />
+                    </div>
+
+                    <div class="col-sm-6 col-md-2 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Publish Date<span class="text-danger req_text">*</span>
+                        </label>
+                        <input disabled="@Model.ViewOnly" id="Publish-date" name="PublishDate" value="@(Model.IsNew?"": Model.PublishDate.ToString(StringConstants.ASSIGN_DATE_FORMAT))" type="date" class="form-control form-control-sm" placeholder="Publish Date" />
+                    </div>
+                    <div class="col-sm-6 col-md-2 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Publish time<span class="text-danger req_text">*</span>
+                        </label>
+                        <input disabled="@Model.ViewOnly" id="Publish-time" name="PublishTime" value="@(Model.IsNew?"":Model.PublishTime.ToString(StringConstants.ASSIGN_TIME_FORMAT))" type="time" class="form-control form-control-sm" placeholder="Publish Date" />
+                    </div>
+                    <div class="col-sm-6 col-md-2 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Opening Date<span class="text-danger req_text">*</span>
+                        </label>
+                        <input disabled="@Model.ViewOnly" id="Opening-Date" name="OpeningDate" value="@(Model.IsNew?"":Model.OpeningDate.ToString(StringConstants.ASSIGN_DATE_FORMAT))" type="date" class="form-control form-control-sm" placeholder="Opening Date" />
+                    </div>
+                    <div class="col-sm-6 col-md-2 mb-3">
+                        <label class="form-label d-block mb-1">Opening Time<span class="text-danger req_text">*</span>  </label>
+                        <input disabled="@Model.ViewOnly" id="Opening-time" name="OpeningTime" value="@(Model.IsNew?"":Model.OpeningTime.ToString(StringConstants.ASSIGN_TIME_FORMAT))" type="time" class="form-control form-control-sm" placeholder="Opening Time " />
+                    </div>
+                    <div class="col-sm-6 col-md-2 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Closing Date<span class="text-danger req_text">*</span>
+                        </label>
+                        <input disabled="@Model.ViewOnly" id="closed-date" name="ClosingDate" value="@(Model.IsNew?"":Model.ClosingDate.ToString(StringConstants.ASSIGN_DATE_FORMAT))" type="date" class="form-control form-control-sm" placeholder=">Closing Date" />
+                    </div>
+                    <div class="col-sm-6 col-md-2 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Closing Time<span class="text-danger req_text">*</span>
+                        </label>
+                        <input disabled="@Model.ViewOnly" id="closed-time" name="ClosingTime" value="@(Model.IsNew?"":Model.ClosingTime.ToString(StringConstants.ASSIGN_TIME_FORMAT))" type="time" class="form-control form-control-sm" placeholder="Closing Time" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Description in English<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea disabled="@Model.ViewOnly" name="DiscriptionInEnglish" class="form-control form-control-sm" placeholder="Description in English">@Model.DiscriptionInEnglish</textarea>
+                    </div>
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Description in Hindi
+                            <span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea disabled="@Model.ViewOnly" name="DiscriptionInHindi" class="form-control form-control-sm" placeholder="Description in Hindi ">@Model.DiscriptionInHindi</textarea>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Upload in English <span class="text-danger req_text">*</span>
+                        </label>
+                        <input disabled="@Model.ViewOnly" id="english_file" accept="application/pdf" name="AttachmentFileInEnglish" class="form-control" type="file">
+                        @if (Model.IsNew == false)
+                        {
+                            <input type="hidden" id="AttachmentFileInEnglishBase64" name="AttachmentFileInEnglishBase64" value="@(Model.AttachmentFileInEnglish == null?  "" : Convert.ToBase64String(Model.AttachmentFileInEnglish))" />
+                            <a href="javascript:downloadPDF('en')"> View File</a>
+                            @Html.HiddenFor(m=> m.AttachmentTitleInEnglish)
+                        }
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Upload in Hindi<span class="text-danger req_text">*</span>
+                        </label>
+                        <input disabled="@Model.ViewOnly" id="Hindi_file" accept="application/pdf" name="AttachmentFileInHindi" class="form-control" type="file">
+                        @if (Model.IsNew == false)
+                        {
+                            <input type="hidden" id="AttachmentFileInHindiBase64" name="AttachmentFileInHindiBase64" value="@(Model.AttachmentFileInHindi == null ?  "" :Convert.ToBase64String(Model.AttachmentFileInHindi))" />
+                            <a href="javascript:downloadPDF('hn')"> View File</a>
+                            @Html.HiddenFor(m=> m.AttachmentTitleInHindi)
+                        }
+                    </div>
+
+                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                        @if (!Model.ViewOnly)
+                        {
+                            <button id="btnSubmit" type="submit" class="btn btn-brand me-2 @(Model.ViewOnly ? "hide" :"")">@(Model.IsNew ? "Submit" : "Update")</button>
+
+                        }
+
+                        @if (Model.ViewOnly)
+                        {
+                            <button class="btn btn-cancel me-2" onclick="location.href='/WebsiteCMS/Tender';return false;">Back</button>
+
+                        }
+                        else
+                        {
+                            <button class="btn btn-cancel me-2" onclick="showConfirmSwal('Are you sure you want cancel?', function() { location.href='/WebsiteCMS/Tender';}); return false;">Cancel</button>
+
+                        }
+                        <button class="btn btn-reset me-2 @(Model.ViewOnly ? "hide" :"")" onclick="showConfirmSwal('Are you sure you want Reset?', function() { window.location.reload();}); return false;">Reset</button>
+
+
+                    </div>
+
+
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="~/js/CMS/Tender.js" asp-append-version="true"></script>
+<script>
+  
+    $("#Publish-date").on("change", function () {
+        $("#Publish-date-error").css('display', 'None');
+            $(this).removeClass('is-invalid');
+           
+        });
+        $("#Publish-time").on("change", function () {
+            $(this).removeClass('is-invalid');
+            $("#Publish-time-error").css('display', 'None');
+        });
+  
+        $("#Opening-Date").on("change", function () {
+            $(this).removeClass('is-invalid');
+            $("#Opening-Date-error").css('display', 'None');
+        });
+        $("#Opening-time").on("change", function () {
+            $("#Opening-time-error").css('display', 'None');
+            $(this).removeClass('is-invalid');
+        });
+        $("#closed-date").on("change", function () {
+            $(this).removeClass('is-invalid');
+            $("#closed-date-error").css('display', 'None');
+        });
+        $("#closed-time").on("change", function () {
+            $(this).removeClass('is-invalid');
+            $("#closed-time -error").css('display', 'None');
+        });
+    $("#english_file").on("change", function () {
+        $(this).removeClass('is-invalid');
+        $("#closed-time -error").css('display', 'None');
+     
+    });
+    $("#Hindi_file").on("change", function () {
+        $(this).removeClass('is-invalid');
+        $("#closed-time -error").css('display', 'None');
+       
+    });
+
+</script>

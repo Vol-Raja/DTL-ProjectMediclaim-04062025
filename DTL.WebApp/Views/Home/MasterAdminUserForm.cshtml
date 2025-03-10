@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Master Admin User Form";
+    Layout = "~/Views/Shared/_LayoutWithoutSidebar.cshtml";
+    bool IsReadOnly = ViewBag.IsReadOnly == true;
+    bool IsEdit = ViewBag.Mode == "Edit";
+}
+<style type="text/css">
+    .error {
+        border: solid 1px #ff0000;
+    }
+</style>
+@model ApplicationUser
+@* new design *@
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Admin User Form</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home", new { Area="" })">Dashboard</a>
+            <span class="px-1">/</span>
+            <span class="px-1">Master Admin User Form</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+
+            <form action="/home/UpdateMasterAdminUser" method="post">
+
+                <div class="row">
+
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1" for="txtEmailAddress">Email ID<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control" name="Email" value="@Model.Email" placeholder="Enter Email ID" id="txtEmailAddress" disabled="@IsReadOnly" />
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1" for="txtEmailAddress">Username<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control" value="@Model.UserName" placeholder="Enter Email ID" id="txtUsername" disabled="disabled" />
+                    </div>
+
+
+                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                        @if (IsReadOnly == false)
+                        {
+                            <button class="btn btn-brand me-2" type="submit" id="btnSubmit">Submit</button>
+
+                            <a class="btn btn-cancel me-2" href="@Url.Action("Index","Home", new { Area="" })">Cancel</a>
+                            <a class="btn btn-reset me-" onclick="location.reload(); return false">Reset</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-cancel me-2" href="~/home">Back</a>
+                        }
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let errmessage = '@TempData["ErrorMessage"]';
+    if (errmessage) {
+        setTimeout(function () {
+            showErrorSwal(errmessage);
+        }, 2000);
+    }
+    let successMessage = '@TempData["SuccessMessage"]'
+    if (successMessage) {
+        setTimeout(function () {
+            showSuccessSwal(successMessage);
+        }, 2000);
+
+    }
+</script>

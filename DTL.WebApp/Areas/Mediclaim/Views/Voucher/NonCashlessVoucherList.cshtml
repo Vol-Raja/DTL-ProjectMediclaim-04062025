@@ -1,0 +1,81 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Medical Vouchers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Mediclaim ( Non Cashless) Voucher List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","OPD", new { Area="Mediclaim" })">Dashboard</a>
+            <span class="px-1">/</span><a href="@Url.Action("OPDProcessingMediclaimList","Processing",new { Area="Mediclaim" })">Processing</a>
+
+            <span class="px-1">/</span><span>Voucher Mediclaim List</span>
+        </p>
+        <input type="hidden" id="hdnclaimtype" value="@ViewBag.ClaimType" />
+    </div>
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4">
+                @*<a href="@Url.Action("AddNewVoucher","Voucher", new { Area="Mediclaim" })" class="btn btn-primary btn-sm mr-2">Add New Voucher</a>*@
+            </div>            
+            <div class="my-4 border_bottom pb-4 row">
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Voucher No  .</label>
+                    <input id="txtVoucherNo" type="number" class="form-control form-control-sm"
+                           placeholder="Voucher Number" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                    <label class="form-label d-block mb-1">Claim No.</label>
+                    <input id="txtClaimNo" type="number" class="form-control form-control-sm"
+                           placeholder="Claim No." />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                    <label class="form-label d-block mb-1">Page No.</label>
+                    <input id="txtPageNo" type="text" class="form-control form-control-sm"
+                           placeholder="Page No." />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3  position-relative">
+                    <button type="button" id="btnSearch" class="btn btn-success  position-absolute bottom-0"><i class="fa fa-search"></i></button>
+                    <button type="button" id="btnClear" class="btn btn-danger position-absolute bottom-0 clear_btn"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="tblVoucher" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr. No.</th>
+                            <th>Date</th>
+                            <th>Voucher No.</th>
+                            <th>Page No.</th>
+                            <th>Claim No. </th>
+                            <th>Account No.</th>
+                            <th>Approved Amount</th>
+                            <th>IFSC No.</th>
+                            <th>BIC Code</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div><!-- col -->
+
+
+<script type="text/javascript" src="~/js/Mediclaim/Voucher/voucherlist.js"></script>

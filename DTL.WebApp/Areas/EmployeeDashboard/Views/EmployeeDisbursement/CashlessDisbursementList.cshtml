@@ -1,0 +1,58 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model IEnumerable<CashlessModel>
+@{
+    ViewData["Title"] = "CashlessDisbursementList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <input type="hidden" id="hdnClaimId" />
+    <h2 class="text-center">📊 Live Disbursement</h2>
+
+    <div class="row mt-1">
+        <!-- Live Metrics Cards -->
+        <div class="col-md-4">
+            <div class="card dashboard background-lightpink text-center p-1">
+                <h5>Claim Paid</h5>
+                <h2 id="totalpaid">0</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard background-green text-center p-1">
+                <h5>Claim Pending</h5>
+                <h2 id="pending">0</h2>
+            </div>
+        </div>
+        <div class="card border-card mt-2">
+            <div class="card-body ps-1 pr-2 pt-2">
+                <div class="table-responsive">
+                    <table class="table table-bordered ">
+                        <thead class="mt-2">
+                            <tr>
+                                @*<th width="7%" class="text-center">Sr. No.</th>*@
+                                <th>PPO-NO</th>
+                                <th>Date</th>
+                                <th>Claim No.</th>
+                                <th>Claim Amt.</th>
+                                <th>Approved Amt.</th>
+                                <th>Account No.</th>
+                                <th>IFSC Code</th>
+                                <th>payment status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblClaims">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- col -->
+</div>
+
+@section CashlessClaims{
+    <script src="~/js/Employee/Disbursment.js"></script>
+  
+}
+

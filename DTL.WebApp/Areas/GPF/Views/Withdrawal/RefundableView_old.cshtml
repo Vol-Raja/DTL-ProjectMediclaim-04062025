@@ -1,0 +1,174 @@
+﻿@using DTL.Model.Models.GPF
+@model GPFWithdrawalModel
+@{
+    ViewData["Title"] = "Refundable View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .top_print_btn {
+        position: absolute;
+        right: 20px;
+        top: 30px;
+    }
+</style>
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Refundable Withdrawal Application</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard", new { Area="GPF" })">GPF</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Withdrawal", new { Area="GPF" })">GPF Withdrawal</a></li>
+                        <li class="breadcrumb-item active">Refundable Withdrawal</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="text-center mb-3">Refundable Withdrawal</h2>
+                            <button class="btn btn-primary btn-sm top_print_btn float-right d-print-none printMe"><i class="fa fa-print mr-2" aria-hidden="true"></i>Print</button>
+                            <table class="table table-bordered mb-3">
+                                <tr>
+                                    <th colspan="4" class="text-center bg-gray-light">Personal Information</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 20%">Unique Id</td>
+                                    <th style="width: 30%">@Model.UniqueNumber</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 20%">Name of GPF Account Holder</td>
+                                    <th style="width: 30%">@Model.AccountHolderName</th>
+                                    <td class="text-right" style="width: 20%">Employee ID</td>
+                                    <th style="width: 30%">@Model.EmployeId</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Designation</td>
+                                    <th>@Model.Designation</th>
+                                    <td class="text-right">Employer</td>
+                                    <th>@Model.Employer</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Monthly GPF Pay</td>
+                                    <th>@Model.MonthlyGPFPay</th>
+                                    <td class="text-right">Date of Joining</td>
+                                    <th>@Model.DateOfJoining.ToShortDateString()</th>
+
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Purpose of Advance</td>
+                                    <th>@Model.PurposeOfWithdrawal</th>
+                                    <td class="text-right">Mobile No.</td>
+                                    <th>@Model.MobileNumber</th>
+
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Dependant's Name</td>
+                                    <th>@Model.DependantsName</th>
+                                    <td class="text-right">Dependant's Age</td>
+                                    <th>@Model.DependentsAge</th>
+
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Dependant's Address</td>
+                                    <th>@Model.DependentsAddress</th>
+                                    <td class="text-right">Total Advance Amount</td>
+                                    <th>@Model.TotalAdvancedAmount</th>
+
+                                </tr>
+                                <tr>
+                                    <td class="text-right">No. of EMI's</td>
+                                    <th>@Model.NoOfEMI</th>
+                                    <td class="text-right">Monthly Deduction</td>
+                                    <th>@Model.MonthlyDeduction</th>
+
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Place of posting of last three year</td>
+                                    <th>@Model.PostingLastThreeYear</th>
+                                    <td class="text-right">Date of Application</td>
+                                    <th>@Model.DateOfApplication.ToShortDateString()</th>
+
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Purpose of Refundable</td>
+                                    <th>@Model.PurposeOfRefundable</th>
+                                    <td class="text-right">Detailed Reason of Application for Advance</td>
+                                    <th>@Model.ReasonOfAdvance</th>
+
+                                </tr>
+
+
+                            </table>
+
+                            <table class="table table-bordered mb-3">
+                                <tr>
+                                    <th colspan="4" class="text-center bg-gray-light">Bank Details</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 20%">Bank Account No.</td>
+                                    <th style="width: 30%">@Model.BankAccountNo</th>
+                                    <td class="text-right" style="width: 20%">IFSC No.</td>
+                                    <th style="width: 30%">@Model.IFSCNo</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Brance Name</td>
+                                    <th>@Model.BranchName</th>
+                                    <td class="text-right">BC</td>
+                                    <th>@Model.BC</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Bank Name</td>
+                                    <th>@Model.BankName</th>
+                                </tr>
+
+                            </table>
+
+                            <table class="table table-bordered mb-3">
+                                <tr>
+                                    <th colspan="4" class="text-center bg-gray-light">Documents</th>
+                                </tr>
+
+                                <tr>
+                                    <td>Salary Slip</td>
+                                </tr>
+                                <tr>
+                                    <td>ID Card</td>
+                                </tr>
+
+                            </table>
+
+                            <div class="row d-print-none">
+                                <div class="col-md-12 p-3 text-center">
+                                    <button class="btn btn-primary printMe"><i class="fa fa-print mr-2" aria-hidden="true"></i>Print Application</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+
+@section RefundableView{
+    <script>
+        $('.printMe').click(function () {
+            window.print();
+        });
+    </script>
+}

@@ -1,0 +1,98 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model MediclaimVoucherModel
+@{
+    ViewData["Title"] = "Print Preview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .top_print_btn {
+        position: absolute;
+        right: 20px;
+        top: 30px;
+    }
+</style>
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Mediclaim Voucher</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard",new { Area="Mediclaim" })">Mediclaim</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Voucher",new { Area="Mediclaim" })">Mediclaim Voucher List</a></li>
+                        <li class="breadcrumb-item active">Mediclaim Voucher</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="text-center mb-3">Mediclaim Voucher</h2>
+                            <table class="table table-bordered mb-3">
+                                <tr>
+                                    <td class="text-right" style="width: 20%">Claim Number</td>
+                                    <th style="width: 30%">@Model.ClaimId</th>
+                                    <td class="text-right" style="width: 20%">Claim Type</td>
+                                    <th style="width: 30%">@Model.ClaimType</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 20%">Pay to Shri/smt</td>
+                                    <th style="width: 30%">@Model.PayTo</th>
+                                    <td class="text-right" style="width: 20%">Approved Amount (Rs.)</td>
+                                    <th style="width: 30%">@Math.Round(Model.ApprovedAmount,2)</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">In words</td>
+                                    <th>@Model.AmountInWords</th>
+                                    <td class="text-right">Entry No.</td>
+                                    <th>@Model.EntryNo</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Page No.</td>
+                                    <th>@Model.PageNo</th>
+                                    <td class="text-right">Bank/ Branch</td>
+                                    <th>@Model.BankBranch</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Account No.</td>
+                                    <th>@Model.AccountNumber</th>
+                                    <td class="text-right">BIC</td>
+                                    <th>@Model.BICCode</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">IFSC Code</td>
+                                    <th>@Model.IFSCCode</th>
+                                </tr>
+                            </table>
+                            <div class="row d-print-none">
+                                <div class="col-md-12 p-2 text-right" style="background: aliceblue">
+                                    <button class="btn btn-primary printMe"><i class="fa fa-print mr-2" aria-hidden="true"></i>Print Voucher</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+@section VoucherPrintPreview{
+    <script>
+        $('.printMe').click(function () {
+            window.print();
+        });
+    </script>
+}

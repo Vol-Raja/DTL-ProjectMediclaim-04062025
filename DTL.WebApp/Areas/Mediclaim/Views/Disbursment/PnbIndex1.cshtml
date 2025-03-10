@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewData["Title"] = "PnbIndex1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .content {
+            margin-top: 8px;
+        }
+
+        .editable input[type="text"] {
+            border: none;
+            border-bottom: 1px dashed #000;
+            outline: none;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content" style="font-size: small;">
+        <div class="container">
+            <div class="header text-center" style="font-size: small;">
+                <h2>D.V.B.E.T.B.F.-2002</h2>
+                <p>Rajghat Power House<br>New Delhi-110 002</p>
+                <p class="text-right">Dated: 07.11.2022</p>
+            </div>
+            <p style="font-size: small;">The Branch Manager<br>SBI, RPH, N Delhi-02.</p>
+            <p style="font-size: small;"><strong>Sub.: Transfer through NEFT / RTGS by Debit A/c No. 10021675590.</strong></p>
+            <div class="content" style="font-size: small;">
+                <p>It is requested to transfer the amount by debit DVB ETBF-2002 SB Account No. 10021675590 to Punjab National Bank, Daryaganj, Delhi. The details of the account are as under:</p>
+                <p><strong>Party:</strong> DVB ETBF-2002</p>
+                <p><strong>Bank:</strong> Punjab National Bank</p>
+                <p><strong>Branch:</strong> Daryaganj, Delhi</p>
+                <p><strong>A/c No.:</strong> 00132191012668</p>
+                <p><strong>IFSC Code:</strong> PUNB0001310</p>
+                <p><strong>Amount:</strong> <span class="editable"><input type="text" id="amount" value=""></span></p>
+                <p><strong>Cheque No:</strong> <span class="editable"><input type="text" id="cheque_no" value=""></span></p>
+                <p><strong>Mobile No:</strong> 9999533514</p>
+                <p><strong>Conditions for transfer:</strong></p>
+                <ol style="font-size: small;">
+                    <li>All payment instructions should be carefully checked by the remitter. As crediting the proceeds of the remittance is based on the beneficiary’s account number, the same of the other bank and its branch, SBI shall not be responsible if these particulars are not provided correctly by the remitter.</li>
+                    <li>Application received after the business hours will be sent on the immediate next working day.</li>
+                    <li>SBI shall not be responsible for any delay in processing of the payment due to RBI RTGS system not being available / failure of internal communication system at the recipient bank in correct information provided by the remitter. Any incorrect credit accorded by the recipient bank due to incorrect information provided by the remitter.</li>
+                    <li>
+                        <i>(i) Remitting Branch shall not be liable for any loss or damage arising out or resulting from delay in transmission delivery or non-delivery of electronic message or any mistake. Omission or error in transmission or delivery thereof or in encrypting/decrypting the message for any cause whatsoever or from misinterpretation when received or for the action of the destination bank or for act beyond the control of State Bank of India.</i><br>
+                        <i>(ii) If the recipient branch is closed for any reason, the account shall be credited on the immediate next working day.</i><br>
+                        <i>(iii) Bank is free to recover charges in respect of remittances returned on account of faulty / inadequate information.</i>
+                    </li>
+                    <li>We have fully read the terms and conditions of the RTGS remittance and shall abide by the same.</li>
+                </ol>
+                <p><strong>For DVB ETBF-2002</strong></p>
+                <p>(Authorized Signatories)</p>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3 no-print">
+        <button id="btnprint" class="btn btn-info">Print PNB</button>
+    </div>
+    <script>
+        document.getElementById("btnprint").addEventListener("click", function () {
+            var chequeNo = document.getElementById("cheque_no").value;
+            var amount = document.getElementById("amount").value;
+
+            var content = document.getElementById("content").innerHTML;
+            var updatedContent = content
+                .replace('<input type="text" id="amount" value="">', `<span>${amount}</span>`)
+                .replace('<input type="text" id="cheque_no" value="">', `<span>${chequeNo}</span>`);
+            var printWindow = window.open('width=800,height=600');
+            printWindow.document.write(`
+<html>
+<head>
+<style>
+                            body { font-family: Arial, sans-serif; line-height: 1.5; margin: 20px; }
+                            .container { margin: 0; padding: 0; }
+                            .header { text-align: center; }
+                            .text-right { text-align: right; }
+                            .text-left { text-align: left; }
+                            @@media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+                        ${updatedContent}
+</body>
+</html>
+                `);
+            printWindow.document.close();
+            printWindow.print();
+            printWindow.onafterprint = () => printWindow.close();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+

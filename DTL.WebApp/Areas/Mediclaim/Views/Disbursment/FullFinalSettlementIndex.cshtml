@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "FullFinalSettlementIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @@media print {
+            .no-print {
+                display: none;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .content {
+            margin-top: 8px;
+        }
+
+        .editable input[type="text"],
+        .editable1 input[type="text"],
+        .editable2 input[type="text"] {
+            border: none;
+            border-bottom: 1px dashed #000;
+            outline: none;
+        }
+
+        .editable input[type="text"] {
+            width: 300px;
+        }
+
+        .editable1 input[type="text"] {
+            width: 180px;
+        }
+
+        .editable2 input[type="text"] {
+            width: 320px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content" style="font-size: small;">
+        <div class="container">
+            <div class="header" style="font-size: small;">
+                <h2 style="text-decoration: underline;">FULL & FINAL SETTLEMENT</h2>
+            </div>
+            <div class="content" style="font-size: small;">
+                <p>
+                    Receive Cheque No:
+                    <span class="editable"><input type="text" id="cheque_no"></span>
+                    Dt:
+                    <span class="editable1"><input type="text" id="cheque_date"></span>
+                </p>
+                <p>
+                    Amounting to Rs:
+                    <span class="editable1"><input type="text" id="amount"></span>
+                    in figure:
+                    <span class="editable2"><input type="text" id="amount_in_figures"></span>
+                </p>
+                <p>
+                    In R/o medical claims of my:
+                    <span class="editable2"><input type="text" id="medical_claim"></span>
+                    as full & final Settlement from my side.
+                </p>
+                <p>
+                    Dated:
+                    <span class="editable"><input type="text" id="settlement_date"></span>
+                </p>
+                <p style="text-align: right;">
+                    Signature:
+                    <span class="editable"><input type="text" id="signature"></span>
+                </p>
+                <p style="text-align: right;">
+                    Name:
+                    <span class="editable2"><input type="text" id="name"></span>
+                </p>
+                <p style="text-align: right;">
+                    Address:
+                    <span class="editable2"><input type="text" id="address"></span>
+                </p>
+                <p style="text-align: right;">
+                    Mobile:
+                    <span class="editable2"><input type="text" id="mobile"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3 no-print">
+        <button id="btnprint" class="btn btn-info">Print</button>
+    </div>
+    <script>
+        document.getElementById("btnprint").addEventListener("click", function () {
+            window.print();
+        });
+    </script>
+</body>
+</html>

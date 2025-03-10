@@ -1,0 +1,113 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using DTL.Model.Models;
+@model IEnumerable<LegalSectionModel>
+@{
+    ViewData["Title"] = "Legal Section";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Legal case details</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                    <li class="breadcrumb-item active">Legal Section</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    @*<div class="card-header">
+                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                        </div>*@
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            @if (Convert.ToBoolean(ViewBag.Create))
+                            {
+                            <a href="@Url.Action("AddLegalCase", "LegalSection")" class="btn btn-default">Add New Legal Case</a>
+                            }
+                        </div>
+                        <hr />
+                        <table id="tblCase" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Case No</th>
+                                    <th>File No</th>
+                                    <th>Court Type</th>
+                                    <th>Subject</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var data in Model)
+                                {
+
+
+                                    @if (!data.IsDeleted)
+                                    {
+                                        <tr>
+                                            <td> @data.CaseNo</td>
+                                            <td>@data.FileNumber</td>
+                                            <td>@data.CourtType</td>
+                                            <td> @data.SubjectOfCase</td>
+                                            <td>
+                                                @if (Convert.ToBoolean(ViewBag.View))
+                                                {
+                                                    <a href="@Url.Action("ViewLegalCase", "LegalSection", new { Id = data.ID })" title="View Case"><i class="fas fa-eye"></i></a> 
+                                                }
+                                                @if (Convert.ToBoolean(ViewBag.Delete))
+                                                {
+                                                    <a href="javascript:void(0)" title="Delete Legal cases" onclick="DeleteLegalCase('@data.ID',this)"><i class="fa fa-trash"></i></a>
+                                                }
+                                                @if (Convert.ToBoolean(ViewBag.Edit))
+                                                {
+                                                    <a href="@Url.Action("EditLegalCase", "LegalSection", new { Id = data.ID })" title="Edit Case" onclick="EditRolePageAccess('@data.ID')"><i class="fas fa-edit"></i></a>
+
+                                                    @if (!(bool)data.Approve)
+                                                    {
+                                                        @*<a href="@Url.Action("CloseInvestment","LegalSection",new { investmentId = data.ID})" title="Close Investment"><i class="fa fa-user-edit"></i></a>*@
+                                                        <button type="button" class="btn btn-sm btn-primary" onclick="ApproveLegalCases('@data.ID')">
+                                                            Approve
+                                                        </button>
+                                                    }
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Legal{
+    <script src="~/js/Legal/LegalCase.js" asp-append-version="true"></script>
+}

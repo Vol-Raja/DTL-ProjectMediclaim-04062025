@@ -1,0 +1,125 @@
+﻿@using DTL.Model.Models.CMS;
+
+
+@{
+    ViewData["Title"] = "गैलरी";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+
+}
+
+@model IEnumerable<BannerImageModel>;
+
+<style>
+    div.gallery {
+        height: 190px;
+    }
+
+    .gallery img {
+        object-fit: cover;
+    }
+
+    div.gallery:hover {
+        border: 1px solid #777;
+    }
+
+    div.gallery img {
+        width: 100%;
+        height: 100%;
+    }
+
+    div.desc {
+        padding: 9px;
+        text-align: center;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 13px;
+        border-bottom: 3px solid #060605;
+    }
+</style>
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>गैलरी</h1>
+                <p><a href="@Url.Action("","home")">मुख पृष्ठ</a> / <span>मिडिया / गैलरी</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidebar">
+
+                    <div class="tab">
+                        <a class="tablinks " href="@Url.Action("","WhatsNew")"> नवीनतम समाचार</a>
+                        <a class="tablinks" href="@Url.Action("","notice")">सार्वजनिक सूचना</a>
+                        <a class="tablinks " href="@Url.Action("","link")">महत्वपूर्ण लिंक</a>
+                        <a class="tablinks active" href="@Url.Action("","BannerImage")">गैलरी</a>
+                        <a class="tablinks " href="@Url.Action("" , "event")">कार्यक्रम</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+                        <div id="" class="row">
+                            @if (Model.Count() > 0)
+                            {
+                                int counter = 0;
+                                @foreach (var item in Model)
+                                {
+                                    counter++;
+
+                                    <div class="col-sm-3   mb-2">
+                                        <div class="shadow">
+                                            <div class="gallery">
+                                                @{
+                                                    string ImageUrl = "/assets/images/bg.jpg";
+                                                }
+                                                @if (item.Image != null)
+                                                {
+                                                    var base64 = Convert.ToBase64String(item.Image);
+                                                    ImageUrl = String.Format("data:{0};base64,{1}", item.ContentType, base64);
+                                                }
+                                                <img src="@ImageUrl" alt="Cinque Terre" class="w-100">
+
+
+                                            </div>
+                                            <div class="desc">@item.DescriptionHindi</div>
+                                        </div>
+                                    </div>
+
+
+                                }
+
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="pagination-wrapper">
+                    <div class="pagination">
+                        <a class="prev page-numbers" href="javascript:;">Prev</a>
+                        <span aria-current="page" class="page-numbers current">1</span>
+                        <a class="page-numbers" href="javascript:;">2</a>
+                        <a class="page-numbers" href="javascript:;">3</a>
+                        <a class="page-numbers" href="javascript:;">4</a>
+                        <a class="page-numbers" href="javascript:;">5</a>
+                        <a class="page-numbers" href="javascript:;">6</a>
+                        <a class="page-numbers" href="javascript:;">7</a>
+                        <a class="page-numbers" href="javascript:;">8</a>
+                        <a class="page-numbers" href="javascript:;">9</a>
+                        <a class="page-numbers" href="javascript:;">10</a>
+                        <a class="next page-numbers" href="javascript:;">Next</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,801 @@
+﻿@using DTL.Model.Models
+@model TDSCalculationModel
+@{
+    ViewData["Title"] = "TDS";
+}
+<style>
+    .offset-md-9 {
+        display: inline-flex !important;
+    }
+
+    .fa-plus-circle {
+        cursor: pointer;
+    }
+
+    .subCatTbl {
+        height: 145px;
+        overflow: auto;
+        display: block;
+    }
+</style>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>TDS Calcualtion</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Disbursement")">Disbursement</a></li>
+                    <li class="breadcrumb-item active">TDS Calculation</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <form id="TDSCalculationForm">
+                            <input type="hidden" id="Id" name="Id" value="@Model.ID" />
+                            <input type="hidden" id="TDSInvestmentId" name="TDSInvestmentId" />
+                            <input type="hidden" id="age" name="age" />
+                            <input type="hidden" id="DOB" name="DOB" />
+                            <input type="hidden" id="EmpRegId" name="EmpRegId" />
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblFinancialYear">Financial Year</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <!--<input type="date" name="FinancialYear" class="form-control" id="FinancialYear" placeholder="Financial Year">-->
+                                    <select id="FinancialYear" name="FinancialYear" class="form-control">
+                                        <option value="">Select Financial Year</option>
+                                        @foreach (var data in ViewBag.FinancialYear)
+                                        {
+                                            if (data == Model.FinancialYear)
+                                            {
+                                                <option value="@data" selected>@data </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@data">@data</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblPensioner">Organization/Company Name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+
+                                    <select id="Pensioner" name="Pensioner" class="form-control">
+                                        <option value="">Select Organization/Company Name</option>
+                                        @foreach (var data in ViewBag.Pensioner)
+                                        {
+                                            if (data == Model.Pensioner)
+                                            {
+                                                <option value="@data" selected>@data</option>
+                                            }
+                                            else
+                                            {
+
+                                                <option value="@data">@data </option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblEmployeeId">Employee ID</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="EmployeeId" class="form-control" id="EmployeeId" placeholder="Employee Id">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblEmployeeName">Employee Name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+
+                                    <input type="text" name="EmployeeName" class="form-control" id="EmployeeName" placeholder="Employee Name">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblRegime">Select Regime</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="radio" name="Regime" id="Regime1" value="Regime 1" checked />
+                                    <label for="lblRegime1">Regime 1</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="Regime" id="Regime2" value="Regime 2" />
+                                    <label for="lblRegime2">Regime 2</label>
+
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblPension">Pension</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="Pension" class="form-control" id="Pension"
+                                           placeholder="Pension Amount" onkeypress="return isNumberKey(event,this)">
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblGratuity">Gratuity</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="Gratuity" class="form-control" id="Gratuity"
+                                           placeholder="Gratuity Amount" onkeypress="return isNumberKey(event,this)">
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblCommutation">Commutation</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="Commutation" class="form-control" id="Commutation"
+                                           placeholder="Commutation Amount" onkeypress="return isNumberKey(event,this)">
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblAQP">AQP</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="AQP" class="form-control" id="AQP" placeholder="Total AQP Amount" onkeypress="return isNumberKey(event,this)">
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblDA">DR (Dearness Relief)</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="DA" class="form-control" id="DA" placeholder="Dearness Relief" onkeypress="return isNumberKey(event,this)">
+                                </div>
+
+
+
+                                @*
+            <div class="col-md-2">
+                <label for="lblHRA">House Rent Allowance</label>
+            </div>
+            <div class="col-md-4 form-group">
+                <input type="text" name="HRA" class="form-control" id="HRA" placeholder="House Rent Allowance" onkeypress="return isNumberKey(event,this)">
+            </div>
+
+
+            <div class="col-md-2">
+                <label for="lblLTA">Travel Allowance</label>
+            </div>
+            <div class="col-md-4 form-group">
+                <input type="text" name="LTA" class="form-control" id="LTA" placeholder="Travel Allowance" onkeypress="return isNumberKey(event,this)">
+            </div>
+
+                                *@
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblMA">Medical Allowance</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="MA" class="form-control" id="MA" placeholder="Medical Allowance" onkeypress="return isNumberKey(event,this)">
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblLeaveEncashment">Leave Encashment</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="LeaveEncashment" class="form-control" id="LeaveEncashment"
+                                           placeholder="Leave Encashment" onkeypress="return isNumberKey(event,this)">
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblOtherIncome">Other Income</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="OtherIncome" class="form-control" id="OtherIncome" placeholder="Other Taxable Income" onkeypress="return isNumberKey(event,this)">
+                                </div>
+
+
+                                <div id="divRegima1StdDed" class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="w-100 form-label text-right" for="lblStandardDeduction">Standard Deduction</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="text" name="StandardDeduction" class="form-control" id="StandardDeduction" placeholder="Standard Deduction" onkeypress="return isNumberKey(event,this)">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblTaxableAmount">Taxable Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="TaxableAmount" class="form-control" id="TaxableAmount" placeholder="Taxable Amount" readonly>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblExemptedAmount">Exempted Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group d-flex">
+                                    <input type="text" name="ExemptedAmount" class="form-control" id="ExemptedAmount" placeholder="Tax Exemption Amount" readonly />
+                                    @if (Convert.ToBoolean(ViewBag.Create))
+                                    {
+                                    <a href="#" class="btn btn-outline-primary ml-2" data-toggle="modal" data-target="#addInvestmentModal">Deductions</a>
+                                    }
+                                </div>
+                                @*<div class="col-md-3 form-group" style="display: inline-flex">
+                <i class="fa fa-plus-circle mr-2 pt-2" id="btn80DD"></i>
+                <input type="text" name="80DD" class="form-control" id="80DD" placeholder="80DD" />
+            </div>*@
+
+                            </div>
+                            <!-- /.modal -->
+                            <div class="modal fade" id="addInvestmentModal">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Investments</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card card-primary card-outline card-tabs">
+                                                        <div class="card-header p-0 pt-1 border-bottom-0">
+                                                            <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active" id="custom-tabs-80DD-tab" data-toggle="pill" href="#custom-tabs-80DD" role="tab"
+                                                                       aria-controls="custom-tabs-three-home" aria-selected="true">80DD</a>
+                                                                </li>
+                                                                <li class="nav-item" id="li80c">
+                                                                    <a class="nav-link" id="custom-tabs-80C-tab" data-toggle="pill" href="#custom-tabs-80C" role="tab"
+                                                                       aria-controls="custom-tabs-three-profile" aria-selected="false">80C</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" id="custom-tabs-Homeloan-tab" data-toggle="pill" href="#custom-tabs-Homeloan" role="tab"
+                                                                       aria-controls="custom-tabs-three-messages" aria-selected="false">Home Loan</a>
+                                                                </li>
+                                                                <li class="nav-item" id="liEduLoan">
+                                                                    <a class="nav-link" id="custom-tabs-EducationLoan-tab" data-toggle="pill" href="#custom-tabs-EducationLoan" role="tab"
+                                                                       aria-controls="custom-tabs-three-settings" aria-selected="false">Education Loan</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" id="custom-tabs-Donation-tab" data-toggle="pill" href="#custom-tabs-Donation" role="tab"
+                                                                       aria-controls="custom-tabs-three-settings" aria-selected="false">Donation</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" id="custom-tabs-Misc-tab" data-toggle="pill" href="#custom-tabs-Misc" role="tab"
+                                                                       aria-controls="custom-tabs-three-settings" aria-selected="false">MISC</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="tab-content" id="custom-tabs-three-tabContent">
+                                                                <div class="tab-pane fade show active" id="custom-tabs-80DD" role="tabpanel" aria-labelledby="custom-tabs-80DD-tab">
+                                                                    <div class="row pt-2" id="div80D">
+                                                                        <div class="col-md-2">80D</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80D" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80D" id="file80D">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80D" data-filePath="@Model.InvFilePath80D" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2" id="div80DD">
+                                                                        <div class="col-md-2">80DD</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80DD" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80DD" id="file80DD">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80DD" data-filePath="@Model.InvFilePath80DD" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-2">80DDB</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80DDB" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80DDB" id="file80DDB">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80DDB" data-filePath="@Model.InvFilePath80DDB" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="custom-tabs-80C" role="tabpanel" aria-labelledby="custom-tabs-80C-tab">
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">5 Years Term Deposit under post office time deposit Rule 1981</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt5YrsTermDepositPostoffice" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file5YrsTermDpositPostOffice" id="file5YrsTermDpositPostOffice">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath5YrsTermDepositPostoffice" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Life Insurance/Pension Plan Premium</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtLIC_Pension_Plan" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileLIC_Pension_Plan" id="fileLIC_Pension_Plan">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathLIC_Pension_Plan" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">National Saving Certificate</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtNSC" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileNSC" id="fileNSC">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathNSC" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Public Provident Fund</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtPPF" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="filePPF" id="filePPF">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathPPF" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Stamp Duty and Registration charges of a House Property</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtStampDuty" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileStampDuty" id="fileStampDuty">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathStampDuty" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Sukanya Samriddhi Yojana</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtSukanyaSmriddhiYojana" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileSukanyaSmriddhiYojana" id="fileSukanyaSmriddhiYojana">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathSukanyaSmriddhiYojana" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Term Deposit (Bank FD 5yrs Block Period)</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtTermDepositBank" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileTermDepositBank" id="fileTermDepositBank">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathTermDepositBank" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Tuition Fees</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtTF" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileTF" id="fileTF">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathTF" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Unit Link Insurance Plan</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtULIP" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileULIP" id="fileULIP">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathULIP" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Units of Mutual Funds</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtMF" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileMF" id="fileMF">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathMF" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="tab-pane fade" id="custom-tabs-Homeloan" role="tabpanel" aria-labelledby="custom-tabs-Homeloan-tab">
+                                                                    <div class="row pt-2" id="divHousingLoanInt">
+                                                                        <div class="col-md-3">Housing Loan Principle and Interest Component on House Property</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtHousingLoanInt" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileHousingLoanInt" id="fileHousingLoanInt">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathHousingLoanInt" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Additional Interest on Housing Loan - FY 2016-17</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtHousingLoanInt1617" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileHousingLoanInt1617" id="fileHousingLoanInt1617">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathHousingLoanInt1617" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-3">Additional Interest on Housing Loan - FY 2019-20-17</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txtHousingLoanInt1920" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="fileHousingLoanInt1920" id="fileHousingLoanInt1920">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePathHousingLoanInt1920" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                                <div class="tab-pane fade" id="custom-tabs-EducationLoan" role="tabpanel" aria-labelledby="custom-tabs-EducationLoan-tab">
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-2">80E</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80E" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80E" id="file80E">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80E" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="tab-pane fade" id="custom-tabs-Donation" role="tabpanel" aria-labelledby="custom-tabs-Donation-tab">
+                                                                    <div class="row pt-2" id="div80G">
+                                                                        <div class="col-md-2">80G</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80G" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80G" id="file80G">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80G" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-2">80GGB</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80GGB" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80GGB" id="file80GGB">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80GGB" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-2">80GGC</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80GGC" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80GGC" id="file80GGC">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80GGC" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="tab-pane fade" id="custom-tabs-Misc" role="tabpanel" aria-labelledby="custom-tabs-Misc-tab">
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-2">80GG</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80GG" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80GG" id="file80GG">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80GG" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-2">80RRB</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80RRB" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80RRB" id="file80RRB">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80RRB" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2" id="div80TTA">
+                                                                        <div class="col-md-2">80TTA</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80TTA" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80TTA" id="file80TTA">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80TTA" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2" id="div80TTB">
+                                                                        <div class="col-md-2">80TTB</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80TTB" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80TTB" id="file80TTB">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80TTB" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pt-2">
+                                                                        <div class="col-md-2">80U</div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" id="txt80U" class="form-control" onkeypress="return isNumberKey(event,this)" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="file" name="file80U" id="file80U">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <a href="#" id="InvFilePath80U" data-filePath="" class="btn btn-outline-primary viewFile">View</a>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.card -->
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btnAddExemptionAmt">Add</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+
+
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblNetTaxableAmount">Net Taxable Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="NetTaxableAmount" class="form-control" id="NetTaxableAmount" placeholder="Net Taxable Amount" readonly>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblTaxpaybleAmount">Tax Payable Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="TaxPayableAmount" class="form-control" id="TaxPayableAmount" placeholder="Tax Amount" readonly>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblCess">Cess %</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="Cess" id="Cess" class="form-control" value="4" placeholder="Cess %" onkeypress="return isNumberKey(event,this)" />
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="w-100 form-label text-right" for="lblMonthlyTDS">Monthly TDS</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input type="text" name="MonthlyTDS" class="form-control" id="MonthlyTDS" placeholder="Tax Exemption Amount" readonly>
+                                </div>
+
+                            </div>
+
+                            <!-- /.card-body -->
+                            <div class="row">
+                                <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                    @if (Convert.ToBoolean(ViewBag.Create))
+                                    {
+                                        <button type="submit" class="btn btn-primary" id="btnSaveTDS">Save</button>
+                                        <a href="@Url.Action("TDSCalculation", "Disbursement")" class="btn btn-danger">Cancel</a>
+                                    }
+                                    </div>
+                            </div>
+                            
+
+
+                           
+                        </form>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="ViewDocModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">View Document</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="ifrmDoc" src="" style="width: 100%; height: calc(80vh - 44px);"></iframe>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+@section Disbursement{
+    <script src="~/js/Disbursement/TDSCalculation.js" asp-append-version="true"></script>
+    <script>
+        window.onload = SelectFinancialYear;
+
+        function onKeyPressBlockNumbers(value) {
+            reg = /^\-?([1-9]\d*|0)(\.\d?[1-9])?$/;
+            if (!reg.test(value)) {
+                alert("please enter numaric values only");
+                return false;
+            }
+            return reg.test(value);
+        }
+
+        $("#TaxPayableAmount").change(function () {
+            var TaxPayAmt, MonthlyTDS;
+            calculateTaxableAmount();
+            /* if (isNaN($("#TaxPayableAmount").val()) || $("#TaxPayableAmount").val() == '') { TaxPayAmt = 0; }
+             else
+                 TaxPayAmt = $("#TaxPayableAmount").val();
+             MonthlyTDS = TaxPayAmt / 12;
+             MonthlyTDS = MonthlyTDS.toFixed(2);
+             $("#MonthlyTDS").val(MonthlyTDS);*/
+        });
+
+        $("#80DD").change(function () {
+
+            CalculateExemptedAmount();
+            CalculateTDS();
+            // GetJsonData();
+            calculateTaxableAmount();
+        });
+        $('#Pensioner').on('change', function () {
+            $("#Id").val("");
+            $("#TDSInvestmentId").val("");
+            $("#EmployeeId").val("");
+            $("#EmployeeName").val("");
+            $("#EmpRegId").val("");
+            $("#Pension").val("");
+            $("#Gratuity").val("");
+            $("#Commutation").val("");
+            $("#AQP").val("");
+            $("#DA").val("");
+            $("#OtherIncome").val("");
+            $("#ExemptedAmount").val("");
+
+            $("#TaxableAmount").val("");
+            $("#StandardDeduction").val("");
+            $("#NetTaxableAmount").val("");
+            $("#TaxPayableAmount").val("");
+            $("#MonthlyTDS").val("");
+
+            $("#TDSInvestmentId").val("");
+            $("#Id").val("");
+            $('#txt80D').val("");
+            $('#txt80DD').val("");
+            $('#txt80DDB').val("");
+            $('#txt5YrsTermDepositPostoffice').val("");
+            $('#txtLIC_Pension_Plan').val("");
+            $('#txtNSC').val("");
+            $('#txtPPF').val("");
+            $('#txtStampDuty').val("");
+            $('#txtSukanyaSmriddhiYojana').val("");
+            $('#txtTermDepositBank').val("");
+            $('#txtTF').val("");
+            $('#txtULIP').val("");
+            $('#txtMF').val("");
+            $('#txtHousingLoanInt').val("");
+            $('#txtHousingLoanInt1617').val("");
+            $('#txtHousingLoanInt1920').val("");
+            $('#txt80E').val("");
+            $('#txt80G').val("");
+            $('#txt80GGB').val("");
+            $('#txt80GGC').val("");
+
+
+        });
+
+    </script>
+}

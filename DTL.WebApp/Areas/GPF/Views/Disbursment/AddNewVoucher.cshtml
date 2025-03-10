@@ -1,0 +1,193 @@
+﻿@{
+    ViewData["Title"] = "Add New Voucher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .form-select {
+        background-image: none !important;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Voucher Form </h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="/">Dashboard</a><span class="px-1">/</span><span>Voucher Form</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <form id="voucherForm">
+            <div class="card-body">
+                <div class="my-4 border_bottom pb-4 row">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                        <label class="form-label d-block mb-1">Loan Number<span class="text-danger req_text">*</span></label>
+                        <input id="txtClaimId" type="text" name="loanNumber" class="validateThis form-control form-control-sm" placeholder="Application Id">
+                        <div class="invalid-feedback">
+                            Please Enter Loan Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 ">
+                        <label class="form-label d-block mb-1">Loan Type<span class="text-danger req_text">*</span></label>
+                        <input id="loanId" type="text" name="loanType" pname="loanType" class=" form-control form-control-sm ds" disabled value="Refundable">
+
+                    </div>
+
+
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3  position-relative">
+                        <button class="btn btn-success  position-absolute bottom-0" type="button" id="btnSearch" onclick="LoadLoanApplication()"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="row" id="voucher_show_hide">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">Employee Id</label>
+                        <input type="text" id="EmpCode" name="employeeCode" pname="employee.basicDetails.employeeCode" class="ds form-control form-control-sm validateThis" placeholder="Emp Code">
+                        <div class="invalid-feedback">
+                            Please Enter Employee Id
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Organization</label>
+                        <input type="text" id="txtSettlement" name="organisation" pname="employee.organisation" class="ds form-control form-control-sm validateThis" placeholder="Organization">
+                        <div class="invalid-feedback">
+                            Please Enter Organization
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Pay To Shri / Smt</label>
+                        <input id="txtPayToShrismt" type="text" name="employeeName" pname="employee.name" class="ds form-control form-control-sm validateThis" placeholder="Pay To Shri / Smt">
+                        <div class="invalid-feedback">
+                            Please Enter Pay To Shri / Smt.
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Approved Amount</label>
+                        <input type="text" id="txtAmountInWords" name="loanAmount" pname="loanAmount" class="ds form-control form-control-sm validateThis" placeholder="Amount In Words">
+                        <div class="invalid-feedback">
+                            Please Enter Approved Amount
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name"> In Words</label>
+                        <input type="text" id="txtAmountInWords" name="loanAmountWords" pname="loanAmountWords" class="ds2 form-control form-control-sm validateThis" disabled placeholder="Amount In Words" value="one thousand">
+
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Account Number</label>
+                        <input type="text" id="txtAccountNumber" name="accountNumber" pname="bankDetails.accountNumber" class="ds form-control form-control-sm validateThis" placeholder="Account Number">
+                        <div class="invalid-feedback">
+                            Please Enter Account Number.
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Bank name</label>
+                        <input type="text" id="txtBankName" name="bankName" pname="bankDetails.bankName" class="ds form-control form-control-sm validateThis" placeholder="Bank name">
+                        <div class="invalid-feedback">
+                            Please Enter Bank name.
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">Branch Name</label>
+                        <input type="text" id="txtBankBranch" name="branchName" pname="bankDetails.branchName" class="ds form-control form-control-sm validateThis" placeholder="Branch Name">
+                        <div class="invalid-feedback">
+                            Please Enter Branch Name.
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1">BIC Code</label>
+                        <input type="text" id="txtBICCode" name="bic" pname="bankDetails.bic" class="ds form-control form-control-sm validateThis" placeholder="BIC Code">
+                        <div class="invalid-feedback">
+                            Please Enter BIC Code.
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3">
+                        <label class="form-label d-block mb-1">IFSC Number</label>
+                        <input type="text" id="txtIFSCCode" name="ifsc" pname="bankDetails.ifsc" class="ds form-control form-control-sm validateThis" placeholder="IFSC Number">
+                        <div class="invalid-feedback">
+                            Please Enter IFSC Number.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                    <a class="btn btn-brand me-2 submitBtn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#approvemsg">Submit</a>
+                    <a href="#" class="btn btn-cancel me-2">Cancel</a>
+                    <button class="btn btn-reset me-2" type="button" id="btnReset">Reset</button>
+                </div>
+            </div>
+        </form>
+        <div class="modal fade" id="approvemsg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+
+                    <div class="modal-body ">
+                        <div class="content p-0">
+                            <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                            <p class="message-type text-blod  pt-3">
+                                Voucher Generated Successfully
+                            </p>
+                            <p class="message-type text-blod pt-0 mt-0">Voucher Number : <span><label id="voucherNumber" style="font-weight:bold"></label></span></p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/assets/js/commonJs.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        var appNo = params['loanNumber'];
+
+        $('[name="loanAmount"]').on('keyup change', function(){
+            $('[name="loanAmountWords"]').val(intoWords($(this).val()));
+        })
+
+        if (appNo) {
+            $('[name="loanNumber"]').val(appNo);
+            LoadLoanApplication()
+        }
+    });
+
+    function LoadLoanApplication() {
+        var appNo = $('[name="loanNumber"]').val();
+        if (!appNo) { toastr.warning('Please enter Loan Number'); return; }
+        $.get('@Url.Action("GetLoanApplication", "Data")?applicationNumber=' + encodeURIComponent(appNo)).then(r => {
+            if (r) {
+                $('.ds').each(function () {
+                    $(this).val(eval('r.' + $(this).attr('pname'))).trigger('change');
+                })
+            }
+            else { toastr.warning('Invalid Loan Number'); return; }
+        });
+    }
+
+    function intoWords(num) {
+        var a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+        var b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        if ((num = num.toString()).length > 9) return 'overflow';
+        n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!n) return; var str = '';
+        str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+        str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+        str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+        str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+        str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'Only ' : 'Only';
+        return str;
+    }
+</script>

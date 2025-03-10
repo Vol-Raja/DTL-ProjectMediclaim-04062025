@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "Cheque";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Cheque Format</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .cheque {
+            width: 800px; /* Width of the cheque in pixels */
+            height: 300px; /* Height of the cheque in pixels */
+            border: 2px solid #000;
+            padding: 20px;
+            position: relative;
+            margin: 20px auto;
+            background: #f9f9f9; /* Light background color */
+        }
+
+        .bank-name {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .cheque-info {
+            font-size: 14px;
+            position: absolute;
+        }
+
+        input[type="text"] {
+            border: none;
+            border-bottom: 1px solid #000;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            max-width: 200px;
+            text-align: left;
+        }
+
+        .date {
+            top: 20px;
+            right: 20px;
+            width: 150px;
+        }
+
+        .payee {
+            top: 80px;
+            left: 20px;
+            width: 500px;
+        }
+
+        .amount {
+            top: 140px;
+            right: 20px;
+            width: 150px;
+            text-align: right;
+        }
+
+        .signature {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .amount-words {
+            top: 200px;
+            left: 20px;
+            width: 600px;
+            font-style: italic;
+          /*  transform: rotate(-90deg);*/
+        }
+    </style>
+</head>
+<body>
+    <div class="cheque-container">
+        <div class="cheque">
+           
+            <div class="cheque-info date">
+                Date: <input type="text" placeholder="DD/MM/YYYY">
+            </div>
+            <div class="cheque-info payee">
+                Payee's A/c only: <input type="text" placeholder="Enter Payee Name">
+            </div>
+            <div class="cheque-info amount">
+                ₹ <input type="text" placeholder="Enter Amount">
+            </div>
+            <div class="cheque-info amount-words">
+                Amount in Words: <input type="text" placeholder="Enter Amount in Words">
+            </div>
+            <div class="cheque-info signature">
+                Signature: <input type="text" placeholder="Your Signature">
+            </div>
+        </div>
+    </div>
+    <button class="print-btn" onclick="printCheque()">Print</button>
+
+    <script>
+        function printCheque() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
+
+
+
+

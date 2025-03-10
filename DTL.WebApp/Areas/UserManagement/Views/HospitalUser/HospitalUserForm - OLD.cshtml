@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "Hospital User Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .error {
+        border: solid 1px #ff0000;
+    }
+</style>
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Hospital Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("HospitalUserList","HospitalUser",new { Area="UserManagement" })">Hospital Users</a></li>
+                        <li class="breadcrumb-item active">Hospital Form</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form action="/" method="post">
+                                <input type="hidden" id="hdnhospitaluserid" value="@ViewBag.HospitalUserId" />
+                                <input type="hidden" id="hdnhospitalUserFormMode" value="@ViewBag.Mode" />
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtNameOfHospital">Name of Hospital</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name of Hospital" required name="txtNameOfHospital" id="txtNameOfHospital" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtEmailAddress">Email ID</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Email ID" required name="txtEmailAddress" id="txtEmailAddress" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtPhoneNumber">Phone Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Phone Number" required name="txtPhoneNumber" id="txtPhoneNumber" />
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtTypeOfHospital">Type of Hospital</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Type of Hospital" required name="txtTypeOfHospital" id="txtTypeOfHospital" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtAuthorizedPerson">Name of Authorised Person</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name of Authorised Person" required name="txtAuthorizedPerson" id="txtAuthorizedPerson" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtAddress">Address</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <textarea class="form-control" placeholder="Enter Hospital Address" name="txtAddress" id="txtAddress"></textarea>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button type="button" class="btn btn-primary" id="btnSubmit">Submit</button>
+                                        <a href="/UserManagement/HospitalUser/HospitalUserList" class="btn btn-danger">Cancel</a>
+                                        <a class="btn btn-info">Reset</a>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section HospitalUser{
+    <script type="text/javascript" src="~/js/UserManagement/hospitaluser.js"></script>
+
+
+}

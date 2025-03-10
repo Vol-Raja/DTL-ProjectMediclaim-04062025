@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link href="~/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/dist/css/newCss/bootstrap.min.css">
+    <!-- Theme style -->
+    <!-- Bootstrap CSS -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/style.css" rel="stylesheet">
+
+    <link href="~/assets/css/fontAwesome/all.min.css" rel="stylesheet">
+    <link href="~/plugins/toastr/toastr.min.css" rel="stylesheet" />
+    <style>
+
+        /*      header {
+            background: white;
+            box-shadow: 0px 0px 10px 0px lightgray;
+            padding: 20px 0px;
+            z-index: 1;
+        }*/
+
+        /* .login_links {
+            height: 100vh;
+            padding: 20px 0px;
+        }
+
+        .login_links_div {
+            box-shadow: 0px 0px 10px 10px lightgrey;
+            background: #4abdac;
+        }
+
+            .login_links_div .login_links h5 {
+                color: #000066;
+                margin-left: 10px
+            }
+
+        .login_links ul {
+            padding-left: 10px;
+        }
+
+            .login_links ul li {
+                list-style: none;
+                margin-bottom: 8px;
+                position: relative;
+                padding: 0px 10px;
+            }
+
+                .login_links ul li a {
+                    color: #000066;
+                    font-weight: 500;
+                    transition: all 0.2s linear;
+                }
+
+                    .login_links ul li a:hover {
+                        color: white;
+                        margin-left: 10px;
+                    }
+
+                    .login_links ul li a.active {
+                        color: white;
+                        margin-left: 10px;
+                    }
+
+                        .login_links ul li a.active i {
+                            display: inline;
+                        }
+
+                    .login_links ul li a i {
+                        display: none;
+                        position: absolute;
+                        left: 0px;
+                        top: 5px;
+                        color: white
+                    }
+
+                    .login_links ul li a:hover i {
+                        display: inline;
+                        transition: all 0.01s linear;
+                    }
+
+        .login-card-body {
+            border-bottom: 5px solid #4abdac;
+        }
+
+            .login-card-body button[type="submit"] {
+                background: #000066;
+                color: white;
+                transition: all 0.2s linear;
+            }
+
+                .login-card-body button[type="submit"]:hover {
+                    background: #02028f;
+                    color: white;
+                    box-shadow: 0px 0px 15px 5px lightgrey;
+                }
+
+            .login-card-body a.btn-primary {
+                background: #000066;
+                color: white;
+                transition: all 0.2s linear;
+            }
+
+            .login-card-body a.btn-primary {
+                background: #02028f;
+                color: white;
+                box-shadow: 0px 0px 15px 5px lightgrey;
+            }
+
+        .login-box h4 {
+            color: #000066;
+        }*/
+    </style>
+</head>
+
+<body class="hold-transition " style="height: 100%">
+    @*<header class="w-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="logo text-center">
+                            <img src="~/dist/img/AdminLTELogo.png" alt="AdminLTELogo" width="80">
+                        </div>
+                    </div>
+                    <div class="col-md-8 my-auto">
+                        <div class="logo_name mx-auto text-center">
+                            <h3>Delhi Vidyut Board Employees Terminal Benefits Fund</h3>
+                            <h5>Government of NCT of Delhi</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-2 my-auto">
+                        <div class="text-center">
+                            <button class="btn btn-primary"><i class="fa fa-home mr-2"></i>Home</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-center">
+
+
+                    </div>
+                </div>
+            </div>
+        </header>*@
+    <header style="background-color: #003399;">
+        <div class="container-fuild">
+            <div class="row mx-0">
+                <div class="col-12 d-flex py-2">
+
+                    <img src="~/assets/images/dvb.jpg" alt="" style="width: 56px; height: fit-content;">
+                    <div class="my-auto ms-3">
+                        <h5 class="text-white">DVEBTBF</h5>
+                        <span class="d-block text-white">PTIS (Pension Trust Information System)</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+    @*<div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 login_links_div">
+                    <div class="login_links">
+                        <h5>Login Links</h5>
+                        <ul id="list-roles">
+                            <li><a href="#" class="active"><i class="fa fa-chevron-right" aria-hidden="true"></i>DVB User Login</a></li>
+                            <li><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i>Hospital Login</a></li>
+                            <li><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i>Admin Login</a></li>
+                            <li><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i>Master Login</a></li>
+                            <li><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i>Pensioner Login</a></li>
+                            <li><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i>Existing Employee Login</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="login-box mt-5 mx-auto">
+
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>*@
+ 
+
+                        @RenderBody()
+                        @*<div class="text-center">
+                                <h5 class="m-0">LOGIN</h5>
+                                <span class="mb-4 d-block" style="color: #003399; font-size: 14px;">
+                                    Sign in to start
+                                    your session
+                                </span>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label d-block mb-1">
+                                    Username<span class="text-danger req_text">*</span>
+                                </label>
+                                <input id="txtUserId" type="text" class="form-control form-control-sm is-invalid" placeholder="Username" maxlength="20"
+                                       runat="server" enableviewstate="true" />
+                                <div class="invalid-feedback">
+                                    The Username is required
+                                </div>
+                            </div>
+                            <div class="mb-2 position-relative">
+                                <label class="form-label d-block mb-1">
+                                    Password<span class="text-danger req_text">*</span>
+                                </label>
+                                <input id="txtPassword" type="password" class="form-control form-control-sm is-invalid"
+                                       maxlength="20" runat="server" enableviewstate="false" placeholder="Password" />
+                                <i class="fa fa-eye password_eye login_password_eye toggle-password" aria-hidden="true"></i>
+                                <div class="invalid-feedback">
+                                    The password is required
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label d-block mb-1">
+                                    Captcha<span class="text-danger req_text">*</span>
+                                </label>
+                                <input type="text" class="form-control form-control-sm" maxlength="20"
+                                       enableviewstate="false" />
+                                <div class="d-flex">
+                                    <img src="assets/images/captcha.JPG" style="width: 200px;" />
+                                    <i class="fa-solid fa-arrows-rotate my-auto ms-3"></i>
+                                </div>
+                            </div>
+                            <div class="mb-3 submit_area row text-left position-relative">
+                                <a href="dashboard.html" class="btn btn-sm btn-brand">Log in</a>
+
+                                <a href="authentication/forgetPassword.html" class="forgetPasswordtext">
+                                    Forget
+                                    Password ?
+                                </a>
+                            </div>*@
+
+              
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script type="text/javascript">
+        $("#list-roles li").on("click", function () {
+            $("#list-roles li a").removeClass("active");
+            $(this).find('a').addClass("active");
+            $('#hrLoginName').text($(this).text());
+        });
+    </script>
+</body>
+</html>

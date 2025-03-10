@@ -1,0 +1,177 @@
+﻿@using DTL.Model.Models.UserManagement
+@using DTL.WebApp.Areas.WebsiteCMS
+@model DVBUserModel
+
+@{
+    ViewData["Title"] = "DVB User Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">DVB New User Create</h3>
+        </div>
+
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","Home",new { Area="" })"><span class="">Dashboard </span> </a>
+            <span class="px-1">/</span>
+            <a href="@Url.Action("DVBUserList", "DVBUser", new { Area = "UserManagement" })"><span class=""> DVB User List </span> </a>
+            <span class="px-1">/</span>
+            Add DVB
+        </p>
+
+    </div>
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+            <form id="DVBUserForm" class="row g-3 mt-2 needs-validation">
+                <input type="hidden" id="id" name="id" value="@Model.ID" />
+                <input type="hidden" id="IsNew" name="IsNew" value="@((Model.ID == default).ToString())" />
+                @Html.HiddenFor(m => m.DVBUserId)
+                <input type="hidden" id="hdnDesignation" value="@Model.Designation" />
+
+                <div class="row">
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1" for="name">Name<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="name" name="Name" value="@Model.Name" disabled="@Model.IsReadOnly" class="form-control form-control-sm" placeholder="Name" required />
+                        @* <div class="invalid-feedback">
+                Please provide a valid name.
+                </div>*@
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1">Mobile No.<span class="text-danger req_text">*</span></label>
+                        <input type="number" name="PhoneNumber" value="@Model.PhoneNumber" disabled="@Model.IsReadOnly" class="form-control form-control-sm" placeholder="Mobile No" pattern="[789][0-9]{9}" required />
+                        @*<div class="invalid-feedback">
+                Please provide a valid mobile number.
+                </div>*@
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1">Email id<span class="text-danger req_text">*</span></label>
+                        <input type="email" name="EmailAddress" value="@Model.EmailAddress" disabled="@Model.IsReadOnly" class="form-control form-control-sm" placeholder="Email id" />
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1">User Name<span class="text-danger req_text">*</span></label>
+                        <input type="text" name="Username" value="@Model.Username" disabled="@(Model.IsReadOnly || Model.ID != default)" class="form-control form-control-sm" placeholder="User Name" />
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1">Department<span class="text-danger req_text">*</span></label>
+
+                        <select id="Department" name="Department" value="@Model.Department" disabled="@Model.IsReadOnly" class="form-select">
+                            <option value="">Select</option>
+
+                            @foreach (var department in ViewBag.Departments)
+                            {
+                                <option>@department.Name</option>
+                            }
+
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1">Designation<span class="text-danger req_text">*</span></label>
+
+                        <select id="Designation" name="Designation" value="@Model.Designation" disabled="@Model.IsReadOnly" class="form-select">
+                            <option value="">Select</option>
+
+                            @foreach (var designation in ViewBag.Designations)
+                            {
+                                <option>@designation.DesignationName</option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <div class="position-relative error_right_main_div">
+                            <label class="form-label d-block mb-1">Dashboard<span class="text-danger req_text">*</span></label>
+                            <select onchange="onChangeDashboardUrl(this)" id="DashboardUrl" name="DashboardUrl" value="@Model.DashboardUrl" disabled="@Model.IsReadOnly" class="form-select">
+                                <option value="">Select</option>
+                                <option class="Mediclaim dashboardOption" value="/Mediclaim/CMO">CMO Dashboard</option>
+                                <option class="Mediclaim dashboardOption" value="/Mediclaim/OPD">Dealing Assistant (OPD) Dashboard</option>
+                                <option class="Mediclaim dashboardOption" value="/Mediclaim/IPD">Dealing Assistant (IPD) Dashboard</option>
+                                @* <option class="Mediclaim dashboardOption" value="/"> Dealing Assistant (Cancer) Dashboard</option>
+                        <option class="Mediclaim dashboardOption" value="/">Dealing Assistant (Dialysis) Dashboard</option>
+                        <option class="Mediclaim dashboardOption" value="/">Dealing Assistant (Dispensary) Dashboard</option>*@
+                                <option class="Mediclaim dashboardOption" value="/Mediclaim/ASO">ASO Dashboard</option>
+                                <option class="Mediclaim dashboardOption" value="/Mediclaim/SO">SO Dashboard</option>
+                                <option class="Mediclaim dashboardOption" value="/Mediclaim/AMDM">AM/DM Dashboard</option>
+                                <option class="Mediclaim dashboardOption" value="/Mediclaim/Disbursment">Mediclaim Disbursment Dashboard</option>
+                                <option class="GPF  dashboardOption" value="/GPF/Processing/Dashboard">GPF Processing Dashboard</option>
+                                @*<option class="GPF  dashboardOption" value="/">GPF Loan Processing Dashboard</option>*@
+                                <option class="GPF  dashboardOption" value="/GPF/Withdrawal/">GPF Withdrawl Processing Dashboard</option>
+                                <option class="GPF  dashboardOption" value="/GPF/AG2">GPF AG2 dashboard</option>
+                                <option class="GPF  dashboardOption" value="GPF/AM_DM">GPF AM/DM Dashboard</option>
+                                @*   <option class="GPF  dashboardOption" value="/">GPF settlement Dashboard</option>
+                        <option class="GPF  dashboardOption" value="/"> GPF Edlis Dashboard</option>*@
+                                <option class="GPF  dashboardOption" value="/GPF/Disbursment">GPF Disbursment Dashboard</option>
+                                <option class="PensionPaymentOrder  dashboardOption" value="/Pensioner">Pensioner Dashboard</option>
+                                @*<option class="PensionPaymentOrder  dashboardOption" value="/">PPO AM Approval Dashboard</option>
+                        <option class="PensionPaymentOrder  dashboardOption" value="/">PPO Cell Approval Dashboard</option>
+                        <option class="PensionPaymentOrder  dashboardOption" value="/">PPO Disbursment Dashboard</option>*@
+                                <option class="LegalCase dashboardOption" value="/LegalAdvisor">Legal Advisor Dashboard</option>
+                                <option class="Grievance dashboardOption" value="/Grievance">Grievance Head Dashboard</option>
+                                <option class="FinanceDepartment dashboardOption" value="/FinanceManagement">Finance Dashboard</option>
+                                <option class="Hospital dashboardOption" value="/Mediclaim/Dashboard/hospitaldashboard">Hospital Dashboard</option>
+                                <option class="Employee dashboardOption" value="/Employee">Employee Dashboard</option>
+                            </select>
+                            @Html.HiddenFor(m => Model.Dashboard)
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label d-block mb-1">Address<span class="text-danger req_text">*</span></label>
+                        <textarea name="Address" disabled="@Model.IsReadOnly" class="form-control form-control-sm" placeholder="Address">@Model.Address</textarea>
+                    </div>
+                    <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                        @if (Model.IsReadOnly == false)
+                        {
+                            <a class="btn btn-brand me-2" id="btnSubmit" role="button">@(Model.ID == default ? "Submit" : "Update")</a>
+                            <a onclick="showConfirmSwal('Are you sure you want cancel?',function(){ location.href='/UserManagement/DVBUser/DVBUserList';  }); return false;" class="btn btn-cancel me-2" role="button">Cancel</a>
+                            <button onclick="location.reload(); return false" class="btn btn-reset me-2">Reset</button>
+                        }
+                        else
+                        {
+                            <a onclick="showConfirmSwal('Are you sure you want to go back?',function(){ location.href='/UserManagement/DVBUser/DVBUserList';  }); return false;" class="btn btn-cancel me-2" role="button">Back</a>
+
+                        }
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#DashboardUrl option").filter(function () {
+            return $(this).text() == '@Model.Dashboard';
+        }).prop("selected", true);
+
+        $("#Department option").filter(function () {
+            return $(this).text() == '@Model.Department';
+        }).prop("selected", true);
+
+        (function () {
+            $('#Designation').val($('#hdnDesignation').val());
+        })()
+
+    });
+
+    function onChangeDashboardUrl(selected) {
+        $("#Dashboard").val($('#DashboardUrl :selected').text());
+    }
+
+    
+    
+</script>
+
+@section DVBUser{
+    <script type="text/javascript" src="~/js/UserManagement/dvbuser.js"></script>
+}

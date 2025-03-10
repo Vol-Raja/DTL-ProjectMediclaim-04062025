@@ -1,0 +1,85 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "About us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>Hospital List</h1>
+                <p><a href="@Url.Action("","home")">Home</a> / <span>Retired Employee Services / Hospitals List</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidebar">
+
+                    <div class="tab">
+                       
+                        <a class="tablinks" href="@Url.Action("","form")">
+                            Latest  Forms
+                        </a>
+                        <a class="tablinks active" href="../assets/documents/hospital/LIST_OF_PANEL_HOSPITALS.pdf">Empanelled Hospital List</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 px-0 shadow mb-5">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Hospitals</th>
+                                    <th>Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>CASHLESS HOSPITALS FOR INDOOR TREATMENT CASHLESS HOSPITALS FOR INDOOR TREATMENT</td>
+                                    <td><a target="_blank" href="assets/documents/hospital/CASHLESS_HOSPITALS_FOR_INDOOR_TREATMENT.pdf"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Download</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>GOI O.M. on Medical Reimbursment</td>
+                                    <td><a target="_blank" href="assets/documents/hospital/GOI_O.M._on_Medical_Reimbursment.pdf"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Download</a></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>LIST OF DIAGNOSTIC CENTERS</td>
+                                    <td><a target="_blank" href="assets/documents/hospital/LIST_OF_DIAGNOSTIC_CENTERS.pdf"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Download</a></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>LIST OF PANEL HOSPITALS</td>
+                                    <td><a target="_blank" href="assets/documents/hospital/LIST_OF_PANEL_HOSPITALS.pdf"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Download</a></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>LIST OF PREMIER INSTITUTES</td>
+                                    <td><a target="_blank" href="assets/documents/hospital/LIST_OF_PREMIER_INSTITUTES.pdf"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Download</a></td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>CGHS Rate List</td>
+                                    <td><a target="_blank" href="assets/documents/hospital/Rate_list_Delhi_NCR_2014.pdf"><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i> Download</a></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

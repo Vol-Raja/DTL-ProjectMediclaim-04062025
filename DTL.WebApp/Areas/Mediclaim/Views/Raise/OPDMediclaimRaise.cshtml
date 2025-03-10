@@ -1,0 +1,133 @@
+﻿@{ ViewData["Title"] = "Mediclaim Raise";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0"> Mediclaim Raise List</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","OPD",new {Area="Mediclaim"})">Dashboard</a><span class="px-1">/</span><span> Mediclaim Raise</span>
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <div class="my-4 border_bottom pb-4">
+           
+                <a href="@Url.Action("NonCashless", "Raise", new { Area = "Mediclaim" })"class="btn btn-primary btn-sm mr-2 ">Add New Mediclaim</a>
+            </div>
+            <table id="example1" class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th width="7%" class="text-center">Sr. No.</th>
+                        <th>Date</th>
+                        <th>Claim No</th>
+                        <th>PPO No</th>
+                        <th>Type of Claim</th>
+                        <th>Card Category</th>
+                        <th>Organization</th>
+                        <th>Patient Name</th>
+                        <th>Claim Status</th>
+                        <th width="20%">Remark</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td>12/12/2022</td>
+                        <td>Claim No</td>
+                        <td>PPO No.</td>
+                        <td>OPD</td>
+                        <td>Private</td>
+                        <td>Organization</td>
+
+                        <td>Patient Name</td>
+                        <td class="text-center">
+                            <span class="bg-danger Status_text">Reject</span>
+                        </td>
+
+                        <td class="para">Neque porro quisquam est qui dolorem</td>
+
+                        <td class="d-flex border-bottom-0">
+                            <a href="nonCashlessMediclaimView.html" class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td>12/12/2022</td>
+                        <td>Claim No</td>
+                        <td>PPO No.</td>
+                        <td>Cancer</td>
+                        <td>Semi Private</td>
+                        <td>Organization</td>
+                        <td>Patient Name</td>
+                        <td class="text-center">
+                            <span class="bg-success Status_text">Approved</span>
+
+                        </td>
+
+                        <td class="para">Neque porro quisquam est qui dolorem ipsum quia dolor </td>
+                        <td class="d-flex border-bottom-0">
+                            <a href="#" class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td>12/12/2022</td>
+                        <td>Claim No</td>
+                        <td>PPO No.</td>
+                        <td>Dispensary</td>
+                        <td>Private</td>
+                        <td>Organization</td>
+                        <td>Patient Name</td>
+                        <td class="text-center">
+                            <span class="bg-warning Status_text">Pending</span>
+
+                        </td>
+
+                        <td class="para">Neque porro quisquam est qui dolorem ipsum quia dolor </td>
+                        <td class="d-flex border-bottom-0">
+                            <a href="#" class="btn btn-primary btn-sm mr-2 btn_small"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-info btn-sm mr-2 btn_small"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+
+</div>
+<script>
+    (function ($) {
+       
+
+        $('#example1').DataTable({
+            "ordering": false,
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "bAutoWidth": false,
+            "bJQueryUI": true,
+            "bRetrieve": true,
+            "bAutoWidth": true
+        });
+
+
+    })(jQuery);
+</script>

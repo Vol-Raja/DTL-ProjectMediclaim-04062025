@@ -1,0 +1,139 @@
+﻿    @using DTL.Model.Models.CMS;
+
+@{
+    ViewData["Title"] = "Link List";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+
+}
+@model IEnumerable<LinkModel>;
+
+<section id="welcome_text">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>महत्वपूर्ण लिंक</h1>
+                <p><a href="@Url.Action("Index","Home")">मुख पृष्ठ</a> / <span>महत्वपूर्ण लिंक</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidebar">
+
+                    <div class="tab">
+                        <a class="tablinks " href="#">नवीनतम समाचार</a>
+                        <a class="tablinks" href="@Url.Action("","notice")">सार्वजनिक सूचना</a>
+                        <a class="tablinks active" href="@Url.Action("","link")">महत्वपूर्ण लिंक</a>
+                        <a class="tablinks" href="@Url.Action("","BannerImage")">गैलरी</a>
+                        <a class="tablinks" href="@Url.Action("" , "event")">कार्यक्रम</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 shadow mb-5">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+                        <div class="row">
+                            @if (Model.Count() > 0)
+                            {
+                                int counter = 0;
+                                @foreach (var item in Model)
+                                {
+                                    string imgSrc = "~/assets/images/1.jpg";
+                                    if (item.FileContent != null)
+                                    {
+                                        var base64 = Convert.ToBase64String(item.FileContent);
+                                        imgSrc = String.Format("data:{0};base64,{1}", item.ContentType, base64);
+                                    }
+                                    counter++;
+                                    <div class="  col-sm-12 ">
+                                        <a href="@item.Link" target="_blank">
+                                            <div class="media WhatNewMedia Important_link align-items-center">
+
+                                                <img class="align-self-start mr-3 shadow" src="@imgSrc" alt="">
+                                                <div class="media-body pt-2">
+                                                    <h5 class="mt-0 text-capitalize text-black">@item.TitleHindi</h5>
+                                                </div>
+
+
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                }
+
+                            }
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="pagination-wrapper">
+                    <div class="pagination">
+                        <a class="prev page-numbers" href="javascript:;">Prev</a>
+                        <span aria-current="page" class="page-numbers current">1</span>
+                        <a class="page-numbers" href="javascript:;">2</a>
+                        <a class="page-numbers" href="javascript:;">3</a>
+                        <a class="page-numbers" href="javascript:;">4</a>
+                        <a class="page-numbers" href="javascript:;">5</a>
+                        <a class="page-numbers" href="javascript:;">6</a>
+                        <a class="page-numbers" href="javascript:;">7</a>
+                        <a class="page-numbers" href="javascript:;">8</a>
+                        <a class="page-numbers" href="javascript:;">9</a>
+                        <a class="page-numbers" href="javascript:;">10</a>
+                        <a class="next page-numbers" href="javascript:;">Next</a>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-md-3">
+            <div class="sidebar">
+                <h4>मीडिया केंद्र</h4>
+                <div class="tab">
+                    <a class="tablinks" href="@Url.Action("" , "whatsnew")">नया क्या है</a>
+                    <a class="tablinks" href="@Url.Action("" , "notice")">नोटिस</a>
+                    <a class="tablinks active" href="@Url.Action("" , "link")">महत्वपूर्ण लिं    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="main_content">
+                <div class="tabcontent hospital_list">
+                    <h2>महत्वपूर्ण लिंक</h2>
+                    <table class="table table-bordered table-hover" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>क्रमांक।</th>
+                                <th>शीर्षक</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() > 0)
+                            {
+                                int counter = 0;
+                                @foreach (var item in Model)
+                                {
+                                    counter++;
+                                    <tr>
+                                        <td>@counter</td>
+                                        <td><a href="@Url.Action("download" , "link", new{ id = @item.ID})">@item.Title </a></td>
+                                    </tr>
+
+                                }
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>*@
+        </div>
+    </div>
+</section>

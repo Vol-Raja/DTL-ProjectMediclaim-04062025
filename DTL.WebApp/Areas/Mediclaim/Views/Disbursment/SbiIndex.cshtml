@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewData["Title"] = "SbiIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .content {
+            margin-top: 8px;
+        }
+
+        .editable input[type="text"] {
+            border: none;
+            border-bottom: 1px dashed #000;
+            outline: none;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="container">
+            <div class="header text-center" style="font-size: small;">
+                <h2>DVB ETBF - 2002</h2>
+                <p>(Medical Section) PENSION TRUST </p>
+                <p>Office of Manager (Pension Trust)</p>
+                <p>Rajghat Power House, New Delhi-02,</p>
+                <p>Ph. No. 23245625. Fax No. 23245619.</p>
+            </div>
+            <div class="ref-details">
+                <p>
+                    No. AM(F.)Med.(P.T)/2021-22/ 
+                    @*Dt:-<input type="text" id="datetime" value="" />*@
+                </p>
+            </div>
+            <div>
+                Manager,<br>
+                State Bank of India,<br>
+                RPH,<br>
+                New Delhi-02.
+            </div>
+            <div class="subject">
+                Sub: Medical Payment Reimbursement list of IPD November, 2020 Bills
+            </div>
+            <div class="content">
+                Dear Sir,<br><br>
+                Please find enclosed herewith a cheque for Rs.
+                <input type="text" id="chequeAmount" value="" />/- bearing Cheque No:-
+                <input type="text" id="chequeNo" value="" /> Dt:-
+                <input type="text" id="chequeDate" value="" /> with a list of pensioners. The amount as mentioned against Pension accounts may kindly be credited to respective accounts under the head “Medical Reimbursement” at the earliest please.
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S. No.</th>
+                        <th>Particulars</th>
+                        <th>Amount</th>
+                        <th>Entries</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><input type="text" id="Particulars" value="" /></td>
+                        <td><input type="text" id="amount" value="" /></td>
+                        <td><input type="text" id="entries" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-weight: bold; text-align: right;">Grand Total =></td>
+                        @*<td colspan="2" style="font-weight: bold;">Rs. 11872736/-</td>*@
+                        <td colspan="2" style="font-weight: bold;"><input type="text" id="GrandAmount" value="" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="content">
+                Thanking You
+            </div>
+            <div class="content" style="text-align: right;">
+                Yours Faithfully
+            </div>
+            <p style="text-align: right;">
+                <strong>
+                    AM (Fin.)Medical<br>
+                    PENSION TRUST
+                </strong>
+            </p>
+            <div class="enclosures">
+                Encl :-<br>
+                1. Cheque.<br>
+                2. List of Pensioners (Amount wise)
+            </div>
+
+        </div>
+        </div>
+        <div class="text-center mt-3 no-print">
+            <button id="btnprint" class="btn btn-info">Print SBI</button>
+        </div>
+
+        <script>
+            document.getElementById("btnprint").addEventListener("click", function () {
+                var Particulars = document.getElementById("Particulars").value;
+                var amount = document.getElementById("amount").value;
+                var entries = document.getElementById("entries").value;
+                var GrandAmount = document.getElementById("GrandAmount").value;
+                /*var datetime = document.getElementById("datetime").value;*/
+                var chequeAmount = document.getElementById("chequeAmount").value;
+                var chequeNo = document.getElementById("chequeNo").value;
+                var chequeDate = document.getElementById("chequeDate").value;
+
+                var content = document.getElementById("content").innerHTML;
+                var updatedContent = content
+                    .replace('<input type="text" id="amount" value="">', `<span>${amount}</span>`)
+                    .replace('<input type="text" id="Particulars" value="">', `<span>${Particulars}</span>`)
+                    .replace('<input type="text" id="entries" value="">', `<span>${entries}</span>`)
+                    .replace('<input type="text" id="GrandAmount" value="">', `<span>${GrandAmount}</span>`)
+                    /*.replace('<input type="text" id="date" value="">', `<span>${datetime}</span>`)*/
+                    .replace('<input type="text" id="chequeAmount" value="">', `<span>${chequeAmount}</span>`)
+                    .replace('<input type="text" id="chequeNo" value="">', `<span>${chequeNo}</span>`)
+                    .replace('<input type="text" id="chequeDate" value="">', `<span>${chequeDate}</span>`);
+                var printWindow = window.open('width=800,height=600');
+                printWindow.document.write(`
+<html>
+<style>
+               body { font-family: Arial, sans-serif; line-height: 1.5; margin: 20px; }
+               .container { margin: 0; padding: 0; }
+               .header { text-align: center; }
+               .text-right { text-align: right; }
+               .text-left { text-align: left; }
+               @@media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+${updatedContent}
+</body>
+</html>
+ `);
+ printWindow.document.close();
+ printWindow.print();
+ printWindow.onafterprint = () => printWindow.close();
+ });
+ </script>
+
+</body>
+</html>
+
+

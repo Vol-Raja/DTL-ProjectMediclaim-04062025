@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "AddNewMedicalPageDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper" style="margin-left:0">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Medical Page Detail Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","MedicalPageDetail",new { Area="Mediclaim" })">Medical Page Detail List</a></li>
+                        <li class="breadcrumb-item active">Medical Page Detail Form</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="medicalPageForm">
+                                <input type="hidden" id="hdnMedicalPageDetailId" />
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Page Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Page Number" id="txtPageNumber" name="txtPageNumber" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Employee Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Employee Number" id="txtEmployeeNumber" name="txtEmployeeNumber" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Name</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name" id="txtName" name="txtName" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">PPO No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter PPO Number" id="txtPPONumber" name="txtPPONumber" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Designation</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Designation" id="txtDesignation" name="txtDesignation" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Department</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Department" id="txtDepartment" name="txtDepartment" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Card Category</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="selCardCategory" name="CardCategory" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="">General</option>
+                                            <option value="">Semi Private</option>
+                                            <option value="">private</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Mobile No.</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Mobile Number" id="txtMobileNumber" name="txtMobileNumber" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Date of Retirement</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="date" class="form-control mb-2" id="txtDateOfRetirement" name="txtDateOfRetirement" required />
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Spouse Name</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Spouse Name" id="txtSpouseName" name="txtSpouseName" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">LBP</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter LBP" id="txtLBP" name="txtLBP" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Dispensary</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Dispensary" id="txtDispensary" name="txtDispensary" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Name Of Dependent</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Name Of Dependent" id="txtNameOfDependent" name="txtNameOfDependent" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Relation With Retiree</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Relation With Retiree" id="txtRelationWithRetiree" name="txtRelationWithRetiree" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Date of Birth</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="date" class="form-control mb-2" id="dtDependentDob" name="dtDependentDob" required />
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button type="button" class="btn btn-primary" id="btnSubmit" data-toggle="modal" data-target="">Submit</button>
+                                        <button type="reset" class="btn btn-danger" id="btnReset">Cancel</button>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="medicalPageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">New Medical Page Detail</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                                                <p>Medical Page Detail Submitted Successfully</p>
+                                                @*<p>Medical Page Detail Number is <b><label id="lblMedicalPageDetailNumber"></label></b></p>*@
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal" id="btnViewPrint">View and Print Card</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+@section AddNewMedicalPageDetail{
+    <script type="text/javascript" src="~/js/Mediclaim/MedicalPageDetail/medicalpagedetail.js"></script>
+}

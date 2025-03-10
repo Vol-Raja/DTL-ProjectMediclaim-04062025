@@ -1,0 +1,442 @@
+﻿@using DTL.Model.Models.GPF
+@model GPFWithdrawalModel
+@{
+    ViewData["Title"] = "Loan Processing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        width: 100%;
+        margin-top: 20px;
+        display: none;
+    }
+
+    .top_print_btn {
+        position: absolute;
+        right: 20px;
+        top: 30px;
+    }
+
+
+    .tab {
+        float: left;
+        border-right: 1px solid #ccc;
+        width: 100%;
+        display: flex;
+    }
+
+        .tab h5 {
+            background: #795548;
+            margin: 0px;
+            margin-bottom: 3px;
+            text-align: center;
+            padding: 15px 10px 10px 10px;
+            color: white;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab .tablinks {
+            display: block;
+            background-color: #e8e8b8;
+            color: black;
+            width: 100%;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+            margin-bottom: 3px;
+            border: 2px solid #009688;
+            border-right: none;
+            border-left: none;
+            height: 70px;
+            padding: 10px 5px 10px 40px;
+        }
+
+            .tab .tablinks.active::after {
+                content: "";
+                position: absolute;
+                right: -25px;
+                top: 50%;
+                transform: translate(0, -50%) rotate(45deg);
+                z-index: 9;
+                border-top: 2px solid #e8e8b8;
+                border-right: 2px solid #e8e8b8;
+                background-image: linear-gradient( to top right, rgba(255, 0, 0, 0) 50%, rgb(0 150 136) 50% );
+            }
+
+            .tab .tablinks:last-child::after {
+                content: "";
+                display: none;
+            }
+
+            .tab .tablinks::after {
+                content: "";
+                width: 50px;
+                height: 50px;
+                background: transparent;
+                position: absolute;
+                right: -25px;
+                top: 50%;
+                transform: translate(0, -50%) rotate(45deg);
+                border-top: 2px solid #009688;
+                border-right: 2px solid #009688;
+                z-index: 9;
+                background-image: linear-gradient( to top right, rgba(255, 0, 0, 0) 50%, rgb(232 232 184) 50% );
+            }
+
+            .tab .tablinks.active:hover::after {
+                background-image: linear-gradient( to top right, rgba(255, 0, 0, 0) 50%, rgb(0 150 136) 50% );
+            }
+
+            .tab .tablinks:hover::after {
+                background-image: linear-gradient( to top right, rgba(255, 0, 0, 0) 50%, rgb(0 150 136) 50% );
+                border-top: 2px solid #e8e8b8;
+                border-right: 2px solid #e8e8b8;
+            }
+            /* Change background color of buttons on hover */
+
+            .tab .tablinks:hover {
+                background: #009688 !important;
+            }
+
+            .tab .tablinks.active {
+                background: #009688 !important;
+            }
+            /* Create an active/current "tab button" class */
+            .tab .tablinks.active {
+                background-color: #002060;
+                color: white;
+            }
+
+            .tab .tablinks:hover {
+                color: white;
+                background-color: #002060;
+            }
+    /* Style the tab content */
+    .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        width: 100%;
+        margin-top: 20px;
+        display: none;
+    }
+</style>
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Loan Processing</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard",new { Area="GPF" })">GPF</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Withdrawal",new { Area="GPF" })">GPF Withdrawal</a></li>
+                        <li class="breadcrumb-item active">Loan Processing</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="tab hide_in_print">
+                                <button id="Profiletab" class="tablinks active" onclick="openCity(event, 'Profile')">Profile</button>
+                                <button id="Documenttab" class="tablinks" onclick="openCity(event, 'Bank')">Bank Details</button>
+                                <button class="tablinks" onclick="openCity(event, 'Documents')">Documents</button>
+                            </div>
+
+                            <div id="Profile" class="tabcontent page_mar_print">
+
+                                <input type="hidden" id="hdnWithdrawalId" value="@Model.WithdrawId" />
+
+                                <table class="table table-bordered mb-3">
+                                    <tr>
+                                        <th colspan="4" class="text-center bg-gray-light">Personal Information</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="width: 20%">Name of GPF Account Holder</td>
+                                        <th style="width: 30%">@Model.AccountHolderName</th>
+                                        <td class="text-right" style="width: 20%">Employee ID</td>
+                                        <th style="width: 30%">@Model.EmployeId</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">Designation</td>
+                                        <th>@Model.Designation</th>
+                                        <td class="text-right">Employer</td>
+                                        <th>@Model.Employer</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">Monthly GPF Pay</td>
+                                        <th>@Model.MonthlyGPFPay</th>
+                                        <td class="text-right">Date of Joining</td>
+                                        <th>@Model.DateOfJoining.ToShortDateString()</th>
+
+                                    </tr>`
+                                    <tr>
+                                        <td class="text-right">Purpose of Advance</td>
+                                        <th>@Model.PurposeOfWithdrawal</th>
+                                        <td class="text-right">Mobile No.</td>
+                                        <th>@Model.MobileNumber</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">Dependant's Name</td>
+                                        <th>@Model.DependantsName</th>
+                                        <td class="text-right">Dependant's Age</td>
+                                        <th>@Model.DependentsAge</th>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="text-right">Dependant's Address</td>
+                                        <th>@Model.DependentsAddress</th>
+                                        @if (Model.WithdrawType.ToLower() == "refundable")
+                                        {
+                                            <td class="text-right">Total Advance Amount</td>
+                                            <th>@Model.TotalAdvancedAmount</th>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-right">Total GPF COntribution</td>
+                                            <th>@Model.TotalGPFContribution</th>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @if (Model.WithdrawType.ToLower() == "refundable")
+                                        {
+                                            <td class="text-right">No. of EMI's</td>
+                                            <th>@Model.NoOfEMI</th>
+                                            <td class="text-right">Monthly Deduction</td>
+                                            <th>@Model.MonthlyDeduction</th>
+
+                                        }
+                                        else
+                                        {
+                                            <td class="text-right">Total Withdrawal Amount</td>
+                                            <th>@Model.TotalWithdrawalAmount</th>
+                                            <td class="text-right">Remaining Contribution</td>
+                                            <th>@Model.RemainingContribution</th>
+                                        }
+                                    </tr>
+                                        <tr>
+                                            <td class="text-right">Place of posting of last three year</td>
+                                            <th>@Model.PostingLastThreeYear</th>
+                                            <td class="text-right">Date of Application</td>
+                                            <th>@Model.DateOfApplicationString</th>
+                                        </tr>
+                                        <tr>
+                                            @if (Model.WithdrawType.ToLower() == "refundable")
+                                            {
+                                                <td class="text-right">Purpose of Refundable</td>
+                                                <th>@Model.PurposeOfRefundable</th>
+                                            }
+                                            <td class="text-right">Detailed Reason of Application for Advance</td>
+                                                <th>@Model.ReasonOfAdvance</th>
+                                            </tr>
+                                    </table>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right">
+                                        <a class="btn btn-primary px-3" onclick="openCity(event, 'Bank')">Next</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="Bank" class="tabcontent page_mar_print">
+
+                                <table class="table table-bordered mb-3">
+                                    <tr>
+                                        <th colspan="4" class="text-center bg-gray-light">Bank Details</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="width: 20%">Bank Account No.</td>
+                                        <th style="width: 30%">@Model.BankAccountNo</th>
+                                        <td class="text-right" style="width: 20%">IFSC No.</td>
+                                        <th style="width: 30%">@Model.IFSCNo</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="width: 20%">Branch Name</td>
+                                        <th style="width: 30%">@Model.BranchName</th>
+                                        <td class="text-right" style="width: 20%">BC</td>
+                                        <th style="width: 30%">@Model.BC</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="width: 20%">Bank Name</td>
+                                        <th style="width: 30%">@Model.BankName</th>
+                                    </tr>
+                                </table>
+
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right">
+                                        <a class="btn btn-primary px-3" onclick="openCity(event, 'Profile')">Previous</a>
+                                        <a class="btn btn-primary px-3" onclick="openCity(event, 'Documents')">Next</a>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="Documents" class="tabcontent page_mar_print">
+
+                                <table class="table table-bordered mb-3">
+                                    <tr>
+                                        <th colspan="4" class="text-center bg-gray-light">Documents</th>
+                                    </tr>
+                                    <tr>
+                                        @if (@Model.GPFDocuments.Count() > 0)
+                                        {
+                                            @foreach (var item in Model.GPFDocuments)
+                                            {
+                                                var path = "/" + item.DocumentPath;
+                                                if (item.DocumentFor == "SalarySlip")
+                                                {
+                                                    <th><a href="@path" target="_blank" class="text-dark"><i class="fa fa-file-pdf text-danger mr-2" aria-hidden="true"></i>SalarySlip.pdf</a></th>
+                                                }
+                                                if (item.DocumentFor == "IdCard")
+                                                {
+                                                    <th><a href="@path" target="_blank" class="text-dark"><i class="fa fa-file-pdf text-danger mr-2" aria-hidden="true"></i>IDCard.pdf</a></th>
+                                                }
+                                            }
+                                        }
+                                    </tr>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right">
+                                        <a class="btn btn-primary px-3" onclick="openCity(event, 'Bank')">Previous</a>
+                                        <a class="btn btn-success px-3" data-toggle="modal" data-target="#approveModal" data-backdrop="static" data-keyboard="false">Approve</a>
+                                        <a class="btn btn-danger px-3" data-toggle="modal" data-target="#rejectModal" data-backdrop="static" data-keyboard="false">Reject</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+    <!-- modal start -->
+    <!-- Modal -->
+    <div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to Approve the application?</p>
+                    <p><input type="text" class="form-control"  placeholder="Approved Amount" id="txtApprovedAmount"/></p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" data-dismiss="modal" data-backdrop="static" data-keyboard="false" id="btnApprove">Yes, Approve</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <p>Are you sure you want to Reject the application?</p>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Reason</label>
+                        <textarea class="form-control" id="txtRejectReason" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" id="btnReject">Yes, Reject</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="approvemsg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <button type="button" class="close text-right p-3" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <div class="modal-body text-center">
+                    <p><i class="fa fa-check-circle display-4 text-success"></i></p>
+                    <p>Application Approved Successfully</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="rejectmsg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close text-right p-3" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body text-center">
+                    <p><i class="fa fa-times-circle display-4 text-danger"></i></p>
+                    <p>Application has been Rejected.</p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal end -->
+</div>
+
+@section LoanProcessingView {
+    <script type="text/javascript"  src="~/js/GPF/approverejectgpfloanprocessing.js"></script>   
+
+    <script>
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        openCity(event, 'Profile');
+    </script>
+}

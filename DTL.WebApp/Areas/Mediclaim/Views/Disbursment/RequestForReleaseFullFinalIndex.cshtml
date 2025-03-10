@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewData["Title"] = "RequestForReleaseFullFinalIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @@media print {
+            .no-print {
+                display: none;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .content {
+            margin-top: 8px;
+        }
+
+        .editable input[type="text"],
+        .editable1 input[type="text"],
+        .editable2 input[type="text"] {
+            border: none;
+            border-bottom: 1px dashed #000;
+            outline: none;
+        }
+
+        .editable input[type="text"] {
+            width: 300px;
+        }
+
+        .editable1 input[type="text"] {
+            width: 120px;
+        }
+
+        .editable2 input[type="text"] {
+            width: 320px;
+        }
+
+        .editable3 input[type="text"] {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content" style="font-size: small;">
+        <div class="container">
+            <p style="font-size: small;"><strong>Deputy Manager(Medical)</strong><br>Pension Trust<br>DVB ETBF-2002<br>Rajghat Power House<br>New Delhi</p>
+            <p class="text-right">
+                Date:
+                <span class="editable1"><input type="text"></span>
+            </p>
+            <p style="font-size: small;"><strong>Subject.: Request for Release of Full & Final Medical Bills claim</strong></p>
+            <p>Dear Sir,</p>
+            <div class="content" style="font-size: small;">
+                <p>
+                    My father/mother Sh./Smt.
+                    <span class="editable"><input type="text"></span>
+                    PPO No
+                    <span class="editable1"><input type="text"></span>
+                </p>
+                <p>
+                    and Page No
+                    <span class="editable1"><input type="text" id="amount"></span>
+                    was expired on dt
+                    <span class="editable2"><input type="text" id="amount_in_figures"></span>
+                </p>
+                <p>
+                    and my father/mother Sh./Smt.
+                    <span class="editable1"><input type="text" id="medical_claim"></span>
+                    has already been expired on dt.
+                    <span class="editable1"><input type="text" id="medical_claim"></span>
+
+                    and my surviving members certificate No
+                    <span class="editable1"><input type="text" id="settlement_date"></span>
+                    is attached herewith for your ready reference alongwith other required
+                </p>
+                <p>documents:-</p>
+                <ol style="font-size: small;">
+                    <li>Request Application for Release of Full & Final Medical Bills claim.</li>
+                    <li>Surviving members certificate.</li>
+                    <li>Two withnesses alongwith signed Aadhar card copy</li>
+                    <li>100 rupees Indemnity Bond attested by Oath commissioner.(with pass port size photo,signed copy of Aadhar Card & PAN card).</li>
+                    <li>Two sureties of working govt. employee alongwith signed I/D copy.</li>
+                    <li>10 rupees Affidavit of all family members(with pass port size photo,signed copy of Aadhar Card & PAN card).</li>
+                    <li>Death Certificate(Father and Mother).</li>
+                    <li>Cancelled Cheque.</li>
+                    <li>Original medical prescription card.</li>
+                </ol>
+                <p>You are therefore requested that the full and final medical bills claim of my mother/father may kindly be released in my account.</p>
+
+
+                <p>Thanks</p>
+
+                <p>Your faithfully</p>
+
+
+
+                <p>Claimant Name:-</p>
+                <p>Father's/Mother's Name</p>
+                <p>
+                    Address:-
+                    <span class="editable1"><input type="text" /></span>
+                <p>
+                    <span class="editable1"><input type="text" /></span>
+                </p>
+                <p>
+                    <span class="editable1"><input type="text" /></span>
+                </p>
+                </p>
+                <p>
+                    Mobile No
+                    <span class="editable1"><input type="text" /></span>
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3 no-print">
+        <button id="btnprint" class="btn btn-info">Print</button>
+    </div>
+    <script>
+        document.getElementById("btnprint").addEventListener("click", function () {
+            window.print();
+        });
+    </script>
+</body>
+</html>
+
+

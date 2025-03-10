@@ -1,0 +1,133 @@
+﻿@using DTL.Model.Models
+@model IEnumerable<DisbursementReportModel>
+@{
+    ViewData["Title"] = "Report";
+}
+<style>
+    .btn-secondary {
+        color: #17a2b8 !important;
+        background-color: transparent !important;
+        border-color: #17a2b8 !important;
+        box-shadow: none !important;
+    }
+</style>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Report</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("","Disbursement")">Disbursement</a></li>
+                    <li class="breadcrumb-item active">Report</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-body p-2">
+                <div class="row p-2">
+                    <div class="col-md-2">
+                        <label>Search By:</label>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="searchByYear" class="form-control" placeholder="Year">
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="searchByMonth" class="form-control" placeholder="Month">
+                            <option selected value=''>--Select Month--</option>
+                            <option value='1'>Janaury</option>
+                            <option value='2'>February</option>
+                            <option value='3'>March</option>
+                            <option value='4'>April</option>
+                            <option value='5'>May</option>
+                            <option value='6'>June</option>
+                            <option value='7'>July</option>
+                            <option value='8'>August</option>
+                            <option value='9'>September</option>
+                            <option value='10'>October</option>
+                            <option value='11'>November</option>
+                            <option value='12'>December</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="searchByEmployer" class="form-control" placeholder="Year">
+                            <option value="">Employer Name</option>
+                            @foreach (var data in ViewBag.DTLOfficeList)
+                            {
+                                <option value="@data.DTLOffice">@data.DTLOffice</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" id="searchByEmployeeId" class="form-control" placeholder="EmployeeId" />
+                    </div>
+                </div>
+                <div>
+                    <table id="disbusrsementRptTbl" class="table table-striped projects">
+                        <thead>
+                            <tr>
+                                <th>PPO No</th>
+                                <th>Employee Id</th>
+                                <th>Employee Name</th>
+                                <th>Employer</th>
+                                <th>Bank</th>
+                                <th>Account</th>
+                                <th>Pension</th>
+                                <th>TDS</th>
+                                <th>Recovery</th>
+                                <th>Allowances</th>
+                                <th>AQP</th>
+                                <th>Admissible</th>
+                                <th>Month</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+    </div>
+    
+
+</section>
+<!-- /.content -->
+
+
+@section DisbursementReport{
+    <script src=" https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+    <script src="~/js/Disbursement/Report.js" asp-append-version="true"></script>
+    <script>
+        let dateDropdown = document.getElementById('searchByYear');
+        let currentYear = new Date().getFullYear();
+        let earliestYear = 2000;
+        while (currentYear >= earliestYear) {
+            let dateOption = document.createElement('option');
+            dateOption.text = currentYear;
+            dateOption.value = currentYear;
+            dateDropdown.add(dateOption);
+            currentYear -= 1;
+        }
+    </script>
+
+}

@@ -1,0 +1,548 @@
+﻿@using DTL.Model.Models
+@model IEnumerable<MasterDocumentModel>
+@{ ViewData["Title"] = "NonCashless";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+<div class="container-fluid" style="margin:0px">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Non-Cashless Mediclaim Form </h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index","OPD",new { Area="Mediclaim" })">Dashboard</a><span class="px-1">/</span>
+            @*<a href="/Mediclaim/OPD">Mediclaim</a><span class="px-1">/</span>*@
+            <a href="/Mediclaim/NonCashless">Non-Cashless Claims</a><span class="px-1">/</span>
+            <span>Raise</span>
+        </p>
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+            <form id="nonCashlessForm" class="g-3 mt-2 needs-validation" novalidate="">
+                <input type="hidden" id="hdnMediClaimId" />
+                <h4 class="form_title shadow-2-strong ">
+                    Personal Details
+                </h4>
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Employee No.<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtEmployeeNumber" class="form-control form-control-sm " placeholder="Employee No">
+                        <div class="invalid-feedback ">
+                            Please Enter Employee Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2  mb-3">
+                        <label class="form-label d-block mb-1" for="name">PPO No<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtPPONumber" class="form-control form-control-sm " placeholder="PPO No">
+                        <div class="invalid-feedback">
+                            Please Enter PPO Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Medical Section page Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtMedicalSectionPageNumber" class="form-control form-control-sm " placeholder="Medical section page number">
+                        <div class="invalid-feedback ">
+                            Please Enter Medical Section Page Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1" for="name">Name of Pensioner<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtMedicalCardHolderName" class="form-control form-control-sm " placeholder="Name of Pensioner" onkeypress="return  lettersOnly(event)">
+                        <div class="invalid-feedback ">
+                            Please Enter Name of Pensioner
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Medical card number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtMedicalCardNo" class="form-control form-control-sm " placeholder="Medical Card Number">
+                        <div class="invalid-feedback ">
+                            Please Enter Medical Card Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Gender</label>
+                        <div class="d-flex mt-3 gender-radio">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="gender" id="rdMale" value="Male" checked="checked">
+                                <label class="form-check-label" for="male">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="gender" id="rdFemale" value="Female">
+                                <label class="form-check-label" for="female">
+                                    Female
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="rdOther" value="Other">
+                                <label class="form-check-label" for="other">
+                                    Other
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1" for="name">Organization<span class="text-danger req_text">*</span></label>
+                        @*<select name="" id="selOrganization" class="form-select ">
+                    <option value="">Select</option>
+                </select>*@
+                        @Html.DropDownList("Organization", (IEnumerable<SelectListItem>)ViewBag.DTLOfficeList, "Select", new { id = "selOrganization", @class = "form-select" })
+                        <div class="invalid-feedback ">
+                            Please Enter Organization
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6  mb-3">
+                        <label class="form-label d-block mb-1" for="name">Designation<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtDesignation" class="form-control form-control-sm " placeholder="Designation">
+                        <div class="invalid-feedback ">
+                            Please Enter Designation
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2 mb-3">
+                        <label class="form-label d-block mb-1">Date Of Birth<span class="text-danger req_text">*</span></label>
+                        <input type="Date" id="txtDateOfBirth" class="form-control form-control-sm" placeholder="Date Of Birth">
+                        <div class="invalid-feedback ">
+                            Please Enter Date of Birth
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-1 mb-3">
+                        <label class="form-label d-block mb-1">Age<span class="text-danger req_text">*</span></label>
+                        <input type="number" id="txtAge" class="form-control form-control-sm" placeholder="Age" readonly>
+                        <div class="invalid-feedback ">
+                            Please Enter Age
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Mobile Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtMobileNumber" maxlength="10" class="form-control" placeholder="Mobile Number" required onkeypress="return  isNumberKey(event)">
+                        <div class="invalid-feedback " id="mobileNoNull">
+                            Please Enter Valid Mobile Number
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6  mb-3">
+                        <label class="form-label d-block mb-1">Email id<span class="text-danger req_text">*</span></label>
+                        <input type="email" id="txtEmailId" class="form-control form-control-sm" placeholder="Email id">
+                        <div class="invalid-feedback ">
+                            Please Enter Valid Email Id
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3">
+                        <label class="form-label d-block mb-1">Card Category<span class="text-danger req_text">*</span></label>
+                        <select name="" id="selCardCategory" class="form-select ">
+                            <option value="">Select</option>
+                            <option>General</option>
+                            <option>Private</option>
+                            <option>Semi Private</option>
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Enter Card Category
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3">
+                        <label class="form-label d-block mb-1">Address<span class="text-danger req_text">*</span></label>
+                        <textarea class="form-control form-control-sm" id="txtAddress" placeholder="Address"></textarea>
+                        <div class="invalid-feedback ">
+                            Please Enter Address
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Name of Patient<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtPatientName" class="form-control form-control-sm" placeholder="Name of Patient">
+                        <div class="invalid-feedback ">
+                            Please Enter Name of Patient
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1"> Dependent / Self</label>
+                        <div class="d-flex mt-3 ds-radio">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="dependent_self" id="dependent" value="Dependent">
+                                <label class="form-check-label" for="dependent">
+                                    Dependent
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="dependent_self" id="self" value="Self" checked="checked">
+                                <label class="form-check-label" for="dependentSelf">
+                                    Self
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 showDependent" id="showMe" style="display: none;">
+
+                        <h4 class="form_title shadow-2-strong ">
+                            Dependent Information
+                        </h4>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3">
+                                <label class="form-label d-block mb-1">Name <span class="text-danger req_text">*</span></label>
+                                <input type="text" id="txtDependentName" class="form-control form-control-sm" placeholder="Name">
+                                <div class="invalid-feedback ">
+                                    Please Enter Name of Patient
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2 mb-3">
+                                <label class="form-label d-block mb-1">Date Of Birth<span class="text-danger req_text">*</span></label>
+                                <input type="Date" id="txtDependentDob" class="form-control form-control-sm" placeholder="Date Of Birth">
+                                <div class="invalid-feedback ">
+                                    Please Enter Date Of Birth
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-1 mb-3">
+                                <label class="form-label d-block mb-1">Age<span class="text-danger req_text">*</span></label>
+                                <input type="number" id="txtDependentAge" class="form-control form-control-sm" placeholder="Age">
+                                <div class="invalid-feedback ">
+                                    Please Enter Age
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-5 mb-3">
+                                <label class="form-label d-block mb-1">
+                                    relationship with
+                                    retiree<span class="text-danger req_text">*</span>
+                                </label>
+                                <select name="RelatioWithRetire" id="selRelatioWithRetire" class="form-select ">
+                                    <option value="">Select</option>
+                                    <option value="Self">Self</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Parents">Parents</option>
+                                    <option value="Child">Child</option>
+                                </select>
+                                <div class="invalid-feedback ">
+                                    Please Select dependent relationship with
+                                    retiree
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h4 class="form_title shadow-2-strong ">
+                    Detail of Hospitalization
+                </h4>
+
+                <div class="row border_bottom mx-0">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3 px-0 py-2">
+                        <label class="form-label d-block mb-1">Type of claim<span class="text-danger req_text">*</span></label>
+                        <select id="selClaimType" name="selClaimType" class="form-select" onchange="update()">
+                            <option value="">Select</option>
+                            <option value="OPD">OPD</option>
+                            <option value="Cancer">Cancer</option>
+                            <option value="Dialysis">Dialysis</option>
+                            <option value="Dispensary">Dispensary</option>
+                        </select>
+                        <div class="invalid-feedback ">
+                            Please Enter Type of claim
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4" id="CD_div">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Date<span class="text-danger req_text">*</span></label>
+                        <input type="date" class="form-control form-control-sm" id="txtCNDDate" />
+                        <div class="invalid-feedback ">
+                            Please Enter Date
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Name of Hospital<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Name of Hospital with location" id="txtCNDHospitalName" />
+                        <div class="invalid-feedback ">
+                            Please Enter Name of Hospital
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Medicine<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Medicine (Rs.)" id="txtCNDMedicineAmount" onkeyup="calculateTotal()" />
+                        <div class="invalid-feedback ">
+                            Please Enter Medicine
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Consultation<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Consultation (Rs.)"
+                               id="txtCNDConsultationAmount" onkeyup="calculateTotal()" />
+                        <div class="invalid-feedback ">
+                            Please Enter Consultation
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Investigation Amount<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Investigation Amount (Rs.)"
+                               id="txtCNDInvestigationAmount" onkeyup="calculateTotal()" />
+                        <div class="invalid-feedback ">
+                            Please Enter Investigation Amount
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Other Expenses Amount<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Other Amount" id="txtCNDOtherAmount" onkeyup="calculateTotal()" />
+                        <div class="invalid-feedback ">
+                            Please Enter Other Expenses Amount
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">Total Amount<span class="text-danger req_text">₹ *</span></label>
+                        <input type="text" class="form-control form-control-sm number" placeholder="Enter Total Amount" id="txtCNDTotalAmount" disabled />
+                        <div class="invalid-feedback ">
+                            Please Enter Total Amount
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3  position-relative">
+                        <button class="btn btn-success  position-absolute top-25" type="button" id="btnAddCND"><i class="fa fa-plus mr-2"></i>Add</button>
+                        @*<button class="btn btn-primary" type="button" id="btnAddCND">Add New</button>*@
+                        @*<button class="btn btn-primary" type="button" id="btnClearCND">Clear</button>*@
+                    </div>
+
+                    <div class="col-sm-12">
+                        <table id="tblCND" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Hospital Visit Date</th>
+                                    <th>Name of Hospital</th>
+                                    <th>Medicine Amt</th>
+                                    <th>Consultation Amt</th>
+                                    <th>Investigation Amt</th>
+                                    <th>Other Expenses Amt</th>
+                                    <th>Total Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Claim Document Upload
+                </h4>
+                <div class="row">
+
+                    <div class="col-sm-4 col-md-5 col-lg-5 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1">Document Type<span class="text-danger req_text">*</span></label>
+                        @if (Model.Count() > 0)
+                        {
+            <select id="selDocumentType" class="form-select" required>
+                <option value="">Select</option>
+                @foreach (var item in Model)
+                {
+            <option value="@item.DocumentId">@item.DocumentName</option>
+}
+            </select> }
+        else
+        {
+            <select id="selDocumentType" class="form-control" required>
+                <option value="">Select</option>
+            </select>}
+                        <div class="invalid-feedback ">
+                            Please Enter Document Type
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Choose file<span class="text-danger req_text">*</span>
+                        </label>
+                        <input class="form-control" type="file" id="fileUpload" accept="application/pdf">
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-2 col-xl-1 position-relative px-0">
+                        <button id="btnUpload" type="button" class=" btn btn-success position-absolute top-25 fw-bolder"><i class="fa fa-plus mr-2"></i>Add</button>
+                        <button id="btnTestDocumentArray" type="button" style="display:none" class=" btn btn-success position-absolute top-25 fw-bolder"><i class="fa fa-save mr-2"></i>Add</button>
+                    </div>
+                    <div class="col-sm-12">
+                        <table id="tblDocument" class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th width="7%" class="text-center">Sr. No.</th>
+                                    <th>Document Type</th>
+                                    <th>Attach file </th>
+                                    <th width="8%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Bank Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Account Holder Name<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtAccountHolderName" class="form-control form-control-sm" placeholder="Account Holder Name" required onkeypress="return  lettersOnly(event)">
+                        <div class="invalid-feedback ">
+                            Please Enter Account Holder Name
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Account Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtAccountNumber" class="form-control form-control-sm" placeholder="Account Number" maxlength="17" required>
+                        <div class="invalid-feedback ">
+                            Please Enter Account Number
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Bank Name<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtBankName" class="form-control form-control-sm" placeholder="Bank Name" required onkeypress="return  lettersOnly(event)">
+                        <div class="invalid-feedback ">
+                            Please Enter Bank Name
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">Branch Name<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtBranchName" class="form-control form-control-sm" placeholder="Branch Name" required onkeypress="return  lettersOnly(event)">
+                        <div class="invalid-feedback ">
+                            Please Enter Branch Name
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">BIC Code<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtBICCode" class="form-control form-control-sm" placeholder="BIC Code" maxlength="12" required>
+                        <div class="invalid-feedback ">
+                            Please Enter BIC Code
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">IFSC Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtIFSCNumber" class="form-control form-control-sm" placeholder="IFSC Code" maxlength="11" required>
+                        <div class="invalid-feedback ">
+                            Please Enter Valid IFSC Code
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                    <button type="button" class="btn btn-brand me-2 hide_submit" id="btnSubmit" data-toggle="modal" data-target="">Submit</button>
+                    <a href="@Url.Action("Index","NonCashless",new { Area="Mediclaim" })" role="button" class="btn btn-cancel me-2 hide_submit">Cancel</a>
+                    <button type="reset" class="btn btn-reset me-2">Reset</button>
+                    @*<a href="#" class="btn btn-info show_submit" id="btnViewPrintLink">View and Print Application</a>*@
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header py-2">
+
+                                <h5 class="modal-title">Non Cashless Mediclaim</h5>
+
+                                <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                </button>
+                            </div>
+
+                            <div class="modal-body ">
+                                <div class="content pt-4 pb-0">
+
+                                    <img src="~/assets/images/success.png" class="icon_reject ">
+                                    <h3 class="message-type text-blod pb-0 pt-3 ">
+                                        Claim Submitted Successfully
+                                    </h3>
+                                    <p class="text-center">
+                                        Claim Number is <b>
+                                            <label id="lblClaimNumber"></label>
+                                        </b>
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Non-Cashless Mediclaim</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                    <p>Claim Submitted Successfully</p>
+                    <p>Claim Number is <b><label id="lblClaimNumber"></label></b></p>
+                </div>
+                <div class="modal-footer">-->
+                @*<button type="button" class="btn btn-info" data-dismiss="modal" id="btnViewPrint">View and Print Application</button>*@
+                <!--</div>
+            </div>
+        </div>
+    </div>-->
+            </form>
+        </div>
+    </div>
+
+
+    <!-- /.content -->
+</div>
+
+@section NonCashlessRaise{
+    <script src="~/assets/js/commonJs.js"></script>
+    <script type="text/javascript" src="~/js/Mediclaim/Raise/noncashless.js"></script>
+
+    <script>
+
+
+
+
+        var ClaimType = '';
+        function update() {
+            ClaimType = $('#selClaimType').val();
+            //ClaimType = $('#selClaimType :selected').text();
+            //calculateTotal();
+        }
+
+        //update();
+
+        function calculateTotal() {
+            var cndMedicine = '';
+            var cndInvestigation = '';
+            var cndConsultation = '';
+            var cndOther = '';
+            var cndTotal = '';
+
+            cndMedicine = $('#txtCNDMedicineAmount').val() !== '' ? $('#txtCNDMedicineAmount').val() : 0;
+            cndInvestigation = $('#txtCNDInvestigationAmount').val() !== '' ? $('#txtCNDInvestigationAmount').val() : 0;
+            cndConsultation = $('#txtCNDConsultationAmount').val() !== '' ? $('#txtCNDConsultationAmount').val() : 0;
+            cndOther = $('#txtCNDOtherAmount').val() !== '' ? $('#txtCNDOtherAmount').val() : 0;
+            cndTotal = parseFloat(cndMedicine) + parseFloat(cndInvestigation) + parseFloat(cndConsultation) + parseFloat(cndOther);
+
+            document.getElementById('txtCNDTotalAmount').value = cndTotal;
+        }
+
+    </script>
+
+}

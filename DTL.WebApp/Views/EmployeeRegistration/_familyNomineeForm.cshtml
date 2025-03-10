@@ -1,0 +1,112 @@
+﻿@using DTL.Model.Models
+@model IEnumerable<NomineeDetailsModel>
+@{
+}
+<form id="NomineeDetails" method="post">
+    <div class="row">
+        <div class="col-md-3 form-group">
+            <input type="hidden" id="hfRowIndex" />
+            <label for="MemberName">Family Member Name</label>
+            <input type="text" name="MemberName" class="form-control" id="MemberName" placeholder="Family Member Name">
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="Relationship">Relationship</label>
+            <select id="Relationship" name="Relationship" class="form-control">
+                <option value="">Select Relationship</option>
+                <option value="Father">Father</option>
+                <option value="Mother">Mother</option>
+                <option value="Husband">Husband</option>
+                <option value="Wife">Wife</option>
+                <option value="Son">Son</option>
+                <option value="Daughter">Daughter</option>
+            </select>
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="DateOfBirth">Date Of Birth</label>
+            <input type="date" data-date="" data-date-format="DD-MM-YYYY" name="DateOfBirth" class="form-control" id="DateOfBirth" placeholder="Date of Birth">
+        </div>
+        <div class="col-md-3 form-group">
+            <div>
+                <label for="GuardianName">Guardian Name</label>
+                <input type="text" name="GuardianName" class="form-control" id="GuardianName" placeholder="Guardian Name">
+            </div>
+            <div>
+                <label for="GuardianRelation">Guardian Relation</label>
+                <input type="text" name="GuardianRelation" class="form-control" id="GuardianRelation" placeholder="Guardian Relation">
+            </div>
+            <div>
+                <label for="GuardianAddress">Guardian Address</label>
+                <textarea id="GuardianAddress" name="GuardianAddress" class="form-control" rows="4" cols="50" placeholder="Guardian Address"></textarea>
+                @*<input type="textarea" name="GuardianAddress" class="form-control" id="GuardianAddress" placeholder="Guardian Address">*@
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @*<div class="col-md-2 form-group">
+                <label for="ContigencyReason">Contigency Reason</label>
+                <select id="ContigencyReason" name="ContigencyReason" class="form-control">
+                    <option value="">Contigency Reason</option>
+                    <option value="Death">Death</option>
+                    <option value="Retired">Retired</option>
+                </select>
+            </div>*@
+        <div class="col-md-2 form-group">
+            <label for="Arrear">Commutation</label>
+            <input type="text" name="Commutation" class="form-control" id="Commutation" placeholder="Commutation %">
+        </div>
+        <div class="col-md-2 form-group">
+            <label for="Arrear">Arrear</label>
+            <input type="text" name="Arrear" class="form-control" id="Arrear" placeholder="Arrear %">
+        </div>
+        <div class="col-md-6 pt-4">
+            <button type="button" class="btn btn-primary" id="addNomineeTbl">Add</button>
+            <button type="button" class="btn btn-primary" id="updateNomineeTbl">Update</button>
+            <button type="button" class="btn btn-warning" id="clearBtn">Clear</button>
+        </div>
+    </div>
+
+    <table id="nomineeTbl" class="table table-bordered">
+        <thead>
+            <tr>
+                <th data-col="id" style="display:none"></th>
+                <th data-col="employeeRegistrationId" style="display:none"></th>
+                <th data-col="memberName">Family Member</th>
+                <th data-col="relationship">Relation</th>
+                <th data-col="guardianName">Guardian Name</th>
+                <th data-col="guardianRelation">Guardian Relation</th>
+                <th data-col="guardianAddress">Guardian Address</th>
+                <th data-col="dateOfBirth">Date Of Birth</th>
+                <th data-col="commutation">Commutation %</th>
+                <th data-col="arrear">Arrear %</th>
+                @*<th data-col="contigencyReason">Contigency</th>*@
+                <th data-col="Action">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td style="display:none">@data.ID</td>
+                    <td style="display:none">@data.EmployeeRegistrationId</td>
+                    <td>@data.MemberName</td>
+                    <td>@data.RelationShip</td>
+                    <td>@data.GuardianName</td>
+                    <td>@data.GuardianRelation</td>
+                    <td>@data.GuardianAddress</td>
+                    <td>@data.DateOfBirth?.ToString("yyyy-MM-dd")</td>
+                    <td>@data.Commutation</td>
+                    <td>@data.Arrear</td>
+                    @*<td>@data.ContigencyReason</td>*@
+                    <td><a class='edit' href='JavaScript:void(0);'></a><a class='delete' href='JavaScript:void(0);'>delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary" id="btnNomineeSave">Save & Next>></button>
+        <a href="@Url.Action("","EmployeeRegistration")" class="btn btn-warning">Close</a>
+    </div>
+</form>

@@ -1,0 +1,598 @@
+﻿@using DTL.Model.Models
+@model EmployeeProfileModel
+@{ ViewData["Title"] = "Add Employee";
+    var prefix = new List<string>()
+{
+        "Mr.",
+        "Ms.",
+        "Mrs."
+    };
+    var gender = new List<string>()
+{
+        "Male",
+        "Female",
+        "Other"
+    }; }
+<link href="~/css/Employee/employeeProfile.css" rel="stylesheet" />
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Employee Registration</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("","Home")">Home</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("","EmployeeRegistration")">Employee List</a></li>
+                        <li class="breadcrumb-item active">Employee</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        @*<div class="card-header">
+                                <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                            </div>*@
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form id="addEmployeeForm">
+                                <input type="hidden" id="usermode" value="@ViewBag.Mode" />
+                                <input type="hidden" id="id" name="id" value="@Model.ID" />
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        <div class="profile-pic-wrapper">
+                                            <div class="pic-holder">
+                                                <!-- uploaded pic shown here -->
+                                                @if (ViewBag.Mode != "View")
+                                                {
+                                    @if (Model.ProfileImage == null)
+                                    {
+                    <img id="profilePic" class="pic" src="~/dist/img/userprofile.png" /> }
+                else
+                {
+<img id="profilePic" class="pic" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ProfileImage)" />}
+
+                                                    <label for="newProfilePhoto" class="upload-file-block">
+                                                        <span class="text-center">
+                                                            <span class="mb-2">
+                                                                <i class="fa fa-camera fa-2x"></i>
+                                                            </span>
+                                                            <span class="text-uppercase">
+                                                                Update <br /> Profile Photo
+                                                            </span>
+                                                        </span>
+                                                    </label>
+                                                                    <input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="display: none;" /> }
+                                                                else
+                                                                {
+                                                    @if (Model.ProfileImage == null)
+                                                    {
+                                    <img id="profilePic" class="pic" src="~/dist/img/userprofile.png" /> }
+                                else
+                                {
+                <img id="profilePic" class="pic" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ProfileImage)" />}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label for="Prefix">Title</label>
+                                                <select id="Prefix" name="Prefix" class="form-control">
+                                                    @foreach (var data in prefix)
+                                                    {
+                                                        if (data == Model.Prefix)
+                                                        {
+                                        <option value="@data" selected>@data</option> }
+                                                        else
+                                                        {
+                                        <option value="@data">@data</option>}
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5 form-group">
+                                                <label for="EmployeeName">Employee Name</label>
+                                                <input type="text" name="EmployeeName" class="form-control" id="EmployeeName" placeholder="Employee Name" value="@Model.EmployeeName">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="EmployeeId">Employee Id</label>
+                                                <input type="text" name="EmployeeId" class="form-control" id="EmployeeId" placeholder="Employee Id" value="@Model.EmployeeId">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="DOB">DOB</label>
+                                                <input type="date" name="DOB" class="form-control" id="DOB" placeholder="DOB"
+                                                       data-date="" data-date-format="DD-MM-YYYY"
+                                                       value="@(Model.DOB.ToString("yyyy-MM-dd") != "0001-01-01"? Model.DOB.ToString("yyyy-MM-dd"):"")">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="Gender">Gender</label>
+                                                <select id="Gender" name="Gender" class="form-control">
+                                                    @foreach (var data in gender)
+                                                    {
+                                                        if (data == Model.Gender)
+                                                        {
+                                        <option value="@data" selected>@data</option> }
+                                                        else
+                                                        {
+                                        <option value="@data">@data</option>}
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="DTLOffice">Organization/Company</label>
+                                                <select id="DTLOffice" name="DTLOffice" class="form-control">
+                                                    <option value="">Select DVBETBF-2002 Office</option>
+                                                    @foreach (var data in ViewBag.DTLOfficeList)
+                                                    {
+                                                        if (data.DTLOffice.Equals(Model.DTLOffice))
+                                                        {
+                                        <option value="@data.DTLOffice" selected>@data.DTLOffice</option> }
+                                                        else
+                                                        {
+                                        <option value="@data.DTLOffice">@data.DTLOffice</option>}
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="Designation">Designation</label>
+                                                <input type="text" name="Designation" class="form-control" id="Designation" placeholder="Designation" value="@Model.Designation">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="ServiceStartDate">Appointment date / Initial date</label>
+                                                <input type="date" name="ServiceStartDate" value="@(Model.ServiceStartDate.ToString("yyyy-MM-dd") != "0001-01-01"? Model.ServiceStartDate.ToString("yyyy-MM-dd"):"")"
+                                                       data-date="" data-date-format="DD-MM-YYYY"
+                                                       class="form-control" id="ServiceStartDate" placeholder="Service Start Date">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="ServiceEndDate">Date of Retirement</label>
+                                                <input type="date" name="ServiceEndDate" value="@(Model.ServiceEndDate.ToString("yyyy-MM-dd") != "0001-01-01"? Model.ServiceEndDate.ToString("yyyy-MM-dd"):"")"
+                                                       data-date="" data-date-format="DD-MM-YYYY"
+                                                       class="form-control" id="ServiceEndDate" placeholder="Service End Date">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="RAddress">Residential Address</label>
+                                                <textarea id="RAddress" name="RAddress" class="form-control" rows="4" cols="50" placeholder="Residential Address">@Model.ResidentialAddress</textarea>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="PAddress">Permanent Address</label>
+                                                <span class="float-sm-right">
+                                                    <label>Is Residential & Permanent address are same?</label>
+                                                    <input type="checkbox" id="isAddressSame" class="checkbox" />
+                                                </span>
+                                                <textarea id="PAddress" name="PAddress" class="form-control" rows="4" cols="50" placeholder="Permanent Address">@Model.PermanentAddress</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="RState">State</label>
+                                                <input type="text" name="RState" class="form-control" value="@Model.RState" id="RState" placeholder="State">
+                                            </div>
+
+                                            <div class="col-md-6 form-group">
+                                                <label for="PState">State</label>
+                                                <input type="text" name="PState" class="form-control" value="@Model.PState" id="PState" placeholder="State">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="RDistrict">District</label>
+                                                <input type="text" name="RDistrict" class="form-control" value="@Model.RDistrict" id="RDistrict" placeholder="District">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="PDistrict">District</label>
+                                                <input type="text" name="PDistrict" class="form-control" value="@Model.PDistrict" id="PDistrict" placeholder="District">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-6 form-group">
+                                                <label for="RZipcode">Pin code</label>
+                                                <input type="text" name="RZipcode" class="form-control" value="@Model.RZipcode" id="RZipcode" placeholder="Zipcode">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="PZipcode">Zipcode</label>
+                                                <input type="text" name="PZipcode" class="form-control" value="@Model.PZipcode" id="PZipcode" placeholder="Zipcode">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 form-group">
+                                                <label for="EmailAddress">Email Address</label>
+                                                <input type="email" name="EmailAddress" class="form-control" value="@Model.EmailAddress" id="EmailAddress" placeholder="Email Address">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="Mobile">Mobile</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend" style="width: 35% !important;">
+                                                        <span class="input-group-text">
+                                                            <input type="text" id="mobileCountryCode" name="mobileCountryCode" class="form-control" value="@Model.MobileCountryCode"
+                                                                   placeholder="Country Code" style="height: 25px !important;" />
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" name="Mobile" class="form-control" id="Mobile" placeholder="Mobile" value="@Model.Mobile" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="Phone">Phone</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend" style="width: 35% !important;">
+                                                        <span class="input-group-text">
+                                                            <input type="text" id="phoneCountryCode" name="phoneCountryCode" class="form-control" value="@Model.PhoneCountryCode"
+                                                                   placeholder="Country Code" style="height: 25px !important;" />
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" name="Phone" class="form-control" id="Phone" placeholder="Phone" value="@Model.Phone"
+                                                           onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="ReasonOfRetirement">Reason of retirement</label>
+                                                <input type="text" name="ReasonOfRetirement" class="form-control" value="@Model.ReasonOfRetirement" id="ReasonOfRetirement" placeholder="Reason of retirement">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- /.card-body -->
+                                @if (ViewBag.Mode != "View")
+                                {
+                    <div class="row">
+                        <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                            <button type="button" id="btnEmployeeRegistration" class="btn btn-primary">@(ViewBag.Mode == "Edit" ? "Update" : "Save")</button>
+                            <a href="@Url.Action("", "EmployeeRegistration")" id="btnCnl" class="btn btn-danger">Cancel</a>
+                        </div>
+                    </div>}
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Employee Profile Creation</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <span class="">Dashboard </span><span class="px-1">/</span><span>Employee Profile Creation</span><span class="px-1">/</span><span>Employee Profile Creation</span> <span class="px-1">Add DVB</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+            <h4 class="form_title shadow-2-strong ">
+                Personal Details
+            </h4>
+            <div class="row">
+                <div class="col-sm-4 mb-, mm3">
+                    <label class="form-label d-block mb-1">Employee Name</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Employee Name" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">GPF Number</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="GPF Number" />
+                </div>
+                <div class="col-sm-4 mb-3 position-relative">
+
+                    <div class="small-12 medium-2 large-2 columns">
+                        <label class="form-label d-block mb-1 profile_title">Profile Photo upload</label>
+                        <div class="circle">
+                            <img class="profile-pic"
+                                 src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg">
+
+                        </div>
+                        <div class="p-image">
+
+                            <i class="fa fa-camera upload-button"></i>
+                            <input class="file-upload" type="file" accept="image/*" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Email id</label>
+                    <input type="email" class="form-control form-control-sm" placeholder="Email id" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Contact Number</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Contact Number" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Alternate Contact Number</label>
+                    <input type="text" class="form-control form-control-sm"
+                           placeholder="Alternate Contact Number" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Gender</label>
+                    <div class="d-flex">
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="male" id="male">
+                            <label class="form-check-label" for="male">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="female" id="female">
+                            <label class="form-check-label" for="female">
+                                Female
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="other" id="other">
+                            <label class="form-check-label" for="other">
+                                Other
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Maritial Status</label>
+                    <div class="d-flex">
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="Married" id="Married">
+                            <label class="form-check-label" for="male">
+                                Married
+                            </label>
+                        </div>
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="Unmarried" id="Unmarried">
+                            <label class="form-check-label" for="female">
+                                Unmarried
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Date of Birh</label>
+                    <input type="date" class="form-control form-control-sm" placeholder="Mobile No" />
+                </div>
+
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Age</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Age" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Spouse Name</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Spouse Name" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Father Name</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Blood Group" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Blood Group</label>
+                    <input type="date" class="form-control form-control-sm" placeholder="Date of Retirement" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Residential Address</label>
+                    <textarea class="form-control form-control-sm"></textarea>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Pincode</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Blood Group" />
+
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">City</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="City" />
+
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">State</label>
+                    <select name="" id="State" class="form-select form-select-sm">
+                        <option value="">Select</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Nationality</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Nationality" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Adhar Number</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Adhar Number" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Physically Disable </label>
+                    <div class="d-flex">
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="male" id="yes">
+                            <label class="form-check-label" for="yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="female" id="female">
+                            <label class="form-check-label" for="female">
+                                No
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Identification Marks</label>
+                    <select name="" id="State" class="form-select form-select-sm">
+                        <option value="">Select</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="card-body">
+            <h4 class="form_title shadow-2-strong ">
+                Organization Details
+            </h4>
+            <div class="row">
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Name of Organization</label>
+                    <select name="" id="State" class="form-select form-select-sm">
+                        <option value="">Select</option>
+
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Designation</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Designation" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Employee ID</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Employee ID" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Date of Joining</label>
+                    <input type="date" class="form-control form-control-sm" placeholder="Date of Joining" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Date of Retirement</label>
+                    <input type="date" class="form-control form-control-sm" placeholder="Date of Retirement" />
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="form_title shadow-2-strong ">
+                Retirement Details
+            </h4>
+            <div class="row">
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Reason of Retirement</label>
+                    <select name="" id="State" class="form-select form-select-sm">
+                        <option value="">--Select--</option>
+                        <option value="">Death</option>
+                        <option value="">Retirement</option>
+                        <option value="">VRS</option>
+                        <option value="">Medical</option>
+
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Date of Death</label>
+                    <input type="date" class="form-control form-control-sm" placeholder="Date of Death" />
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label d-block mb-1">Date of Retirement</label>
+                    <input type="date" class="form-control form-control-sm" placeholder="Date of Retirement" />
+                </div>
+                <div class="col-sm-12 mb-3 submit_area submit_area_strip">
+                    <button class="btn btn-brand me-2" data-bs-toggle="modal"
+                            data-bs-target="#submit_pop_up">
+                        Submit
+                    </button>
+                    <button class="btn btn-cancel me-2" data-bs-toggle="modal"
+                            data-bs-target="#Cancel">
+                        Cancel
+                    </button>
+                    <button class="btn btn-reset me-2">Reset</button>
+                </div>
+                <!-- modal start -->
+                <div class="modal fade" id="submit_pop_up" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog  modal-dialog-scrollable ">
+                        <div class="modal-content">
+
+                            <div class="modal-body ">
+                                <div class="content">
+                                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    <img src="../assets/images/thumbs-up.png" class="icon_reject ">
+                                    <p class="message-type">Are you sure you want to Submit ?</p>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-brand popUp_btn me-2"
+                                            onclick="location.href='employeeProfileCreationList.html'">
+                                        Submit
+                                    </button>
+                                    <button type="button" class="btn btn-danger popUp_btn  me-2"
+                                            data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- modal end -->
+                <!-- modal start -->
+                <div class="modal fade" id="Cancel" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog  modal-dialog-scrollable ">
+                        <div class="modal-content">
+
+                            <div class="modal-body ">
+                                <div class="content">
+                                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    <img src="../assets/images/thumbs-up.png" class="icon_reject ">
+                                    <p class="message-type">Are you sure you want to Cancel ?</p>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-brand popUp_btn me-2"
+                                            data-bs-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button type="button" class="btn btn-danger popUp_btn  me-2"
+                                            data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- modal end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Employee{
+    <script src="~/js/Employee/EmployeeProfile.js" asp-append-version="true"></script>
+    }
+

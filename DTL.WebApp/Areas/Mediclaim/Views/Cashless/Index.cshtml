@@ -1,0 +1,141 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model List<CashlessModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var _index = 1;
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Cashless mediclaim </h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <span><a href="/"> Dashboard</a></span><span class="px-1">/</span><span>Cashless Mediclaim</span>
+
+        </p>
+    </div>
+
+    <div class="card border-card mt-0">
+        <div class="card-body pt-0 ps-0 pr-2">
+            <!--<div class="my-4 border_bottom pb-4">
+                <a href="@Url.Action("Cashless", "Raise", new { Area = "Mediclaim" })" role="button" class="btn btn-primary btn-sm mr-2 ">Add New Mediclaim</a>-->
+               @* <a href="@Url.Action("Creditletter", "Raise", new { Area = "Mediclaim" })" role="button" class="btn btn-primary btn-sm mr-2 ">Credit Letter</a>*@
+
+            <!--</div>-->
+            @*<div class="my-4 border_bottom pb-4">
+            </div>*@
+            <div class="table-responsive">
+                <table id="cashlessTable" class="table table-bordered dataTable no-footer" aria-describedby="example1_info" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr. No.</th>
+                            <th>Date</th>
+                            <th>Claim No.</th>
+                            <th>Medicalcard No.</th>
+                            <th>Hospital Name</th>
+                            <th>Card Category</th>
+                            <th>Patient Name</th>
+                            <th>Claim Status</th>
+                            <th width="20%">Remark</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count > 0)
+                        {
+            @foreach (var item in Model)
+            {
+                string _status = null;
+                string _statusStyle = null;
+                switch (item.ClaimStatusId)
+                {
+                    case 1:
+                        _status = "Pending";
+                        _statusStyle = "bg-warning";
+                        break;
+                    case 2:
+                        _status = "Approve";
+                        _statusStyle = "bg-success";
+                        break;
+                    case 3:
+                        _status = "Reject";
+                        _statusStyle = "bg-danger";
+                        break;
+                }
+
+        <tr>
+            <td class="text-center">@_index</td>
+            <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+            <td>@item.ClaimId</td>
+            <td>@item.MedicalCardNumber</td>
+            <td>@item.NameOfHospital</td>
+            <td>@item.CardCategory</td>
+            <td>@item.NameOfPatient</td>
+            <td class="text-center"><span class="@_statusStyle Status_text">@_status</span></td>
+            <td class="para">@item.Remark</td>
+            <td class="d-flex border-bottom-0">
+                <a href="/Mediclaim/Cashless/PrintPreview/@item.ClaimId.ToString()" title="Print Preview" class="btn btn-primary btn-sm mr-2 btn_small"><i class="far fa-eye"></i></a>
+                @if (item.ClaimStatusId != 2)
+                {
+        <a href="/Mediclaim/Modify/EditCashless/@item.ClaimId" title="Edit" class="btn btn-info btn-sm mr-2 btn_small"><i class="far fa-edit"></i></a>}
+                <a href="#" class="btn btn-danger btn-sm mr-2 btn_small" onclick="DeleteClaim(@item.ClaimId,this)" title="Delete"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+_index = _index + 1;
+    } }
+        else
+        {
+        <tr>
+            <td colspan="8">
+                <p>No data found</p>
+            </td>
+        </tr>
+}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Employee{
+
+    <script type="text/javascript">
+        function DeleteClaim(id, rw) {
+            if (confirm("Are you sure? you want to delete ")) {
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: "/Mediclaim/Cashless/Delete/" + id,
+                    data: "",
+                    contentType: 'application/json; charset=utf-8',
+                    //dataType: 'json',
+                    success: function (response, status, xhr) {
+                        if (xhr.status == '200') {
+                            //$("#" + id).remove();
+                            $(rw).parents("tr").remove();
+                        }
+                        else {
+                            alert(response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+
+                    }
+                });
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#cashlessTable").DataTable({
+                ordering: true,
+                dom: 'lfrtip',
+                scrollX: true,
+            });
+        });
+    </script>
+}

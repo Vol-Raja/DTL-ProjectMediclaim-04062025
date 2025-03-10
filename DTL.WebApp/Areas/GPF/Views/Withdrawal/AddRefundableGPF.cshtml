@@ -1,0 +1,813 @@
+﻿@{
+    string loanType = ViewBag.IsNonRefundable != null ? "Non-Refundable" : "Refundable";
+    string loanTypeAct = ViewBag.IsNonRefundable != null ? "NonRefundable" : "Refundable";
+    ViewData["Title"] = "Refundable Loan Application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .input-error {
+        border-color: red;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">@loanType Loan Application</h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("index","withdrawal", new { Area="GPF" })">Dashboard</a><span class="px-1">/</span><a href="@Url.Action("index","LoanProcessing", new { Area="GPF" })">Loan Processing List</a><span class="px-1">/</span><a href="@Url.Action(loanTypeAct + "List","withdrawal", new { Area="GPF" })">@loanType List</a><span class="px-1">/</span><span>Refundable Form</span>
+
+
+        </p>
+    </div>
+    <form class="g-3  formSubmit" id="form">
+        <div class="card border-card mt-0">
+            <input type="hidden" name="loanType" value="@loanType" />
+            <div class="card-body">
+                <h4 class="form_title shadow-2-strong ">
+                    Personal Details
+                </h4>
+
+                <div class="row">
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Employee Name<span class="text-danger req_text">*</span></label>
+                        <input name="name" type="text" class="form-control emp" placeholder="Employee Name" />
+                    </div>
+
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Employee ID<span class="text-danger req_text">*</span></label>
+                        <input type="hidden" name="externalCode" />
+                        <input type="text" name="employeeCode" class="form-control validateThis emp" placeholder="Employee ID" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Organization<span class="text-danger req_text">*</span></label>
+                        <select name="orgCode" id="org" class="form-select validateThis">
+                            <option value="" selected disabled>--Select--</option>
+                            @*<option value="BRPL/C001">BRPL - BSES Rajdhani Power Ltd</option>
+                                <option value="BYPL/C001">BYPL - BSES Yamuna Power Ltd</option>
+                                <option value="DTL/C001">DTL - Delhi Transco Ltd</option>
+                                <option value="DPCL/C001">DPCL - Delhi Power Company Limited</option>
+                                <option value="IPGCL/C001">IPGCL - Indraprastha Power Generation company Ltd</option>
+                                <option value="NDPL/C001">NDPL - North Delhi Power Ltd</option>
+                                <option value="BSES/C001">BSES - BSES</option>
+                                <option value="SC/C001">SUSPENSE COMPANY</option>*@
+                            @foreach (var kvp in DTL.Model.Models.GPF.GPFEmployeeInfoModel.OrganisationNameByCode)
+                            {
+                                <option value="@kvp.Key">@kvp.Value</option>
+                            }
+
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Department<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="department"
+                               placeholder="Department" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Designation<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="designation"
+                               placeholder="Designation" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Mobile Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="mobile" placeholder="Mobile Number" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Email ID<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="email" placeholder="Enter Email ID" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Date Of Birth<span class="text-danger req_text">*</span></label>
+                        <input type="date" class="form-control validateThis" name="dateOfBirth" placeholder="Date of Birth" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Age</label>
+                        <input type="text" class="form-control validateThis" name="age" placeholder="Enter Age" readonly />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Gender<span class="text-danger req_text">*</span></label>
+                        <div class="d-flex mt-3 gender-radio">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="gender" id="rdMale" value="Male" checked="checked">
+                                <label class="form-check-label" for="male">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="gender" id="rdFemale" value="Female">
+                                <label class="form-check-label" for="female">
+                                    Female
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="rdOther" value="Other">
+                                <label class="form-check-label" for="other">
+                                    Other
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Address<span class="text-danger req_text">*</span></label>
+                        <textarea class="form-control validateThis" name="address" placeholder="Address"></textarea>
+                        <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Date Of Joining<span class="text-danger req_text">*</span></label>
+                        <input type="date" class="form-control validateThis" name="dateOfJoining" placeholder="Date Of Joining" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Basic Pay<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="basicPay" placeholder="Basic Pay" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+
+                </div>
+                <h4 class="form_title shadow-2-strong ">
+                    Loan Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">GPF Account Number<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="accountNo"
+                               placeholder="Account Number" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">GPF Account Balance<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="gpfBalance"
+                               placeholder="Account Balance" readonly />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Monthly GPF Contribution<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="gpfContribution" placeholder="Contribution" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Purpose of Loan<span class="text-danger req_text">*</span></label>
+                        <select name="loanPurpose" id="State" class="form-select validateThis">
+                            <option value="" selected disabled>--Select--</option>
+                            <option value="Housing">Housing Loan</option>
+                            <option value="Consumer">Purchase Of Consumer</option>
+                            <option value="Medical">Medical Issues</option>
+                            <option value="Vehicle">Vehical Loan</option>
+
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Rate of Interest(%)<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="rateOfInterest" placeholder="Rate of Interest(%)" />
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Amount of Loan Required (In figure)<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control" placeholder="in figure" name="loanAmount" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label class="form-label d-block mb-1">Amount of Loan Required (in Words)<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" placeholder="In Words" name="loanAmountWords" disabled />
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Basic Pay*12<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control form-control-sm validateThis" name="basicPay12"
+                               placeholder="Basic Pay" />
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">75% (Total GPF Account Balance)<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="gpfBalance75"
+                               placeholder="Account Balance" readonly />
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Eligible Amount<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="eligibleAmount"
+                               placeholder="Eligible Amount" readonly />
+                        <div class="invalid-feedback"></div>
+                    </div>
+
+                    @if (loanType == "Refundable")
+                    {
+                        <div class="col-sm-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">Number of EMI's<span class="text-danger req_text">*</span></label>
+                            <input type="text" class="form-control validateThis" name="numEMI" placeholder="Enter EMI" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">Monthly EMI Amount<span class="text-danger req_text">*</span></label>
+                            <input type="text" class="form-control validateThis" name="monthlyEMI" placeholder="EMI Amount" readonly />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">EMI Start Date<span class="text-danger req_text">*</span></label>
+                            <input type="date" class="form-control validateThis" name="EMIStart" placeholder="start Date" readonly />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">EMI End Date<span class="text-danger req_text">*</span></label>
+                            <input type="date" class="form-control validateThis" name="EMIEnd" placeholder="End Date" readonly />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    }
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Place of Posting Last 3 Years<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="PostingPlace" placeholder="Place of Posting Last 3 Years " />
+                        <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Description(Details of Advance Application)<span class="text-danger req_text">*</span></label>
+                        <textarea class="form-control validateThis" name="description"></textarea>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <p class="form-label d-block mb-1">Details of Any Loan Pending<span class="text-danger req_text">*</span></p>
+                        <div class="d-flex">
+                            <div class="form-check me-3">
+                                <input class="form-check-input validateThis" type="radio" name="pendingLoan" value="Yes"
+                                       id="Yes">
+                                <label class="form-check-label" for="Yes">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input validateThis" type="radio" name="pendingLoan" value="No" checked
+                                       id="no">
+                                <label class="form-check-label" for="dependentSelf">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" id="yesDiv">
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Amount of previous @loanType Loan<span class="text-danger req_text">*</span></label>
+                        <input type="text" class="form-control validateThis" name="Prev_Amount" placeholder="Enter Amount" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-sm-4 mb-3 form-group">
+                        <label class="form-label d-block mb-1">Date of Withdrawal @loanType<span class="text-danger req_text">*</span></label>
+                        <input type="date" class="form-control validateThis" name="Prev_DateOfWithdrawal" placeholder="Enter " />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    @if (loanType == "Refundable")
+                    {
+                        <div class="col-sm-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">Date of Last Repayment of previous Loan<span class="text-danger req_text">*</span></label>
+                            <input type="date" class="form-control validateThis" name="Prev_DateOfRepayment" placeholder="Enter" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm-4 mb-3 form-group">
+                            <label class="form-label d-block mb-1">Balance of previous Refundable Loan, if any Outstanding against the Account Holder@*<span class="text-danger req_text">*</span>*@</label>
+                            <input type="text" class="form-control" name="Prev_BalanceAmount" placeholder="Enter Amount" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h4 class="form_title shadow-2-strong ">
+                    Document Attachment
+                </h4>
+                <div class="row">
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">Document Name</label>
+                        <select name="" id="docType" class="form-select validateThis">
+                            <option value="" selected disabled>--Select--</option>
+                            <option value="Doc1">Document 1</option>
+                            <option value="Doc2">Document 2</option>
+                            <option value="Doc3">Document 3</option>
+                            <option value="Doc4">Document 4</option>
+
+                        </select>
+                    </div>
+                    <div class="col-sm-4 col-md-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Choose file
+                        </label>
+                        <input class="form-control validateThis" type="file" accept=".pdf" id="fileUpload">
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-2 col-xl-1 position-relative px-0">
+                        <button type="button" class=" btn btn-success position-absolute top-25 fw-bolder" onclick="uploadFile()">
+                            <i class="fa fa-plus mr-2"></i>Add
+                        </button>
+                    </div>
+                    <div class="col-sm-12">
+                        <table id="tblDocs" class="table table-bordered table">
+                            <thead>
+                                <tr>
+                                    <th width="7%" class="text-center d-none">Sr. No.</th>
+                                    <th>Document Type</th>
+                                    <th class="text-center" width="15%">Attach file </th>
+                                    <th width="8%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="card-body">
+                        <h4 class="form_title shadow-2-strong ">
+                            Bank Details
+                        </h4>
+                        <div class="row">
+                            <div class="col-sm-4 mb-3 form-group">
+                                <label class="form-label d-block mb-1"> Account Number<span class="text-danger req_text">*</span> </label>
+                                <input type="number" maxlength="17" class="form-control" name="Bank_AccountNo" placeholder="Account Number" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="col-sm-4 mb-3 form-group">
+                                <label class="form-label d-block mb-1">Bank Name<span class="text-danger req_text">*</span></label>
+                                <input type="text" class="form-control" name="Bank_Name" placeholder="Bank Name" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-sm-4 mb-3 form-group">
+                                <label class="form-label d-block mb-1">Branch Name<span class="text-danger req_text">*</span></label>
+                                <input type="text" class="form-control" name="Bank_Branch" placeholder="Branch Name" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-sm-4 mb-3 form-group">
+                                <label class="form-label d-block mb-1">BIC Code<span class="text-danger req_text">*</span></label>
+                                <input type="text" class="form-control" name="Bank_BIC" placeholder="BIC Code" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-sm-4 mb-3 form-group">
+                                <label class="form-label d-block mb-1">IFSC Code<span class="text-danger req_text">*</span></label>
+                                <input type="text" class="form-control" name="Bank_IFSC" placeholder="IFSC Code" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3 submit_area submit_area_strip">
+                        @*<a class="btn btn-brand me-2" data-bs-toggle="modal" data-bs-target="#submit_pop_up">Submit</a>*@
+                        <a class="btn btn-brand me-2" href="javascript:void(0)" onclick="SaveConfirm()">Submit</a>
+                        <a class="btn btn-cancel me-2" href="@Url.Action(loanTypeAct + "List","Withdrawal",new {Area="GPF" })">Cancel</a>
+                        <button class="btn btn-reset me-2" onclick="window.location.reload()">Reset</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<template id="tmplDocRow">
+    <tr>
+        <td class="text-center d-none" id="srno"></td>
+        <th id="docName">Document Type</th>
+        <td class="text-center">
+            <input id="inpFile" type="file" style="display:none" />
+            <a href="javascript:void(0)" class="pdfIcons dwldFile"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
+        </td>
+        <td class="d-flex border-bottom-0 text-center">
+            <a href="javascript:void(0)" class="btn btn-danger btn-sm mr-2 btn_small" onclick="$(this).closest('tr').remove(); UpdateSrNo();">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+        </td>
+    </tr>
+</template>
+<!-- modal start -->
+<div class="modal fade" id="submit_pop_up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content px-0">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="~/assets/images/thumbs-up.png" class="icon_reject ">
+                    <p class="message-type mb-0 pb-0 px-3">Are you sure you want to Submit ?</p>
+                </div>
+                <div class="text-center">
+                    @*<a href="@Url.Action("RefundableList","Withdrawal",new {Area="GPF" })" class="btn btn-brand popUp_btn me-2">Submit</a>*@
+                    <a href="javascript:void(0)" onclick="Save()" class="btn btn-brand popUp_btn me-2">Submit</a>
+                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- modal end -->
+<!-- modal start -->
+<div class="modal fade" id="Cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-scrollable ">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+                <div class="content">
+                    <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="../assets/images/thumbs-up.png" class="icon_reject ">
+                    <p class="message-type">Are you sure you want to Cancel ?</p>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-brand popUp_btn me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- modal end -->
+<link href="~/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/plugins/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet" />
+<link href="~/plugins/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet" />
+<script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    var empLoaded = false;
+
+    $(document).ready(function () {
+        $('#yesDiv').hide();
+        $('#nodIV').hide();
+        $('input[type="radio"]').click(function () {
+            if ($(this).attr('id') == 'Yes') {
+                $('#yesDiv').show();
+                $('#nodIV').hide();
+            }
+            else if ($(this).attr('id') == 'no') {
+                $('#nodIV').show();
+                $('#yesDiv').hide();
+            }
+            else {
+                $('#showMe').hide();
+                $('#nodIV').hide();
+            }
+        });
+
+        $('.emp').autocomplete({
+            source: (req, res) => {
+                $.get(`@Url.Action("EmployeeAutocomplete", "Data")?term=${req.term}&orgCode=` + ($('[name="orgCode"]').val() || 'all')).then(r => res(r));
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                $(event.target).attr('selected-id', ui.item.id);
+                $(event.target).val(ui.item.label);
+                LoadEmpData(ui.item.id);
+            }
+        });
+
+        $('[name="employeeCode"]').change(function () { if (!$('[name="employeeCode"]').val()) ResetEmpData(); })
+        $('[name="basicPay"]').change(function () {
+            var pay = parseFloat($('[name="basicPay"]').val() || '0');
+            $('[name="basicPay12"]').val(pay ? pay * 12 : '').trigger('change').prop('readonly', true);
+        })
+        $('[name="gpfBalance"]').change(function () {
+            var pay = parseFloat($('[name="gpfBalance"]').val());
+            $('[name="gpfBalance75"]').val(isNaN(pay) ? '' : (pay * 0.75).toFixed(0)).trigger('change').prop('readonly', true);
+        })
+        $('[name="loanAmount"]').keyup(function () {
+            var amt = parseFloat($('[name="loanAmount"]').val() || '0');
+            $('[name="loanAmountWords"]').val(amt ? intoWords(amt) : '').prop('readonly', true);
+        })
+        $('[name="basicPay12"],[name="gpfBalance75"]').change(function () {
+            var b12 = parseFloat($('[name="basicPay12"]').val()), gpf75 = parseFloat($('[name="gpfBalance75"]').val());
+            if (!isNaN(b12) && !isNaN(gpf75)) $('[name="eligibleAmount"]').val(Math.min(b12, gpf75)).trigger('change').prop('readonly', true);
+            else $('[name="eligibleAmount"]').val('').trigger('change').prop('readonly', true);
+        })
+        //$('[name="eligibleAmount"],[name="loanAmount"]').change(function () {
+        //    var a1 = parseFloat($('[name="eligibleAmount"]').val()), a2 = parseFloat($('[name="loanAmount"]').val());
+        //    if (!isNaN(a1) && !isNaN(a2)) {
+        //        if (a2 > a1) {
+        //            toastr.warning('Loan amount cannot exceed Eligible Amount');
+        //            $('[name="loanAmount"]').val(a1);
+        //        }
+        //    }
+        //})
+
+        if('@loanType' == 'Refundable'){
+            $('[name="numEMI"]').change(function () {
+                var a1 = parseFloat($('[name="numEMI"]').val());
+                if (!isNaN(a1) && a1 > 60) $('[name="numEMI"]').val(60).trigger('change');
+                var start = moment().date() <= 4 ? moment().date(4).format("YYYY-MM-DD") : moment().add(1, 'month').date(4).format("YYYY-MM-DD")
+                $('[name="EMIStart"]').val(start).trigger('change');
+                $('[name="EMIEnd"]').val(moment(start).add(parseInt($('[name="numEMI"]').val()) - 1, 'month').format("YYYY-MM-DD")).trigger('change');
+            });
+            $('[name="numEMI"],[name="loanAmount"],[name="eligibleAmount"],[name="rateOfInterest"]').change(function () {
+                var a1 = parseFloat($('[name="numEMI"]').val()), a2 = parseFloat($('[name="loanAmount"]').val()), a3 = parseFloat($('[name="rateOfInterest"]').val()), a4 = parseFloat($('[name="eligibleAmount"]').val());
+                if (!isNaN(a1) && !isNaN(a2) && !isNaN(a3) && !isNaN(a4)) $('[name="monthlyEMI"]').val((Math.min(a2,a4) * (1 + (a3 / 100))) / a1).trigger('change').prop('readonly', true);
+                else $('[name="monthlyEMI"]').val('').trigger('change').prop('readonly', true);
+            })
+        }
+        $(document).on('click', '.dwldFile', function () {
+            var f = $(this).siblings('#inpFile')[0].files[0];
+            var n = $(this).closest('tr').find('#docName').text().trim();
+            getBase64(f).then(r => {
+                var dataURI = r;
+                var blob = dataURItoBlob(dataURI);
+                var objectURL = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = objectURL;
+                a.download = n + '.pdf';
+                a.style.display = 'none';
+                $('body').append(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(objectURL);
+            });
+        });
+    });
+
+    function ResetEmpData(empId) {
+        var el = n => $(`[name="${n}"]`);
+        el('name').val('').prop('readonly', false);
+        el('externalCode').val('').prop('readonly', false);
+        el('orgCode').val('').prop('disabled', false);
+        el('department').val('').prop('readonly', false);
+        el('designation').val('').prop('readonly', false);
+        el('mobile').val('').prop('readonly', false);
+        el('email').val('').prop('readonly', false);
+        el('dateOfBirth').val('').prop('readonly', false);
+        el('dateOfJoining').val('').prop('readonly', false);
+        el('age').val('').prop('readonly', true);
+        el('gender').prop('checked', false);
+        el('address').val('').prop('readonly', false);
+        el('accountNo').val('').prop('readonly', false);
+        el('gpfBalance').val('').trigger('change').prop('readonly', false);
+    }
+
+    function LoadEmpData(empId) {
+        const getAddress = ad => `${ad.address || ''} ${ad.street || ''} ${ad.city || ''} ${ad.pinCode || ''} ${ad.state || ''}`.replaceAll(/\s+/gm, ' ').trim();
+
+        $.get(`@Url.Action("GetEmployeeDetails", "Data")?externalCode=${encodeURIComponent(empId)}`).then(r => {
+            if (r) {
+                var el = n => $(`[name="${n}"]`);
+                el('name').val(r.name).prop('readonly', true);
+                el('externalCode').val(empId);
+                el('employeeCode').val(r.basicDetails.employeeCode);
+                el('orgCode').val(r.organisationCode).trigger('change').prop('disabled', true);
+                el('department').val(r.basicDetails.department).prop('readonly', true);
+                el('designation').val(r.basicDetails.designation).prop('readonly', true);
+                el('mobile').val(r.mobile).prop('readonly', true);
+                el('email').val(r.email).prop('readonly', true);
+                el('dateOfBirth').val(moment(r.basicDetails.dateOfBirth).format('YYYY-MM-DD')).prop('readonly', true);
+                el('dateOfJoining').val(moment(r.basicDetails.dateOfJoining).format('YYYY-MM-DD')).prop('readonly', true);
+                el('age').val(moment().diff(moment(r.basicDetails.dateOfBirth), 'YEAR')).prop('readonly', true);
+                el('gender').find('[value="' + r.gender + '"]').prop('checked', true);
+                el('address').val(getAddress(r.currentAddress)).prop('readonly', true);
+                var currentFy = moment().month() > 2 ? (moment().year() + 1) : moment().year();
+                $.get(`@Url.Action("GetCurrentBalance", "Data")?orgCode=${encodeURIComponent(r.organisationCode)}&accNo=${encodeURIComponent(empId)}&year=${currentFy}`).then(r1 => {
+                    el('accountNo').val(r1.accountNo).prop('readonly', true);
+                    el('gpfBalance').val(r1.gpfBalance).trigger('change').prop('readonly', true);
+                });
+                el('Bank_AccountNo').val(r.bankDetails.accountNo)
+                el('Bank_Name').val(r.bankDetails.bankName)
+                el('Bank_Branch').val(r.bankDetails.branch)
+                el('Bank_IFSC').val(r.bankDetails.ifsc)
+            }
+        })
+    }
+
+
+    function intoWords(num) {
+        var a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+        var b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        if ((num = num.toString()).length > 9) return 'overflow';
+        n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!n) return; var str = '';
+        str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+        str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+        str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+        str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+        str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'Only ' : 'Only';
+        return str;
+    }
+
+    function uploadFile() {
+        var f = $('#fileUpload')[0].files;
+        if (!f.length) { toastr.warning('Please select file first.'); return; }
+        if (!$('#docType').val()) { toastr.warning('Please select document type.'); return; }
+        if (!f[0].name.endsWith('.pdf')) { toastr.warning('Please select a PDF document.'); return; }
+        if (f[0].size > 2 * 1024 * 1024) { toastr.warning('Maximum allowed file size is 2MB.'); return; }
+        var tr = $($('#tmplDocRow').html());
+        tr.find('#docName').text($('#docType').val());
+        tr.find('#inpFile').prop('files', f);
+        $('#tblDocs').find('tbody').append(tr);
+    }
+
+    function getBase64(file) {
+        return new Promise((res, err) => {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                res(reader.result);
+            };
+            reader.onerror = function (error) {
+                err('Error: ', error);
+            };
+        });
+    }
+
+    function dataURItoBlob(dataURI) {
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataURI.split(',')[1]);
+        else
+            byteString = unescape(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ia = new Uint8Array(byteString.length);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ia], { type: mimeString });
+    }
+
+    var obj, objDetail, bankDetail, documentDetails;
+
+    function SaveConfirm() {
+        var el = n => $(`[name="${n}"]`);
+        obj = {
+            loanType: el('loanType').val(),
+            applicationNumber: '',
+            organization: el('orgCode').val(),
+            employeeExternalCode: el('externalCode').val(),
+            applicationStatus: '',
+            loanAmount: parseFloat(el('loanAmount').val()),
+            eligibleAmount: parseFloat(el('eligibleAmount').val()),
+            loanStatus: '',
+            remark: '',
+        };
+        objDetail = {
+            accountNumber: el('accountNo').val(),
+            basicPay: parseFloat(el('basicPay').val()),
+            contribution: parseFloat(el('gpfContribution').val()),
+            loanPurpose: el('loanPurpose').val(),
+            rateOfInterest: parseFloat(el('rateOfInterest').val()),
+            numEMI: parseInt(el('numEMI').val() || 0),
+            emiStart: el('EMIStart').val() || null,
+            emiEnd: el('EMIEnd').val() || null,
+            postingPlace: el('PostingPlace').val(),
+            description: el('description').val(),
+            previousLoan: el('pendingLoan').filter(':checked').val() == "Yes",
+            prev_Amount: parseFloat(el('Prev_Amount').val()),
+            prev_DateOfWithdrawal: el('Prev_DateOfWithdrawal').val(),
+            prev_DateOfRepayment: el('Prev_DateOfRepayment').val() || '',
+            prev_BalanceAmount: parseFloat(el('Prev_BalanceAmount').val() || '0'),
+        };
+        bankDetail = {
+            accountNumber: el('Bank_AccountNo').val(),
+            bankName: el('Bank_Name').val(),
+            branchName: el('Bank_Branch').val(),
+            bic: el('Bank_BIC').val(),
+            ifsc: el('Bank_IFSC').val(),
+        };
+        documentDetails = $.makeArray($('#tblDocs').find('tbody tr')).map(tr => {
+            return {
+                fileName: $(tr).find('#docName').text().trim(),
+                fileData: $(tr).find('#inpFile')[0].files[0]
+            };
+        });
+
+        // Obj Validation
+        var valid = true;
+        const warn = msg => toastr.warning(msg);
+        if (!obj.employeeExternalCode || !obj.organization) {
+            ResetEmpData();
+            toastr.error('Please select employee');
+            el('employeeCode').validate(false, 'Please select employee');
+            valid = false;
+            //return;
+        }
+        if (!obj.eligibleAmount) { el('eligibleAmount').validate(false, 'Unable to calculate eligible amount, Please fill relevant details'); valid = false; }
+        else el('eligibleAmount').validate(true);
+        if (!obj.loanAmount) { el('loanAmount').validate(false, 'Please enter appropriate Loan Amount'); valid = false; }
+        else el('loanAmount').validate(true);
+
+        // ObjDetail Validation
+        // if (!objDetail.accountNumber) { warn('Unable to fetch GPF Account Number, cannot create loan application for this employee'); return; }
+
+        if (!objDetail.basicPay) { el('basicPay').validate(false, 'Please enter basic pay'); valid = false; }
+        else el('basicPay').validate(true);
+        if (!objDetail.contribution) { el('gpfContribution').validate(false, 'Please enter GPF Contribution'); valid = false; }
+        else el('gpfContribution').validate(true);
+        if (!objDetail.loanPurpose) { el('loanPurpose').validate(false, 'Please select Purpose of Loan'); valid = false; }
+        else el('loanPurpose').validate(true);
+        if (!objDetail.rateOfInterest) { el('rateOfInterest').validate(false, 'Please enter the Rate of Interest'); valid = false; }
+        else el('rateOfInterest').validate(true);
+
+        if ('@loanType' == 'Refundable') {
+            if (!objDetail.numEMI) { el('numEMI').validate(false, 'Please enter Number of EMI'); valid = false; }
+            else el('numEMI').validate(true);
+            if (!objDetail.emiStart) { el('emiStart').validate(false, 'Unable to calculate EMI start and end dates. Please reenter data.'); valid = false; }
+            else el('emiStart').validate(true);
+            if (!objDetail.emiEnd) { el('emiEnd').validate(false, 'Unable to calculate EMI End and end dates. Please reenter data.'); valid = false; }
+            else el('emiEnd').validate(true);
+
+        }
+        if (!objDetail.postingPlace) {
+            el('postingPlace').validate(false, 'Please enter Place of Posting'); valid = false; }
+        else el('postingPlace').validate(true);
+        if (!objDetail.description) {
+            el('description').validate(false, 'Please enter Loan Description'); valid = false; }
+        else el('description').validate(true);
+
+
+        if (objDetail.previousLoan) {
+            if (!objDetail.prev_Amount) {
+                el('prev_Amount').validate(false, 'Please enter Amount Of Previous Loan'); valid = false;} else el('description').validate(true);
+            if (!objDetail.prev_DateOfWithdrawal) {
+                el('prev_DateOfWithdrawal').validate(false, 'Please enter Date Of Withdrawal'); valid = false;
+            } else el('prev_DateOfWithdrawal').validate(true);
+
+
+            if ('@loanType' == 'Refundable')
+                if (!objDetail.prev_DateOfRepayment) {
+                    el('prev_DateOfRepayment').validate(false, 'Please enter Date Of Last Repayment Of Previous Loan'); valid = false;
+                } else el('prev_DateOfRepayment').validate(true);
+
+            //if('@loanType' == 'Refundable') if (!objDetail.prev_BalanceAmount) { warn('Please enter Balance Of Previous Loan'); return; }
+        }
+        // BankDetail Validation
+        if (!bankDetail.accountNumber) {
+            el('Bank_AccountNo').validate(false, 'Please enter Bank Account Number'); valid = false;
+        } else el('Bank_AccountNo').validate(true);
+        if (!bankDetail.bankName) {
+            el('Bank_Name').validate(false, 'Please enter Bank Name'); valid = false;
+        } else el('Bank_Name').validate(true);
+        if (!bankDetail.branchName) {
+            el('Bank_Branch').validate(false, 'Please enter Bank Branch Name'); valid = false;
+        } else el('Bank_Branch').validate(true);
+
+        if (!bankDetail.bic) {
+            el('Bank_BIC').validate(false, 'Please enter BIC Code'); valid = false;
+        } else el('Bank_BIC').validate(true);
+        if (!bankDetail.ifsc) {
+            el('Bank_IFSC').validate(false, 'Please enter IFSC Code'); valid = false;
+        } else el('Bank_IFSC').validate(true);
+
+
+        if (!valid) return;
+
+        $('#submit_pop_up').modal('show');
+    }
+
+    function Save() {
+        obj.details = objDetail;
+        obj.bankDetails = bankDetail;
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SaveLoan", "Data")',
+            data: JSON.stringify(obj),
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.status) {
+                    toastr.success('Saved Successfully');
+                    var px = [];
+                    documentDetails.forEach(dd => {
+                        var fd = new FormData();
+                        fd.append('file', dd.fileData);
+                        fd.append('FileName', dd.fileName);
+                        fd.append('ApplicationNumber', data.data.applicationNumber);
+                        px.push($.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("SaveLoanDocument", "Data")',
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                        }));
+                    });
+                    Promise.all(px).then(r => {
+                        window.setTimeout(_ => window.location = '@Url.Action(loanTypeAct + "List","Withdrawal",new {Area="GPF" })', 500);
+                    })
+                }
+                else {
+                    toastr.error('An error occurred while saving.');
+                    $('#submit_pop_up').modal('hide');
+                }
+            }
+        })
+    }
+
+    $.fn.validate = function (isValid, msg = '') {
+        if (isValid) $(this).removeClass('is-invalid');
+        else {
+            if (!$(this).hasClass('is-invalid')) $(this).addClass('is-invalid');
+            $(this).closest('.form-group').find('.invalid-feedback').text(msg);
+        }
+    }
+</script>
+<script src="~/assets/js/commonJs.js"></script>

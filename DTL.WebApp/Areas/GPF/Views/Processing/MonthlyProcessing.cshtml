@@ -1,0 +1,468 @@
+﻿@using DTL.Model.Models.GPF
+@model IEnumerable<GPFProcessing>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Monthly GPF Processing </h3>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Dashboard","Processing", new { Area="GPF" })">Dashboard</a><span class="px-1">/</span><span>Monthly GPF Processing</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+            @*<form class="g-3 mt-2 formSubmit" id="form">*@
+
+
+            <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+                    <label class="form-label d-block mb-1" for="name">
+                        Organization<span class="text-danger req_text">*</span>
+                    </label>
+                    <select name="orgCode" id="State" class="form-select">
+                        <option value="" selected disabled>Select</option>
+                        @foreach (var kvp in DTL.Model.Models.GPF.GPFEmployeeInfoModel.OrganisationNameByCode)
+                        {
+                            <option value="@kvp.Key">@kvp.Value</option>
+                        }
+                    </select>
+                    <div class="invalid-feedback ">
+                        Please Enter Organization
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3 form-group">
+                    <label class="form-label d-block mb-1" for="name">
+                        Processing Date<span class="text-danger req_text">*</span>
+                    </label>
+                    <input type="date" id="name" name="processingDate" class="form-control form-control-sm validateThis"
+                           placeholder="Designation" />
+                    <div class="invalid-feedback ">
+                        Please Enter Your Processing Date.
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-4 mb-3 form-group">
+                    <label class="form-label d-block mb-1">
+                        Choose file<span class="text-danger req_text">*</span>
+                    </label>
+                    <input class="form-control validateThis" name="inpFile" accept=".xlsx" type="file" id="formFileMultiple" multiple>
+                    <div id="file-feedback"></div>
+                    <div class="invalid-feedback ">
+                        Please Enter Choose file.
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4  mb-3 form-group">
+                    <label class="form-label d-block mb-1" for="name">
+                        Interest Rate (in %)<span class="text-danger req_text">*</span>
+                    </label>
+                    <div class="d-flex">
+                        <input type="number" id="name" class="form-control form-control-sm validateThis" name="interestRate"
+                               placeholder=" Interest Rate (in %)" disabled />
+                        <button type="button" class="btn btn-brand popUp_btn ms-2" data-bs-toggle="modal"
+                                data-bs-target="#change">
+                            change
+                        </button>
+                    </div>
+                    <div class="invalid-feedback ">
+                        Please Enter Your  Interest Rate (in %) !
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+                    <label class="form-label d-block mb-1"> Employee Type</label>
+                    <div class="d-flex mt-3">
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="dependentSelf"
+                                   id="Deputated" value="Deputated">
+                            <label class="form-check-label" for="dependent">
+                                Deputated
+
+                            </label>
+                        </div>
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="dependentSelf"
+                                   id="General" val="General">
+                            <label class="form-check-label" for="dependentSelf">
+                                General
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="invalid-feedback ">
+                        Please Enter Dependent / Self.
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3 submit_area submit_area_strip">
+                    <button type="button" class="btn btn-brand me-2" onclick="submit()">Submit</button>
+                    <!-- <button type="submit" class="btn btn-brand me-2 submitBtn"  data-bs-toggle="modal" data-bs-target="#approve">Submit</button> -->
+                    <a class="btn btn-cancel me-2" href="@Url.Action("Dashboard","Processing", new { Area="GPF" })">Cancel</a>
+                    <button class="btn btn-reset me-2" type="button" id="resetBtn">Reset</button>
+
+                </div>
+                <div class="table-responsive pt-4">
+                    <table id="monthlyProcessing" class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th width="7%" class="text-center">Sr. No.</th>
+                                <th> Processing Date</th>
+                                <th>Emp Id.</th>
+                                <th>Emp Name</th>
+                                <th>Organization</th>
+                                <th>Designation</th>
+                                <th>Employee Type</th>
+                                <th>GPF Contribution</th>
+                                <th>Interest Rate</th>
+
+                                <th>Member Interest</th>
+
+                                <th>Month / Year</th>
+                                <th>Monthly GPF Amount</th>
+                                <th>GPF Account Balance</th>
+
+                                @*<th width="8%" class="text-center">Action</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="modal fade" id="change" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-body ">
+                            <div class="py-2">
+                                <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="col-sm-12  mb-3">
+                                    <label class="form-label d-block mb-1" for="name">
+                                        Interest Rate (in %)<span class="text-danger req_text">*</span>
+                                    </label>
+
+                                    <input type="number" id="name" class="form-control form-control-sm validateThis"
+                                           placeholder=" Interest Rate (in %)" />
+
+                                    <div class="invalid-feedback ">
+                                        Please Enter Your  Interest Rate (in %) !
+                                    </div>
+
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-brand popUp_btn me-2" onclick="submitIR()">Submit</button>
+                                    <button type="button" class="btn btn-danger popUp_btn  me-2" data-bs-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*<div class="modal fade" id="approve" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header py-2">
+
+            <h5 class="modal-title">Non Cashless Mediclaim</h5>
+
+            <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+            aria-label="Close">
+            </button>
+            </div>
+
+            <div class="modal-body ">
+            <div class="content pt-4 pb-0">
+
+            <img src="assets/images/success.png" class="icon_reject ">
+            <h3 class="message-type text-blod pb-0 pt-3 ">
+            Claim Submitted Successfully
+            </h3>
+            <p class="text-center">
+            Claim Number is <b>
+            <label id="lblClaimNumber"></label>
+            </b>
+            </p>
+
+
+            </div>
+            <div class="text-center mt-4">
+            <button type="button" class="btn btn-brand popUp_btn me-2"
+            onclick="location.href='nonCashlessMediclaimView.html'">
+            View and Print
+            Application
+            </button>
+            </div>
+            </div>
+            </div>
+
+            </div>
+            </div>
+            <div class="modal fade" id="Cancel" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+            <div class="modal-body ">
+            <div class="content px-0 pb-0 pt-2">
+            <button type="button" class="btn-close close_btn" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+            <img src="assets/images/cancel.png" class="icon_reject ">
+            <p class="message-type pt-3">Are you sure you want to Cancel ?</p>
+            </div>
+            <div class="text-center">
+            <button type="button" class="btn btn-brand popUp_btn me-2"
+            data-bs-dismiss="modal">
+            Cancel
+            </button>
+            <button type="button" class="btn btn-danger popUp_btn  me-2"
+            data-bs-dismiss="modal">
+            Close
+            </button>
+
+
+            </div>
+            </div>
+            </div>
+
+            </div>
+            </div>*@
+            @*</form>*@
+        </div>
+    </div>
+
+</div>
+<script src="~/assets/js/commonJs.js"></script>
+
+<script>
+    var fileValidation;
+    $("#monthlyProcessing").DataTable({
+        ordering: true,
+        dom: 'Blfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Medical Cards'
+            },
+            {
+                extend: 'csvHtml5',
+                title: 'Medical Cards'
+            },
+            {
+                extend: 'pdfHtml5',
+                title: 'Medical Cards',
+                orientation: 'landscape',
+            }
+        ],
+    });
+
+    $(document).ready(function () {
+        $('[name="orgCode"]').change(function () {
+            $('#file-feedback').html(`<a href="javascript:void(0)" onclick="downloadSampleExcel()">Get Sample</a>`);
+        });
+        $('[name="processingDate"]').change(function () {
+            if (moment($('[name="processingDate"]').val()).date() > 4)
+                $('[name="dependentSelf"]#Deputated').trigger('click');
+            else
+                $('[name="dependentSelf"]#General').trigger('click');
+        });
+        $('[name="inpFile"]').change(function () {
+            var files = $('[name="inpFile"]')[0].files;
+            if (!files.length) {
+                $('#file-feedback').html($('[name="orgCode"]').val() ? `<a href="javascript:void(0)" onclick="downloadSampleExcel()">Get Sample</a>` : '');
+                return;
+            }
+            fileValidation = null;
+            if (files[0].name.split('.').pop().toLowerCase() != 'xlsx') {
+                toastr.warning('Please select a valid Excel file!');
+                return;
+            }
+            var fd = new FormData();
+            fd.append('file', files[0]);
+            $.ajax({
+                url: `@Url.Action("ValidateExcelData", "Data")`,
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    fileValidation = data;
+                    if (!data.status) $('#file-feedback').html('Failed to parse excel');
+                    else if (data.missingColumns.length) $('#file-feedback').html(`Columns: '${data.missingColumns.join(`','`)}' missing`);
+                    else if (!data.success && !data.failure) $('#file-feedback').html('No records found');
+                    else $('#file-feedback').html(`Successful: ${data.success}&emsp;|&emsp;Errors: ${data.failure}${data.failure ? '<br/><a href="javascript:void(0)" onclick="downloadSummary()">Get Summary</a>' : ''}`);
+                }
+            })
+        });
+
+        $('#resetBtn').click(function(){
+            $('[name="orgCode"]').val('').trigger('change');
+            $('[name="processingDate"]').val(moment().format('YYYY-MM-DD')).trigger('change');
+            $('[name="inpFile"]').val('').trigger('change');
+            $('[name="interestRate"]').val('').trigger('change');
+        })
+
+        $.fn.validate = function (isValid, msg = '') {
+            if (isValid) $(this).removeClass('is-invalid');
+            else {
+                if (!$(this).hasClass('is-invalid')) $(this).addClass('is-invalid');
+                $(this).closest('.form-group').find('.invalid-feedback').text(msg);
+            }
+        }
+        window.setTimeout(_ => $('[name="processingDate"]').val(moment().format('YYYY-MM-DD')).trigger('change'), 500)
+    })
+
+    function downloadSummary() {
+        if (!fileValidation || !fileValidation.processedExcelBytes) return;
+        const linkSource = `data: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${fileValidation.processedExcelBytes} `;
+        const downloadLink = document.createElement('a');
+        document.body.appendChild(downloadLink);
+        downloadLink.href = linkSource;
+        downloadLink.target = '_self';
+        downloadLink.download = "Errors.xlsx";
+        downloadLink.click();
+    }
+
+    function downloadSampleExcel() {
+        if (!$('[name="orgCode"]').val()) return;
+        $.get(`@Url.Action("ExcelSample", "Data")?orgCode=${encodeURIComponent($('[name="orgCode"]').val())}`).then(r => {
+            if (!r.status) return;
+            const linkSource = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${r.data} `;
+            const downloadLink = document.createElement('a');
+            document.body.appendChild(downloadLink);
+            downloadLink.href = linkSource;
+            downloadLink.target = '_self';
+            downloadLink.download = "Sample.xlsx";
+            downloadLink.click();
+        })
+    }
+
+    function submitIR() {
+        var intRateInp = $('.modal#change').find('.modal-body input[type="number"]');
+        if (!$(intRateInp).val()) $(intRateInp).validate(false, "Please enter interest rate");
+        else if (!parseFloat($(intRateInp).val())) $(intRateInp).validate(false, "Please enter a valid interest rate");
+        else {
+            $(intRateInp).validate(true);
+
+            $('[name="interestRate"]').val(parseFloat($(intRateInp).val()));
+            $('.modal#change').modal('hide')
+        }
+    }
+
+    function submit() {
+        var valid = true;
+        if (!$('[name="orgCode"]').val()) { valid = false; $('[name="orgCode"]').validate(false, 'Please select Organization') }
+        else $('[name="orgCode"]').validate(true);
+        if (!$('[name="processingDate"]').val()) { valid = false; $('[name="processingDate"]').validate(false, 'Please select Processing Date') }
+        else $('[name="processingDate"]').validate(true);
+        if (!$('[name="interestRate"]').val()) { valid = false; $('[name="interestRate"]').validate(false); toastr.warning('Please enter Interest Rate') }
+        if (!$('[name="dependentSelf"]').val()) { valid = false; toastr.warning('Please select Employee Type') }
+        var files = $('[name="inpFile"]')[0].files;
+        if (!files.length) { valid = false; $('[name="inpFile"]').validate(false, "Please select a file"); }
+        else if (!fileValidation) { valid = false; $('[name="inpFile"]').validate(false, "Unable to parse your file"); }
+        else if (!fileValidation.success) { valid = false; $('[name="inpFile"]').validate(false, "This file cannot be used"); }
+        else $('[name="inpFile"]').validate(true);
+        if (!valid) return;
+        var fd = new FormData();
+        fd.append('file', files[0]);
+        fd.append('organizationCode', $('[name="orgCode"]').val());
+        fd.append('processingDate', $('[name="processingDate"]').val());
+        fd.append('interestRate', $('[name="interestRate"]').val());
+        fd.append('employeeType', $('[name="dependentSelf"]:checked').val());
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            confirmButtonText: 'Submit',
+            denyButtonText: `Cancel`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Processing',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                });
+                Swal.showLoading();
+                $.ajax({
+                    url: `@Url.Action("UploadExcelData", "Data")`,
+                    type: 'POST',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log(data)
+                        if (data.fileSummary.success) {
+                            processEntries(data.entries)
+                            Swal.fire('Success', 'Data Uploaded Successfully', 'success');
+                        }
+                        else Swal.fire('Error', 'Error', 'error');
+                        //fileValidation = data;
+                        //if (!data.status) $('#file-feedback').html('Failed to parse excel');
+                        //else if (data.missingColumns.length) $('#file-feedback').html(`Columns: '${data.missingColumns.join(`','`)}' missing`);
+                        //else if (!data.success && !data.failure) $('#file-feedback').html('No records found');
+                        //else $('#file-feedback').html(`Successful: ${data.success}&emsp;|&emsp;Errors: ${data.failure}${data.failure ? '<br/><a href="javascript:void(0)" onclick="downloadSummary()">Get Summary</a>' : ''}`);
+                    }
+                });
+                window.setTimeout(() => { }, 1000)
+            }
+        })
+    }
+
+    function processEntries(data) {
+
+        const curr = a => `${a}<span class="text-danger req_text">₹ </span>`
+        sr = 1
+        $('#monthlyProcessing').DataTable().destroy();
+        $("#monthlyProcessing").DataTable({
+            ordering: true,
+            dom: 'Blfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'Medical Cards'
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: 'Medical Cards'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Medical Cards',
+                    orientation: 'landscape',
+                }
+            ],
+            data: data,
+            scrollX: true,
+            columns: [
+                { render: _ => sr++ },
+                { data: 'processingDate', render: a => moment(a).format('DD-MMM-YYYY') },
+                { data: 'empId' },
+                { data: 'empName' },
+                { data: 'organisation' },
+                { data: 'designation' },
+                { data: 'empType' },
+                { data: 'gpfContribution', render: curr },
+                { data: 'interestRate', render: a => `${a}%` },
+                { data: 'memberInterest', render: curr },
+                { data: 'month_Year', render: a => moment(a).format('MMMM, YYYY') },
+                { data: 'monthlyGPFAmount', render: curr },
+                { data: 'gpfAccountBalance', render: curr },
+            ]
+        });
+    }
+
+
+</script>

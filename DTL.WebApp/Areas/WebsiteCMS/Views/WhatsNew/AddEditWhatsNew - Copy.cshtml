@@ -1,0 +1,196 @@
+﻿@using DTL.Model.Models.CMS
+@using DTL.WebApp.Areas.WebsiteCMS
+
+
+@model WhatsNewModel
+@{
+    ViewData["Title"] = Model.IsNew ? "Add WhatsNew" : Model.ViewOnly ? "View WhatsNew" : "Edit WhatsNew";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label.error {
+        display: none !important;
+    }
+</style>
+
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">WhatsNew Data Form</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", StringConstants.DASHBOARD, new { Area = StringConstants.CMS_AREA })">CMS</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("", StringConstants.CMS_WHATS_NEW , new { Area = StringConstants.CMS_AREA})">WhatsNews Data List</a></li>
+                        <li class="breadcrumb-item active">WhatsNew Data Form</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form id="AddWhatsNewForm" action="" method="post">
+                                 @Html.AntiForgeryToken()
+                                <input type="hidden" value="@Model.ID" name="ID" id="ID" />
+                                <input type="hidden" value="@Model.IsNew.ToString()" name="IsNew" id="IsNew" />
+                                <h4 class="bg-gradient-gray p-1 mb-3">Basic Information</h4>
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Title in English</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input value="@Model.TitleInEnglish"  disabled="@Model.ViewOnly" type="text"  class="form-control mb-2" placeholder="Enter Title in English" name="TitleInEnglish" id="" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Title in Hindi</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input value="@Model.TitleInHindi"  disabled="@Model.ViewOnly" type="text" class="form-control mb-2" placeholder="Enter Title in Hindi" name="TitleInHindi" id="" required />
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Date</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input value="@(Model.IsNew?"": Model.WhatsNewDate.ToString(StringConstants.ASSIGN_DATE_FORMAT))"  disabled="@Model.ViewOnly" type="date" class="form-control mb-2" placeholder="Select Date" name="WhatsNewDate" id="" required />
+                                    </div>
+
+
+                                </div>
+
+                                <h4 class="bg-gradient-gray p-1 mb-3 mt-4">Attachment Information</h4>
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Title in English</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input value="@Model.AttachmentTitleInEnglish"  disabled="@Model.ViewOnly" name="AttachmentTitleInEnglish" type="text" class="form-control mb-2" placeholder="Enter Attachment Title in English" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">English Attachment</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input  disabled="@Model.ViewOnly" name="AttachmentFileInEnglish" type="file" class="mb-2" required />
+                                            @if (Model.IsNew == false)
+                                        {
+                                            @*<input type="hidden" name="AttachmentFileInHindiBase64" value="@(@Model.AttachmentFileInHindi == null ?  "" :Convert.ToBase64String(@Model.AttachmentFileInHindi))" />*@
+                                            <br />
+                                            <a href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants.CMS_WHATS_NEW, new { id =  Model.ID, lang="English"})" @* href="javascript:downloadPDF('AttachmentFileInHindiBase64')"*@> View File</a>
+                                            @:&nbsp; &nbsp; &nbsp;
+                                            <a href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants.CMS_WHATS_NEW, new { id =  Model.ID, lang="English", isView = false})">Download File</a>
+                                        }
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Title in Hindi</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input value="@Model.AttachmentTitleInHindi"  disabled="@Model.ViewOnly" name="AttachmentTitleInHindi" type="text" class="form-control mb-2" placeholder="Enter Attachment Title in Hindi" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="">Hindi Attachment</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input name="AttachmentFileInHindi"  disabled="@Model.ViewOnly"  type="file" class="mb-2" required />
+                                           @if (Model.IsNew == false)
+                                        {
+                                            @*<input type="hidden" name="AttachmentFileInHindiBase64" value="@(@Model.AttachmentFileInHindi == null ?  "" :Convert.ToBase64String(@Model.AttachmentFileInHindi))" />*@
+                                            <br />
+                                            <a href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants.CMS_WHATS_NEW, new { id =  Model.ID, lang="Hindi"})" @* href="javascript:downloadPDF('AttachmentFileInHindiBase64')"*@> View File</a>
+                                            @:&nbsp; &nbsp; &nbsp;
+                                            <a href="@Url.Action(StringConstants.CMS_DOWNLOAD, StringConstants.CMS_WHATS_NEW, new { id =  Model.ID, lang="Hindi", isView = false})">Download File</a>
+                                        }
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button id="btnSubmit" type="button" class="btn btn-primary  @( Model.ViewOnly ? "hide" : "" )" >Submit</button>
+                                        <button type="reset" onclick='window.location.href="@Url.Action("", StringConstants.CMS_WHATS_NEW, new { Area = StringConstants.CMS_AREA })"' class="btn btn-danger" id="btnReset">@( Model.ViewOnly ? "Back" : "Cancel")</button>
+                                     </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">WhatsNew Data</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                                                <p>WhatsNew Data Added Successfully</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+<style>
+
+    .hide {
+        display: none;
+    }
+</style>
+@section AddEditWhatsNew{
+
+<script type="text/javascript" src="~/js/CMS/WhatsNew.js"></script>
+
+<script>
+    $(".show_submit").hide();
+    /*
+    $("#btnSubmit").click(function () {
+        $(".hide_submit").hide();
+        $(".show_submit").show();
+    });
+    */
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function decimalNumberKey(evt, obj) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        var value = obj.value;
+        var dotcontains = value.indexOf(".") != -1;
+        if (dotcontains)
+            if (charCode == 46) return false;
+        if (charCode == 46) return true;
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+</script>
+}

@@ -1,0 +1,77 @@
+﻿@using DTL.Model.Models.CMS
+
+@{
+    ViewData["Title"] = "नवीनतम प्रपत्र";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+
+}
+@model IEnumerable<FormModel>;
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1> नवीनतम प्रपत्र</h1>
+                <p><a href="@Url.Action("","home")">मुख पृष्ठ</a> / <span>सेवानिवृत्त कर्मचारी सेवाएं / नवीनतम प्रपत्र</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidebar">
+
+                    <div class="tab">
+                        <a class="tablinks active" href="@Url.Action("","hospital")">अस्पतालों की सूची </a>
+                        <a class="tablinks active" href="#">
+                            नवीनतम प्रपत्र
+                        </a>
+                        <a class="tablinks" href="../assets/documents/hospital/LIST_OF_PANEL_HOSPITALS.pdf">पैनलबद्ध अस्पताल सूची</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 shadow px-0 mb-4">
+                <div class="main_content">
+                    <div class="tabcontent hospital_list">
+
+
+                        <table class="table table-bordered table-hover" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>क्रमांक</th>
+                                    <th>
+                                        फार्म
+                                    </th>
+                                    <th>डाउनलोड</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count() > 0)
+                                {
+                                    int counter = 0;
+                                    @foreach (var item in Model)
+                                    {
+                                        counter++;
+                                        <tr>
+                                            <td>@counter</td>
+                                            <td>@item.TitleInHindi</td>
+
+
+                                            <td><a target="_blank" href='@Url.Action("DownloadFile","Form", new {id = @item.ID})'><i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                    }
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DTL.Model.Models
+{
+    public class MediclaimCard
+    {
+        public int Id { get; set; }
+        public string Pensioner { get; set; }
+        public int Age { get; set; }
+        public DateTime DOB { get; set; }
+        public string MedicalHistory { get; set; }
+        public string Address { get; set; }
+        public string ContactNumber { get; set; }
+        public int InsuranceId { get; set; }
+        //Skipped till furthur clarification
+        //public byte Document { get; set; }
+        public string BankName { get; set; }
+        public string BICCode { get; set; }
+        public string AccountNumber { get; set; }
+    }
+}

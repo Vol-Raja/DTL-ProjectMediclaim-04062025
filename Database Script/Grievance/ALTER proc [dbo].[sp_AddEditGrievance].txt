@@ -1,0 +1,141 @@
+USE [DTLPension]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_AddEditGrievance]    Script Date: 07-09-2022 10.20.37 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+  
+-- =======================            
+-- Author:  Mita Makwana KodXL Technologies            
+-- Create date: 11/9/2021            
+-- Description: CURD Roles Page Access            
+-- exec [sp_AddEditGrievance]        
+-- ==========================      
+ALTER proc [dbo].[sp_AddEditGrievance]  
+
+
+@Id  uniqueidentifier = null,
+@Department as varchar(100),
+@PPONo as varchar(50),
+@EmployeeId as bigint,
+@Subject as varchar(500),
+@MobileNo as varchar(100),
+@GrievanceDetails as varchar(2000),
+@CreatedBy as nvarchar(50)=null,
+@ModifideBy as nvarchar(50)=null,
+
+@Name nvarchar(255),
+@UserType nvarchar(255),
+@Gender nvarchar(15),
+@Office nvarchar(255),
+@Remarks nvarchar(255),
+@Status nvarchar(255),
+@IsDeleted bit,
+@EmailID nvarchar(255),
+@Description nvarchar(255),
+@AttachmentFileInEnglish varbinary(max),
+@EnglishFileName nvarchar(255),
+@EnglishContentType nvarchar(255),
+@Address nvarchar(255),
+@GrievanceHeadAttachmentFileInEnglish varbinary(max),
+@GrievanceHeadEnglishFileName nvarchar(255),
+@GrievanceHeadEnglishContentType nvarchar(255),
+@ReturnMsg nvarchar(max) output
+
+as  
+begin  
+SET NOCOUNT ON 
+
+
+if(@Id is null)
+begin
+
+insert into Grievance(
+						Department,
+						PPONo,
+						EmployeeId,
+						Subject,
+						MobileNo,
+						GrievanceDetails,
+						CreatedDate,
+						CreatedBy,
+						 Name  ,
+						  UserType  ,
+						  Gender ,
+						  Office  ,
+						  Remarks  ,
+						  Status  ,
+						  IsDeleted ,
+						  EmailID  ,
+						  Description  ,
+						  AttachmentFileInEnglish ,
+						  EnglishFileName  ,
+						  EnglishContentType  ,
+						  Address ,
+						  GrievanceHeadAttachmentFileInEnglish,
+						  GrievanceHeadEnglishFileName,
+						  GrievanceHeadEnglishContentType
+						)
+						values(
+						@Department,
+						@PPONo,
+						@EmployeeId,
+						@Subject,
+						@MobileNo,
+						@GrievanceDetails,
+						GETDATE(),
+						@CreatedBy,
+						@Name  ,
+						@UserType  ,
+						@Gender ,
+						@Office  ,
+						@Remarks  ,
+						@Status  ,
+						@IsDeleted,
+						@EmailID  ,
+						@Description  ,
+						@AttachmentFileInEnglish ,
+						@EnglishFileName  ,
+						@EnglishContentType  ,
+						@Address ,
+						@GrievanceHeadAttachmentFileInEnglish,
+						@GrievanceHeadEnglishFileName,
+						@GrievanceHeadEnglishContentType
+						)
+						set @ReturnMsg ='add'  
+end
+else
+begin
+
+update Grievance  set 
+
+				Department=@Department,
+				PPONo=@PPONo,
+				EmployeeId=@EmployeeId,
+				Subject=@Subject,
+				MobileNo=@MobileNo,
+				GrievanceDetails=@GrievanceDetails,
+				ModifideDate=Getdate(),
+				ModifideBy=@ModifideBy,
+				Name=@Name  ,
+				UserType=@UserType  ,
+				Gender=@Gender ,
+				Office=@Office  , 
+				Remarks=@Remarks  ,
+				Status=@Status  ,
+				IsDeleted=@IsDeleted,
+				EmailID=@EmailID  ,
+				Description=@Description  ,
+				AttachmentFileInEnglish=@AttachmentFileInEnglish ,
+				EnglishFileName=@EnglishFileName  ,
+				EnglishContentType=@EnglishContentType  ,
+				Address = @Address ,
+				GrievanceHeadAttachmentFileInEnglish =  @GrievanceHeadAttachmentFileInEnglish,
+				GrievanceHeadEnglishFileName = @GrievanceHeadEnglishFileName,
+				GrievanceHeadEnglishContentType = @GrievanceHeadEnglishContentType
+
+where Id = @Id
+set @ReturnMsg ='update'  
+end
+end

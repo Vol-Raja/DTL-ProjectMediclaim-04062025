@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DTL</title>
+    <!-- Google Font: Source Sans Pro -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/bootstrap-datepicker.js"></script>
+    <script src="~/assets/js/buttons.html5.min.js"></script>
+    <script src="~/assets/js/CommonValidations.js"></script>
+    <script src="~/assets/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/js/dataTables.dataTables.min.js"></script>
+    <script src="~/assets/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/parsley.min.js"></script>
+    <script src="~/assets/js/pdfmake.min.js"></script>
+    <script src="~/assets/js/perfect-scrollbar.min.js"></script>
+    <script src="~/plugins/select2/js/select2.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="~/assets/css/dashforge.css" rel="stylesheet">
+    <link href="~/assets/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="~/assets/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="~/assets/css/all.min.css" rel="stylesheet">
+    <link href="~/assets/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/assets/css/typicons.css" rel="stylesheet">
+    <link href="~/assets/css/fontAwesome/all.min.css" rel="stylesheet">
+    <link href="~/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <!-- Bootstrap 4 -->
+    @*<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+    <!-- bs-custom-file-input -->
+
+    <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <!--<script src="~/plugins/inputmask/jquery.inputmask.min.js"></script>-->
+    <!-- date-range-picker -->
+    <!--<script src="~/plugins/daterangepicker/daterangepicker.js"></script>-->
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.js"></script>
+    <!-- Toastr -->
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="~/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/plugins/jszip/jszip.min.js"></script>
+    <script src="~/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="~/plugins/table-to-excel/table-to-excel.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <link href="~/plugins/sweetalert2/sweetalert2.css" rel="stylesheet" />
+
+    <script src="~/assets/js/fileupload.js"></script>
+    <style>
+        .preloader {
+            height: 100%;
+            width: 100%;
+            background: #ffffffc9;
+            position: absolute;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+         
+            <img class="animation__shake" src="~/assets/images/preloader.svg" alt="AdminLTELogo" height="60" width="60">
+
+        </div>
+        <!-- Navbar -->
+        @await Html.PartialAsync("_NavbarPartial.cshtml")
+        <!-- /.navbar -->
+      
+        <div id="main-content">
+            @RenderBody()
+
+        </div>
+    </div>
+    <!-- Common JS -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("DashboardScript", false)
+    @RenderSection("Setting", false)
+    @RenderSection("Employee", false)
+    @RenderSection("Disbursement", false)
+    @RenderSection("DisbursementReport", false)
+    @RenderSection("GPFMponthlyProcessing", false)
+    @RenderSection("GPF", false)
+    @RenderSection("FinanceManagement", false)
+    @RenderSection("PensionManagement", false)
+    @RenderSection("FinanceAnalysis", false)
+    @RenderSection("Legal", false)
+    @RenderSection("Grievance", false)
+    @RenderSection("Pensioner", false)
+    @RenderSection("AMApproval", false)
+    @RenderSection("PensionSlipCertificate", false)
+
+    <!-- Mediclaim Raise -->
+    @RenderSection("CashlessRaise", false)
+    @RenderSection("CashlessPrintPreview", false)
+    @RenderSection("CashlessClaims", false)
+    @RenderSection("CashlessClaimsView", false)
+    @RenderSection("NonCashlessRaise", false)
+    @RenderSection("NonCashlessPrintPreview", false)
+    @RenderSection("NonCashlessClaims", false)
+    @RenderSection("NonCashlessClaimsView", false)
+    @RenderSection("MediclaimVoucher", false)
+    @RenderSection("MedicalCard", false)
+    @RenderSection("AddMediclaimVoucher", false)
+    @RenderSection("AddMedicalCard", false)
+    @RenderSection("VoucherPrintPreview", false)
+    @RenderSection("MedicalCardPrintPreview", false)
+    @RenderSection("AddNewMedicalPageDetail", false)
+    @RenderSection("MedicalPageDetails", false)
+    @RenderSection("PendingClaimReport", false)
+    @RenderSection("ProcessedClaimReport", false)
+    @RenderSection("RejectedClaimReport", false)
+    @RenderSection("EditNonCashless", false)
+    @RenderSection("ModifyMedicalPageDetail", false)
+    @RenderSection("ModifyMedicalCard", false)
+    <!--GPF-->
+    @RenderSection("GPFProcessing", false)
+    @RenderSection("RefundableGPFWithdrawal", false)
+    @RenderSection("NonRefundableGPFWithdrawal", false)
+    @RenderSection("NonRefundableView", false)
+    @RenderSection("RefundableView", false)
+    @RenderSection("GPFLoanProcessing", false)
+    @RenderSection("LoanProcessingView", false)
+    @RenderSection("UpdateGPFWithdrawal", false)
+    @RenderSection("WithdrawalHistory", false)
+    @RenderSection("RefundableList", false)
+    @RenderSection("NonRefundableList", false)
+    @RenderSection("CurrentGPFBalance", false)
+    @RenderSection("GPFGeneratePayment", false)
+    <!--UserManagement-->
+    @RenderSection("DVBUser", false)
+    @RenderSection("HospitalUser", false)
+    @RenderSection("AdminUser", false)
+    @RenderSection("Module", false)
+    @RenderSection("SubModule", false)
+    @RenderSection("AssignPermission", false)
+    @RenderSection("ResetTemPassword", false)
+    <!--CMS-->
+    @RenderSection("AddEditTender",false)
+    @RenderSection("AddEditLink",false)
+    @RenderSection("AddEditNotice",false)
+    @RenderSection("AddEditWhatsNew",false)
+    @RenderSection("AddEditAbout",false)
+    @RenderSection("AddEditAimVision",false)
+    @RenderSection("AddEditBannerImage",false)
+
+    @RenderSection("FooterScript",false)
+
+    
+
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+
+    <script>
+        toastr.options = {
+            positionClass: 'toast-top-center',
+        };
+
+        $(document).ajaxStart(function () {
+            showLoader();
+        });
+        $(document).ajaxStop(function () {
+            hideLoader();
+        });
+        var showLoader = function () {
+            //$('.preloader').css()
+            $(".preloader").css({ "height": "100vh", "background": "#ffffffc9;" });
+            $(".preloader img").css({ "display": "block" });
+        };
+
+        var hideLoader = function () {
+            $(".preloader").css({ "display": "none" });
+          //  $(".preloader img").css({ "display": "none" });
+        };
+
+        function showSuccessSwal(msg = 'Your changes has been saved!') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sucess',
+                text: msg,
+                timerProgressBar: true,
+                timer: 4000,
+                position:'top',
+              
+            });
+        }
+        function showErrorSwal(msg = 'There is a error while saving your data!') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: msg,
+                position: 'top',
+            });
+        }
+        function showConfirmSwal(messege,callback){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: messege ,//"You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                position: 'top',
+                
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if(callback)
+                    callback();
+
+                    //Swal.fire(
+                    //    'Deleted!',
+                    //    'Your file has been deleted.',
+                    //    'success'
+                    //)
+                }
+            })
+        }
+
+        $.validator.addMethod(
+            "regex",
+            function (value, element, regexp) {
+                return this.optional(element) || regexp.test(value);
+            },
+            "Please check your input.only aphabets and numbers are allowed."
+        );
+    </script>
+
+</body>
+</html>

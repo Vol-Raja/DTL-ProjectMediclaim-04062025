@@ -1,0 +1,162 @@
+﻿@using DTL.Model.Models;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/hn/_Layout.cshtml";
+}
+@model GrievanceModel
+
+<section id="header_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>शिकायत</h1>
+                <p><a href="@Url.Action("","home")">मुख पृष्ठ</a> / <span>शिकायत / शिकायत की स्थिति देखें</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="main_page">
+    <div class="container">
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="sidebar">
+
+                        <div class="tab">
+                            <a class="tablinks" href="@Url.Action("CreateGrievance","Grievance")">शिकायत के बाद </a>
+
+                            <a class="tablinks active" href="@Url.Action("StatusGrievance","Grievance")">शिकायत की स्थिति देखें</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 shadow mb-5">
+                    <div class="main_content">
+                        <div class="tabcontent hospital_list">
+
+                            <form id="StatusGrievanceForm">
+                                <div class="form_setion">
+                                    <div class="row">
+                                        <div class="form_setion">
+                                            <div class="row">
+                                                <div class="col-sm-4 col-md-4 mb-3">
+                                                    <label class="form-label d-block mb-1">शिकायत आईडी दर्ज करें</label>
+                                                    <input name="GrievanceId" id="GrievanceId" type="number" class="form-control form-control-sm" />
+                                                </div>
+
+                                                <div class="col-sm-3  ">
+                                                    <button id="btnSubmit" class="btn btn-primary submit_btn text-left">Submit</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="\plugin\jquery-validation\jquery.validate.min.js"></script>
+
+<script src="\plugin\jquery-validation\additional-methods.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        AddEditForm();
+    });
+
+    function AddEditForm() {
+        $.validator.setDefaults({
+            submitHandler: function () {
+                showConfirmSwal("Are you sure you want to submit?", function () {
+                    //  var formData = BindGrievanceData();
+
+                    var id = $("#GrievanceId").val();
+
+                    $.ajax({
+                        url: "/Grievance/GetStatusGrievance?ID=" + id,
+                        type: "GET",
+                        dataType: "json",
+                        //  data: formData,
+                        // contentType: false,
+                        // processData: false,
+                        success: function (data) {
+                            console.log(data);
+                            if (!data || data.isDeleted) {
+                                showErrorSwal("Could not find the Grievance with Id " + id);
+                                return;
+                            }
+                            var s = "Status - " + (data.status || "Pending   ");
+                            var r = "Remarks - " + data.remarks;
+
+                            if (data.remarks)
+                                s = r;
+
+                            showSuccessSwal(s, (data.status || "Pending"));
+                            $("#GrievanceId").val("");
+                        },
+                        error: function (err) {
+                            showErrorSwal(err);
+                        }
+                    });
+                });
+                return false;
+            }
+
+        });
+        $('#StatusGrievanceForm').validate({
+            rules: {
+
+                GrievanceId: {
+                    required: true,
+                    number: true,
+                    min: 1,
+                },
+
+
+            },
+            messages: {
+                GrievanceId: {
+                    required: "Please provide Grievance Id.",
+                }
+                ,
+
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    }
+    function BindGrievanceData() {
+        var frm = $('#StatusGrievanceForm');
+        var formData = new FormData(frm[0]);
+
+        return formData;
+    }
+
+
+    $("#btnSubmit").click(function () {
+        $("#StatusGrievanceForm").submit();
+    });
+
+
+
+
+</script>

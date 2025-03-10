@@ -1,0 +1,796 @@
+﻿@using DTL.Model.Models
+@model IEnumerable<MasterDocumentModel>
+@{
+    ViewData["Title"] = "Cashless";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label.error {
+        display: none !important;
+    }
+</style>
+
+<div class="content-wrapper" style="margin:0px">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Cashless Mediclaim Form</h1><span>(To be filled by Hospital only)</span>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home",new { Area="" })">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Dashboard",new { Area="Mediclaim" })">Mediclaim</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Cashless",new { Area="Mediclaim" })">Cashless List</a></li>
+                        <li class="breadcrumb-item active">Cashless Raise</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form id="cashlessForm" action="" method="post">
+                                <input type="hidden" id="hdnMediClaimId" />
+                                <h4 class="bg-gradient-gray p-1 mb-3">Details of Hospital</h4>
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtNameOfHospital">Name of Hospital</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Name of Hospital" name="txtNameOfHospital" id="txtNameOfHospital" maxlength="100" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtHospitalId">Hospital ID</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Hospital ID" name="txtHospitalId" id="txtHospitalId" maxlength="15" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtHospitalPhoneNumber">Phone Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Phone Number" name="txtHospitalPhoneNumber" id="txtHospitalPhoneNumber" maxlength="16" pattern="[0-9]*" onkeypress="return isNumberKey(event)" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtEmailId">Email-ID</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Email-Id" name="txtEmailId" id="txtEmailId" maxlength="50" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtHospitalAddress">Address</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <textarea type="text" class="form-control mb-2" placeholder="Enter Hospital Address here" name="txtHospitalAddress" id="txtHospitalAddress" maxlength="250" required></textarea>
+                                    </div>
+                                </div>
+
+                                <h4 class="bg-gradient-gray p-1 mb-3 mt-4">Details of Patient</h4>
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtNameOfPatient">Name of Patient</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Patient's name" name="txtNameOfPatient" id="txtNameOfPatient" maxlength="50" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right">Gender</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="gender-radio">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="rdMale" value="Male" checked>
+                                                <label class="form-check-label" for="male">Male</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="rdFemale" value="Female">
+                                                <label class="form-check-label" for="female">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtPatientPhoneNumber">Phone Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Phone Number" name="txtPatientPhoneNumber" id="txtPatientPhoneNumber" maxlength="16" pattern="[0-9]*" onkeypress="return isNumberKey(event)" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtPatientEmailId">Patient Email Id</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Patient's Email Id" name="txtPatientEmailId" id="txtPatientEmailId" maxlength="150" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtPatientAddress">Address</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <textarea type="text" class="form-control mb-2" placeholder="Enter Address Here" name="txtPatientAddress" id="txtPatientAddress" maxlength="250" required></textarea>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="dtDateOfBirth">Date of Birth</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="date" class="form-control mb-2" name="dtDateOfBirth" id="dtDateOfBirth" pattern="\d{4}-\d{2}-\d{2}" required />
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="w-100 form-label text-right" for="txtAge">Age</label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" class="form-control mb-2" name="txtAge" id="txtAge" placeholder="in years" maxlength="3" required readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtMedicalSectionPageNumber">Medical section Page No</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Medical section Page Number" name="txtMedicalSectionPageNumber" id="txtMedicalSectionPageNumber" maxlength="50" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtMedicalCardHolderName">Name of Medical Card Holder</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Medical Card Number" name="txtMedicalCardHolderName" id="txtMedicalCardHolderName" maxlength="80" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtMedicalCardNumber">Medical Card Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Medical Card Number" name="txtMedicalCardNumber" id="txtMedicalCardNumber" maxlength="16" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtAdmissionNumber">Admission Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Admission Number" name="txtAdmissionNumber" id="txtAdmissionNumber" maxlength="50" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="selCardCategory">Card Category</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="CardCategory" class="form-control" id="selCardCategory">
+                                            <option value="Select">Select</option>
+                                            <option value="General">General</option>
+                                            <option value="Semi-Private">Semi Private</option>
+                                            <option value="Private">Private</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtCaseType">Case type / Illness type</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Case type / Illness type" name="txtCaseType" id="txtCaseType" maxlength="50" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtTypeOfTreatment">Type of Treatment</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Type of Treatment" name="txtTypeOfTreatment" id="txtTypeOfTreatment" maxlength="50" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtAmount">Amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Amount" name="txtAmount" id="txtAmount" onkeypress="return decimalNumberKey(event, this)" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="dtDateOfAdmission">Date of Admission</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="date" class="form-control mb-2" name="dtDateOfAdmission" id="dtDateOfAdmission" pattern="\d{4}-\d{2}-\d{2}" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="dtDateOfDischargeOrDeath">Date of Discharge / Date of Death</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="date" class="form-control mb-2" name="dtDateOfDischargeOrDeath" id="dtDateOfDischargeOrDeath" pattern="\d{4}-\d{2}-\d{2}" required />
+                                    </div>
+                                </div>
+
+                                <h4 class="bg-gradient-gray p-1 mb-3">Details of Bank</h4>
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtAccountHolderName">Account Holder Name</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Account Holder Name" name="txtAccountHolderName" id="txtAccountHolderName" maxlength="50" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtAccountNumber">Account Number</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Account Number" name="txtAccountNumber" id="txtAccountNumber" maxlength="20" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtBankName">Bank Name</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Bank Name" name="txtBankName" id="txtBankName" maxlength="150" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtBranchName">Branch Name</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter Branch Name" name="txttxtBranchName" id="txtBranchName" maxlength="100" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtBICCode">BIC Code</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter BIC Code" name="txtBICCode" id="txtBICCode" maxlength="20" required />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="w-100 form-label text-right" for="txtIFSCNumber">IFSCNumber</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control mb-2" placeholder="Enter IFSC Number" name="txtIFSCNumber" id="txtIFSCNumber" maxlength="20" required />
+                                    </div>
+                                </div>
+
+                                <h4 class="bg-gradient-gray p-1 mb-3 mt-4">Claim Document Checklist</h4>
+                                <div class="round">
+                                    <div class="col-md-12">
+                                        <label class="w-100 form-label">Documnet Type</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        @if (Model.Count() > 0)
+                                        {
+                                            <select id="selDocumentType" class="form-control">
+                                                <option value="">Select</option>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <option value="@item.DocumentId">@item.DocumentName</option>
+                                                }
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <select id="selDocumentType" class="form-control">
+                                                <option value="">Select</option>
+                                            </select>
+                                        }
+
+                                        @*<select id="selDocumentType" class="form-control">
+                                                <option value="">Select</option>
+                                                <option value="Doc1">Photocopy of Medical Card (front and back page)</option>
+                                                <option value="Doc2">Bill / cash memo (with break-up) of investigation and copy of reports</option>
+                                                <option value="Doc3">Original Bill</option>
+                                                <option value="Doc4">Covering Letter</option>
+                                                <option value="Doc5">Photo of identity – Photocopy of MPC Identity Card</option>
+                                                <option value="Doc6">Referral Letter</option>
+                                                <option value="Doc7">Form B – Duly filled and signed by treating doctor countersigned by Medical Superintendent (M.S)</option>
+                                                <option value="Doc8">Investigations – Name of Test, Code Number and Rates</option>
+                                                <option value="Doc9">In case of PTCA – Empty Cover/ pouch of the stent with original bill receipt of the Stent</option>
+                                                <option value="Doc10">In case of Implant – original invoice for single purchase/photocopy of the invoice for bulk purchase with certification from hospital of the implant duly verified with stickers</option>
+                                            </select>*@
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="file" class="form-control mb-2" id="fileUpload" accept="application/pdf" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-primary btn-sm" id="btnUpload">Upload</button>
+                                        <button type="button" id="btnTestDocumentArray" style="display:none">Test</button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table id="tblDocument" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:10%">Sr. No.</th>
+                                                    <th style="width:40%">Document Type</th>
+                                                    <th style="width:30%">Attach File</th>
+                                                    <th style="width:20%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 p-3 text-right" style="background: aliceblue;">
+                                        <button type="button" class="btn btn-primary hide_submit" id="btnSubmit" data-toggle="modal" data-target="">Submit</button>
+                                        <button type="reset" class="btn btn-danger hide_submit" id="btnReset">Cancel</button>
+                                        <a href="#" class="btn btn-info show_submit">View and Print Application</a>
+                                    </div>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Cashless Mediclaim</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <i class="fa fa-check-circle display-4 text-green" aria-hidden="true"></i>
+                                                <p>Claim Submitted Successfully</p>
+                                                <p>Claim Number is <b><label id="lblClaimNumber"></label></b></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal" id="btnViewPrint">View and Print Application</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+<div class="container-fluid">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <h3 class="mb-0">Cashless Mediclaim Form </h3>
+            <span class="subTitle">(To be filled by hospital only)</span>
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <span class="">Hospital Dashboard </span><span class="px-1">/</span><span>Cashless Mediclaim</span><span class="px-1">/</span>
+            <span>Cashless Mediclaim Form</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+
+        <div class="card-body">
+            <form class="g-3 mt-2 needs-validation" novalidate>
+                <h4 class="form_title shadow-2-strong ">
+                    Detail Of Hospital
+                </h4>
+                <div class="row">
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1" for="name">Name Of Hospital<span class="text-danger req_text">*</span></label>
+                        <input type="text" id="txtNameOfHospital" maxlength="100" class="form-control form-control-sm is-invalid" placeholder="Name Of Hospital" />
+                        <div class="invalid-feedback">
+                            Please provide a hospital Name.
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Hospital Id<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtHospitalId" maxlength="15" class="form-control form-control-sm is-invalid" placeholder="Hospital Id" />
+                        <div class="invalid-feedback">
+                            Please provide a hospital Id.
+                        </div>
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Phone Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="number" id="txtHospitalPhoneNumber" maxlength="16" class="form-control form-control-sm" placeholder="Phone Number" />
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Email Id<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="email" id="txtEmailId" maxlength="50" class="form-control form-control-sm" placeholder="Email id" />
+                    </div>
+
+                    <div class="col-sm-8 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Address<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea id="txtHospitalAddress" maxlength="250" class="form-control form-control-sm" placeholder="Address"></textarea>
+                    </div>
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Detail Of Patients
+                </h4>
+                <div class="row">
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            Name Of Patient<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtNameOfPatient" maxlength="50" class="form-control form-control-sm " placeholder="Name Of Patient" />
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1" for="name">
+                            PPO Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPPONumber" class="form-control form-control-sm" placeholder="PPO Number" />
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">Gender</label>
+                        <div class="d-flex mt-3 gender-radio">
+                            <div class="form-check me-5">
+                                <input class="form-check-input" type="radio" name="gender" id="rdMale" value="Male" checked="">
+                                <label class="form-check-label" for="male">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check me-5">
+                                <input class="form-check-input" type="radio" name="gender" id="rdFemale" value="Female">
+                                <label class="form-check-label" for="female">
+                                    Female
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="rdOther" value="Other">
+                                <label class="form-check-label" for="other">
+                                    Other
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Mobile Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="number" id="txtPatientPhoneNumber" maxlength="16" class="form-control form-control-sm" placeholder="Mobile Number" />
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">Organization<span class="text-danger req_text">*</span></label>
+                        @*<input type="text" class="form-control " placeholder="Organization" />*@
+                        @*<select name="" id="" class="form-select ">
+                    <option value="">Organization 1</option>
+                    <option value="">Organization 2</option>
+                    <option value="">Organization 3</option>
+                </select>*@
+                        @Html.DropDownList("Organization", (IEnumerable<SelectListItem>)ViewBag.DTLOfficeList, "Select", new { id = "selOrganization", @class = "form-select" })
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">Department<span class="text-danger req_text">*</span></label>
+
+                        <select name="" id="selDepartment" class="form-select ">
+                            <option value="">Select</option>
+                            <option value="">Department 1</option>
+                            <option value="">Department 2</option>
+                            <option value="">Department 3</option>
+
+                        </select>
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Designation<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtDesignation" maxlength="100" class="form-control form-control-sm" placeholder="Designation" />
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Email Id<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtPatientEmailId" maxlength="50" class="form-control form-control-sm" placeholder="Email id" />
+                    </div>
+                    <div class="col-sm-4  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Name of medical card holder<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtMedicalCardHolderName" class="form-control form-control-sm" placeholder="Name of medical card holder" />
+                    </div>
+                    <div class="col-sm-12  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Address<span class="text-danger req_text">*</span>
+                        </label>
+                        <textarea id="txtPatientAddress" maxlength="250" class="form-control form-control-sm" placeholder="Address"></textarea>
+                    </div>
+                    <div class="col-sm-4  col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Date Of Birth<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="Date" id="dtDateOfBirth" class="form-control form-control-sm" placeholder="Date Of Birth" />
+                    </div>
+                    <div class="col-sm-4  col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Age<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="number" id="txtAge" readonly class="form-control form-control-sm" placeholder="Age" />
+                    </div>
+                    <div class="col-sm-4  col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Medical Section Page No<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtMedicalSectionPageNumber" maxlength="50" class="form-control form-control-sm" placeholder="Medical Section Page No" />
+                    </div>
+                    <div class="col-sm-4  col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Medical Card number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtMedicalCardNumber" maxlength="16" class="form-control form-control-sm" placeholder="Medical Card Number" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Admission Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtAdmissionNumber" maxlength="50" class="form-control form-control-sm" placeholder="Admission Number" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Card Category<span class="text-danger req_text">*</span>
+                        </label>
+
+                        <select name="" id="selCardCategory" class="form-select">
+                            <option value="Select">Select</option>
+                            <option value="General">General</option>
+                            <option value="Semi-Private">Semi Private</option>
+                            <option value="Private">Private</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Card Type / Illness Type<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtCaseType" maxlength="50" class="form-control form-control-sm" placeholder="Card Type / Illness Type" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Type Of treatment <span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtTypeOfTreatment" maxlength="50" class="form-control form-control-sm" placeholder="Type Of treatment" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Claim Amount <span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="number" id="txtAmount" class="form-control form-control-sm" placeholder="Amount" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Date of Admission <span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="date" id="dtDateOfAdmission" class="form-control form-control-sm" placeholder="Date of Admission" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Date of Discharge / Date of Death <span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="date" id="dtDateOfDischargeOrDeath" class="form-control form-control-sm" placeholder=" Date of Discharge / Date of Death " />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3">
+                        <label class="form-label d-block mb-1">
+                            Date of Retirement<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="date" id="dtDateRetirement" class="form-control form-control-sm" placeholder="Date of Retirement" />
+                    </div>
+
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Bank Details
+                </h4>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Account Holder Name<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtAccountHolderName" maxlength="50" class="form-control form-control-sm" placeholder="Account Holder Name" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Account Number<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtAccountNumber" class="form-control form-control-sm" placeholder="Account Number" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Bank Name<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtBankName" maxlength="150" class="form-control form-control-sm" placeholder="Bank Name" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Branch Name<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtBranchName" maxlength="100" class="form-control form-control-sm" placeholder="Branch Name" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            BIC Code<span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtBICCode" class="form-control form-control-sm" placeholder="BIC Code" />
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <label class="form-label d-block mb-1">
+                            IFSC code <span class="text-danger req_text">*</span>
+                        </label>
+                        <input type="text" id="txtIFSCNumber" class="form-control form-control-sm" placeholder="IFSC Code" />
+                    </div>
+
+
+                </div>
+                <h4 class="form_title mt-3 shadow-2-strong">
+                    Claim Document Upload
+                </h4>
+                <div class="row">
+                    <div class="col-sm-4 col-md-5 col-lg-5 col-xl-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Document Type<span class="text-danger req_text">*</span>
+                        </label>
+                        @if (Model.Count() > 0)
+                        {
+                            <select id="selDocumentType" class="form-select">
+                                <option value="">Select</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.DocumentId">@item.DocumentName</option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <select id="selDocumentType" class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                        }
+                    </div>
+                    <div class="col-sm-4 col-md-5 mb-3">
+                        <label class="form-label d-block mb-1">
+                            Choose file<span class="text-danger req_text">*</span>
+                        </label>
+                        <input class="form-control" type="file" id="fileUpload" accept="application/pdf">
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-2 col-xl-1 position-relative px-0">
+                        <button type="button" class="Add_btn btn btn-brand w-100" id="btnUpload">Add</button>
+                    </div>
+                    <div class="col-sm-12">
+                        @*<table id="example1" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th width="7%" class="text-center">Sr. No.</th>
+                            <th>Document Type</th>
+                            <th width="10%" class="text-center">Attach file </th>
+                            <th width="8%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td class="text-center">1</td>
+                            <th>Document Type</th>
+                            <th class="text-center"><a href="#" class="pdfIcons"><i class="fa fa-file-pdf" aria-hidden="true"></i></a></th>
+                            <td class="d-flex border-bottom-0 text-center">
+                                <a href="#" class="btn btn-danger btn-sm mr-2 btn_small ">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>*@
+                        <table id="tblDocument" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width:10%">Sr. No.</th>
+                                    <th style="width:40%">Document Type</th>
+                                    <th style="width:30%">Attach File</th>
+                                    <th style="width:20%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                @*<div class="col-md-12 mb-3 submit_area submit_area_strip">
+                    <a class="btn btn-brand me-2" role="button" data-bs-toggle="modal" data-bs-target="#approve">Submit</a>
+                    <button class="btn btn-cancel me-2">Cancel</button>
+                    <button class="btn btn-reset me-2">Reset</button>
+                </div>*@                
+                <div class="col-md-12 mb-3 submit_area submit_area_strip" style="background: aliceblue;">
+                    <button type="button" class="btn btn-brand me-2 hide_submit" id="btnSubmit" data-toggle="modal" data-target="">Submit</button>
+                    <button type="button" class="btn btn-cancel me-2 hide_submit" id="btnReset">Cancel</button>
+                    <button type="reset" class="btn btn-reset me-2">Reset</button>
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Cashless Mediclaim</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <i class="fa fa-check-circle display-4 text-green" aria-hidden="true" style="color:green;"></i>
+                                <p>Claim Submitted Successfully</p>
+                                <p>Claim Number is <b><label id="lblClaimNumber"></label></b></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" data-dismiss="modal" id="btnViewPrint">View and Print Application</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="approve" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header py-2">
+
+                                <h5 class="modal-title">Cashless Mediclaim</h5>
+
+                                <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close">
+                                </button>
+
+                            </div>
+
+                            <div class="modal-body ">
+                                <div class="content pt-4">
+
+                                    <img src="assets/images/success.png" class="icon_reject ">
+                                    <h3 class="message-type text-blod pb-0 pt-3 ">
+                                        Claim Submitted Successfully
+                                    </h3>
+                                    <p class="text-center">Claim Number is <b><label id="lblClaimNumber"></label></b></p>
+
+
+                                </div>
+                                <div class="text-center mt-4">
+                                    <button type="button" class="btn btn-brand popUp_btn me-2" onclick="location.href='medieclaimcashClaimView.html'">View and Print Application</button>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section CashlessRaise{
+    <script type="text/javascript" src="~/js/Mediclaim/Raise/cashless.js"></script>
+
+    <script>
+        $(".show_submit").hide();
+        /*
+        $("#btnSubmit").click(function () {
+            $(".hide_submit").hide();
+            $(".show_submit").show();
+        });
+        */
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function decimalNumberKey(evt, obj) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            var value = obj.value;
+            var dotcontains = value.indexOf(".") != -1;
+            if (dotcontains)
+                if (charCode == 46) return false;
+            if (charCode == 46) return true;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+}

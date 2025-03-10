@@ -1,0 +1,694 @@
+﻿@using DTL.Model.Models.Mediclaim
+@model ClaimAndVoucherDetailModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .top_print_btn {
+        position: absolute;
+        right: 20px;
+        top: 30px;
+    }
+
+    .view_container_bg {
+        background: rgb(0 43 255 / 4%);
+    }
+
+    .view_table tr td {
+        color: #005ccf;
+    }
+</style>
+
+<div class="container-fluid view_form">
+    <div class="row header_section mx-0 px-0">
+        <div class="col-6 position-relative ps-0">
+            <span class="btn btn-light float-start mt-1 me-2 d-block d-md-none" id="menu_toggle"><i class="fa-solid fa-bars"></i></span>
+            <h3 class="mb-0">Mediclaim  View</h3>
+            @*<span class="subTitle">(To be filled by hospital only)</span>*@
+        </div>
+        <p class="mb-0 col-6 top_link_Section">
+            <a href="@Url.Action("Index", "Disbursment",new { Area="Mediclaim"})">Dashboard </a><span class="px-1">/</span> <a href="@Url.Action("ProcessingDashboard", "Disbursment",new { Area="Mediclaim"})">Processing Dashboard </a><span class="px-1"> /</span><span>Claim Approval View</span>
+        </p>
+    </div>
+    <div class="card border-card mt-0">
+        <input type="hidden" id="hdnAproveAmount" value="@Model.Cashless.ApprovedAmountInDecimal" />
+        <div class="card-body">
+            <div class="position-relative">
+                <div id="material-tabs">
+                    <a id="tab1-tab" href="#tab1" class="active">Voucher Detail</a>
+                    <a id="tab2-tab" href="#tab2">Raised Claim Application</a>
+                    <span class="yellow-bar"></span>
+                </div>
+            </div>
+            <div class="tab-content view_container_bg ">
+                <div id="tab1">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Claim No.</label>
+                            <p class="View_text">@Model.Voucher.ClaimId</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Claim Type</label>
+                            <p class="View_text">Cashless</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">PPO Number</label>
+                            <p class="View_text">@Model.Cashless.PPONumber</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Medical Section Page Number </label>
+                            <p class="View_text">@Model.Voucher.PageNo</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Pay To shri / smt</label>
+                            <p class="View_text">@Model.Voucher.PayTo</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                            <label class="form-label d-block mb-1">Approved Amount</label>
+                            <p class="View_text">@Model.Voucher.ApprovedAmount.ToString("F")</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">In Words</label>
+                            <p class="View_text">@Model.Voucher.AmountInWords</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Account Number</label>
+                            <p class="View_text">@Model.Voucher.AccountNumber</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 mb-3view_text_border">
+                            <label class="form-label d-block mb-1">Bank name</label>
+                            <p class="View_text">@Model.Voucher.BankName</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Branch Name</label>
+                            <p class="View_text">@Model.Voucher.BankBranch</p>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">BIC Code</label>
+                            <p class="View_text">@Model.Voucher.BICCode</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">IFSC code </label>
+                            <p class="View_text">@Model.Voucher.IFSCCode</p>
+                        </div>
+
+
+
+                    </div>
+                    <div class="row mb-3 submit_area submit_area_strip mt-5 mx-0">
+
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary" id="printMe">
+                                <i class="fa fa-print mr-2"
+                                   aria-hidden="true"></i>Print Application
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab2">
+                    <div class="border-card  mt-0 px-0">
+                        <h4 class="form_title shadow-2-strong ">
+                            Detail Of Hospital
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1" for="name">
+                                    Name Of Hospital
+                                </label>
+                                <p class="View_text">@Model.Cashless.NameOfHospital</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">
+                                    Hospital Id
+                                </label>
+                                <p class="View_text">@Model.Cashless.HospitalId</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Phone Number</label>
+                                <p class="View_text">@Model.Cashless.HospitalPhoneNumber</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Email Id</label>
+                                <p class="View_text">@Model.Cashless.EmailId</p>
+                            </div>
+                            <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Address</label>
+                                <p class="View_text">@Model.Cashless.HospitalAddress</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-card  mt-0 px-0">
+
+                        <h4 class="form_title">
+                            Card Holder Detail
+                        </h4>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Name of medical card holder</label>
+                                <p class="View_text">@Model.Cashless.NameOfCardHolder</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Medical Card number</label>
+                                <p class="View_text">@Model.Cashless.MedicalCardNumber</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Card Category</label>
+                                <p class="View_text">@Model.Cashless.CardCategory</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Medical Section Page Number</label>
+                                <p class="View_text">@Model.Cashless.MedicalSectionPageNumber</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Email Id</label>
+                                <p class="View_text">@Model.Cashless.PatientEmailId</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1" for="name">PPO Number</label>
+                                <p class="View_text">@Model.Cashless.PPONumber</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Date Of Birth</label>
+                                <p class="View_text">@Model.Cashless.DateOfBirth.ToString("dd-MM-yyyy")</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                <label class="form-label d-block mb-1">Age</label>
+                                <p class="View_text">@Model.Cashless.Age</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Mobile Number</label>
+                                <p class="View_text">@Model.Cashless.PatientPhoneNumber</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1" for="name">Organization</label>
+                                <p class="View_text">@Model.Cashless.Organization</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1" for="name">Department</label>
+                                <p class="View_text">@Model.Cashless.Department</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1" for="name">Designation</label>
+                                <p class="View_text">@Model.Cashless.Designation</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-9 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Address</label>
+                                <p class="View_text">@Model.Cashless.PatientAddress</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Date Of Retirement</label>
+                                <p class="View_text">@Model.Cashless.DateOfRetirement.ToString("dd-MM-yyyy")</p>
+                            </div>
+                        </div>
+                        <h4 class="form_title mt-3 shadow-2-strong">
+                            Detail Of Patients
+                        </h4>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1" for="name">Name Of Patient</label>
+                                <p class="View_text">@Model.Cashless.NameOfPatient</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">relationship with  retiree   </label>
+                                <p class="View_text">@Model.Cashless.RelationWithRetire</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 mb-3view_text_border">
+                                <label class="form-label d-block mb-1">Gender</label>
+                                <p class="View_text">@Model.Cashless.Gender</p>
+                            </div>
+
+
+
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Date Of Birth</label>
+                                <p class="View_text">@Model.Cashless.DependantDOB.ToString("dd-MM-yyyy")</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
+                                <label class="form-label d-block mb-1">Age</label>
+                                <p class="View_text">@Model.Cashless.DependantAge</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Date of Admission </label>
+                                <p class="View_text">@Model.Cashless.DateOfAdmission.ToString("dd-MM-yyyy")</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Admission Number</label>
+                                <p class="View_text">@Model.Cashless.AdmissionNumber</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Illness Type</label>
+                                <p class="View_text">@Model.Cashless.CaseType</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1"> Type Of treatment </label>
+                                <p class="View_text">@Model.Cashless.TypeOfTreatment</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Claim Amount</label>
+                                <p class="View_text">@Model.Cashless.Amount</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1"> Date of Discharge / Date of Death </label>
+                                <p class="View_text">@Model.Cashless.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class=" border-card border-top-0 px-0">
+                        <h4 class="form_title mt-3 shadow-2-strong">
+                            Claim Document Upload
+                        </h4>
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <table id="example1" class="table table-bordered view_table">
+                                    <thead>
+                                        <tr>
+                                            <th width="7%" class="text-center">Sr. No.</th>
+                                            <th>Document Type</th>
+                                            <th width="15%" class="text-center">Attach file </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Cashless.Documents.Count() > 0)
+                                        {
+
+                                            var _index = 1;
+                            @foreach (var item in Model.Cashless.Documents)
+                            {
+                <tr>
+                    <td>
+                        @_index
+                    </td>
+                    <td>
+                        @item.DocumentFor
+                    </td>
+                    <td class="text-center">
+                        <a href="/@item.DocumentPath" class="pdfIcons" target="_blank"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
+                    </td>
+                </tr>_index = _index + 1;
+                                }}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" border-card  border-top-0 px-0">
+                        <h4 class="form_title mt-3 ">
+                            Bank Details
+                        </h4>
+                        <div class="row ">
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Account Holder Name</label>
+                                <p class="View_text">@Model.Cashless.AccountHolderName</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Account Number</label>
+                                <p class="View_text">@Model.Cashless.AccountNumber</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Bank Name</label>
+                                <p class="View_text">@Model.Cashless.BankName</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Branch Name</label>
+                                <p class="View_text">@Model.Cashless.BranchName</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">BIC Code</label>
+                                <p class="View_text">@Model.Cashless.BICCode</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">IFSC code </label>
+                                <p class="View_text">@Model.Cashless.IFSCNumber</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class=" border-card border-top-0 px-0">
+                        <div class="card-body">
+                            <h4 class="form_title shadow-2-strong text-start">
+                                Claim Approval status
+                            </h4>
+                            <div class="row">
+                                <div class="col-sm-4 mb-3 col-md-3 col-lg-2 col-xl-2">
+                                    <label class="form-label d-block mb-1 text-left">
+                                        Approve Amount<span class="text-danger req_text">*</span>
+                                    </label>
+                                    <input type="text" id="txtApproveAmount" disabled class="form-control form-control-sm" value="@Model.Cashless.ApprovedAmountInDecimal">
+
+                                </div>
+                                <div class="col-sm-6 col-md-6 mb-6 col-lg-6 col-xl-6 ">
+                                    <label class="form-label d-block mb-1 text-left">
+                                        In Words<span class="text-danger req_text">*</span>
+                                    </label>
+                                    <input type="text" id="txtApproveAmountInWords" disabled class="form-control form-control-sm" placeholder="Approve Amount in Words">
+
+                                </div>
+                            </div>
+
+                            <h4 class="form_title shadow-2-strong text-start">
+                                Dealing assistant remark
+                            </h4>
+                            <div class="row ">
+                                <div class="col-sm-8 mb-3 pr-0">
+                                    <label class="form-label d-block mb-1 text-left">
+                                        Dealing assistant Remarks<span class="text-danger req_text">*</span>
+                                    </label>
+                                    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.DealingAssistanceRemark</textarea>
+                                </div>
+                            </div>
+                            <h4 class="form_title shadow-2-strong text-start">
+                                Aso (Assistant Specialist Officer )
+                            </h4>
+                            <div class="row">
+                                <div class="col-sm-8 mb-3 pr-0">
+                                    <label class="form-label d-block mb-1 text-left">
+                                        ASO Remarks<span class="text-danger req_text">*</span>
+                                    </label>
+                                    <textarea type="text" id="txtASORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.ASORemark</textarea>
+                                </div>
+                            </div>
+                            <h4 class="form_title shadow-2-strong text-start">
+                                so ( Specialist Officer )
+                            </h4>
+                            <div class="row">
+                                <div class="col-sm-8 mb-3 pr-0">
+                                    <label class="form-label d-block mb-1 text-left">
+                                        SO Remarks<span class="text-danger req_text">*</span>
+                                    </label>
+                                    <textarea type="text" id="txtSORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.SORemark</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 submit_area submit_area_strip mt-5 mx-0">
+
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary" id="printMeApplication">
+                                <i class="fa fa-print mr-2"
+                                   aria-hidden="true"></i>Print Application
+                            </button>
+                        </div>
+                    </div>  
+                
+                </div>
+           
+            </div>
+        </div>
+    </div>
+ 
+</div>
+
+
+<div id="print_preview">
+    <div class=" view_container_bg mt-0">
+
+        <div class="card-body">
+
+            <h4 class="print_title">
+                Mediclaim Voucher
+            </h4>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">Claim No.</th>
+                        <td scope="row">@Model.Voucher.ClaimId</td>
+                        <th scope="row">Claim Type</th>
+                        <td scope="row">Cashless</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">PPO Number</th>
+                        <td scope="row">@Model.Cashless.PPONumber</td>
+                        <th scope="row">Page Number.</th>
+                        <td scope="row">@Model.Voucher.PageNo</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Pay To Shri / Smt</th>
+                        <td scope="row">@Model.Voucher.PayTo</td>
+                        <th scope="row">
+                            Approved Amount <span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">@Model.Voucher.ApprovedAmount.ToString("F")</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">
+                            In Words<span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">@Model.Voucher.AmountInWords</td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="6" class="text-center h4">Bank Detail</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Account number</th>
+                        <td scope="row">@Model.Voucher.AccountNumber</td>
+                        <th scope="row">Bank Name</th>
+                        <td scope="row">@Model.Voucher.BankName</td>
+
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Branch Name</th>
+                        <td scope="row">@Model.Voucher.BankBranch</td>
+                        <th scope="row">BIC Code</th>
+                        <td scope="row">@Model.Voucher.BICCode</td>
+
+                        <th scope="row">IFSC Number</th>
+                        <td scope="row">@Model.Voucher.IFSCCode</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="print_previewApplication">
+    <div class=" view_container_bg mt-0">
+        <div class="card-body">
+            <h4 class="print_title">
+                Cashless Mediclaim
+            </h4>
+            <table class="table table-bordered w-100">
+                <tbody>
+                    <tr>
+                        <th scope="row">Name Of Hospital</th>
+                        <td scope="row">@Model.Cashless.NameOfHospital</td>
+                        <th scope="row">Hospital Id</th>
+                        <td scope="row">@Model.Cashless.HospitalId</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone Number</th>
+                        <td scope="row">@Model.Cashless.HospitalPhoneNumber</td>
+                        <th scope="row">Email Id</th>
+                        <td scope="row">@Model.Cashless.EmailId</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td scope="row" colspan="3">@Model.Cashless.HospitalAddress</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Details Of Patient</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" colspan="2">Name of Patient</th>
+                        <td scope="row" colspan="2">@Model.Cashless.NameOfPatient</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">PPO Number</th>
+                        <td scope="row">@Model.Cashless.PPONumber</td>
+                        <th scope="row">Gender</th>
+                        <td scope="row">@Model.Cashless.Gender</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Date Of Birth</th>
+                        <td scope="row">@Model.Cashless.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                        <th scope="row">Age</th>
+                        <td scope="row">@Model.Cashless.Age</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mobile Number</th>
+                        <td scope="row">@Model.Cashless.PatientPhoneNumber</td>
+                        <th scope="row">Email Id</th>
+                        <td scope="row">@Model.Cashless.PatientEmailId</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Organization</th>
+                        <td scope="row">@Model.Cashless.Organization</td>
+                        <th scope="row">Department</th>
+                        <td scope="row">@Model.Cashless.Department</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Designation</th>
+                        <td scope="row">@Model.Cashless.Designation</td>
+                        <th scope="row">Name of Medicalcard Holder</th>
+                        <td scope="row">@Model.Cashless.NameOfCardHolder</td>
+
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Medical Section Page Number</th>
+                        <td scope="row">@Model.Cashless.MedicalSectionPageNumber</td>
+                        <th scope="row">Medicalcard Number</th>
+                        <td scope="row">@Model.Cashless.MedicalCardNumber</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Card Category</th>
+                        <td scope="row">@Model.Cashless.CardCategory</td>
+                        <th scope="row">Addmission Number</th>
+                        <td scope="row">@Model.Cashless.AdmissionNumber</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Card Type</th>
+                        <td scope="row">@Model.Cashless.CaseType</td>
+                        <th scope="row">Type Of Treatment</th>
+                        <td scope="row">@Model.Cashless.TypeOfTreatment</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Claim Amount</th>
+                        <td scope="row">@Model.Cashless.Amount</td>
+                        <th scope="row">Date of Addmission</th>
+                        <td scope="row">@Model.Cashless.DateOfAdmission.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                    <tr>
+
+                        <th scope="row">Date of Discharge</th>
+                        <td scope="row">@Model.Cashless.DateOfDischargeOrDeath.ToString("dd-MM-yyyy")</td>
+                        <th scope="row">Date of Retirement</th>
+                        <td scope="row">@Model.Cashless.DateOfRetirement.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td scope="row" colspan="3">@Model.Cashless.PatientAddress</td>
+
+                    </tr>
+
+                    <tr>
+                        <th scope="row" colspan="4" class="text-center h4">Claim Document Upload</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Sr. No.</th>
+                        <th colspan="3">Document Type</th>
+
+                    </tr>
+                    @if (Model.Cashless.Documents.Count() > 0)
+                    {
+                        var _index = 1;
+                @foreach (var item in Model.Cashless.Documents)
+                {
+                <tr>
+                    <td class="text-center">@_index</td>
+                    <td colspan="3">@item.FileName</td>
+                </tr>_index = _index + 1;
+                                } }
+                            else
+                            {
+                <tr>
+                    <td class="text-center" colspan="4">No Document Found</td>
+                </tr>}
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Bank Detail</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Account Holder Name</th>
+                        <td scope="row">@Model.Cashless.AccountHolderName</td>
+                        <th scope="row">Account Number</th>
+                        <td scope="row">@Model.Cashless.AccountNumber</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bank Name</th>
+                        <td scope="row">@Model.Cashless.BankName</td>
+                        <th scope="row">Branch Name</th>
+                        <td scope="row">@Model.Cashless.BranchName</td>
+
+
+                    </tr>
+                    <tr>
+                        <th scope="row">BIC Code</th>
+                        <td scope="row">@Model.Cashless.BICCode</td>
+                        <th scope="row">IFSC Number</th>
+                        <td scope="row">@Model.Cashless.IFSCNumber</td>
+
+                    </tr>
+
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Claim Approval status</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            Approve Amount<span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row">@Model.Cashless.ApprovedAmount</td>
+                        <th scope="row">
+                            In Words
+                            <span class="text-danger req_text">&#8377;</span>
+                        </th>
+                        <td scope="row"><label id="lblAmountInWords"></label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Dealing Asistant Remark</th>
+                        <td scope="row">@Model.Cashless.DealingAssistanceRemark</td>
+                        <th scope="row">Aso Remark</th>
+                        <td scope="row">@Model.Cashless.ASORemark</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">So Remark</th>
+                        <td scope="row">@Model.Cashless.SORemark</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/assets/js/tab.js"></script>
+<script>
+
+    $('#printMe').click(function () {
+        $('#print_previewApplication').addClass('hide');
+        $('#print_preview').addClass('show');
+        $('#print_preview').removeClass('hide');
+        $('#print_previewApplication').removeClass('show');
+        window.print();
+    });
+    $('#printMeApplication').click(function () {
+        $('#print_preview').addClass('hide');
+        $('#print_previewApplication').removeClass('hide');
+        $('#print_previewApplication').addClass('show');
+        $('#print_preview').removeClass('show');
+        window.print();
+    });
+</script>
+<script src="~/js/numbertoword.js"></script>
+<script type="text/javascript">
+    var numberToWord = new NumberToWord();
+    $('#lblAmountInWords').text(numberToWord.ToWord($('#hdnAproveAmount').val()));
+    //$('#lblAmountInWordsPV').text(numberToWord.ToWord($('#hdnAproveAmount').val()));
+    $('#txtApproveAmountInWords').val(numberToWord.ToWord($('#hdnAproveAmount').val()));
+    
+</script>
