@@ -44,6 +44,17 @@
                     <label class="form-label d-block mb-1">Email Id</label>
                     <p class="View_text">@Model.EmailId</p>
                 </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Treating Doctor Name</label>
+                    <p class="View_text">@Model.NameOfDoctor</p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Doctor Mobile No</label>
+                    <p class="View_text">@Model.Doctor_NO</p>
+                </div>
+
                 <div class="col-sm-6 col-md-9 col-lg-9 col-xl-9 mb-3 view_text_border">
                     <label class="form-label d-block mb-1">Address</label>
                     <p class="View_text">@Model.HospitalAddress</p>
@@ -104,14 +115,16 @@
                     <p class="View_text">@Model.Designation</p>
                 </div>
 
-                <div class="col-sm-6 col-md-9 col-lg-9 col-xl-9 mb-3 view_text_border">
-                    <label class="form-label d-block mb-1">Address</label>
-                    <p class="View_text">@Model.PatientAddress</p>
-                </div>
                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
                     <label class="form-label d-block mb-1">Date Of Retirement</label>
                     <p class="View_text">@Model.DateOfRetirement.ToString("dd-MM-yyyy")</p>
                 </div>
+
+                <div class="col-sm-6 col-md-9 col-lg-9 col-xl-9 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Address</label>
+                    <p class="View_text">@Model.PatientAddress</p>
+                </div>
+
             </div>
             <h4 class="form_title mt-3 shadow-2-strong">
                 Detail Of Patients
@@ -139,34 +152,34 @@
                     <p class="View_text">@Model.DependantAge</p>
                 </div>
 
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
                     <label class="form-label d-block mb-1">Date of Admission </label>
                     <p class="View_text">@Model.DateOfAdmission.ToString("dd-MM-yyyy")</p>
-                </div>
+                </div>*@
 
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                     <label class="form-label d-block mb-1">Admission Number</label>
                     <p class="View_text">@Model.AdmissionNumber</p>
-                </div>
+                </div>*@
 
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                     <label class="form-label d-block mb-1"> Illness Type</label>
 
                     <p class="View_text">@Model.CaseType</p>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
+                </div>*@
+                @*<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
                     <label class="form-label d-block mb-1"> Type Of treatment </label>
                     <p class="View_text">@Model.TypeOfTreatment</p>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                </div>*@
+                @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                     <label class="form-label d-block mb-1">Claim Amount</label>
                     <p class="View_text">@Model.Amount</p>
-                </div>
+                </div>*@
 
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
                     <label class="form-label d-block mb-1"> Date of Discharge / Date of Death </label>
                     <p class="View_text">@Model.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
-                </div>
+                </div>*@
 
 
             </div>
@@ -191,24 +204,22 @@
                             {
 
                                 var index = 1;
-                                @foreach (var item in Model.Documents)
-                                {
-                                    <tr>
-                                        <td>
-                                            @index
-                                        </td>
-                                        <td>
-                                            @item.DocumentFor
-                                        </td>
-                                        <td>
-                                            <a href="/@item.DocumentPath" class="pdfIcons" target="_blank">
-                                                <i class="fa fa-file-pdf" aria-hidden="true"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    index = index + 1;
-                                }
-                            }
+                @foreach (var item in Model.Documents)
+                {
+        <tr>
+            <td>
+                @index
+            </td>
+            <td>
+                @item.DocumentFor
+            </td>
+            <td>
+                <a href="/@item.DocumentPath" class="pdfIcons" target="_blank">
+                    <i class="fa fa-file-pdf" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tr>index = index + 1;
+                        }}
                         </tbody>
                     </table>
 
@@ -242,6 +253,43 @@
                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                     <label class="form-label d-block mb-1">IFSC code </label>
                     <p class="View_text">@Model.IFSCNumber</p>
+                </div>
+
+            </div>
+
+            <h4 class="form_title mt-3 ">
+                Requested By Hospital at the time of discharge
+            </h4>
+            <div class="row ">
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Admission Date</label>
+                    <p class="View_text">@Model.DateOfAdmission.ToString("dd-MM-yyy")</p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Discharge Date</label>
+                    <p class="View_text">@Model.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Diagnosis</label>
+                    <p class="View_text">@Model.Diagnosis</p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Total Bill Amount</label>
+                    <p class="View_text">@Model.Amount</p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Type Of Treatment</label>
+                    <p class="View_text">@Model.TypeOfTreatment</p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Signatue Of Employee</label>
+                    <p class="View_text">@Model.SignatureOfEmployee</p>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Sign/Stamp Of Treating Doctor</label>
+                    <p class="View_text">@Model.Doctor_SignAndStamp</p>
                 </div>
 
             </div>

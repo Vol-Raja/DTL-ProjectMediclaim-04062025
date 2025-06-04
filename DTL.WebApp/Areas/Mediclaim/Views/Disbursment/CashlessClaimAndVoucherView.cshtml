@@ -134,6 +134,18 @@
                                 <label class="form-label d-block mb-1">Email Id</label>
                                 <p class="View_text">@Model.Cashless.EmailId</p>
                             </div>
+
+                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Name of Treating Doctor</label>
+                                <p class="View_text">@Model.Cashless.NameOfDoctor</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Doctor Mobile No</label>
+                                <p class="View_text">@Model.Cashless.Doctor_NO</p>
+                            </div>
+
+
                             <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 mb-3 view_text_border">
                                 <label class="form-label d-block mb-1">Address</label>
                                 <p class="View_text">@Model.Cashless.HospitalAddress</p>
@@ -146,6 +158,12 @@
                             Card Holder Detail
                         </h4>
                         <div class="row">
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                                <label class="form-label d-block mb-1" for="name">PPO Number</label>
+                                <p class="View_text">@Model.Cashless.PPONumber</p>
+                            </div>
+
                             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                                 <label class="form-label d-block mb-1">Name of medical card holder</label>
                                 <p class="View_text">@Model.Cashless.NameOfCardHolder</p>
@@ -166,10 +184,7 @@
                                 <label class="form-label d-block mb-1">Email Id</label>
                                 <p class="View_text">@Model.Cashless.PatientEmailId</p>
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
-                                <label class="form-label d-block mb-1" for="name">PPO Number</label>
-                                <p class="View_text">@Model.Cashless.PPONumber</p>
-                            </div>
+
                             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                                 <label class="form-label d-block mb-1">Date Of Birth</label>
                                 <p class="View_text">@Model.Cashless.DateOfBirth.ToString("dd-MM-yyyy")</p>
@@ -233,7 +248,7 @@
                                 <p class="View_text">@Model.Cashless.DependantAge</p>
                             </div>
 
-                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                            @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
                                 <label class="form-label d-block mb-1">Date of Admission </label>
                                 <p class="View_text">@Model.Cashless.DateOfAdmission.ToString("dd-MM-yyyy")</p>
                             </div>
@@ -258,7 +273,7 @@
                             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
                                 <label class="form-label d-block mb-1"> Date of Discharge / Date of Death </label>
                                 <p class="View_text">@Model.Cashless.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
-                            </div>
+                            </div>*@
 
 
                         </div>
@@ -339,6 +354,44 @@
                             </div>
 
                         </div>
+
+                        <h4 class="form_title mt-3 ">
+                            Requested By Hospital at the time of discharge
+                        </h4>
+                        <div class="row ">
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Admission Date</label>
+                                <p class="View_text">@Model.Cashless.DateOfAdmission.ToString("dd-MM-yyy")</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Discharge Date</label>
+                                <p class="View_text">@Model.Cashless.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Diagnosis</label>
+                                <p class="View_text">@Model.Cashless.Diagnosis</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Total Bill Amount</label>
+                                <p class="View_text">@Model.Cashless.Amount</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Type Of Treatment</label>
+                                <p class="View_text">@Model.Cashless.TypeOfTreatment</p>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Signatue Of Employee</label>
+                                <p class="View_text">@Model.Cashless.SignatureOfEmployee</p>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Sign/Stamp Of Treating Doctor</label>
+                                <p class="View_text">@Model.Cashless.Doctor_SignAndStamp</p>
+                            </div>
+
+                        </div>
+
                     </div>
                     <div class=" border-card border-top-0 px-0">
                         <div class="card-body">
@@ -504,6 +557,14 @@
                         <th scope="row">Email Id</th>
                         <td scope="row">@Model.Cashless.EmailId</td>
                     </tr>
+
+                    <tr>
+                        <th scope="row">Name Of Treating Doctor</th>
+                        <td scope="row">@Model.Cashless.NameOfDoctor</td>
+                        <th scope="row">Doctor MobileNo</th>
+                        <td scope="row">@Model.Cashless.Doctor_NO</td>
+                    </tr>
+
                     <tr>
                         <th scope="row">Address</th>
                         <td scope="row" colspan="3">@Model.Cashless.HospitalAddress</td>
@@ -512,14 +573,17 @@
                         <td scope="row" colspan="4" class="text-center h4">Details Of Patient</td>
                     </tr>
                     <tr>
-                        <th scope="row" colspan="2">Name of Patient</th>
-                        <td scope="row" colspan="2">@Model.Cashless.NameOfPatient</td>
-                    </tr>
-                    <tr>
                         <th scope="row">PPO Number</th>
                         <td scope="row">@Model.Cashless.PPONumber</td>
+                        <th scope="row">Name of Patient</th>
+                        <td scope="row">@Model.Cashless.NameOfPatient</td>
+                    </tr>
+                    <tr>
+
                         <th scope="row">Gender</th>
                         <td scope="row">@Model.Cashless.Gender</td>
+                        <th scope="row">Card Category</th>
+                        <td scope="row">@Model.Cashless.CardCategory</td>
                     </tr>
                     <tr>
                         <th scope="row">Date Of Birth</th>
@@ -554,34 +618,7 @@
                         <th scope="row">Medicalcard Number</th>
                         <td scope="row">@Model.Cashless.MedicalCardNumber</td>
                     </tr>
-                    <tr>
-
-                        <th scope="row">Card Category</th>
-                        <td scope="row">@Model.Cashless.CardCategory</td>
-                        <th scope="row">Addmission Number</th>
-                        <td scope="row">@Model.Cashless.AdmissionNumber</td>
-                    </tr>
-                    <tr>
-
-                        <th scope="row">Card Type</th>
-                        <td scope="row">@Model.Cashless.CaseType</td>
-                        <th scope="row">Type Of Treatment</th>
-                        <td scope="row">@Model.Cashless.TypeOfTreatment</td>
-                    </tr>
-                    <tr>
-
-                        <th scope="row">Claim Amount</th>
-                        <td scope="row">@Model.Cashless.Amount</td>
-                        <th scope="row">Date of Addmission</th>
-                        <td scope="row">@Model.Cashless.DateOfAdmission.ToString("dd-MM-yyyy")</td>
-                    </tr>
-                    <tr>
-
-                        <th scope="row">Date of Discharge</th>
-                        <td scope="row">@Model.Cashless.DateOfDischargeOrDeath.ToString("dd-MM-yyyy")</td>
-                        <th scope="row">Date of Retirement</th>
-                        <td scope="row">@Model.Cashless.DateOfRetirement.ToString("dd-MM-yyyy")</td>
-                    </tr>
+                 
                     <tr>
                         <th scope="row">Address</th>
                         <td scope="row" colspan="3">@Model.Cashless.PatientAddress</td>
@@ -606,8 +643,8 @@
                     <td colspan="3">@item.FileName</td>
                 </tr>_index = _index + 1;
                                 } }
-                            else
-                            {
+            else
+            {
                 <tr>
                     <td class="text-center" colspan="4">No Document Found</td>
                 </tr>}
@@ -634,6 +671,35 @@
                         <th scope="row">IFSC Number</th>
                         <td scope="row">@Model.Cashless.IFSCNumber</td>
 
+                    </tr>
+
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Requested By Hospital at the time of Discharge</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Date of Addmission</th>
+                        <td scope="row">@Model.Cashless.DateOfAdmission.ToString("dd-MM-yyyy")</td>
+                        <th scope="row">Date of Discharge</th>
+                        <td scope="row">@Model.Cashless.DateOfDischargeOrDeath.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Type Of Treatment</th>
+                        <td scope="row">@Model.Cashless.TypeOfTreatment</td>
+                        <th scope="row">Diagnosis</th>
+                        <td scope="row" colspan="3">@Model.Cashless.Diagnosis</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Claim Amount</th>
+                        <td scope="row">@Model.Cashless.Amount</td>
+                        <th scope="row">Signature Of Employee</th>
+                        <td scope="row">@Model.Cashless.SignatureOfEmployee</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Sign/Stamp Treating Doctor</th>
+                        <td scope="row">@Model.Cashless.Doctor_SignAndStamp</td>
                     </tr>
 
                     <tr>

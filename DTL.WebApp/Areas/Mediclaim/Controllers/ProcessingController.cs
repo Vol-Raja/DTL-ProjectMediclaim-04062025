@@ -1,4 +1,5 @@
-﻿using DTL.Business.Common;
+﻿using ClosedXML.Excel;
+using DTL.Business.Common;
 using DTL.Business.Mediclaim.Detail.Cashless;
 using DTL.Business.Mediclaim.Detail.NonCashless;
 using DTL.Business.Mediclaim.Processing;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -710,5 +712,67 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
             return Json(data);
         }
         //End
+        // add by nirbhay ExportToExcel 05/30/2025
+        public ActionResult ExportToExcel(DateTime startDate, DateTime endDate)
+        {
+            var _detail = GetUserDetailFromAspNetUser().Result;
+
+            // Declare data only once
+            List<NonCashlessModel> data;
+
+            if (_detail.UserName == "mediclaimASO")
+            {
+                data = (List<NonCashlessModel>)_processing.GetClaimsByASODateRange(startDate, endDate);
+            }
+            else if (_detail.UserName == "OPDdealingassistant")
+            {
+                data = (List<NonCashlessModel>)_processing.GetClaimsBymediclaimOPDDADateRange(startDate, endDate);
+            }
+            else if (_detail.UserName == "mediamdm")
+            {
+                data = (List<NonCashlessModel>)_processing.GetClaimsBymediclaimAMDMDateRange(startDate, endDate);
+            }
+            else if (_detail.UserName == "mediclaimdisbus")
+            {
+                data = (List<NonCashlessModel>)_processing.GetClaimsBymediclaimMediDisbusDateRange(startDate, endDate);
+            }
+            else
+            {
+                // Default fallback if needed
+                data = new List<NonCashlessModel>();
+            }
+
+            var cleanedData = data.Select(d => new
+            {
+                Date = (d.CreatedDate != DateTime.MinValue) ? d.CreatedDate : (DateTime?)null,
+                SerialNo = d.ClaimNumber,
+                ClaimNo = d.ClaimId,
+                PPONo = d.PPONumber,
+                TypeOfClaim = d.ClaimType,
+                Organization = d.Organization,
+                CardCategory = d.CardCategory,
+                PatientName = d.PatientName,
+                ClaimStatus = d.ClaimStatusId,
+                ChangeStatus = d.ForwardTo,
+                Remark = d.Remark,
+                PhysicalSubmit = d.PhysicalSubmit
+            }).ToList();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Claims");
+                worksheet.Cell(1, 1).InsertTable(cleanedData);
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    return File(stream.ToArray(),
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                "ClaimsReport.xlsx");
+                }
+            }
+        }
+
+        //end
     }
 }

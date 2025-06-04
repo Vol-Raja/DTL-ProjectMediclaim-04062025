@@ -23,7 +23,7 @@
         <div class="card-body pt-0 ps-0 pr-2">
             <div class="my-4 border_bottom pb-4">
                 @* <a href="@Url.Action("Cashless", "Raise", new { Area = "Mediclaim" })" role="button" class="btn btn-primary btn-sm mr-2 ">Add New Mediclaim</a>*@
-                <a href="@Url.Action("Creditletter", "Raise", new { Area = "Mediclaim" })" role="button" class="btn btn-primary btn-sm mr-2 ">Credit Letter</a>
+                <a href="@Url.Action("Creditletter", "Raise", new { Area = "Mediclaim" })" role="button" class="btn btn-primary btn-sm mr-2 rounded-pill">Credit Letter</a>
 
             </div>
             @*<div class="my-4 border_bottom pb-4">
@@ -34,11 +34,13 @@
                         <tr>
                             <th width="7%" class="text-center">Sr. No.</th>
                             <th>Date</th>
-                            @*<th>Claim No.</th>
-        <th>Medicalcard No.</th>*@
+                            <th>PPO Number</th>
+                            <th>Serial No</th>
+                          
                             <th>Hospital Name</th>
                             <th>Card Category</th>
                             <th>Patient Name</th>
+                            <th>EmployeeNo</th>
                             <th>Claim Status</th>
                             <th width="20%">Remark</th>
                             <th style="display: none;">>NameOfDoctor</th>
@@ -77,21 +79,37 @@
                         <tr>
                             <td class="text-center">@_index</td>
                             <td>@item.IssueDate.ToString("dd-MM-yyyy")</td>
-                            @*<td>@item.ClaimId</td>
-        <td>@item.MedicalCardNumber</td>*@
+                            <td>@item.PPONumber</td>
+                            <td>@item.SerialNo</td>
+
                             <td>@item.NameOfHospital</td>
                             <td>@item.CategoryOfRoom</td>
                             <td>@item.PatientName</td>
+                            <td>@item.EmployeeNo</td>
                             <td class="text-center"><span class="@_statusStyle Status_text">@_status</span></td>
                             <td class="para">@item.Remark</td>
                             <td class="d-flex border-bottom-0">
-                                @* <a href="/Mediclaim/Cashless/PrintPreview/@item.ClaimId.ToString()" title="Print Preview" class="btn btn-primary btn-sm mr-2 btn_small"><i class="far fa-eye"></i></a>*@
-                                @*@if (item.StatusCreditId != 2)
-            {*@
-                                @*<a href="/Mediclaim/Modify/EditCashless/@item.ClaimId" title="Edit" class="btn btn-info btn-sm mr-2 btn_small"><i class="far fa-edit"></i></a>}*@
-                                @*<a href="#" class="btn btn-danger btn-sm mr-2 btn_small" onclick="DeleteClaim(@item.ClaimId,this)" title="Delete"><i class="fa fa-trash"></i></a>*@
-                                @* <a href="@Url.Action("Cashless", "Raise", new { Area = "Mediclaim" })" id="addNewMediclaimButton" class="btn btn-primary btn-sm mr-2 ">Add New Mediclaim</a>*@
-                                <button id="addNewMediclaimButton" class="btn btn-primary btn-sm mr-2" data-patient-name="@item.EmployeeNo">Add New Mediclaim</button>
+                                <a href="/Mediclaim/Cashless/PrintPreviewCreditLetter/@item.SerialNo.ToString()" title="Print Preview" class="btn btn-info btn-sm mr-2 btn_small"><i class="far fa-eye"></i></a>
+                                @if (item.StatusCreditId == 2)
+                                {
+                        <button id="addNewMediclaimButton" class="btn btn-primary btn-sm mr-2 rounded-pill" data-patient-name="@item.EmployeeNo">New Claim</button> } @*@if (item.StatusCreditId == 2)
+    {
+        <button id="addNewMediclaimButton"
+                class="btn btn-primary btn-sm mr-2 rounded-pill"
+                data-patient-name="@item.EmployeeNo"
+                disabled>
+            New Claim
+        </button>
+    }
+    else
+    {
+        <button id="addNewMediclaimButton"
+                class="btn btn-primary btn-sm mr-2 rounded-pill"
+                data-patient-name="@item.EmployeeNo">
+            New Claim
+        </button>
+    }*@
+
 
                             </td>
                             <td style="display: none;">@item.NameOfDoctor</td>
@@ -122,11 +140,10 @@ _index = _index + 1;
 </div>
 
 @section Employee{
-
     <script type="text/javascript">
         function DeleteClaim(id, rw) {
+            //debugger;
             if (confirm("Are you sure? you want to delete ")) {
-
                 $.ajax({
                     type: 'DELETE',
                     url: "/Mediclaim/Cashless/Delete/" + id,
@@ -158,13 +175,10 @@ _index = _index + 1;
         });
     </script>
 }
-
-
-
 <script>
         $(document).ready(function () {
             $(document).on('click', '#addNewMediclaimButton', function () {
-                debugger;
+                //debugger;
                 var patientName = $(this).data('patient-name');
              // var nirloda= this.dataset.patientName
                 sessionStorage.setItem('someKey', patientName);
@@ -176,5 +190,5 @@ _index = _index + 1;
             var redirectUrl = '@Url.Action("Cashless", "Raise", new { Area = "Mediclaim" })';
             window.location.href = redirectUrl;
         }
-    </script>
+</script>
 

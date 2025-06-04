@@ -28,5 +28,9 @@ namespace DTL.Business.Mediclaim.MediclaimRaise
         IEnumerable<MasterDocumentModel> GetDocumentListForCreditLetter();
         void SaveCreditLetterDocuments(IEnumerable<MediclaimDocumentModel> Creditletter_Documents, int ID);
         //end
+
+        //add by rajan 14/04/25
+        NonCashlessModel GetAccountData(string PPONumber2);
+        //End
     }
 }

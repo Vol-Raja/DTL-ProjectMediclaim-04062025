@@ -194,7 +194,7 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         $("body").on('click', '.toggle-password', function () {
-            debugger;
+           /* debugger;*/
             $(this).toggleClass("fa-eye fa-eye-slash");
             var input = $("#txtPassword");
             if (input.attr("type") === "password") {
@@ -205,7 +205,7 @@
 
         });
         function refreshCaptcha() {
-            debugger;
+           /* debugger;*/
             $.ajax({
                 url: "/UserManagement/Captcha/",
                 method: "GET",

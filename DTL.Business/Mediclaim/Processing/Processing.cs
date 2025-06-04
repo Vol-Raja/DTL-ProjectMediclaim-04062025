@@ -6,6 +6,7 @@ using DTL.Model.Models.Mediclaim.Hospitalization;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DTL.Business.Mediclaim.Processing
 {
@@ -334,7 +335,49 @@ namespace DTL.Business.Mediclaim.Processing
 
             return _dapper.GetAll<CashlessModel>(sql, dbparams, CommandType.Text);
         }
-        //end changes
+        // add by nirbhay ExportToExcel 05/30/2025
+        public IEnumerable<NonCashlessModel> GetClaimsByASODateRange(DateTime startDate, DateTime endDate)
+        {
+            string query = "SELECT * FROM mediclaimNonCashless WHERE Isdelete =0 and forwardto='ASO' and createddate BETWEEN @StartDate AND @EndDate";
+            var dbparams = new DynamicParameters();
+            dbparams.Add("@startDate", startDate, DbType.DateTime);
+            dbparams.Add("@endDate", endDate, DbType.DateTime);
 
+            return _dapper.GetAll<NonCashlessModel>(query, dbparams, CommandType.Text);
+        }
+        //end changes
+        // add by nirbhay ExportToExcel 05/30/2025
+        public IEnumerable<NonCashlessModel> GetClaimsBymediclaimOPDDADateRange(DateTime startDate, DateTime endDate)
+        {
+            string query = "SELECT * FROM mediclaimNonCashless WHERE Isdelete =0 and  createddate BETWEEN @StartDate AND @EndDate";
+            var dbparams = new DynamicParameters();
+            dbparams.Add("@startDate", startDate, DbType.DateTime);
+            dbparams.Add("@endDate", endDate, DbType.DateTime);
+
+            return _dapper.GetAll<NonCashlessModel>(query, dbparams, CommandType.Text);
+        }
+        //end changes
+        // add by nirbhay ExportToExcel 05/30/2025
+        public IEnumerable<NonCashlessModel> GetClaimsBymediclaimAMDMDateRange(DateTime startDate, DateTime endDate)
+        {
+            string query = "SELECT * FROM mediclaimNonCashless WHERE Isdelete = 0 AND forwardto = 'AM_DM' AND Disbursed IS NULL AND Paid IS NULL and createddate BETWEEN @StartDate AND @EndDate";
+            var dbparams = new DynamicParameters();
+            dbparams.Add("@startDate", startDate, DbType.DateTime);
+            dbparams.Add("@endDate", endDate, DbType.DateTime);
+
+            return _dapper.GetAll<NonCashlessModel>(query, dbparams, CommandType.Text);
+        }
+        //end changes  
+        // add by nirbhay ExportToExcel 05/30/2025
+        public IEnumerable<NonCashlessModel> GetClaimsBymediclaimMediDisbusDateRange(DateTime startDate, DateTime endDate)
+        {
+            string query = "SELECT * FROM mediclaimNonCashless WHERE Isdelete = 0 AND Disbursed=1 AND Paid=1 and createddate BETWEEN @StartDate AND @EndDate";
+            var dbparams = new DynamicParameters();
+            dbparams.Add("@startDate", startDate, DbType.DateTime);
+            dbparams.Add("@endDate", endDate, DbType.DateTime);
+
+            return _dapper.GetAll<NonCashlessModel>(query, dbparams, CommandType.Text);
+        }
+        //end changes
     }
 }

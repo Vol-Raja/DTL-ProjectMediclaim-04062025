@@ -46,9 +46,9 @@ namespace DTL.Business.Mediclaim.MediclaimRaise
             dbparams.Add("@MedicalSectionPageNumber", cashless.MedicalSectionPageNumber, DbType.String);
             dbparams.Add("@NameOfCardHolder", cashless.NameOfCardHolder, DbType.String);
             dbparams.Add("@MedicalCardNumber", cashless.MedicalCardNumber, DbType.String);
-            dbparams.Add("@AdmissionNumber", cashless.AdmissionNumber, DbType.String);
+            //dbparams.Add("@AdmissionNumber", cashless.AdmissionNumber, DbType.String);
             dbparams.Add("@CardCategory", cashless.CardCategory, DbType.String);
-            dbparams.Add("@CaseType", cashless.CaseType, DbType.String);
+            //dbparams.Add("@CaseType", cashless.CaseType, DbType.String);
             dbparams.Add("@TypeOfTreatment", cashless.TypeOfTreatment, DbType.String);
             dbparams.Add("@Amount", cashless.Amount, DbType.Decimal);
             dbparams.Add("@DateOfAdmission", cashless.DateOfAdmission, DbType.Date);
@@ -69,6 +69,12 @@ namespace DTL.Business.Mediclaim.MediclaimRaise
             dbparams.Add("@Department", cashless.Department, DbType.String);
             dbparams.Add("@Designation", cashless.Designation, DbType.String);
             dbparams.Add("@DateOfRetirement", cashless.DateOfRetirement, DbType.Date);
+            dbparams.Add("@Diagnosis", cashless.Diagnosis, DbType.String); // add by rajan 04/04/25
+            dbparams.Add("@SignatureOfEmployee", cashless.SignatureOfEmployee, DbType.String);// add by rajan 04/04/25
+            dbparams.Add("@Doctor_SignAndStamp", cashless.Doctor_SignAndStamp, DbType.String);// add by rajan 04/04/25
+            dbparams.Add("@NameOfDoctor", cashless.NameOfDoctor, DbType.String);// add by rajan 22/04/25
+            dbparams.Add("@Doctor_No", cashless.Doctor_NO, DbType.String);// add by rajan 22/04/25
+
             dbparams.Add("@ClaimId", outputClaimId, DbType.Int32, direction: ParameterDirection.Output);
 
             _dapper.Execute("SaveMediclaimCashless", dbparams);
@@ -279,7 +285,7 @@ namespace DTL.Business.Mediclaim.MediclaimRaise
         public IEnumerable<MasterDocumentModel> GetMasterDocumentList()
         {
             var dbparams = new DynamicParameters();
-            return _dapper.GetAll<MasterDocumentModel>("SELECT DocumentId, DocumentName FROM dbo.MasterDocumentList WHERE IsDeleted = 0 ORDER BY 2 ASC", dbparams, CommandType.Text);
+            return _dapper.GetAll<MasterDocumentModel>("SELECT DocumentId, DocumentName FROM dbo.MasterDocumentList WHERE IsDeleted = 0 ORDER BY 1 ASC", dbparams, CommandType.Text);
         }
         public void SaveDocuments(IEnumerable<MediclaimDocumentModel> mediclaimDocuments, int claimId)
         {
@@ -331,6 +337,15 @@ namespace DTL.Business.Mediclaim.MediclaimRaise
                 _dapper.Execute("SaveCreditLetter_Document", dbparams);
                 _documentId = dbparams.Get<int>("@DocumentId");
             }
+        }
+
+        //add by rajan 14/04/25
+        public NonCashlessModel GetAccountData(string PPONumber2)
+        {
+            var dbparams = new DynamicParameters();
+            dbparams.Add("@PPO_NO", PPONumber2, DbType.String);
+            var PPODetail = _dapper.Get<NonCashlessModel>("GetAccountData_ByPPO", dbparams);
+            return PPODetail;
         }
         //end
 

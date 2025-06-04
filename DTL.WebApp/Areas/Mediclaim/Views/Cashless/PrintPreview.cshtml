@@ -55,6 +55,18 @@
                         <label class="form-label d-block mb-1">Email Id</label>
                         <p class="View_text">@Model.EmailId</p>
                     </div>
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Name of Treating Doctor</label>
+                        <p class="View_text">@Model.NameOfDoctor</p>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Doctor Mobile No</label>
+                        <p class="View_text">@Model.Doctor_NO</p>
+                    </div>
+
+
                     <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 mb-3 view_text_border">
                         <label class="form-label d-block mb-1">Address</label>
                         <p class="View_text">@Model.HospitalAddress</p>
@@ -66,11 +78,16 @@
                     Card Holder Details
                 </h4>
                 <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                        <label class="form-label d-block mb-1" for="name">PPO Number</label>
+                        <p class="View_text">@Model.PPONumber</p>
+                    </div>
+
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                         <label class="form-label d-block mb-1">Name of medical card holder</label>
                         <p class="View_text">@Model.NameOfCardHolder</p>
-                    </div> 
-                   
+                    </div>
+
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                         <label class="form-label d-block mb-1">Card Category</label>
                         <p class="View_text">@Model.CardCategory</p>
@@ -87,10 +104,7 @@
                         <label class="form-label d-block mb-1">Email Id</label>
                         <p class="View_text">@Model.PatientEmailId</p>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
-                        <label class="form-label d-block mb-1" for="name">PPO Number</label>
-                        <p class="View_text">@Model.PPONumber</p>
-                    </div>
+
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                         <label class="form-label d-block mb-1">Date Of Birth</label>
                         <p class="View_text">@Model.DateOfBirth.ToString("dd-MM-yyyy")</p>
@@ -152,7 +166,7 @@
                         <p class="View_text">@Model.DependantAge</p>
                     </div>
 
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                    @*<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
                         <label class="form-label d-block mb-1">Date of Admission </label>
                         <p class="View_text">@Model.DateOfAdmission.ToString("dd-MM-yyyy")</p>
                     </div>
@@ -179,7 +193,7 @@
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
                         <label class="form-label d-block mb-1"> Date of Discharge / Date of Death </label>
                         <p class="View_text">@Model.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
-                    </div>
+                    </div>*@
 
 
                 </div>
@@ -203,23 +217,21 @@
                                 {
 
                                     var _index = 1;
-                                    @foreach (var item in Model.Documents)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @_index
-                                            </td>
-                                            <td>
-                                                @item.DocumentFor
-                                            </td>
-                                            <td class="text-center">
-                                                @*<a href="@item.DocumentPath" target="_blank">@item.FileName</a>*@
-                                                <a href="/@item.DocumentPath" class="pdfIcons" target="_blank"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
-                                            </td>
-                                        </tr>
-                                        _index = _index + 1;
-                                    }
-                                }
+                    @foreach (var item in Model.Documents)
+                    {
+            <tr>
+                <td>
+                    @_index
+                </td>
+                <td>
+                    @item.DocumentFor
+                </td>
+                <td class="text-center">
+                    @*<a href="@item.DocumentPath" target="_blank">@item.FileName</a>*@
+                    <a href="/@item.DocumentPath" class="pdfIcons" target="_blank"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
+                </td>
+            </tr>_index = _index + 1;
+                            }}
                             </tbody>
                         </table>
 
@@ -256,61 +268,44 @@
                     </div>
 
                 </div>
-                @*<div class="mb-3 mt-3 mx-0">
-            <h4 class="form_title shadow-2-strong text-start">
-                Claim Approval status
-            </h4>
-            <div class="row">
-                <div class="col-sm-4 mb-3 col-md-3 col-lg-2 col-xl-2">
-                    <label class="form-label d-block mb-1 text-left">
-                        Approve Amount<span class="text-danger req_text">*</span>
-                    </label>
-                    <p class="View_text"><label id="lblAmountInWords"></label></p>
+
+                <h4 class="form_title mt-3 ">
+                   Requested By Hospital at the time of discharge
+                </h4>
+                <div class="row ">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Admission Date</label>
+                        <p class="View_text">@Model.DateOfAdmission.ToString("dd-MM-yyy")</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Discharge Date</label>
+                        <p class="View_text">@Model.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Diagnosis</label>
+                        <p class="View_text">@Model.Diagnosis</p>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Total Bill Amount</label>
+                        <p class="View_text">@Model.Amount</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Type Of Treatment</label>
+                        <p class="View_text">@Model.TypeOfTreatment</p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Signatue Of Employee</label>
+                        <p class="View_text">@Model.SignatureOfEmployee</p>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                        <label class="form-label d-block mb-1">Sign/Stamp Of Treating Doctor</label>
+                        <p class="View_text">@Model.Doctor_SignAndStamp</p>
+                    </div>
 
                 </div>
-                <div class="col-sm-6 col-md-6 mb-6 col-lg-6 col-xl-6 ">
-                    <label class="form-label d-block mb-1 text-left">
-                        In Words<span class="text-danger req_text">*</span>
-                    </label>
-                    <p class="View_text"><label id="lblAmountInWords"></label></p>
 
-                </div>
-            </div>
-
-            <h4 class="form_title shadow-2-strong text-start">
-                Dealing assistant remark
-            </h4>
-            <div class="row ">
-                <div class="col-sm-8 mb-3 pr-0">
-                    <label class="form-label d-block mb-1 text-left">
-                        Dealing assistant Remarks<span class="text-danger req_text">*</span>
-                    </label>
-                    <textarea class="form-control form-control-sm" placeholder="Dealing assistant Remarks"></textarea>
-                </div>
-            </div>
-            <h4 class="form_title shadow-2-strong text-start">
-                Aso (Assistant Specialist Officer )
-            </h4>
-            <div class="row">
-                <div class="col-sm-8 mb-3 pr-0">
-                    <label class="form-label d-block mb-1 text-left">
-                        ASO Remarks<span class="text-danger req_text">*</span>
-                    </label>
-                    <textarea class="form-control form-control-sm" placeholder="ASO Remarks"></textarea>
-                </div>
-            </div>
-            <h4 class="form_title shadow-2-strong text-start">
-                so ( Specialist Officer )
-            </h4>
-            <div class="row">
-                <div class="col-sm-8 mb-3 pr-0">
-                    <label class="form-label d-block mb-1 text-left">
-                        SO Remarks<span class="text-danger req_text">*</span>
-                    </label>
-                    <textarea class="form-control form-control-sm" placeholder="SO Remarks"></textarea>
-                </div>
-            </div>
-        </div>*@
             </div>
             </div>
     </div>
@@ -346,6 +341,14 @@
                         <th scope="row">Email Id</th>
                         <td scope="row">@Model.EmailId</td>
                     </tr>
+
+                    <tr>
+                        <th scope="row">Name Of Treating Doctor</th>
+                        <td scope="row">@Model.NameOfDoctor</td>
+                        <th scope="row">Doctor MobileNo</th>
+                        <td scope="row">@Model.Doctor_NO</td>
+                    </tr>
+
                     <tr>
                         <th scope="row">Address</th>
                         <td scope="row" colspan="3">@Model.HospitalAddress</td>
@@ -383,8 +386,8 @@
                     <tr>
                         <th scope="row">Organization</th>
                         <td scope="row" colspan="3">@Model.Organization</td>
-                      
-                     
+
+
                     </tr>
                     <tr>
                         <th scope="row">Department</th>
@@ -426,29 +429,12 @@
                     <tr>
                         <th scope="row">Age</th>
                         <td scope="row">@Model.DependantAge</td>
-                        <th scope="row">Date of Addmission</th>
-                        <td scope="row">@Model.DateOfAdmission.ToString("dd-MM-yyyy")</td>
-                    </tr>
-
-
-
-                    <tr>
-                        <th scope="row">Addmission Number</th>
-                        <td scope="row">@Model.AdmissionNumber</td>
-                        <th scope="row">Illness Type</th>
-                        <td scope="row">@Model.CaseType</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Type Of Treatment</th>
-                        <td scope="row" colspan="3">@Model.TypeOfTreatment</td>
                         
                     </tr>
-                    <tr>
-                        <th scope="row">Claim Amount</th>
-                        <td scope="row">@Model.Amount</td>
-                        <th scope="row">Date of Discharge</th>
-                        <td scope="row">@Model.DateOfDischargeOrDeath.ToString("dd-MM-yyyy")</td>
-                    </tr>
+
+
+
+
                     <tr>
                     </tr>
 
@@ -469,15 +455,13 @@
                 <tr>
                     <td class="text-center">@_index</td>
                     <td colspan="3">@item.FileName</td>
-                </tr>
-_index = _index + 1;
-            } }
+                </tr>_index = _index + 1;
+                                } }
             else
             {
                 <tr>
                     <td class="text-center" colspan="4">No Document Found</td>
-                </tr>
-}
+                </tr>}
                     <tr>
                         <td scope="row" colspan="4" class="text-center h4">Bank Detail</td>
                     </tr>
@@ -503,6 +487,34 @@ _index = _index + 1;
 
                     </tr>
 
+                    <tr>
+                        <td scope="row" colspan="4" class="text-center h4">Requested By Hospital at the time of Discharge</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Date of Addmission</th>
+                        <td scope="row">@Model.DateOfAdmission.ToString("dd-MM-yyyy")</td>
+                        <th scope="row">Date of Discharge</th>
+                        <td scope="row">@Model.DateOfDischargeOrDeath.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Type Of Treatment</th>
+                        <td scope="row">@Model.TypeOfTreatment</td>
+                        <th scope="row">Diagnosis</th>
+                        <td scope="row" colspan="3">@Model.Diagnosis</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Claim Amount</th>
+                        <td scope="row">@Model.Amount</td>
+                        <th scope="row">Signature Of Employee</th>
+                        <td scope="row">@Model.SignatureOfEmployee</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">Sign/Stamp Treating Doctor</th>
+                        <td scope="row">@Model.Doctor_SignAndStamp</td>
+                    </tr>
 
                 </tbody>
             </table>

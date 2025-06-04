@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    debugger;
+    //debugger;
     let designation = ''
     var LoadPendingMediclaims = function () {
         $.ajax({
@@ -304,7 +304,7 @@ function UpdatePhysicalSubmitCashless(id) {
 }
 
 function ChangeStatus(claimId, row) {
-    debugger;
+    //debugger;
     //console.log($(row).val());
     //row.setAttribute('readonly', true);
     showLoader();

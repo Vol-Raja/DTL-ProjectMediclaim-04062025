@@ -1,9 +1,7 @@
 ﻿@using DTL.Model.Models.Mediclaim
 @model NonCashlessModel
-@{
-    ViewData["Title"] = "NonCashless View";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewData["Title"] = "NonCashless View";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
 <style>
     .top_print_btn {
         position: absolute;
@@ -39,6 +37,12 @@
     <div class="card border-card mt-0 view_container_bg">
         <div class="card-body">
             <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Cliam Id</label>
+                    <p class="View_text">@Model.ClaimId</p>
+                </div>
+
                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                     <label class="form-label d-block mb-1">Employee number</label>
                     <p class="View_text">@Model.EmployeeNumber</p>
@@ -100,11 +104,16 @@
                     <label class="form-label d-block mb-1">Dependent/Self</label>
                     <p class="View_text">@Model.ClaimFor</p>
                 </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">ClaimType Serial No</label>
+                    <p class="View_text">@Model.ClaimNumber</p>
+                </div>
+
                 <div class="col-sm-6 col-md-12 col-lg-12 col-xl-12 mb-3 view_text_border">
                     <label class="form-label d-block mb-1">Address</label>
                     <p class="View_text">@Model.Address</p>
                 </div>
-
             </div>
         </div>
     </div>
@@ -142,44 +151,35 @@
             <h4 class="form_title mt-3 ">
                 Detail of Hospitalization
             </h4>
-            @if (Model.ClaimType.ToLower() == "opd")
+            @if (Model.ClaimType.ToLower() == "opd/dispensary")@*OPD / Dispensary*@ {
+        <div class="row mb-3">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12 view_text_border">
+                <label class="form-label d-block mb-1">Type of claim</label>
+                <p class="View_text">OPD/Dispensary</p>
+            </div>
+        </div>}
+            @if (Model.ClaimType.ToLower() == "cancer/dialysis")
             {
         <div class="row mb-3">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12 view_text_border">
                 <label class="form-label d-block mb-1">Type of claim</label>
-                <p class="View_text">OPD</p>
+                <p class="View_text">Cancer/Dialysis</p>
             </div>
-        </div>      }
-            @if (Model.ClaimType.ToLower() == "cancer")
+        </div>}
+            @if (Model.ClaimType.ToLower() == "ipd/noncashless")
             {
         <div class="row mb-3">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12 view_text_border">
                 <label class="form-label d-block mb-1">Type of claim</label>
-                <p class="View_text">Cancer</p>
+                <p class="View_text">IPD/NonCashless</p>
             </div>
-        </div>      }
-            @if (Model.ClaimType.ToLower() == "dialysis")
-            {
-        <div class="row mb-3">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12 view_text_border">
-                <label class="form-label d-block mb-1">Type of claim</label>
-                <p class="View_text">Dialysis</p>
-            </div>
-        </div>      }
-            @if (Model.ClaimType.ToLower() == "dispensary")
-            {
-        <div class="row mb-3">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12 view_text_border">
-                <label class="form-label d-block mb-1">Type of claim</label>
-                <p class="View_text">Dispensary</p>
-            </div>
-        </div>      }
+        </div>}
+
             <div class="row ">
                 <div class="col-sm-12 mt-4">
                     <table id="tblCND" class="table table-bordered">
                         <thead>
                             <tr>
-
                                 <th>Date</th>
                                 <th>Name of Hospital</th>
                                 <th>Medicine Amt</th>
@@ -187,75 +187,79 @@
                                 <th>Investigation Amt</th>
                                 <th>Other Expenses Amt</th>
                                 <th class="text-right">Total Amount</th>
-
                             </tr>
                         </thead>
                         <tbody>
+                            @{
+                                decimal totalAmountSum = 0;
+                            }
+
                             @foreach (var item in Model.OPDCNDList)
                             {
+                                totalAmountSum += item.TotalAmount;
+
                                 <tr>
-
-
                                     <td>@item.OPDCNDDate.ToString("dd-MM-yyyy")</td>
                                     <td>@item.HospitalName</td>
-                                    <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text">₹ </span> </td>
-                                    <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text">₹ </span></td>
-                                    <td class="text-right">@Math.Round(item.ConsultationAmount, 2)<span class="text-danger req_text">₹ </span></td>
-                                    <td class="text-right">@Math.Round(item.OtherAmount, 2)<span class="text-danger req_text">₹ </span></td>
-                                    <td class="text-right">@Math.Round(item.TotalAmount, 2)<span class="text-danger req_text">₹ </span></td>
-
-
+                                    <td class="text-right">@Math.Round(item.MedicineAmount, 2)<span class="text-danger req_text"> ₹</span></td>
+                                    <td class="text-right">@Math.Round(item.ConsultationAmount, 2)<span class="text-danger req_text"> ₹</span></td>
+                                    <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text"> ₹</span></td>
+                                    <td class="text-right">@Math.Round(item.OtherAmount, 2)<span class="text-danger req_text"> ₹</span></td>
+                                    <td class="text-right">@Math.Round(item.TotalAmount, 2)<span class="text-danger req_text"> ₹</span></td>
                                 </tr>
                             }
+
+                            <!-- Grand Total Row -->
+                            <tr style="font-weight:bold; background-color:#f8f9fa;">
+                                <td colspan="6" class="text-right">Grand Total:</td>
+                                <td class="text-right">@Math.Round(totalAmountSum, 2)<span class="text-danger req_text"> ₹</span></td>
+                            </tr>
                         </tbody>
-
-
-
                     </table>
                 </div>
             </div>
+
+
             @*<div class="row ">
-                    @foreach (var item in Model.OPDCNDList)
-                    {
-        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-            <label class="form-label d-block mb-1">Date</label>
-            <p class="View_text">@item.OPDCNDDate.ToString("dd-MM-yyyy")</p>
-        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
-                            <label class="form-label d-block mb-1">Name of Hospital</label>
-                            <p class="View_text">@item.HospitalName</p>
-                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
-                                            <label class="form-label d-block mb-1">
-                                                Medicine<span class="text-danger req_text">&#8377;</span>
-                                            </label>
-                                            <p class="View_text">@Math.Round(item.MedicineAmount, 2) </p>
-                                        </div>
-                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
-                                                            <label class="form-label d-block mb-1">
-                                                                Investigation Amount<span class="text-danger req_text">&#8377;</span>
-                                                            </label>
-                                                            <p class="View_text">@Math.Round(item.InvestigationAmount, 2) </p>
-                                                        </div>
-                                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
-                                                                            <label class="form-label d-block mb-1">
-                                                                                Consultation Amount<span class="text-danger req_text">&#8377;</span>
-                                                                            </label>
-                                                                            <p class="View_text">@Math.Round(item.ConsultationAmount, 2) </p>
-                                                                        </div>
-                                                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
-                                                                                            <label class="form-label d-block mb-1">
-                                                                                                Other Expenses Amount<span class="text-danger req_text">&#8377;</span>
-                                                                                            </label>
-                                                                                            <p class="View_text">@Math.Round(item.OtherAmount, 2) </p>
-                                                                                        </div>
-                                                                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3view_text_border">
-                                                                                                            <label class="form-label d-block mb-1">
-                                                                                                                Total Amount<span class="text-danger req_text">&#8377;</span>
-                                                                                                            </label>
-                                                                                                            <p class="View_text">@Math.Round(item.TotalAmount, 2) </p>
-                                                                                                        </div>}
-                </div>*@
+            <div class="col-sm-12 mt-4">
+                <table id="tblCND" class="table table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th>Date</th>
+                            <th>Name of Hospital</th>
+                            <th>Medicine Amt</th>
+                            <th>Consultation Amt</th>
+                            <th>Investigation Amt</th>
+                            <th>Other Expenses Amt</th>
+                            <th class="text-right">Total Amount</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OPDCNDList)
+                        {
+            <tr>
+
+
+                <td>@item.OPDCNDDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.HospitalName</td>
+                <td class="text-right">@Math.Round(item.MedicineAmount, 2)<span class="text-danger req_text">₹ </span> </td>
+                <td class="text-right">@Math.Round(item.ConsultationAmount, 2)<span class="text-danger req_text">₹ </span></td>
+                <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text">₹ </span></td>
+                <td class="text-right">@Math.Round(item.OtherAmount, 2)<span class="text-danger req_text">₹ </span></td>
+                <td class="text-right">@Math.Round(item.TotalAmount, 2)<span class="text-danger req_text">₹ </span></td>
+
+
+            </tr>}
+                    </tbody>
+
+
+
+                </table>
+            </div>
+        </div>*@
+
         </div>
     </div>
 
@@ -296,8 +300,9 @@
             <i class="fa fa-file-pdf" aria-hidden="true"></i>
         </a>
     </td>
-</tr>_index = _index + 1;
-                }}
+</tr>
+_index = _index + 1;
+}}
                         </tbody>
                     </table>
 
@@ -397,75 +402,81 @@
                     </tr>
                     <tr>
                         <th scope="row">Address</th>
-                        <td scope="row" colspan="3">@Model.Address</td>
-                       
+                        <td scope="row">@Model.Address</td>
+                        <th scope="row">Card Category</th>
+                        <td scope="row">@Model.CardCategory</td>
+
                     </tr>
                     <tr>
                         <th scope="row">Mobile Number</th>
                         <td scope="row">@Model.MobileNumber</td>
                         <th scope="row">Email Id</th>
                         <td scope="row">@Model.EmailId</td>
-                       
+
                     </tr>
                     <tr>
                         <th scope="row">Dependent/Self</th>
                         <td scope="row">@Model.ClaimFor</td>
+                        <th scope="row">Serial-No</th>
+                        <td scope="row">@Model.ClaimNumber</td>
                     </tr>
                     @if (Model.ClaimFor.ToLower() == "dependent" && Model.Dependent != null)
                     {
-                <tr>
-                    <td scope="row" colspan="4" class="text-center h4">Dependent Information</td>
-                </tr>
-                                <tr>
+        <tr>
+            <td scope="row" colspan="4" class="text-center h4">Dependent Information</td>
+        </tr>
+                        <tr>
 
-                                    <th scope="row">Name</th>
-                                    <td scope="row">@Model.Dependent.Name</td>
-                                    <th scope="row">Date Of Birth</th>
-                                    <td scope="row">@Model.Dependent.DateOfBirth.ToString("dd-MM-yyyy")</td>
-                                </tr>
-                                                <tr>
+                            <th scope="row">Name</th>
+                            <td scope="row">@Model.Dependent.Name</td>
+                            <th scope="row">Date Of Birth</th>
+                            <td scope="row">@Model.Dependent.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                        </tr>
+                                        <tr>
 
-                                                    <th scope="row">Age</th>
-                                                    <td scope="row">@Model.Dependent.Age</td>
-                                                    <th scope="row"> Relationship With Retiree</th>
-                                                    <td scope="row">
-                                                        @if (Model.ClaimFor.ToLower() == "dependent" && Model.Dependent != null)
-                                                        {@Model.Dependent.RelationWithRetire }
-                                                    else
-                                                    {@Model.ClaimFor}
-                                                    </td>
-                                                </tr>}
+                                            <th scope="row">Age</th>
+                                            <td scope="row">@Model.Dependent.Age</td>
+                                            <th scope="row"> Relationship With Retiree</th>
+                                            <td scope="row">
+                                                @if (Model.ClaimFor.ToLower() == "dependent" && Model.Dependent != null)
+                                                {@Model.Dependent.RelationWithRetire }
+                                            else
+                                            {@Model.ClaimFor}
+                                            </td>
+                                        </tr>
+}
 
                     <tr>
                         <td scope="row" colspan="4" class="text-center h4">Detail of Hospitalization</td>
                     </tr>
                     @foreach (var item in Model.OPDCNDList)
                     {
-                <tr>
-                    <th scope="row">Claim Type</th>
-                    <td scope="row">@Model.ClaimType</td>
-                    <th scope="row">Date</th>
-                    <td scope="row">@item.OPDCNDDate.ToString("dd/MM/yyyy")</td>
-                </tr>
-                                <tr>
-                                    <th scope="row">Name of Hospital</th>
-                                    <td scope="row">@item.HospitalName</td>
-                                    <th scope="row">Medicine <span class="text-danger req_text">&#8377;</span></th>
-                                    <td scope="row">@item.MedicineAmount</td>
-                                </tr>
-                                                <tr>
-                                                    <th scope="row">Investigation Amount <span class="text-danger req_text">&#8377;</span></th>
-                                                    <td scope="row">@item.InvestigationAmount</td>
-                                                    <th scope="row">Consultation <span class="text-danger req_text">&#8377;</span></th>
-                                                    <td scope="row">@item.ConsultationAmount</td>
-                                                </tr>
-                                                                <tr>
+        <tr>
+            <th scope="row">Claim Type</th>
+            <td scope="row">@Model.ClaimType</td>
+            <th scope="row">Date</th>
+            <td scope="row">@item.OPDCNDDate.ToString("dd/MM/yyyy")</td>
+        </tr>
+                        <tr>
+                            <th scope="row">Name of Hospital</th>
+                            <td scope="row">@item.HospitalName</td>
+                            <th scope="row">Medicine <span class="text-danger req_text">&#8377;</span></th>
+                            <td scope="row">@item.MedicineAmount</td>
+                        </tr>
+                                        <tr>
+                                            <th scope="row">Investigation Amount <span class="text-danger req_text">&#8377;</span></th>
+                                            <td scope="row">@item.InvestigationAmount</td>
+                                            <th scope="row">Consultation <span class="text-danger req_text">&#8377;</span></th>
+                                            <td scope="row">@item.ConsultationAmount</td>
+                                        </tr>
+                                                        <tr>
 
-                                                                    <th scope="row">Other Expenses Amount <span class="text-danger req_text">&#8377;</span></th>
-                                                                    <td scope="row">@Math.Round(item.OtherAmount, 2)</td>
-                                                                    <th scope="row">Total Amount <span class="text-danger req_text">&#8377;</span></th>
-                                                                    <td scope="row">@Math.Round(item.TotalAmount, 2)</td>
-                                                                </tr>}
+                                                            <th scope="row">Other Expenses Amount <span class="text-danger req_text">&#8377;</span></th>
+                                                            <td scope="row">@Math.Round(item.OtherAmount, 2)</td>
+                                                            <th scope="row">Total Amount <span class="text-danger req_text">&#8377;</span></th>
+                                                            <td scope="row">@Math.Round(item.TotalAmount, 2)</td>
+                                                        </tr>
+}
                     <tr>
                         <th scope="row" colspan="4" class="text-center h4">Claim Document Upload</th>
                     </tr>
@@ -477,24 +488,26 @@
                     @if (Model.Documents.Count() > 0)
                     {
                         var _index = 1;
-                @foreach (var item in Model.Documents)
-                {
-                <tr>
-                    <td class="text-center">@_index</td>
-                    <td colspan="3">
+        @foreach (var item in Model.Documents)
+        {
+<tr>
+    <td class="text-center">@_index</td>
+    <td colspan="3">
 
-                        <a href="#" class="pdfIcons" target='_blank'>
-                            <i class="fa fa-file-pdf" aria-hidden="true"></i>
-                            @item.DocumentFor
-                        </a>
-                    </td>
-                </tr>_index = _index + 1;
-                                } }
-                            else
-                            {
-                <tr>
-                    <td class="text-center" colspan="4">No Document Found</td>
-                </tr>}
+        <a href="#" class="pdfIcons" target='_blank'>
+            <i class="fa fa-file-pdf" aria-hidden="true"></i>
+            @item.DocumentFor
+        </a>
+    </td>
+</tr>
+_index = _index + 1;
+} }
+    else
+    {
+<tr>
+    <td class="text-center" colspan="4">No Document Found</td>
+</tr>
+}
                     <tr>
                         <td scope="row" colspan="4" class="text-center h4">Bank Detail</td>
                     </tr>

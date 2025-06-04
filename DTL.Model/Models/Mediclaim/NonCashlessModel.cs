@@ -17,7 +17,7 @@ namespace DTL.Model.Models.Mediclaim
         [Display(Name = "PPO Number")]
         public string PPONumber { get; set; }
 
-        [Required(ErrorMessage = "Please enter medical section page number")]
+        //[Required(ErrorMessage = "Please enter medical section page number")]
         [Display(Name = "Medical Section Page Number")]
         public string MedicalSectionPageNumber { get; set; }
 
@@ -25,11 +25,11 @@ namespace DTL.Model.Models.Mediclaim
         [Display(Name = "Medical Card Holder Name")]
         public string MedicalCardHolderName { get; set; }
 
-        [Required(ErrorMessage = "Please enter medical card no.")]
+        //[Required(ErrorMessage = "Please enter medical card no.")]
         [Display(Name = "Medical Card No.")]
         public string MedicalCardNo { get; set; }
 
-        [Required(ErrorMessage = "Please enter designation")]
+        //[Required(ErrorMessage = "Please enter designation")]
         [Display(Name = "Designation")]
         public string Designation { get; set; }
 
@@ -41,11 +41,11 @@ namespace DTL.Model.Models.Mediclaim
         [Display(Name = "Gender")]
         public string Gender { get; set; }
 
-        [Required(ErrorMessage = "Please enter date of birth")]
+        //[Required(ErrorMessage = "Please enter date of birth")]
         [Display(Name = "Date Of Birth")]
-        public DateTime DateOfBirth { get; set; } = DateTime.MinValue;
+        public DateTime DateOfBirth { get; set; } = new DateTime(1753, 1, 1);
 
-        [Required(ErrorMessage = "Please enter age")]
+        //[Required(ErrorMessage = "Please enter age")]
         [Display(Name = "Age")]
         public int Age { get; set; } = 0;
 
@@ -73,7 +73,7 @@ namespace DTL.Model.Models.Mediclaim
         public string ClaimType { get; set; }
 
 
-        [Required(ErrorMessage = "Please enter email id"), MaxLength(60)]
+        //[Required(ErrorMessage = "Please enter email id"), MaxLength(60)]
         [Display(Name = "Email Id")]
         //[RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is not valid.")]
         public string EmailId { get; set; }
@@ -101,11 +101,11 @@ namespace DTL.Model.Models.Mediclaim
         [Display(Name = "Branch Name")]
         public string BranchName { get; set; }
 
-        [Required(ErrorMessage = "Please enter bic code"), MaxLength(20)]
+        //[Required(ErrorMessage = "Please enter bic code"), MaxLength(20)]  //chnage by rajan 14/04/25
         [Display(Name = "BIC Code")]
         public string BICCode { get; set; }
 
-        [Required(ErrorMessage = "Please enter ifsc number"), MaxLength(50)]
+        //[Required(ErrorMessage = "Please enter ifsc number"), MaxLength(50)]  // chnage by rajan 14/04/25
         [Display(Name = "IFSC Number")]
         public string IFSCNumber { get; set; }
         public DependentInformation Dependent { get; set; }
@@ -147,9 +147,13 @@ namespace DTL.Model.Models.Mediclaim
         public bool Disbursed { get; set; }
         public bool Paid { get; set; }
 
+        public string ClaimNumber { get; set; }  // add by rajan 16/04/25 like (OPD/Dispensary/2025/April/0002)
+
         //OPDCND AMount
         public decimal TotalAmount { get; set; }
         public IEnumerable<MediclaimDocumentModel> Documents { get; set; }
+        public DateTime startDate { get; set; } // add by nirbhay ExportToExcel 05/30/2025
+        public DateTime endDate { get; set; }// add by nirbhay ExportToExcel 05/30/2025
 
     }
 }

@@ -21,7 +21,7 @@
     var TypeOfTreatment = '';
     var Amount = '';
     var DateOfAdmission = '';
-    var DateOfDischargeOrDeath = '';   
+    var DateOfDischargeOrDeath = '';
     var AccountHolderName = '';
     var AccountNumber = '';
     var BankName = '';
@@ -38,6 +38,12 @@
     var RelationWithRetire = '';
     var DependantDOB = '';
     var DependantAge = '';
+    //add new variable
+    var SignatureOfEmployee = '';
+    var Diagnosis = '';
+    var Doctor_SignAndStamp = '';
+    var NameOfDoctor = '';
+    var Doctor_No = '';
 
     var isValid = false;
 
@@ -70,9 +76,9 @@
                 MedicalSectionPageNumber: MedicalSectionPageNumber,
                 NameOfCardHolder: NameOfCardHolder,
                 MedicalCardNumber: MedicalCardNumber,
-                AdmissionNumber: AdmissionNumber,
+            /*   -- AdmissionNumber: AdmissionNumber,*/
                 CardCategory: CardCategory,
-                CaseType: CaseType,
+               /*-- CaseType: CaseType,*/
                 TypeOfTreatment: TypeOfTreatment,
                 Amount: Amount,
                 DateOfAdmission: DateOfAdmission,
@@ -92,6 +98,11 @@
                 RelationWithRetire: RelationWithRetire,
                 DependantDOB: DependantDOB,
                 DependantAge: DependantAge,
+                SignatureOfEmployee: SignatureOfEmployee,
+                Diagnosis: Diagnosis,
+                Doctor_SignAndStamp: Doctor_SignAndStamp,
+                NameOfDoctor: NameOfDoctor,
+                Doctor_No: Doctor_No,
             }
             $.ajax({
                 type: 'POST',
@@ -102,7 +113,7 @@
                 success: function (response, status, xhr) {
                     hideLoader();
                     if (xhr.status == '200') {
-                        if (response !== null || response !== undefined) {                             
+                        if (response !== null || response !== undefined) {
                             $('#hdnMediclaimId').val(response);
                         }
                         $('#exampleModal').modal('show');
@@ -181,8 +192,8 @@
 
         isValid = (errorCount > 0) ? false : true;
 
-        ValidateEmailFormat($('#txtEmailId').val(),'#txtEmailId');
-        ValidateEmailFormat($('#txtPatientEmailId').val(),'#txtPatientEmailId');
+        ValidateEmailFormat($('#txtEmailId').val(), '#txtEmailId');
+        ValidateEmailFormat($('#txtPatientEmailId').val(), '#txtPatientEmailId');
 
         $('#cashlessForm').validate({
             focusCleanup: true,
@@ -219,6 +230,7 @@
     };
 
     var PopulateCashlessProperties = function () {
+        //debugger;
         ClaimId = $('#hdnMediclaimId').val(),
             NameOfHospital = $('#txtNameOfHospital').val(),
             HospitalPhoneNumber = $('#txtHospitalPhoneNumber').val(),
@@ -235,9 +247,9 @@
             MedicalSectionPageNumber = $('#txtMedicalSectionPageNumber').val(),
             NameOfCardHolder = $('#txtMedicalCardHolderName').val(),
             MedicalCardNumber = $('#txtMedicalCardNumber').val(),
-            AdmissionNumber = $('#txtAdmissionNumber').val(),
+            /*  AdmissionNumber = $('#txtAdmissionNumber').val(),*/
             CardCategory = $('#selCardCategory option:selected').val(),
-            CaseType = $('#txtCaseType').val(),
+            /*  CaseType = $('#txtCaseType').val(),*/
             TypeOfTreatment = $('#txtTypeOfTreatment').val(),
             Amount = $('#txtAmount').val(),
             DateOfAdmission = $('#dtDateOfAdmission').val(),
@@ -256,11 +268,16 @@
             RelationWithRetire = $("#selRelatioWithRetire option:selected").val();
             DependantDOB = $('#txtDependentDob').val(),
             DependantAge = $('#txtDependentAge').val(),
+            SignatureOfEmployee = $('#txtSignatureEmployee').val(), // add new rajan
+            Diagnosis = $('#txtDiagnosis').val(),                           // add new by rajan
+            Doctor_SignAndStamp = $('#signstamp_doc').val(),                // add by rajan 04/04/25
+            NameOfDoctor = $('#txtnameofdoctor').val(),    // add by rajan 22/04/25
+            Doctor_No = $('#txtdoctormobile').val(),  // add by rajan 22/04/25
             $("#tblDocument tbody tr").each(function () {
-            DocumentsArray.push(JSON.parse($(this).find('td input.hdndoc').val()));
-        });
+                DocumentsArray.push(JSON.parse($(this).find('td input.hdndoc').val()));
+            });
     };
-     
+
     var LoadCashlessData = function () {
         ClaimId = $('#hdnMediclaimId').val();
         //debugger;
@@ -297,9 +314,9 @@
                 $('#txtMedicalSectionPageNumber').val(response.medicalSectionPageNumber);
                 $('#txtMedicalCardHolderName').val(response.nameOfCardHolder);
                 $('#txtMedicalCardNumber').val(response.medicalCardNumber);
-                $('#txtAdmissionNumber').val(response.admissionNumber);
+                /*$('#txtAdmissionNumber').val(response.admissionNumber);*/
                 $('#selCardCategory').val(response.cardCategory);
-                $('#txtCaseType').val(response.caseType);
+              /*  $('#txtCaseType').val(response.caseType);*/
                 $('#txtTypeOfTreatment').val(response.typeOfTreatment);
                 $('#txtAmount').val(response.amount);
                 $('#dtDateOfAdmission').val(response.dateOfAdmissionString);
@@ -308,7 +325,7 @@
                 $('#txtAccountNumber').val(response.accountNumber);
                 $('#txtBankName').val(response.bankName);
                 $('#txtBICCode').val(response.bicCode),
-                  $('#txtIFSCNumber').val(response.ifscNumber);
+                $('#txtIFSCNumber').val(response.ifscNumber);
                 $('#txtBranchName').val(response.branchName);
                 $('#txtPPONumber').val(response.ppoNumber);
                 $('#selOrganization').val(response.organization);
@@ -318,7 +335,12 @@
                 $("#selRelatioWithRetire").val(response.relationWithRetire);
                 $('#txtDependentDob').val(response.dependantDOBString);
                 $('#txtDependentAge').val(response.dependantAge);
-              
+                $('#txtSignatureEmployee').val(response.signatureOfEmployee);
+                $('#txtDiagnosis').val(response.diagnosis);
+                $('#signstamp_doc').val(response.doctor_SignAndStamp);
+                $('#txtnameofdoctor').val(response.nameOfDoctor);
+                $('#txtdoctormobile').val(response.doctor_NO);
+
                 if (response.documents.length > 0) {
                     $.each(response.documents, function (index, item) {
                         var _hdnItem = JSON.stringify(item);
@@ -342,7 +364,7 @@
         });
     };
     $('#txtDependentDob').change(function () {
-        debugger;
+        //debugger;
         //alert('Toing');
         var currentDate = new Date();
         var dobDate = new Date($('#txtDependentDob').val());
@@ -361,9 +383,9 @@
         //console.log(age2);
         $('#txtAge').val(age1);
     });
- 
 
-   
+
+
     var showLoader = function () {
         //$('.preloader').css()
         $(".preloader").css({ "height": "100%" });
@@ -480,13 +502,13 @@
     })();
 });
 
-function DeleteFile(currentfilePath, documentId, row) {    
+function DeleteFile(currentfilePath, documentId, row) {
     if (confirm("Are you sure you want to delete the user?")) {
         showLoader();
         $.ajax({
             type: 'POST',
             url: "/Mediclaim/Modify/DeleteFile/Cashless/" + documentId,
-            data: JSON.stringify(currentfilePath.replaceAll("|","\\")),
+            data: JSON.stringify(currentfilePath.replaceAll("|", "\\")),
             contentType: 'application/json; charset=utf-8',
             //dataType: 'json',
             success: function (response, status, xhr) {

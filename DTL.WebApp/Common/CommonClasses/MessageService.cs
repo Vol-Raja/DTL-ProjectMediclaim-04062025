@@ -78,5 +78,60 @@ namespace DTL.WebApp.Common.CommonClasses
         {
             throw new NotImplementedException();
         }
+
+
+        // ADD BY RAJAN 15/04/2025
+        public async Task<string> SendCredentialSMS(string mobilenumber, string message)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    // Base URL (e.g., http://vtechsmssolutions.com/app/smsapi/)
+                    client.BaseAddress = new Uri(_configuration.GetValue<string>("SmsApi:BaseUrl"));
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+
+                    // Read all parameters from configuration
+                    string username = _configuration["SmsApi:Username"];
+                    string password = _configuration["SmsApi:password"];
+                    string apiKey = _configuration["SmsApi:ApiKey"];
+                    string campaign = _configuration["SmsApi:Campaign"];
+                    string routeid = _configuration["SmsApi:Routeid"];
+                    string type = _configuration["SmsApi:Type"];
+                    string senderId = _configuration["SmsApi:SenderId"];
+                    string templateId = _configuration["SmsApi:TemplateId"];
+                    string peId = _configuration["SmsApi:PeId"];
+                    string requestUrlTemplate = _configuration["SmsApi:RequestUrl"];
+
+                    // Encode the message
+                    string encodedMessage = HttpUtility.UrlEncode(message);
+
+                    // Format the request path with values
+                    string requestPath = string.Format(requestUrlTemplate,
+                        username, password, apiKey, campaign, routeid, type,
+                        mobilenumber, senderId, encodedMessage, templateId, peId
+                    );
+
+                    // Send GET request
+                    HttpResponseMessage response = await client.GetAsync(requestPath);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        return responseContent;
+                    }
+                    else
+                    {
+                        return $"Error in sending SMS. Status code: {response.StatusCode}";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("MessageService SendCredential", ex);
+                return $"Exception: {ex.Message}";
+            }
+        }
+
     }
 }

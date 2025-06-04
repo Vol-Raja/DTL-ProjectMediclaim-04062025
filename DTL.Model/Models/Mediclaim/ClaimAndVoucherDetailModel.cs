@@ -1,4 +1,5 @@
-﻿namespace DTL.Model.Models.Mediclaim
+﻿
+namespace DTL.Model.Models.Mediclaim
 {
     public class ClaimAndVoucherDetailModel
     {

@@ -1,6 +1,6 @@
 ﻿var value1 = '';
 $(document).ready(function () {
-    debugger;
+    //debugger;
     var NameOfHospital = '';
     var HospitalPhoneNumber = '';
     var HospitalAddress = '';
@@ -16,13 +16,13 @@ $(document).ready(function () {
     var MedicalSectionPageNumber = '';
     var NameOfCardHolder = '';
     var MedicalCardNumber = '';
-    var AdmissionNumber = '';
+    
     var CardCategory = '';
-    var CaseType = '';
+   
     var TypeOfTreatment = '';
     var Amount = '';
     var DateOfAdmission = '';
-    var DateOfDischargeOrDeath = '';   
+    var DateOfDischargeOrDeath = '';
     var AccountHolderName = '';
     var AccountNumber = '';
     var BankName = '';
@@ -40,7 +40,14 @@ $(document).ready(function () {
     var DependantDOB = '';
     var DependantAge = '';
     var isValid = false;
-   
+    //add new variable
+    var SignatureOfEmployee = '';
+    var Diagnosis = '';
+    var Doctor_SignAndStamp = '';
+    var NameOfDoctor = '';
+    var Doctor_No = '';
+       
+
     value1 = sessionStorage.getItem('someKey');
     var intId = parseInt(value1, 10);  // Convert back to integer
     $('#btnReset').click(function () {
@@ -49,7 +56,7 @@ $(document).ready(function () {
         DocumentsArray = [];
     });
 
-    $('#btnSubmit').click(function () { 
+    $('#btnSubmit').click(function () {
         //debugger;
         validateEntryForm();
         if (isValid) {
@@ -71,9 +78,9 @@ $(document).ready(function () {
                 MedicalSectionPageNumber: MedicalSectionPageNumber,
                 NameOfCardHolder: NameOfCardHolder,
                 MedicalCardNumber: MedicalCardNumber,
-                AdmissionNumber: AdmissionNumber,
+              
                 CardCategory: CardCategory,
-                CaseType: CaseType,
+                
                 TypeOfTreatment: TypeOfTreatment,
                 Amount: Amount,
                 DateOfAdmission: DateOfAdmission,
@@ -92,8 +99,14 @@ $(document).ready(function () {
                 DateOfRetirement: DateOfRetirement,
                 RelationWithRetire: RelationWithRetire,
                 DependantDOB: DependantDOB,
-                DependantAge:DependantAge ,
-            }
+                DependantAge: DependantAge,
+                SignatureOfEmployee: SignatureOfEmployee,
+                Diagnosis: Diagnosis,
+                Doctor_SignAndStamp: Doctor_SignAndStamp,
+                NameOfDoctor: NameOfDoctor,
+                Doctor_No:Doctor_No,
+
+            };
             $.ajax({
                 type: 'POST',
                 url: "/Mediclaim/Raise/AddNewMediclaimCashless",
@@ -121,87 +134,333 @@ $(document).ready(function () {
             });
         }
     });
-    debugger;
     Getcreditletterdata();
     loginuser();
     var validateEntryForm = function () {
         var errorCount = 0;
+        if ($('#txtMedicalCardHolderName').val() === '') {
+            $('#txtMedicalCardHolderName').addClass('is-invalid');
+            errorCount += 1;
+        }
 
-        //For text
-        $.each($('input:text'), function (data, item) {
-            if ($(item).val() === '') {
-                $(item).addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $(item).removeClass('is-invalid');
-              
-            }
-        });
+        else {
+            $('#txtMedicalCardHolderName').removeClass('is-invalid');
 
-        //For select
-        $.each($('select'), function (data, item) {
-            if ($(item).val() === '') {
-                $(item).addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $(item).removeClass('is-invalid');
-            }
-        });
+        }
 
-        //For textarea
-        $.each($('textarea'), function (data, item) {
-            if ($(item).val() === '') {
-                $(item).addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $(item).removeClass('is-invalid');
-            }
-        });
+        //if ($('#txtMedicalCardNumber').val() === '') {
+        //    $('#txtMedicalCardNumber').addClass('is-invalid');
+        //    errorCount += 1;
+        //}
 
-        //For date
-        $.each($('input[type="date"]'), function (data, item) {
-            if ($(item).val() === '') {
-                $(item).addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $(item).removeClass('is-invalid');
-            }
-        });
+        //else {
+        //    $('#txtMedicalCardNumber').removeClass('is-invalid');
 
-        //For email
-        $.each($('input[type="email"]'), function (data, item) {
-            if ($(item).val() === '') {
-                $(item).addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $(item).removeClass('is-invalid');
-            }
-        });
+        //}
 
-        //For number
-        $.each($('input[type="number"]'), function (data, item) {
-            if ($(item).val() === '') {
-                $(item).addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $(item).removeClass('is-invalid');
-            }
-        });
-        if ($('#selRelationWithRetire option:selected').val() === '') {
+        if ($("#selCardCategory option:selected").text() === 'Select') {
+            $("#selCardCategory").addClass('is-invalid');
+            errorCount += 1;
+        }
+        else {
+            $('#selCardCategory').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtPPONumber').val() === '') {
+            $('#txtPPONumber').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtPPONumber').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtPatientPhoneNumber').val() === '') {
+            $('#txtPatientPhoneNumber').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtPatientPhoneNumber').removeClass('is-invalid');
+
+        }
+
+        if ($("#selOrganization option:selected").text() === 'Select') {
+            $("#selOrganization").addClass('is-invalid');
+            errorCount += 1;
+        }
+        else {
+            $('#selOrganization').removeClass('is-invalid');
+
+        }
+
+        //if ($('#txtDepartment').val() === '') {
+        //    $('#txtDepartment').addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+
+        //else {
+        //    $('#txtDepartment').removeClass('is-invalid');
+
+        //}
+
+        //if ($('#txtDesignation').val() === '') {
+        //    $('#txtDesignation').addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+
+        //else {
+        //    $('#txtDesignation').removeClass('is-invalid');
+
+        //}
+
+
+        if ($('#dtDateRetirement').val() === '') {
+            $('#dtDateRetirement').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#dtDateRetirement').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtPatientAddress').val() === '') {
+            $('#txtPatientAddress').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtPatientAddress').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtNameOfPatient').val() === '') {
+            $('#txtNameOfPatient').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtNameOfPatient').removeClass('is-invalid');
+
+        }
+
+        if ($('#selRelatioWithRetire option:selected').val() === '') {
             $('#selRelatioWithRetire').addClass('is-invalid');
             errorCount += 1;
         }
         else {
             $('#selRelatioWithRetire').removeClass('is-invalid');
         }
+
+        if ($("#dtDependantDOB").val() === '') {
+            $("#dtDependantDOB").addClass('is-invalid');
+            errorCount += 1;
+        }
+        else {
+            $('#dtDependantDOB').removeClass('is-invalid');
+
+        }
+
+        if ($('.gender-radio input[type="radio"]:checked').val() === undefined) {
+            $('.gender-radio').addClass('is-invalid');
+            errorCount += 1;
+        }
+        else {
+            $('.gender-radio').removeClass('is-invalid');
+
+        }
+
+        if ($("#txtAccountHolderName").val() === '') {
+            $("#txtAccountHolderName").addClass('is-invalid');
+            errorCount += 1;
+        }
+        else {
+            $('#txtAccountHolderName').removeClass('is-invalid');
+        }
+
+        if ($("#txtAccountNumber").val() === '') {
+            $("#txtAccountNumber").addClass('is-invalid');
+            errorCount += 1;
+        }
+        else {
+            $('#txtAccountNumber').removeClass('is-invalid');
+        }
+
+        if ($("#txtBankName").val() === '') {
+            $("#txtBankName").addClass('is-invalid');
+            errorCount += 1;
+        }
+        else {
+            $('#txtBankName').removeClass('is-invalid');
+        }
+
+        if ($("#txtBranchName").val() === '') {
+            $("#txtBranchName").addClass('is-invalid');
+            errorCount += 1;
+        }
+        else {
+            $('#txtBranchName').removeClass('is-invalid');
+        }
+
+        //if ($("#txtBICCode").val() === '') {
+        //    $("#txtBICCode").addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#txtBICCode').removeClass('is-invalid');
+        //}
+
+        //if ($("#txtIFSCNumber").val() === '') {
+        //    $("#txtIFSCNumber").addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#txtIFSCNumber').removeClass('is-invalid');
+        //}
+
+
+        if ($('#dtDateOfAdmission').val() === '') {
+            $('#dtDateOfAdmission').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#dtDateOfAdmission').removeClass('is-invalid');
+
+        }
+
+        if ($('#dtDateOfDischargeOrDeath').val() === '') {
+            $('#dtDateOfDischargeOrDeath').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#dtDateOfDischargeOrDeath').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtDiagnosis').val() === '') {
+            $('#txtDiagnosis').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtDiagnosis').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtTypeOfTreatment').val() === '') {
+            $('#txtTypeOfTreatment').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtTypeOfTreatment').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtAmount').val() === '') {
+            $('#txtAmount').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtAmount').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtSignatureEmployee').val() === '') {
+            $('#txtSignatureEmployee').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtSignatureEmployee').removeClass('is-invalid');
+
+        }
+
+        if ($('#signstamp_doc').val() === '') {
+            $('#signstamp_doc').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#signstamp_doc').removeClass('is-invalid');
+
+        }
+
+        //if ($("#selDocumentType option:selected").text() === 'Select') {
+        //    $("#selDocumentType").addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#selDocumentType').removeClass('is-invalid');
+
+        //}
+
+        if ($('#txtNameOfHospital').val() === '') {
+            $('#txtNameOfHospital').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtNameOfHospital').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtHospitalId').val() === '') {
+            $('#txtHospitalId').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtHospitalId').removeClass('is-invalid');
+
+        }
+        if ($('#txtHospitalPhoneNumber').val() === '') {
+            $('#txtHospitalPhoneNumber').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtHospitalPhoneNumber').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtEmailId').val() === '') {
+            $('#txtEmailId').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtEmailId').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtdoctreat').val() === '') {
+            $('#txtdoctreat').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtdoctreat').removeClass('is-invalid');
+
+        }
+
+        if ($('#txtDoctor').val() === '') {
+            $('#txtDoctor').addClass('is-invalid');
+            errorCount += 1;
+        }
+
+        else {
+            $('#txtDoctor').removeClass('is-invalid');
+
+        }
         isValid = (errorCount > 0) ? false : true;
-       
+
         $('#cashlessForm').validate({
             focusCleanup: true,
             rules: {
@@ -237,7 +496,8 @@ $(document).ready(function () {
     };
 
     var PopulateCashlessProperties = function () {
-            NameOfHospital = $('#txtNameOfHospital').val(),
+        //debugger;
+        NameOfHospital = $('#txtNameOfHospital').val(),
             HospitalPhoneNumber = $('#txtHospitalPhoneNumber').val(),
             HospitalAddress = $('#txtHospitalAddress').val(),
             HospitalId = $('#txtHospitalId').val(),
@@ -252,9 +512,9 @@ $(document).ready(function () {
             MedicalSectionPageNumber = $('#txtMedicalSectionPageNumber').val(),
             NameOfCardHolder = $('#txtMedicalCardHolderName').val(),
             MedicalCardNumber = $('#txtMedicalCardNumber').val(),
-            AdmissionNumber = $('#txtAdmissionNumber').val(),
+           
             CardCategory = $('#selCardCategory option:selected').val(),
-            CaseType = $('#txtCaseType').val(),
+          
             TypeOfTreatment = $('#txtTypeOfTreatment').val(),
             Amount = $('#txtAmount').val(),
             DateOfAdmission = $('#dtDateOfAdmission').val(),
@@ -273,9 +533,15 @@ $(document).ready(function () {
             RelationWithRetire = $("#selRelatioWithRetire option:selected").val();
             DependantDOB = $('#dtDependantDOB').val(),
             DependantAge = $('#txtDependantAge').val(),
-        $("#tblDocument tbody tr").each(function () {
-            DocumentsArray.push(JSON.parse($(this).find('td input.hdndoc').val()));
-        });
+            SignatureOfEmployee = $('#txtSignatureEmployee').val(), // add new rajan
+            Diagnosis = $('#txtDiagnosis').val(),                           // add new by rajan
+                Doctor_SignAndStamp = $('#signstamp_doc').val(),                // add by rajan 04/04/25
+                NameOfDoctor = $('#txtdoctreat').val(),  // add by rajan 22/04/25
+                Doctor_No = $('#txtDoctor').val(),  // add by rajan 22/04/25
+
+            $("#tblDocument tbody tr").each(function () {
+                DocumentsArray.push(JSON.parse($(this).find('td input.hdndoc').val()));
+            });
     }
 
 
@@ -287,69 +553,69 @@ $(document).ready(function () {
         window.location.href = '/Mediclaim/Cashless/PrintPreview/' + $(this).next("input").text();
     });
     $('#dtDependantDOB').change(function () {
-    
+
         //alert('Toing');
         var currentDate = new Date();
         var dobDate = new Date($('#dtDependantDOB').val());
         var age1 = currentDate.getFullYear() - dobDate.getFullYear();
         $('#txtDependantAge').val(age1);
     });
-    $('#dtDateOfBirth').change(function () {
-     
-        //alert('Toing');
-        var currentDate = new Date();
-        var dobDate = new Date($('#dtDateOfBirth').val());
-        var age1 = currentDate.getFullYear() - dobDate.getFullYear();
-        //var age2 = Math.floor((currentDate - dobDate) / (365.25 * 24 * 60 * 60 * 1000));
-        //console.log(currentDate);
-        //console.log(dobDate);
-        console.log(age1);
-       //console.log(age2);
-        $('#txtAge').val(age1);
-    });
-    //new changes by nirbhay
-    $('#txtPPONumber').change(function () {
-        debugger;
-       // alert('hii');
-        var PPONumber = $('#txtPPONumber').val();
-        if (PPONumber !== '') {
-            $.ajax({
-                type: 'GET',
-                url: "/Mediclaim/Raise/Searchppo/" + PPONumber,
-                data: '',//JSON.stringify(request),
-                contentType: 'application/json; charset=utf-8',
-                //dataType: 'json',
-                success: function (response, status, xhr) {
-                    hideLoader();
-                    if (xhr.status == '200') {
-                        if (response !== null || response !== undefined) {
-                           // $('#txtPayTo').val(patient);
-                            $('#txtMedicalCardHolderName').val(response.emP_NAME);
-                            $('#txtPatientPhoneNumber').val(response.mobile_no);
-                            $('#txtPatientEmailId').val(response.email_id)
-                            //$('#txtMedicalSectionPageNumber').val(response.medicalSectionPageNumber);
-                            //$('#txtMedicalCardNumber').val(response.medicalCardNumber);
-                        }
-                    
-                    }
-                },
-                error: function (xhr, status, error) {
-                    hideLoader();
-                }
-            });
+    //$('#dtDateOfBirth').change(function () {
+
+    //    //alert('Toing');
+    //    var currentDate = new Date();
+    //    var dobDate = new Date($('#dtDateOfBirth').val());
+    //    var age1 = currentDate.getFullYear() - dobDate.getFullYear();
+    //    //var age2 = Math.floor((currentDate - dobDate) / (365.25 * 24 * 60 * 60 * 1000));
+    //    //console.log(currentDate);
+    //    //console.log(dobDate);
+    //    console.log(age1);
+    //    //console.log(age2);
+    //    $('#txtAge').val(age1);
+    //});
 
 
-        }
-        else {
-            alert('Please select PPONumber');
-            $('#txtPPONumber').val('');
-        }
-    });
+    //new changes by nirbhay      //comment by rajan 14/04/25
+    //$('#txtPPONumber').change(function () {
+    //    // alert('hii');
+    //    var PPONumber = $('#txtPPONumber').val();
+    //    if (PPONumber !== '') {
+    //        $.ajax({
+    //            type: 'GET',
+    //            url: "/Mediclaim/Raise/Searchppo/" + PPONumber,
+    //            data: '',//JSON.stringify(request),
+    //            contentType: 'application/json; charset=utf-8',
+    //            //dataType: 'json',
+    //            success: function (response, status, xhr) {
+    //                hideLoader();
+    //                if (xhr.status == '200') {
+    //                    if (response !== null || response !== undefined) {
+    //                        // $('#txtPayTo').val(patient);
+    //                        $('#txtMedicalCardHolderName').val(response.emP_NAME);
+    //                        $('#txtPatientPhoneNumber').val(response.mobile_no);
+    //                        $('#txtPatientEmailId').val(response.email_id)
+    //                        //$('#txtMedicalSectionPageNumber').val(response.medicalSectionPageNumber);
+    //                        //$('#txtMedicalCardNumber').val(response.medicalCardNumber);
+    //                    }
+
+    //                }
+    //            },
+    //            error: function (xhr, status, error) {
+    //                hideLoader();
+    //            }
+    //        });
+
+
+    //    }
+    //    else {
+    //        alert('Please select PPONumber');
+    //        $('#txtPPONumber').val('');
+    //    }
+    //});
     //end new changes
 
     //new changes by nirbhay
     function loginuser() {
-        debugger;
         var PPONumber1 = $('#dropdownMenuLink label').text().trim();
         if (PPONumber1 !== '') {
             $.ajax({
@@ -382,8 +648,16 @@ $(document).ready(function () {
     //end new changes
 
     //new changes by nirbhay
+    function formatDateForInput(dateStr) {
+        if (!dateStr) return '';
+        const date = new Date(dateStr);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
     function Getcreditletterdata() {
-        debugger;
+        //debugger;
         var PPONumber2 = value1;
         if (PPONumber2 !== '') {
             $.ajax({
@@ -406,17 +680,24 @@ $(document).ready(function () {
                             $('#selCardCategory').val(response.categoryOfRoom);
                             $('#selRelatioWithRetire').val(response.relation);
                             $('#dtDateOfAdmission').val(response.dateOfAdmission);
-                            $('#txtTypeOfTreatment').val(response.treatment);
-                            $('#txtPatientAddress').val(response.residentAddress);
-                            $('#txtCaseType').val(response.diagnosis);
+                            $('#txtPatientAddress').val(response.residentAddress);  
                             $('#txtMedicalSectionPageNumber').val(response.pageNo);
-                            $('#txtPPONumber').val(response.ppoNumber);
-                            $('#dtDateOfAdmission').val(response.dateOfAdmission);
+                            $('#txtPPONumber').val(response.ppoNumber);      //change by rajan 14/04/25
+                            $('#dtDateOfAdmission').val(formatDateForInput(response.dateOfAdmission));
                             $('#dtDateOfDischargeOrDeath').val(response.dateOfDischargeOrDeath);
                             $('#txtMedicalCardNumber').val(response.medicalCardNumber);
-                            $('#txtAdmissionNumber').val(response.admissionNumber);
-                        }
+                            $('#txtdoctreat').val(response.nameOfDoctor);
+                            $('#txtDoctor').val(response.doctor_NO);
+                            $('#txtDiagnosis').val(response.provisionalDiagnosis);
+                            $('#txtTypeOfTreatment').val(response.istendedTreatment);
+                            $('#selCardCategory').val(response.categoryOfRoom);
+                            $('#txtPatientPhoneNumber').val(response.patientNo);
 
+                            /*$('#dtDateOfAdmission').val(response.dateOfAdmission);*/ //comment by rajan
+                            /* $('#txtTypeOfTreatment').val(response.treatment);*/ //comment by rajan
+                            /*$('#txtCaseType').val(response.diagnosis);*/     //comment by rajan
+                            /*$('#txtAdmissionNumber').val(response.admissionNumber);*/ ////comment by rajan
+                        }
                     }
                 },
                 error: function (xhr, status, error) {
@@ -428,6 +709,73 @@ $(document).ready(function () {
     };
 
     //end new changes
+
+    //chnage by rajan 14/04/2025
+
+    $('#txtPPONumber').change(function () {
+        debugger;
+        var PPONumber = $('#txtPPONumber').val();
+        if (PPONumber !== '') {
+            $.ajax({
+                type: 'GET',
+                url: "/Mediclaim/Raise/GetEmployeeAccount_data/" + PPONumber,
+                data: '',
+                contentType: 'application/json; charset=utf-8',
+                //dataType: 'json',
+                success: function (response, status, xhr) {
+                    hideLoader();
+                    if (xhr.status == '200') {
+                        if (response !== null || response !== undefined) {
+                            $('#txtAccountHolderName').val(response.accountHolderName);
+                            $('#txtMedicalCardHolderName').val(response.accountHolderName);
+                            $('#txtAccountNumber').val(response.accountNumber);
+                            $('#txtBankName').val(response.bankName);
+                            $('#txtBranchName').val(response.branchName);
+                            // Set DOB
+                            const dob = formatDateForInput(response.dateOfBirth);
+                            $('#dtDateOfBirth').val(dob);
+
+                            // Calculate and set Age
+                            if (dob) {
+                                var age = calculateAge(new Date(dob));
+                                $('#txtAge').val(age);
+                            }
+                        }
+                    }
+                },
+                error: function (xhr, status, error) {
+                    hideLoader();
+                }
+            }
+            )
+        }
+        else {
+            alert('Please select PPONumber');
+            $('#txtPPONumber').val('');
+        }
+    });
+
+
+    function calculateAge(dobDate) {
+        var today = new Date();
+        var age = today.getFullYear() - dobDate.getFullYear();
+        //var m = today.getMonth() - dobDate.getMonth();
+        //if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+        //    age--;
+        //}
+        return age;
+    }
+
+
+    $('#txtDateOfBirth').change(function () {
+        var dobDate = new Date($('#txtDateOfBirth').val());
+        if (!isNaN(dobDate)) {
+            var age = calculateAge(dobDate);
+            $('#txtAge').val(age);
+        }
+    });
+    //end
+
 
     var showLoader = function () {
         //$('.preloader').css()
@@ -455,7 +803,7 @@ $(document).ready(function () {
             form.append("Files", uploadfiles[i]);
         }
 
-        if (uploadfiles.length > 0) { 
+        if (uploadfiles.length > 0) {
             $.ajax({
                 type: 'POST',
                 url: '/Mediclaim/Raise/UploadFile/cashless/' + _indicator,
@@ -468,10 +816,10 @@ $(document).ready(function () {
                     $('#fileUpload').val('');
                     if (xhr.status == "200") {
                         if ($('#tblDocument tbody tr').length >= 0)
-                        if (response.length > 0) {
-                            $.each(response, function (index, item) {
-                                var _hdnItem = JSON.stringify(item);
-                                var row = `<tr>
+                            if (response.length > 0) {
+                                $.each(response, function (index, item) {
+                                    var _hdnItem = JSON.stringify(item);
+                                    var row = `<tr>
                                             <td>
                                                 ${srNo}
                                                 <input type="hidden" class="hdndoc" value='${_hdnItem}'>
@@ -479,10 +827,10 @@ $(document).ready(function () {
                                             <td>${item.documentFor}</td>
                                             <td>${item.fileName}</td>
                                             <td><a href="#" onclick="DeleteFile('${item.documentPath}',this)" class="btn btn-danger btn-sm mr-2 btn_small"><i class="fa fa-trash" aria-hidden="true"></i></a></td></tr>`
-                                $('#tblDocument tbody').append(row);
-                            });
-                            srNo = srNo + 1;
-                        };
+                                    $('#tblDocument tbody').append(row);
+                                });
+                                srNo = srNo + 1;
+                            };
                     }
                 },
                 error: function (xhr, status, error) {
@@ -507,18 +855,18 @@ $(document).ready(function () {
         }
     });
 
-    $('#txtPatientEmailId').focusout(function () {
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if (regex.test($(this).val())) {
-            isValid = true;
-            $('#txtPatientEmailId').removeClass('is-invalid');
-        }
-        else {
-            isValid = false;
-            $('#txtPatientEmailId').addClass('is-invalid');
-        }
-    });
-  
+    //$('#txtPatientEmailId').focusout(function () {
+    //    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    //    if (regex.test($(this).val())) {
+    //        isValid = true;
+    //        $('#txtPatientEmailId').removeClass('is-invalid');
+    //    }
+    //    else {
+    //        isValid = false;
+    //        $('#txtPatientEmailId').addClass('is-invalid');
+    //    }
+    //});
+
     //Self Invoking function to populate the table when page loads
     (function () {
         //$(".showDependent").hide();

@@ -20,14 +20,26 @@
                             index = index + 1
                             let claimStatus = '';
                             let remark = '';
-                            let voucherbutton = (designation.toLowerCase() === 'da1' || designation.toLowerCase() === 'da2') ? '<a href="/Mediclaim/Voucher/AddNewVoucher/noncashless" class="Generate_voucher_btn" title ="Voucher generate">Voucher Generate</a>' : '&nbsp';
+                            let voucherbutton = '';
+                            if (designation.toLowerCase() === 'aso' || designation.toLowerCase() === 'aso1') {
+                                if (item.voucherId > 0 || item.claimStatusId === 3) {
+                                    voucherbutton = '<a href="#" class="Generate_voucher_btn voucher-disabled" title="Voucher already generated" style="cursor: default;">Voucher Generate</a>';
+                                } else {
+                                    voucherbutton = '<a href="/Mediclaim/Voucher/AddNewVoucher/noncashless" class="Generate_voucher_btn" title="Voucher generate">Voucher Generate</a>';
+                                }
+                            }
+
+                           /* let voucherbutton = (designation.toLowerCase() === 'da1' || designation.toLowerCase() === 'da2') ? '<a href="/Mediclaim/Voucher/AddNewVoucher/noncashless" class="Generate_voucher_btn" title ="Voucher generate">Voucher Generate</a>' : '&nbsp';*/
                             switch (item.claimStatusId) {
-                                case 1: claimStatus = '<span class="bg-warning Status_text">Pending</span>'; voucherbutton = ''; break; case 2: claimStatus = '<span class="bg-success Status_text">Approved</span>'; remark = item.remark; break; case 3: claimStatus = '<span class="bg-danger Status_text">Rejected</span>'; remark = item.rejectReason; voucherbutton = ''; break; }
+                                case 1: claimStatus = '<span class="bg-warning Status_text">Pending</span>'; voucherbutton = ''; break; case 2: claimStatus = '<span class="bg-success Status_text">Approved</span>'; remark = item.remark; break; case 3: claimStatus = '<span class="bg-danger Status_text">Rejected</span>'; remark = item.rejectReason; voucherbutton = ''; break;
+                            }
+
                             let _date = item.createdDateString.split('-')
                             
                             var row = '<tr><td>'
                                 + index + '</td><td>'
                                 + _date[2] + '-' + _date[1] + '-' + _date[0] + '</td><td>'
+                                + item.claimNumber + '</td><td>'
                                 + item.claimId + '</td><td>'
                                 + item.ppoNumber + '</td><td>'
                                 + item.claimType + '</td><td>'
@@ -35,7 +47,7 @@
                                 + item.cardCategory + '</td><td>'
                                 + item.patientName + '</td><td>'
                                 + claimStatus + '</td><td>'
-                                + '<select name="selForwordTo" class="form-select table_select" onchange="ChangeStatus(' + item.claimId + ',this)"><option value="">Select</option><option value="ASO">Forword To ASO</option><option value="SO">Forword To SO</option><option value="AM_DM">Forword To AM/DM</option></select>' + '</td><td>'                                
+                                + '<select name="selForwordTo" class="form-select table_select" onchange="ChangeStatus(' + item.claimId + ',this)"><option value="">Select</option><option value="ASO">Forward To AG1</option><option value="AM_DM">Forward To PensionTrust</option></select>' + '</td><td>'                                
                                 + remark + '</td><td>'
                                 + '<input type="checkbox" id="chkPhysicalSubmit' + item.claimId + '" onclick="UpdatePhysicalSubmit(' + item.claimId + ')">' + '</td><td class="d-flex justify-content-around">'
                                 + '<a href="NonCashless/ApproveReject/' + item.claimId + '" class="btn btn-primary btn-sm mr-2 btn_small" title="ApproveReject"><i class="far fa-eye" ></i ></a >' + voucherbutton + ' </td></tr> '
@@ -114,7 +126,7 @@
 
                     table = $('#tblProcessingNonCashlessClaim').DataTable({
                         ordering: true,
-                        dom: 'Blfrtip',
+                        /*dom: 'Blfrtip',*/   // commented  by nirbhay ExportToExcel 05/30/2025
                         scrollX: true,
                     });
                 }
@@ -150,6 +162,7 @@
                             var row = '<tr><td>'
                                 + index + '</td><td>'
                                 + _date[2] + '-' + _date[1] + '-' + _date[0] + '</td><td>'
+                                + item.claimNumber + '</td><td>'
                                 + item.claimId + '</td><td>'
                                 + item.ppoNumber + '</td><td>'
                                 + item.claimType + '</td><td>'
@@ -157,13 +170,14 @@
                                 + item.cardCategory + '</td><td>'
                                 + item.patientName + '</td><td>'
                                 + claimStatus + '</td><td>'
-                                + '<select name="selForwordTo" class="form-select table_select" onchange="ChangeStatus(' + item.claimId + ',this)"><option value="">Select</option><option value="ASO">Forword To ASO</option><option value="SO">Forword To SO</option><option value="AM_DM">Forword To AM/DM</option></select>' + '</td><td>'
+                                + '<select name="selForwordTo" class="form-select table_select" onchange="ChangeStatus(' + item.claimId + ',this)"><option value="">Select</option><option value="ASO">Forward To ASO</option><option value="SO">Forward To SO</option><option value="AM_DM">Forward To AM/DM</option></select>' + '</td><td>'
                                 + remark + '</td><td>'
                                 + '<input type="checkbox" id="chkPhysicalSubmit' + item.claimId + '" onclick="UpdatePhysicalSubmit(' + item.claimId + ')">' + '</td><td class="d-flex justify-content-around">'
                                 + '<a href="NonCashless/ApproveReject/' + item.claimId + '" class="btn btn-primary btn-sm mr-2 btn_small" title="ApproveReject"><i class="far fa-eye" ></i ></a >' + voucherbutton + ' </td></tr> '
 
-                            $('#tblProcessingNonCashlessClaim tbody').append(row);
+                             $('#tblProcessingNonCashlessClaim tbody').append(row);
 
+                           
                             var row = $("#tblProcessingNonCashlessClaim").find("tr").last();
 
                             if (item.forwardTo === null || item.forwardTo === '') {
@@ -224,7 +238,7 @@
                         hideLoader();
                     }
                     else {
-                        var row = '<tr><td colspan="10">No data found</td></tr>';
+                        var row = '<tr><td colspan="14">No data found</td></tr>';
                         $('#tblProcessingNonCashlessClaim tbody').append(row);
                         hideLoader();
                     }
@@ -366,3 +380,17 @@ function hideLoader() {
     $(".preloader").css({ "height": "0px", "background": "#f4f6f9", "opacity": "1" });
     $(".preloader img").css({ "display": "none" });
 };
+// add by nirbhay ExportToExcel 05/30/2025
+$('#exportExcel').click(function () {
+    debugger;
+    var startDate = $('#startDate').val();
+    var endDate = $('#endDate').val();
+
+    if (!startDate || !endDate) {
+        alert("Please select a valid date range.");
+        return;
+    }
+
+    window.location.href = `/Mediclaim/Processing/ExportToExcel?startDate=${startDate}&endDate=${endDate}`;
+});
+//end

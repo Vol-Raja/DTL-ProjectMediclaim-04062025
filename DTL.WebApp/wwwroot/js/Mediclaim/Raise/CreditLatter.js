@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    debugger;
     var PatientName = '';
     var PensionerName = '';
     var Relation = '';
@@ -33,7 +32,7 @@
     });
 
     $('#btnSubmit1').click(function () {
-        debugger;
+        //debugger;
         validateEntryForm();
         if (isValid) {
             showLoader()
@@ -96,7 +95,7 @@
             });
         }
     });
-    debugger;
+    
     loginuser();
     var validateEntryForm = function () {
         var errorCount = 0;
@@ -211,7 +210,7 @@
     };
 
     var PopulateCashlessProperties = function () {
-        debugger;
+       
         NameOfHospital = $('#txtNameOfHospital').val(),
             HospitalPhoneNumber = $('#txtHospitalPhoneNumber').val(),
             HospitalAddress = $('#txtHospitalAddress').val(),
@@ -255,48 +254,86 @@
    // End
 
     //new changes by nirbhay
+    //$('#txtPPONumber').change(function () {
+    //    debugger;
+    //    // alert('hii');
+    //    var PPONumber = $('#txtPPONumber').val();
+    //    if (PPONumber !== '') {
+    //        $.ajax({
+    //            type: 'GET',
+    //            url: "/Mediclaim/Raise/Searchppo/" + PPONumber,
+    //            data: '',//JSON.stringify(request),
+    //            contentType: 'application/json; charset=utf-8',
+    //            //dataType: 'json',
+    //            success: function (response, status, xhr) {
+    //                hideLoader();
+    //                if (xhr.status == '200') {
+    //                    if (response !== null || response !== undefined) {
+    //                        $('#txtPensionerName').val(response.accountHolderName);
+    //                        $('#txtempno').val(response.employeeNumber);
+    //                        // $('#txtPayTo').val(patient);
+    //                        //$('#txtPensionerName').val(response.emP_NAME);
+    //                        //$('#txtPatientNumber').val(response.mobile_no);
+    //                        //$('#txtPatientEmailId').val(response.email_id)
+    //                        //$('#txtMedicalSectionPageNumber').val(response.medicalSectionPageNumber);
+    //                        //$('#txtMedicalCardNumber').val(response.medicalCardNumber);
+    //                    }
+
+    //                }
+    //            },
+    //            error: function (xhr, status, error) {
+    //                hideLoader();
+    //            }
+    //        });
+
+
+    //    }
+    //    else {
+    //        alert('Please select PPONumber');
+    //        $('#txtPPONumber').val('');
+    //    }
+    //});
+
+
     $('#txtPPONumber').change(function () {
-        debugger;
-        // alert('hii');
+        //debugger;
         var PPONumber = $('#txtPPONumber').val();
         if (PPONumber !== '') {
             $.ajax({
                 type: 'GET',
-                url: "/Mediclaim/Raise/Searchppo/" + PPONumber,
-                data: '',//JSON.stringify(request),
+                url: "/Mediclaim/Raise/GetEmployeeAccount_data/" + PPONumber,
+                data: '',
                 contentType: 'application/json; charset=utf-8',
                 //dataType: 'json',
                 success: function (response, status, xhr) {
                     hideLoader();
                     if (xhr.status == '200') {
                         if (response !== null || response !== undefined) {
-                            // $('#txtPayTo').val(patient);
-                            $('#txtPensionerName').val(response.emP_NAME);
-                            $('#txtPatientNumber').val(response.mobile_no);
-                            $('#txtPatientEmailId').val(response.email_id)
-                            //$('#txtMedicalSectionPageNumber').val(response.medicalSectionPageNumber);
-                            //$('#txtMedicalCardNumber').val(response.medicalCardNumber);
+                            $('#txtPensionerName').val(response.accountHolderName);
+                            $('#txtempno').val(response.employeeNumber);
+                           
                         }
-
                     }
                 },
                 error: function (xhr, status, error) {
                     hideLoader();
                 }
-            });
-
-
+            }
+            )
         }
         else {
             alert('Please select PPONumber');
             $('#txtPPONumber').val('');
         }
     });
+
+
+
     //end new changes
 
     //new changes by nirbhay
     function loginuser() {
-        debugger;
+      
         var PPONumber1 = $('#dropdownMenuLink label').text().trim();
         if (PPONumber1 !== '') {
             $.ajax({
@@ -332,7 +369,7 @@
     //--------------- change by Rajan 01/10/2025---------------------//
 
     var FileUpload_CreditReport = function () {
-        debugger;
+       
         var _indicator = $('#selDocumentType').val();
         var form = new FormData();
         var uploadfiles = $('#fileUpload')[0].files;
@@ -381,29 +418,6 @@
         }
     };
 
-    function DeleteFile(currentfile, row) {
-        if (confirm("Are you sure you want to delete the user?")) {
-            $.ajax({
-                type: 'POST',
-                url: "/Mediclaim/Raise/DeleteFile/Cashless",
-                data: JSON.stringify(currentfile),
-                contentType: 'application/json; charset=utf-8',
-                //dataType: 'json',
-                success: function (response, status, xhr) {
-                    if (xhr.status == '200') {
-                        $(row).parents("tr").remove();
-                    }
-                    else {
-                        alert(response);
-                    }
-                },
-                error: function (xhr, status, error) {
-
-                }
-            });
-        }
-    }
-
 
     //end new changes
 
@@ -427,4 +441,29 @@
         $(".show_submit").hide();
     });
 
+
+
 });
+
+function DeleteFile(currentfile, row) {
+    if (confirm("Are you sure you want to delete the user?")) {
+        $.ajax({
+            type: 'POST',
+            url: "/Mediclaim/Raise/DeleteFile1/Creditletter",
+            data: JSON.stringify(currentfile),
+            contentType: 'application/json; charset=utf-8',
+            //dataType: 'json',
+            success: function (response, status, xhr) {
+                if (xhr.status == '200') {
+                    $(row).parents("tr").remove();
+                }
+                else {
+                    alert(response);
+                }
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+    }
+}

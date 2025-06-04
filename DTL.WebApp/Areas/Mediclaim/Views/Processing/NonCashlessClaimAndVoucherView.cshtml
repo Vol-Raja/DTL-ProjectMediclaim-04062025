@@ -1,10 +1,8 @@
 ﻿@using DTL.Model.Models.Mediclaim
 @model ClaimAndVoucherDetailModel
-@{
-    ViewData["Title"] = "NonCashless";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var claimtype = "";
-}
+@{ ViewData["Title"] = "NonCashless";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                var claimtype = ""; }
 
 
 <!--New UI-->
@@ -36,61 +34,61 @@
                 <div id="tab1">
                     @if (Model.Voucher != null)
                     {
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Claim No.</label>
-                            <p class="View_text">@Model.Voucher.ClaimId</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Claim Type</label>
-                            @if (Model.Voucher.ClaimType.ToLower() == "calshess") { claimtype = "Cashless"; } else { claimtype = "NonCashless"; }
-                            <p class="View_text">@claimtype</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">PPO Number</label>
-                            <p class="View_text">@Model.NonCashless.PPONumber</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Medical Section Page Number </label>
-                            <p class="View_text">@Model.Voucher.PageNo</p>
-                        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">Claim No.</label>
+                <p class="View_text">@Model.Voucher.ClaimId</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">Claim Type</label>
+                @if (Model.Voucher.ClaimType.ToLower() == "calshess") { claimtype = "Cashless"; } else { claimtype = "NonCashless"; }
+                <p class="View_text">@claimtype</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">PPO Number</label>
+                <p class="View_text">@Model.NonCashless.PPONumber</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">Medical Section Page Number </label>
+                <p class="View_text">@Model.Voucher.PageNo</p>
+            </div>
 
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Pay To shri / smt</label>
-                            <p class="View_text">@Model.Voucher.PayTo</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Approved Amount</label>
-                            <p class="View_text">@Model.Voucher.ApprovedAmountInDecimal</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">In Words</label>
-                            <p class="View_text">@Model.Voucher.AmountInWords</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Account Number</label>
-                            <p class="View_text">@Model.Voucher.AccountNumber</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Bank name</label>
-                            <p class="View_text">@Model.Voucher.BankName</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Branch Name</label>
-                            <p class="View_text">@Model.Voucher.BankBranch</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">BIC Code</label>
-                            <p class="View_text">@Model.Voucher.BICCode</p>
-                        </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">Pay To shri / smt</label>
+                <p class="View_text">@Model.Voucher.PayTo</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">Approved Amount</label>
+                <p class="View_text">@Model.Voucher.ApprovedAmountInDecimal</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-6 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">In Words</label>
+                <p class="View_text">@Model.Voucher.AmountInWords</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">Account Number</label>
+                <p class="View_text">@Model.Voucher.AccountNumber</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">Bank name</label>
+                <p class="View_text">@Model.Voucher.BankName</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">Branch Name</label>
+                <p class="View_text">@Model.Voucher.BankBranch</p>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">BIC Code</label>
+                <p class="View_text">@Model.Voucher.BICCode</p>
+            </div>
 
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">IFSC code </label>
-                            <p class="View_text">@Model.Voucher.IFSCCode</p>
-                        </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                <label class="form-label d-block mb-1">IFSC code </label>
+                <p class="View_text">@Model.Voucher.IFSCCode</p>
+            </div>
 
 
-                    </div>
+        </div>
                         <div class="row mb-3 submit_area submit_area_strip mt-5 mx-0">
                             <div class="col-sm-12">
                                 <button class="btn btn-primary" id="printMe">
@@ -98,14 +96,12 @@
                                        aria-hidden="true"></i>Print voucher
                                 </button>
                             </div>
-                        </div>
-                    }
-                    else
-                    {
+                        </div> }
+                                    else
+                                    {
                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
                             <label class="form-label d-block mb-1">Voucher is not generated for this claim</label>
-                        </div>
-                    }
+                        </div>}
 
                 </div>
                 <div id="tab2">
@@ -176,7 +172,13 @@
                                 <label class="form-label d-block mb-1">Name of Patient</label>
                                 <p class="View_text">@Model.NonCashless.PatientName</p>
                             </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 view_text_border">
+
+                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 mb-3 view_text_border">
+                                <label class="form-label d-block mb-1">Serial No</label>
+                                <p class="View_text">@Model.NonCashless.ClaimNumber</p>
+                            </div>
+
+                            <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 mb-3 view_text_border">
                                 <label class="form-label d-block mb-1">Address</label>
                                 <p class="View_text">@Model.NonCashless.Address</p>
                             </div>
@@ -184,151 +186,147 @@
                     </div>
                     @if (Model.NonCashless.Dependent != null && Model.NonCashless.ClaimFor.ToLower() == "dependent")
                     {
+        <div class="border-card  border-top-0 ">
+            <h4 class="form_title">
+                Dependent Information
+            </h4>
+            <div class="row ">
+
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1"> Name</label>
+                    <p class="View_text">@Model.NonCashless.Dependent.Name</p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Date Of Birth</label>
+                    <p class="View_text">@Model.NonCashless.Dependent.DateOfBirth.ToString("dd-MM-yyyy")</p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">Age</label>
+                    <p class="View_text">@Model.NonCashless.Dependent.Age</p>
+
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                    <label class="form-label d-block mb-1">
+                        relationship with retiree
+                    </label>
+                    <p class="View_text">@Model.NonCashless.Dependent.RelationWithRetire</p>
+                </div>
+            </div>
+        </div>}
+
                 <div class="border-card  border-top-0 ">
                     <h4 class="form_title">
-                        Dependent Information
+                        Detail of Hospitalization
                     </h4>
+
+                    @if (Model.NonCashless.ClaimType.ToLower() == "opd/dispensary")@*OPD / Dispensary*@ {
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12 view_text_border">
+                        <label class="form-label d-block mb-1">Type of claim</label>
+                        <p class="View_text">OPD/Dispensary</p>
+                    </div>
+                </div>}
+                    @if (Model.NonCashless.ClaimType.ToLower() == "cancer/dialysis")
+                    {
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12 view_text_border">
+                        <label class="form-label d-block mb-1">Type of claim</label>
+                        <p class="View_text">Cancer/Dialysis</p>
+                    </div>
+                </div>}
+                    @if (Model.NonCashless.ClaimType.ToLower() == "ipd/noncashless")
+                    {
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12 view_text_border">
+                        <label class="form-label d-block mb-1">Type of claim</label>
+                        <p class="View_text">IPD/NonCashless</p>
+                    </div>
+                </div>}
+
                     <div class="row ">
+                        <div class="col-sm-12 mt-4">
+                            <table id="tblCND" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Name of Hospital</th>
+                                        <th>Medicine Amt</th>
+                                        <th>Consultation Amt</th>
+                                        <th>Investigation Amt</th>
+                                        <th>Other Expenses Amt</th>
+                                        <th class="text-right">Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        decimal totalAmountSum = 0;
+                                    }
 
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1"> Name</label>
-                            <p class="View_text">@Model.NonCashless.Dependent.Name</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Date Of Birth</label>
-                            <p class="View_text">@Model.NonCashless.Dependent.DateOfBirth.ToString("dd-MM-yyyy")</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Age</label>
-                            <p class="View_text">@Model.NonCashless.Dependent.Age</p>
+                                    @foreach (var item in Model.NonCashless.OPDCNDList)
+                                    {
+                                        totalAmountSum += item.TotalAmount;
 
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">
-                                relationship with retiree
-                            </label>
-                            <p class="View_text">@Model.NonCashless.Dependent.RelationWithRetire</p>
-                        </div>
-                    </div>
-                </div>}
-
-                    <div class="border-card  border-top-0 ">
-                        <h4 class="form_title">
-                            Detail of Hospitalization
-                        </h4>
-                        @if (Model.NonCashless.ClaimType.ToLower() == "opd")
-                        {
-                <div class="row mb-3">
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-12 view_text_border">
-                        <label class="form-label d-block mb-1">Type of claim</label>
-                        <p class="View_text">OPD</p>
-                    </div>
-                </div>}
-                        @if (Model.NonCashless.ClaimType.ToLower() == "cancer")
-                        {
-                <div class="row  mb-3">
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-12 view_text_border">
-                        <label class="form-label d-block mb-1">Type of claim</label>
-                        <p class="View_text">Cancer</p>
-                    </div>
-                </div>}
-                        @if (Model.NonCashless.ClaimType.ToLower() == "dialysis")
-                        {
-                <div class="row  mb-3">
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-12 view_text_border">
-                        <label class="form-label d-block mb-1">Type of claim</label>
-                        <p class="View_text">Dialysis</p>
-                    </div>
-                </div>}
-                        @if (Model.NonCashless.ClaimType.ToLower() == "dispensary")
-                        {
-                <div class="row mb-3">
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-12 view_text_border">
-                        <label class="form-label d-block mb-1">Type of claim</label>
-                        <p class="View_text">Dispensary</p>
-                    </div>
-                </div>} @*<div class="row ">
-            @foreach (var item in Model.NonCashless.OPDCNDList)
-            {
-    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-        <label class="form-label d-block mb-1">Date</label>
-        <p class="View_text">@item.OPDCNDDate.ToString("dd-MM-yyyy")</p>
-    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                        <label class="form-label d-block mb-1">Name of Hospital</label>
-                        <p class="View_text">@item.HospitalName</p>
-                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                                        <label class="form-label d-block mb-1">
-                                            Medicine<span class="text-danger req_text">&#8377;</span>
-                                        </label>
-                                        <p class="View_text">@Math.Round(item.MedicineAmount, 2) </p>
-                                    </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                                                        <label class="form-label d-block mb-1">
-                                                            Investigation Amount<span class="text-danger req_text">&#8377;</span>
-                                                        </label>
-                                                        <p class="View_text">@Math.Round(item.InvestigationAmount, 2) </p>
-                                                    </div>
-                                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                                                                        <label class="form-label d-block mb-1">
-                                                                            Consultation Amount<span class="text-danger req_text">&#8377;</span>
-                                                                        </label>
-                                                                        <p class="View_text">@Math.Round(item.ConsultationAmount, 2) </p>
-                                                                    </div>
-                                                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                                                                                        <label class="form-label d-block mb-1">
-                                                                                            Other Expenses<span class="text-danger req_text">&#8377;</span>
-                                                                                        </label>
-                                                                                        <p class="View_text">@Math.Round(item.OtherAmount, 2) </p>
-                                                                                    </div>
-                                                                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                                                                                                        <label class="form-label d-block mb-1">
-                                                                                                            Total Amount<span class="text-danger req_text">&#8377;</span>
-                                                                                                        </label>
-                                                                                                        <p class="View_text">@Math.Round(item.TotalAmount, 2) </p>
-                                                                                                    </div>}
-        </div>*@
-                        <div class="row ">
-                            <div class="col-sm-12 mt-4">
-                                <table id="tblCND" class="table table-bordered">
-                                    <thead>
                                         <tr>
-
-                                            <th>Date</th>
-                                            <th>Name of Hospital</th>
-                                            <th>Medicine Amt</th>
-                                            <th>Consultation Amt</th>
-                                            <th>Investigation Amt</th>
-                                            <th>Other Expenses Amt</th>
-                                            <th class="text-right">Total Amount</th>
-
+                                            <td>@item.OPDCNDDate.ToString("dd-MM-yyyy")</td>
+                                            <td>@item.HospitalName</td>
+                                            <td class="text-right">@Math.Round(item.MedicineAmount, 2)<span class="text-danger req_text"> ₹</span></td>
+                                            <td class="text-right">@Math.Round(item.ConsultationAmount, 2)<span class="text-danger req_text"> ₹</span></td>
+                                            <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text"> ₹</span></td>
+                                            <td class="text-right">@Math.Round(item.OtherAmount, 2)<span class="text-danger req_text"> ₹</span></td>
+                                            <td class="text-right">@Math.Round(item.TotalAmount, 2)<span class="text-danger req_text"> ₹</span></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model.NonCashless.OPDCNDList)
-                                        {
-                            <tr>
+                                    }
 
-
-                                <td>@item.OPDCNDDate.ToString("dd-MM-yyyy")</td>
-                                <td>@item.HospitalName</td>
-                                <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text">₹ </span> </td>
-                                <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text">₹ </span></td>
-                                <td class="text-right">@Math.Round(item.ConsultationAmount, 2)<span class="text-danger req_text">₹ </span></td>
-                                <td class="text-right">@Math.Round(item.OtherAmount, 2)<span class="text-danger req_text">₹ </span></td>
-                                <td class="text-right">@Math.Round(item.TotalAmount, 2)<span class="text-danger req_text">₹ </span></td>
-
-
-                            </tr>}
-                                    </tbody>
-
-
-
-                                </table>
-                            </div>
+                                    <!-- Grand Total Row -->
+                                    <tr style="font-weight:bold; background-color:#f8f9fa;">
+                                        <td colspan="6" class="text-right">Grand Total:</td>
+                                        <td class="text-right">@Math.Round(totalAmountSum, 2)<span class="text-danger req_text"> ₹</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
+                    @*<div class="row ">
+            <div class="col-sm-12 mt-4">
+                <table id="tblCND" class="table table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th>Date</th>
+                            <th>Name of Hospital</th>
+                            <th>Medicine Amt</th>
+                            <th>Consultation Amt</th>
+                            <th>Investigation Amt</th>
+                            <th>Other Expenses Amt</th>
+                            <th class="text-right">Total Amount</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.NonCashless.OPDCNDList)
+                        {
+            <tr>
+
+
+                <td>@item.OPDCNDDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.HospitalName</td>
+                <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text">₹ </span> </td>
+                <td class="text-right">@Math.Round(item.InvestigationAmount, 2)<span class="text-danger req_text">₹ </span></td>
+                <td class="text-right">@Math.Round(item.ConsultationAmount, 2)<span class="text-danger req_text">₹ </span></td>
+                <td class="text-right">@Math.Round(item.OtherAmount, 2)<span class="text-danger req_text">₹ </span></td>
+                <td class="text-right">@Math.Round(item.TotalAmount, 2)<span class="text-danger req_text">₹ </span></td>
+
+
+            </tr>}
+                    </tbody>
+
+
+
+                </table>
+            </div>
+        </div>*@
+                </div>
                     <div class="border-card border-top-0 ">
                         <h4 class="form_title shadow-2-strong">
                             Claim Document Upload
@@ -352,18 +350,19 @@
                                             var _index = 1;
                             @foreach (var item in Model.NonCashless.Documents)
                             {
-                <tr>
-                    <td>
-                        @_index
-                    </td>
-                    <td>
-                        @item.DocumentFor
-                    </td>
-                    <td class="text-center">
-                        <a href="/@item.DocumentPath" class="pdfIcons" target="_blank"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
-                    </td>
-                </tr>_index = _index + 1;
-                                }}
+            <tr>
+                <td>
+                    @_index
+                </td>
+                <td>
+                    @item.DocumentFor
+                </td>
+                <td class="text-center">
+                    <a href="/@item.DocumentPath" class="pdfIcons" target="_blank"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+_index = _index + 1;
+        }}
                                     </tbody>
                                 </table>
 
@@ -428,12 +427,12 @@
                     <label class="form-label d-block mb-1">Dealing asistant Remark<span class="text-danger req_text">*</span></label>
                     <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm">@Model.NonCashless.DealingAssistanceRemark</textarea>
                 </div> }
-                            else
-                            {
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                    <label class="form-label d-block mb-1">Dealing asistant Remark<span class="text-danger req_text">*</span></label>
-                    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" readonly disabled>@Model.NonCashless.DealingAssistanceRemark</textarea>
-                </div>}
+            else
+            {
+<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+    <label class="form-label d-block mb-1">Dealing asistant Remark<span class="text-danger req_text">*</span></label>
+    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" readonly disabled>@Model.NonCashless.DealingAssistanceRemark</textarea>
+</div>}
                         </div>
                         <h4 class="form_title shadow-2-strong">
                             ASO (Assistant Special Officer)
@@ -445,12 +444,12 @@
                     <label class="form-label d-block mb-1">ASO Remark<span class="text-danger req_text">*</span></label>
                     <textarea type="text" id="txtASORemark" class="form-control form-control-sm">@Model.NonCashless.ASORemark</textarea>
                 </div> }
-                            else
-                            {
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                    <label class="form-label d-block mb-1">ASO Remark<span class="text-danger req_text">*</span></label>
-                    <textarea type="text" id="txtASORemark" class="form-control form-control-sm" readonly disabled>@Model.NonCashless.ASORemark</textarea>
-                </div>}
+            else
+            {
+<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+    <label class="form-label d-block mb-1">ASO Remark<span class="text-danger req_text">*</span></label>
+    <textarea type="text" id="txtASORemark" class="form-control form-control-sm" readonly disabled>@Model.NonCashless.ASORemark</textarea>
+</div>}
                         </div>
                         <h4 class="form_title shadow-2-strong">
                             SO (Special Officer)
@@ -462,24 +461,24 @@
                     <label class="form-label d-block mb-1">SO Remark<span class="text-danger req_text">*</span></label>
                     <textarea type="text" id="txtSORemark" class="form-control form-control-sm">@Model.NonCashless.SORemark</textarea>
                 </div> }
-                            else
-                            {
-                                {
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                    <label class="form-label d-block mb-1">SO Remark<span class="text-danger req_text">*</span></label>
-                    <textarea type="text" id="txtSORemark" class="form-control form-control-sm" readonly disabled>@Model.NonCashless.SORemark</textarea>
-                </div>}
-                            }
+            else
+            {
+                {
+<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+    <label class="form-label d-block mb-1">SO Remark<span class="text-danger req_text">*</span></label>
+    <textarea type="text" id="txtSORemark" class="form-control form-control-sm" readonly disabled>@Model.NonCashless.SORemark</textarea>
+</div>}
+}
                         </div>
                         <br />
                         @if (ViewBag.Designation.ToLower() != "am_dm")
                         {
-                <div class="row">
-                    <div class="col-lg-12" style="float:right">
-                        <button id="btnModalApprove" type="button" class="btn btn-success me-2 text-white" data-backdrop="static" data-keyboard="false">Approve</button>
-                        <button id="btnModalReject" type="button" class="btn btn-danger me-2 text-white" data-backdrop="static" data-keyboard="false">Reject</button>
-                    </div>
-                </div>}
+            <div class="row">
+                <div class="col-lg-12" style="float:right">
+                    <button id="btnModalApprove" type="button" class="btn btn-success me-2 text-white" data-backdrop="static" data-keyboard="false">Approve</button>
+                    <button id="btnModalReject" type="button" class="btn btn-danger me-2 text-white" data-backdrop="static" data-keyboard="false">Reject</button>
+                </div>
+            </div>}
                     </div>
 
                 </div>
@@ -581,76 +580,72 @@
             </h4>
             @if (Model.Voucher != null)
             {
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <th scope="row">Claim No.</th>
-                            <td scope="row">@Model.Voucher.ClaimId</td>
-                            <th scope="row">Claim Type</th>
-                            <td scope="row">@claimtype</td>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th scope="row">Claim No.</th>
+            <td scope="row">@Model.Voucher.ClaimId</td>
+            <th scope="row">Claim Type</th>
+            <td scope="row">@claimtype</td>
 
-                        </tr>
-                        <tr>
-                            <th scope="row">PPO Number</th>
-                            <td scope="row">
-                                @if (Model.NonCashless != null && claimtype.ToLower() == "noncashless")
-                                {
-                                    @Model.NonCashless.PPONumber
-                                }
-                                @if (Model.Cashless != null && claimtype.ToLower() == "cashless")
-                                {
-                                    @Model.Cashless.PPONumber
-                                }
-                            </td>
-                            <th scope="row">Page No.</th>
-                            <td scope="row">@Model.Voucher.PageNo</td>
-                        </tr>
-                        <tr>
+        </tr>
+        <tr>
+            <th scope="row">PPO Number</th>
+            <td scope="row">
+                @if (Model.NonCashless != null && claimtype.ToLower() == "noncashless")
+                {
+@Model.NonCashless.PPONumber}
+                @if (Model.Cashless != null && claimtype.ToLower() == "cashless")
+                {
+@Model.Cashless.PPONumber}
+            </td>
+            <th scope="row">Page No.</th>
+            <td scope="row">@Model.Voucher.PageNo</td>
+        </tr>
+        <tr>
 
-                            <th scope="row">Pay To Shri / Smt</th>
-                            <td scope="row">@Model.Voucher.PayTo</td>
-                            <th scope="row">Approved Amount <span class="text-danger req_text">&#8377;</span></th>
-                            <td scope="row">@Model.Voucher.ApprovedAmountInDecimal</td>
-                        </tr>
-                        <tr>
+            <th scope="row">Pay To Shri / Smt</th>
+            <td scope="row">@Model.Voucher.PayTo</td>
+            <th scope="row">Approved Amount <span class="text-danger req_text">&#8377;</span></th>
+            <td scope="row">@Model.Voucher.ApprovedAmountInDecimal</td>
+        </tr>
+        <tr>
 
-                            <th scope="row">In Words<span class="text-danger req_text">&#8377;</span></th>
-                            <td scope="row" colspan="3">@Model.Voucher.AmountInWords</td>
+            <th scope="row">In Words<span class="text-danger req_text">&#8377;</span></th>
+            <td scope="row" colspan="3">@Model.Voucher.AmountInWords</td>
 
-                        </tr>
-                        <tr>
-                            <td scope="row" colspan="6" class="text-center h4">Bank Detail</td>
-                        </tr>
-                        <tr>
+        </tr>
+        <tr>
+            <td scope="row" colspan="6" class="text-center h4">Bank Detail</td>
+        </tr>
+        <tr>
 
-                            <th scope="row">Bank Name</th>
-                            <td scope="row">@Model.Voucher.BankName</td>
-                            <th scope="row">Branch Name</th>
-                            <td scope="row">@Model.Voucher.BankBranch</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">BIC Code</th>
-                            <td scope="row">@Model.Voucher.BICCode</td>
-                            <th scope="row">IFSC Number</th>
-                            <td scope="row">@Model.Voucher.IFSCCode</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Account number</th>
-                            <td scope="row">@Model.Voucher.AccountNumber</td>
-                        </tr>
-                    </tbody>
-                </table>
-            }
+            <th scope="row">Bank Name</th>
+            <td scope="row">@Model.Voucher.BankName</td>
+            <th scope="row">Branch Name</th>
+            <td scope="row">@Model.Voucher.BankBranch</td>
+        </tr>
+        <tr>
+            <th scope="row">BIC Code</th>
+            <td scope="row">@Model.Voucher.BICCode</td>
+            <th scope="row">IFSC Number</th>
+            <td scope="row">@Model.Voucher.IFSCCode</td>
+        </tr>
+        <tr>
+            <th scope="row">Account number</th>
+            <td scope="row">@Model.Voucher.AccountNumber</td>
+        </tr>
+    </tbody>
+</table> }
             else
             {
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <td colspan="4">Voucher is not generated for this claim</td>
-                        </tr>
-                    </tbody>
-                </table>
-            }
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <td colspan="4">Voucher is not generated for this claim</td>
+        </tr>
+    </tbody>
+</table>            }
 
         </div>
     </div>
@@ -660,211 +655,199 @@
     <div class=" view_container_bg mt-0">
         @if (Model.NonCashless != null)
         {
-            <div class="card-body">
-                <h4 class="print_title">
-                    Non Cashless Mediclaim
-                </h4>
-                <table class="table table-bordered w-100">
-                    <tbody>
-                        <tr>
-                            <th scope="row">Employee No.</th>
-                            <td scope="row">@Model.NonCashless.EmployeeNumber</td>
-                            <th scope="row">PPO Number</th>
-                            <td scope="row">@Model.NonCashless.PPONumber</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Page No.</th>
-                            <td scope="row">@Model.NonCashless.MedicalSectionPageNumber</td>
-                            <th scope="row">Name Of Medical Card Holder</th>
-                            <td scope="row">@Model.NonCashless.MedicalCardHolderName</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Medical Card Number</th>
-                            <td scope="row">@Model.NonCashless.MedicalCardNo</td>
-                            <th scope="row">Gender</th>
-                            <td scope="row">@Model.NonCashless.Gender</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Organization</th>
-                            <td scope="row">@Model.NonCashless.Organization</td>
-                            <th scope="row">Designation</th>
-                            <td scope="row">@Model.NonCashless.Designation</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Date Of Birth</th>
-                            <td scope="row">@Model.NonCashless.DateOfBirth.ToString("dd-MM-yyyy")</td>
-                            <th scope="row">Age</th>
-                            <td scope="row">@Model.NonCashless.Age</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Address</th>
-                            <td scope="row">@Model.NonCashless.Address</td>
-                            <th scope="row">Mobile Number</th>
-                            <td scope="row">@Model.NonCashless.MobileNumber</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Email Id</th>
-                            <td scope="row">@Model.NonCashless.EmailId</td>
-                            <th scope="row">Dependent/Self</th>
-                            <td scope="row">@Model.NonCashless.ClaimFor</td>
-                        </tr>
-                        @if (Model.NonCashless.Dependent != null && Model.NonCashless.ClaimFor.ToLower() == "dependent")
-                        {
-                            <tr>
-                                <td scope="row" colspan="4" class="text-center h4">Dependent Information</td>
-                            </tr>
-                            <tr>
+<div class="card-body">
+    <h4 class="print_title">
+        Non Cashless Mediclaim
+    </h4>
+    <table class="table table-bordered w-100">
+        <tbody>
+            <tr>
+                <th scope="row">Employee No.</th>
+                <td scope="row">@Model.NonCashless.EmployeeNumber</td>
+                <th scope="row">PPO Number</th>
+                <td scope="row">@Model.NonCashless.PPONumber</td>
+            </tr>
+            <tr>
+                <th scope="row">Page No.</th>
+                <td scope="row">@Model.NonCashless.MedicalSectionPageNumber</td>
+                <th scope="row">Name Of Medical Card Holder</th>
+                <td scope="row">@Model.NonCashless.MedicalCardHolderName</td>
+            </tr>
+            <tr>
+                <th scope="row">Medical Card Number</th>
+                <td scope="row">@Model.NonCashless.MedicalCardNo</td>
+                <th scope="row">Gender</th>
+                <td scope="row">@Model.NonCashless.Gender</td>
+            </tr>
+            <tr>
+                <th scope="row">Organization</th>
+                <td scope="row">@Model.NonCashless.Organization</td>
+                <th scope="row">Designation</th>
+                <td scope="row">@Model.NonCashless.Designation</td>
+            </tr>
+            <tr>
+                <th scope="row">Date Of Birth</th>
+                <td scope="row">@Model.NonCashless.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                <th scope="row">Age</th>
+                <td scope="row">@Model.NonCashless.Age</td>
+            </tr>
+            <tr>
+                <th scope="row">Address</th>
+                <td scope="row">@Model.NonCashless.Address</td>
+                <th scope="row">Mobile Number</th>
+                <td scope="row">@Model.NonCashless.MobileNumber</td>
+            </tr>
+            <tr>
+                <th scope="row">Email Id</th>
+                <td scope="row">@Model.NonCashless.EmailId</td>
+                <th scope="row">Dependent/Self</th>
+                <td scope="row">@Model.NonCashless.ClaimFor</td>
+            </tr>
+            @if (Model.NonCashless.Dependent != null && Model.NonCashless.ClaimFor.ToLower() == "dependent")
+            {
+<tr>
+    <td scope="row" colspan="4" class="text-center h4">Dependent Information</td>
+</tr>
+                    <tr>
 
-                                <th scope="row">Name</th>
-                                <td scope="row">@Model.NonCashless.Dependent.Name</td>
-                                <th scope="row">Date Of Birth</th>
-                                <td scope="row">@Model.NonCashless.Dependent.DateOfBirth.ToString("dd-MM-yyyy")</td>
-                            </tr>
-                            <tr>
-                               
-                                <th scope="row">Age</th>
-                                <td scope="row">@Model.NonCashless.Dependent.Age</td>
-                                <th scope="row">Relationship With Retiree</th>
-                                <td scope="row">@Model.NonCashless.Dependent.RelationWithRetire</td>
-                            </tr>
-                        }
-                        <tr>
-                            <td scope="row" colspan="4" class="text-center h4">Bank Detail</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Account Holder Name</th>
-                            <td scope="row" colspan="3">@Model.NonCashless.AccountHolderName</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Bank Name</th>
-                            <td scope="row">@Model.NonCashless.BankName</td>
-                            <th scope="row">BIC Code</th>
-                            <td scope="row">@Model.NonCashless.BICCode</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">IFSC Number</th>
-                            <td scope="row">@Model.NonCashless.IFSCNumber</td>
-                            <th scope="row">Account Number</th>
-                            <td scope="row">@Model.NonCashless.AccountNumber</td>
-                        </tr>
-                        <tr>
-                            <td scope="row" colspan="4" class="text-center h4">Detail of Hospitalization</td>
-                        </tr>
-                        @foreach (var item in Model.NonCashless.OPDCNDList)
-                        {
-                            <tr>
-                                <th scope="row">Claim Type</th>
-                                <td scope="row">@Model.NonCashless.ClaimType</td>
-                                <th scope="row">Date</th>
-                                <td scope="row">@item.OPDCNDDate.ToString("dd/MM/yyyy")</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Name of Hospital</th>
-                                <td scope="row">@item.HospitalName</td>
-                                <th scope="row">Medicine <span class="text-danger req_text">&#8377;</span></th>
-                                <td scope="row">@item.MedicineAmount</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Investigation Amount <span class="text-danger req_text">&#8377;</span></th>
-                                <td scope="row">@item.InvestigationAmount</td>
-                                <th scope="row">Consultation <span class="text-danger req_text">&#8377;</span></th>
-                                <td scope="row">@item.ConsultationAmount</td>
-                            </tr>
-                            <tr>
+                        <th scope="row">Name</th>
+                        <td scope="row">@Model.NonCashless.Dependent.Name</td>
+                        <th scope="row">Date Of Birth</th>
+                        <td scope="row">@Model.NonCashless.Dependent.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                                        <tr>
 
-                                <th scope="row">Other Expenses Amount <span class="text-danger req_text">&#8377;</span></th>
-                                <td scope="row">@Math.Round(item.OtherAmount, 2)</td>
-                                <th scope="row">Total Amount <span class="text-danger req_text">&#8377;</span></th>
-                                <td scope="row">@Math.Round(item.TotalAmount, 2)</td>
-                            </tr>
-                        }
-                        <tr>
-                            <th scope="row" colspan="4" class="text-center h4">Claim Document Upload</th>
-                        </tr>
-                        <tr>
-                            <th class="text-center">Sr. No.</th>
-                            <th colspan="3">Document Type</th>
-                        </tr>
-                        @if (Model.NonCashless.Documents.Count() > 0)
-                        {
-                            var _index = 1;
-                            @foreach (var item in Model.NonCashless.Documents)
-                            {
-                                <tr>
-                                    <td class="text-center">@_index</td>
-                                    <td colspan="3">
+                                            <th scope="row">Age</th>
+                                            <td scope="row">@Model.NonCashless.Dependent.Age</td>
+                                            <th scope="row">Relationship With Retiree</th>
+                                            <td scope="row">@Model.NonCashless.Dependent.RelationWithRetire</td>
+                                        </tr>}
+            <tr>
+                <td scope="row" colspan="4" class="text-center h4">Bank Detail</td>
+            </tr>
+            <tr>
+                <th scope="row">Account Holder Name</th>
+                <td scope="row" colspan="3">@Model.NonCashless.AccountHolderName</td>
+            </tr>
+            <tr>
+                <th scope="row">Bank Name</th>
+                <td scope="row">@Model.NonCashless.BankName</td>
+                <th scope="row">BIC Code</th>
+                <td scope="row">@Model.NonCashless.BICCode</td>
+            </tr>
+            <tr>
+                <th scope="row">IFSC Number</th>
+                <td scope="row">@Model.NonCashless.IFSCNumber</td>
+                <th scope="row">Account Number</th>
+                <td scope="row">@Model.NonCashless.AccountNumber</td>
+            </tr>
+            <tr>
+                <td scope="row" colspan="4" class="text-center h4">Detail of Hospitalization</td>
+            </tr>
+            @foreach (var item in Model.NonCashless.OPDCNDList)
+            {
+<tr>
+    <th scope="row">Claim Type</th>
+    <td scope="row">@Model.NonCashless.ClaimType</td>
+    <th scope="row">Date</th>
+    <td scope="row">@item.OPDCNDDate.ToString("dd/MM/yyyy")</td>
+</tr>
+                    <tr>
+                        <th scope="row">Name of Hospital</th>
+                        <td scope="row">@item.HospitalName</td>
+                        <th scope="row">Medicine <span class="text-danger req_text">&#8377;</span></th>
+                        <td scope="row">@item.MedicineAmount</td>
+                    </tr>
+                                        <tr>
+                                            <th scope="row">Investigation Amount <span class="text-danger req_text">&#8377;</span></th>
+                                            <td scope="row">@item.InvestigationAmount</td>
+                                            <th scope="row">Consultation <span class="text-danger req_text">&#8377;</span></th>
+                                            <td scope="row">@item.ConsultationAmount</td>
+                                        </tr>
+                                                            <tr>
 
-                                        <a href="#" class="pdfIcons" target='_blank'>
-                                            <i class="fa fa-file-pdf" aria-hidden="true"></i>
-                                            @item.DocumentFor
-                                        </a>
-                                    </td>
-                                </tr>
-                                _index = _index + 1;
-                            }
-                        }
-                        else
-                        {
-                            <tr>
-                                <td class="text-center" colspan="4">NO Document Found</td>
-                            </tr>
-                        }
+                                                                <th scope="row">Other Expenses Amount <span class="text-danger req_text">&#8377;</span></th>
+                                                                <td scope="row">@Math.Round(item.OtherAmount, 2)</td>
+                                                                <th scope="row">Total Amount <span class="text-danger req_text">&#8377;</span></th>
+                                                                <td scope="row">@Math.Round(item.TotalAmount, 2)</td>
+                                                            </tr>}
+            <tr>
+                <th scope="row" colspan="4" class="text-center h4">Claim Document Upload</th>
+            </tr>
+            <tr>
+                <th class="text-center">Sr. No.</th>
+                <th colspan="3">Document Type</th>
+            </tr>
+            @if (Model.NonCashless.Documents.Count() > 0)
+            {
+                var _index = 1;
+@foreach (var item in Model.NonCashless.Documents)
+{
+<tr>
+    <td class="text-center">@_index</td>
+    <td colspan="3">
 
-                        <tr>
-                            <td scope="row" colspan="4" class="text-center h4">Claim Approval status</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                Approve Amount<span class="text-danger req_text">&#8377;</span>
-                            </th>
-                            <td scope="row">@Model.NonCashless.ApprovedAmount</td>
-                            <th scope="row">
-                                In Words
-                                <span class="text-danger req_text">&#8377;</span>
-                            </th>
-                            <td scope="row"><label id="lblAmountInWords"></label></td>
-                        </tr>
-                        <tr>
-                            @if (ViewBag.Designation.ToLower() == "da1" || ViewBag.Designation.ToLower() == "da2")
-                            {
-                                <th scope="row">Dealing Asistant Remark</th>
-                                <td scope="row">@Model.NonCashless.DealingAssistanceRemark</td>
-                            }
-                            @if (ViewBag.Designation.ToLower() == "aso")
-                            {
-                                <th scope="row">Aso Remark</th>
-                                <td scope="row">@Model.NonCashless.ASORemark</td>
-                            }
-                        </tr>
-                        <tr>
-                            @if (ViewBag.Designation.ToLower() == "so")
-                            {
-                                <th scope="row">So Remark</th>
-                                <td scope="row">@Model.NonCashless.SORemark</td>
-                            }
-                            <th scope="row">Remark</th>
-                            <td scope="row">@Model.NonCashless.Remark</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Claim Status</th>
-                            @if (Model.NonCashless.ClaimStatusId == 1)
-                            {
-                                <td scope="row">Pending</td>
-                            }
-                            else if (Model.NonCashless.ClaimStatusId == 2)
-                            {
-                                <td scope="row">Approved</td>
-                            }
-                            else
-                            {
-                                <td scope="row">Rejected</td>
-                            }
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        }
-        else { }
+        <a href="#" class="pdfIcons" target='_blank'>
+            <i class="fa fa-file-pdf" aria-hidden="true"></i>
+            @item.DocumentFor
+        </a>
+    </td>
+</tr>_index = _index + 1;
+                    } }
+                else
+                {
+<tr>
+    <td class="text-center" colspan="4">NO Document Found</td>
+</tr>}
+
+            <tr>
+                <td scope="row" colspan="4" class="text-center h4">Claim Approval status</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Approve Amount<span class="text-danger req_text">&#8377;</span>
+                </th>
+                <td scope="row">@Model.NonCashless.ApprovedAmount</td>
+                <th scope="row">
+                    In Words
+                    <span class="text-danger req_text">&#8377;</span>
+                </th>
+                <td scope="row"><label id="lblAmountInWords"></label></td>
+            </tr>
+            <tr>
+                @if (ViewBag.Designation.ToLower() == "da1" || ViewBag.Designation.ToLower() == "da2")
+                {
+<th scope="row">Dealing Asistant Remark</th>
+                    <td scope="row">@Model.NonCashless.DealingAssistanceRemark</td>}
+                @if (ViewBag.Designation.ToLower() == "aso")
+                {
+<th scope="row">Aso Remark</th>
+                    <td scope="row">@Model.NonCashless.ASORemark</td>}
+            </tr>
+            <tr>
+                @if (ViewBag.Designation.ToLower() == "so")
+                {
+<th scope="row">So Remark</th>
+                    <td scope="row">@Model.NonCashless.SORemark</td>}
+                <th scope="row">Remark</th>
+                <td scope="row">@Model.NonCashless.Remark</td>
+            </tr>
+            <tr>
+                <th scope="row">Claim Status</th>
+                @if (Model.NonCashless.ClaimStatusId == 1)
+                {
+<td scope="row">Pending</td> }
+                else if (Model.NonCashless.ClaimStatusId == 2)
+                {
+<td scope="row">Approved</td> }
+                else
+                {
+<td scope="row">Rejected</td>}
+            </tr>
+        </tbody>
+    </table>
+</div>}
+            else { }
     </div>
 </div>
 

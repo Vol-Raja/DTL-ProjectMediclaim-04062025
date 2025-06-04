@@ -48,6 +48,13 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers.Detail
             return View(cashlessModel);
         }
 
+        // add by rajan 05/04/25
+        [Route("Mediclaim/Cashless/PrintPreviewCreditLetter/{SerialNo}")]
+        public IActionResult PrintPreviewCreditLetter([FromRoute] string SerialNo)
+        {
+            var CashlessCredit = _cashless.GetMediclaimCreditLetter(SerialNo);
+            return View(CashlessCredit);
+        }
         private void GetPermissions()
         {
             var permission = _assignPermission.GetAssignPermissionByParam(User.Identity.Name, "Mediclaim", "Raise Cashless").FirstOrDefault();

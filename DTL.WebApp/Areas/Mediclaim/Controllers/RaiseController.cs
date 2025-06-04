@@ -12,10 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DTL.WebApp.Areas.Mediclaim.Controllers
 {
@@ -26,15 +28,18 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
         private readonly IRaise _raise;
         private readonly IConfiguration _configuration;
         private readonly IAssignPermission _assignPermission;
+        private readonly ILogger<RaiseController> _logger;
 
         public RaiseController(IRaise raise,
             IAddEmployee addEmployeeService,
             IConfiguration configuration,
-             IAssignPermission assignPermission)
+            IAssignPermission assignPermission,
+            ILogger<RaiseController> logger)
         {
             _raise = raise;
             _configuration = configuration;
             _assignPermission = assignPermission;
+            _logger = logger;
         }
 
         /// <summary>
@@ -152,7 +157,7 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
                     var smsservice = new MessageService(_configuration);
                     string textmessage = string.Format("Your Mediclaim with id {0} is generated", _mediclaimId);
                     smsservice.SendCredential(noncashlessModel.MobileNumber, textmessage).Wait();
-                    SendEmail.SendAcknowledgment(noncashlessModel.PatientName, noncashlessModel.EmailId, _mediclaimId.ToString(), "Non-Cashless", "created");
+                    //SendEmail.SendAcknowledgment(noncashlessModel.PatientName, noncashlessModel.EmailId, _mediclaimId.ToString(), "Non-Cashless", "created");
                 }
                 else
                 {
@@ -214,14 +219,13 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
             int _mediclaimId = 0;
             try
             {
-              
                     cashlessModel.CreatedBy = User.Identity.Name;
                     _mediclaimId = _raise.SaveAddNewAdmission(cashlessModel);
 
-                    //var smsservice = new MessageService(_configuration);
-                   // string textmessage = string.Format("Your Mediclaim with id {0} is generated", _mediclaimId);
-                   // smsservice.SendCredential(cashlessModel.PatientPhoneNumber, textmessage).Wait();
-                    //SendEmail.SendAcknowledgment(cashlessModel.NameOfPatient, cashlessModel.EmailId, _mediclaimId.ToString(), "Cashless", "created");
+                var smsservice = new MessageService(_configuration);
+                string textmessage = string.Format("Your Mediclaim with id {0} is generated", _mediclaimId);
+                smsservice.SendCredential(cashlessModel.PatientPhoneNumber, textmessage).Wait();
+                SendEmail.SendAcknowledgment(cashlessModel.NameOfPatient, cashlessModel.EmailId, _mediclaimId.ToString(), "Cashless", "created");
             }
             catch (System.Exception ex)
             {
@@ -381,6 +385,35 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
             catch (System.Exception ex)
             {
                 var error = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                // Build log details
+                var logDetails = new
+                {
+                    User = User?.Identity?.Name ?? "Unknown",
+                    SubArea = applicationSubArea,
+                    Indicator = indicator,
+                    FileNames = files?.Select(f => f.FileName).ToList(),
+                    Exception = error
+                };
+                var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "logs");
+                if (!Directory.Exists(logDirectory))
+                {
+                    Directory.CreateDirectory(logDirectory);
+                }
+                var logFilePath = Path.Combine(logDirectory, $"CreditReportUploadLog_{DateTime.Now:yyyyMMdd}.txt");
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    writer.WriteLine("------------ Log Entry ------------");
+                    writer.WriteLine($"Timestamp      : {logDetails}");
+                    writer.WriteLine($"User           : {logDetails.User}");
+                    writer.WriteLine($"SubArea        : {logDetails.SubArea}");
+                    writer.WriteLine($"Indicator      : {logDetails.Indicator}");
+                    writer.WriteLine($"File Names     : {string.Join(", ", logDetails.FileNames ?? new List<string>())}");
+                    writer.WriteLine($"Error Message  : {logDetails.Exception}");
+                    writer.WriteLine("-----------------------------------");
+                    writer.WriteLine();
+                }
+
+                _logger.LogError("Error uploading credit report: {@LogDetails}", logDetails);
                 return StatusCode(StatusCodes.Status500InternalServerError, error);
             }
             return Ok(documentList);
@@ -393,6 +426,9 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
             try
             {
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath);
+                path = path.Trim();
+                path = Regex.Replace(path, @"[\x00-\x1F]", ""); // Remove control characters
+
                 System.IO.File.Delete(path);
             }
             catch (System.Exception ex)
@@ -453,11 +489,70 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
                         DocumentFor = _indicator.DocumentName,
                         CreatedBy = User.Identity.Name
                     });
+                    var error = "nirbhay";
+                    // Build log details
+                    var logDetails = new
+                    {
+                        User = User?.Identity?.Name ?? "Unknown",
+                        SubArea = applicationSubArea,
+                        Indicator = indicator,
+                        FileNames = files?.Select(f => f.FileName).ToList(),
+                        Exception = error
+                    };
+                    var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "logs");
+                    if (!Directory.Exists(logDirectory))
+                    {
+                        Directory.CreateDirectory(logDirectory);
+                    }
+                    var logFilePath = Path.Combine(logDirectory, $"CreditReportUploadLog_{DateTime.Now:yyyyMMdd}.txt");
+                    using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                    {
+                        writer.WriteLine("------------ Log Entry ------------");
+                        writer.WriteLine($"Timestamp      : {logDetails}");
+                        writer.WriteLine($"User           : {logDetails.User}");
+                        writer.WriteLine($"SubArea        : {logDetails.SubArea}");
+                        writer.WriteLine($"Indicator      : {logDetails.Indicator}");
+                        writer.WriteLine($"File Names     : {string.Join(", ", logDetails.FileNames ?? new List<string>())}");
+                        writer.WriteLine($"Error Message  : {logDetails.Exception}");
+                        writer.WriteLine("-----------------------------------");
+                        writer.WriteLine();
+                    }
+
+                    _logger.LogError("Error uploading credit report: {@LogDetails}", logDetails);
                 }
             }
             catch (System.Exception ex)
             {
                 var error = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                // Build log details
+                var logDetails = new
+                {
+                    User = User?.Identity?.Name ?? "Unknown",
+                    SubArea = applicationSubArea,
+                    Indicator = indicator,
+                    FileNames = files?.Select(f => f.FileName).ToList(),
+                    Exception = error
+                };
+                var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "logs");
+                if (!Directory.Exists(logDirectory))
+                {
+                    Directory.CreateDirectory(logDirectory);
+                }
+                var logFilePath = Path.Combine(logDirectory, $"CreditReportUploadLog_{DateTime.Now:yyyyMMdd}.txt");
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    writer.WriteLine("------------ Log Entry ------------");
+                    writer.WriteLine($"Timestamp      : {logDetails}");
+                    writer.WriteLine($"User           : {logDetails.User}");
+                    writer.WriteLine($"SubArea        : {logDetails.SubArea}");
+                    writer.WriteLine($"Indicator      : {logDetails.Indicator}");
+                    writer.WriteLine($"File Names     : {string.Join(", ", logDetails.FileNames ?? new List<string>())}");
+                    writer.WriteLine($"Error Message  : {logDetails.Exception}");
+                    writer.WriteLine("-----------------------------------");
+                    writer.WriteLine();
+                }
+
+                _logger.LogError("Error uploading credit report: {@LogDetails}", logDetails);
                 return StatusCode(StatusCodes.Status500InternalServerError, error);
             }
             return Ok(documentList);
@@ -527,6 +622,42 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
         }
 
         //End change
+
+        //credit letter Document delete
+        [HttpPost]
+        [Route("Mediclaim/Raise/DeleteFile1/{applicationSubArea}")]
+        public IActionResult DeleteFile1([FromBody] string filePath, [FromRoute] string applicationSubArea)
+        {
+            try
+            {
+                // var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath);
+                path = path.Trim();
+                path = Regex.Replace(path, @"[\x00-\x1F]", ""); // Remove control characters
+
+                System.IO.File.Delete(path);
+            }
+            catch (System.Exception ex)
+            {
+                var error = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                return StatusCode(StatusCodes.Status500InternalServerError, error);
+            }
+            return Ok();
+        }
+
+        //end
+
+        //add by rajan 14/04/25
+
+        [Route("/Mediclaim/Raise/GetEmployeeAccount_data/{PPONumber2}")]
+        [HttpGet]
+        public IActionResult GetEmployeeAccount_data([FromRoute] string PPONumber2)
+        {
+            var _PPODetail = _raise.GetAccountData(PPONumber2);
+            return Ok(_PPODetail);
+        }
+
+        //end new changes
 
     }
 }

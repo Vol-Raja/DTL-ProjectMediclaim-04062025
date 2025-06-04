@@ -1,5 +1,5 @@
-﻿$(document).ready(function () {
-
+﻿
+$(document).ready(function () {
     var EmployeeNumber = '';
     var PPONumber = '';
     var MedicalSectionPageNumber = '';
@@ -32,8 +32,8 @@
     var RelationWithRetire = '';
     var isValid = true;
 
-
     $('#btnSubmit').click(function () {
+        debugger;
         validateEntryForm()
         if (isValid) {
             showLoader();
@@ -43,8 +43,10 @@
             if (ClaimFor === 'Dependent') {
                 _dependent = {
                     Name: DependentName,
-                    DateOfBirth: DependentDob,
+                    DateOfBirth: dependentDob,
                     Age: DependentAge,
+                    //DateOfBirth: DependentDob ? DependentDob : '0/0/0',  // default to empty string if falsy
+                    //Age: DependentAge || 0,
                     RelationWithRetire: RelationWithRetire
                 }
             }
@@ -96,11 +98,13 @@
                         $(".show_submit").show();
 
                         setTimeout(function () {
-                            window.location.href = "/Mediclaim/NonCashless"
-                        }, 3000)
+                        window.location.href = "/Mediclaim/NonCashless"
+                        }, 5000)
+                       
                     }
                     hideLoader();
                 },
+               
                 error: function (xhr, status, error) {
                     hideLoader();
                 }
@@ -109,7 +113,7 @@
     });
 
     var PopulateNonCashlessProperties = function () {
-
+        //debugger;
         EmployeeNumber = $('#txtEmployeeNumber').val();
         PPONumber = $('#txtPPONumber').val();
         MedicalSectionPageNumber = $('#txtMedicalSectionPageNumber').val();
@@ -134,8 +138,20 @@
         IFSCNumber = $('#txtIFSCNumber').val();
         BranchName = $('#txtBranchName').val();
         DependentName = $('#txtDependentName').val();
-        DependentDob = $('#txtDependentDob').val() === '' ? "0001-01-01T01:01:00" : $('#txtDependentDob').val();
+        //DependentDob = $('#txtDependentDob').val() === '' ? "01/01/1900" : $('#txtDependentDob').val();
+        let dobInput = document.getElementById('txtDependentDob');
+        dependentDob = dobInput.value;
+
+        if (!dependentDob) {
+            let today = new Date();
+            let yyyy = today.getFullYear();
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let dd = String(today.getDate()).padStart(2, '0');
+            dependentDob = `${yyyy}-${mm}-${dd}`;
+        }
+        //DependentAge = $('#txtDependentAge').val();
         DependentAge = $('#txtDependentAge').val();
+        DependentAge = DependentAge ? parseInt(DependentAge) : 0;
         RelationWithRetire = $("#selRelatioWithRetire option:selected").text();
 
         $("#tblDocument tbody tr").each(function () {
@@ -164,23 +180,23 @@
 
         }
 
-        if ($('#txtMedicalSectionPageNumber').val() === '') {
-            $('#txtMedicalSectionPageNumber').addClass('is-invalid');
-            errorCount += 1;
-        }
-        else {
-            $('#txtMedicalSectionPageNumber').removeClass('is-invalid');
+        //if ($('#txtMedicalSectionPageNumber').val() === '') {
+        //    $('#txtMedicalSectionPageNumber').addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#txtMedicalSectionPageNumber').removeClass('is-invalid');
 
-        }
+        //}
 
-        if ($('#txtMedicalCardNo').val() === '') {
-            $('#txtMedicalCardNo').addClass('is-invalid');
-            errorCount += 1;
-        }
-        else {
-            $('#txtMedicalCardNo').removeClass('is-invalid');
+        //if ($('#txtMedicalCardNo').val() === '') {
+        //    $('#txtMedicalCardNo').addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#txtMedicalCardNo').removeClass('is-invalid');
 
-        }
+        //}
 
         if ($('#txtOrganization').val() === '') {
             $('#txtOrganization').addClass('is-invalid');
@@ -199,15 +215,15 @@
 
         }
 
-        if ($('#txtEmailId').val() === '') {
-            $('#txtEmailId').addClass('is-invalid');
-            errorCount += 1;
-        }
+        //if ($('#txtEmailId').val() === '') {
+        //    $('#txtEmailId').addClass('is-invalid');
+        //    errorCount += 1;
+        //}
 
-        else {
-            $('#txtEmailId').removeClass('is-invalid');
+        //else {
+        //    $('#txtEmailId').removeClass('is-invalid');
 
-        }
+        //}
 
         if ($('#txtMedicalCardHolderName').val() === '') {
             $('#txtMedicalCardHolderName').addClass('is-invalid');
@@ -218,14 +234,14 @@
 
         }
 
-        if ($('#txtDesignation').val() === '') {
-            $('#txtDesignation').addClass('is-invalid');
-            errorCount += 1;
-        }
-        else {
-            $('#txtDesignation').removeClass('is-invalid');
+        //if ($('#txtDesignation').val() === '') {
+        //    $('#txtDesignation').addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#txtDesignation').removeClass('is-invalid');
 
-        }
+        //}
 
         if ($('#txtPatientName').val() === '') {
             $('#txtPatientName').addClass('is-invalid');
@@ -245,14 +261,14 @@
 
         }
 
-        if ($('#txtDateOfBirth').val() === '') {
-            $('#txtDateOfBirth').addClass('is-invalid');
-            errorCount += 1;
-        }
-        else {
-            $('#txtDateOfBirth').removeClass('is-invalid');
+        //if ($('#txtDateOfBirth').val() === '') {
+        //    $('#txtDateOfBirth').addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#txtDateOfBirth').removeClass('is-invalid');
 
-        }
+        //}
 
         if ($("#selOrganization option:selected").text() === 'Select') {
             $("#selOrganization").addClass('is-invalid');
@@ -281,14 +297,14 @@
 
                 }
 
-                if ($("#txtDependentDob").val() === '') {
-                    $("#txtDependentDob").addClass('is-invalid');
-                    errorCount += 1;
-                }
-                else {
-                    $('#txtDependentDob').removeClass('is-invalid');
+                //if ($("#txtDependentDob").val() === '') {
+                //    $("#txtDependentDob").addClass('is-invalid');
+                //    errorCount += 1;
+                //}
+                //else {
+                //    $('#txtDependentDob').removeClass('is-invalid');
 
-                }
+                //}
 
                 if ($('#selRelatioWithRetire option:selected').val() === '') {
                     $('#selRelatioWithRetire').addClass('is-invalid');
@@ -352,21 +368,21 @@
             $('#txtBranchName').removeClass('is-invalid');
         }
 
-        if ($("#txtBICCode").val() === '') {
-            $("#txtBICCode").addClass('is-invalid');
-            errorCount += 1;
-        }
-        else {
-            $('#txtBICCode').removeClass('is-invalid');
-        }
+        //if ($("#txtBICCode").val() === '') {
+        //    $("#txtBICCode").addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#txtBICCode').removeClass('is-invalid');
+        //}
 
-        if ($("#txtIFSCNumber").val() === '') {
-            $("#txtIFSCNumber").addClass('is-invalid');
-            errorCount += 1;
-        }
-        else {
-            $('#txtIFSCNumber').removeClass('is-invalid');
-        }
+        //if ($("#txtIFSCNumber").val() === '') {
+        //    $("#txtIFSCNumber").addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#txtIFSCNumber').removeClass('is-invalid');
+        //}
 
 
         if ($("#selClaimType option:selected").text() === 'Select') {
@@ -378,83 +394,82 @@
 
         }
 
-        if ($('#tblCND tr').length < 3) {
+        //comment by rajan 19/05/25
+        //if ($('#tblCND tr').length < 3) {
 
-            if ($('#txtCNDDate').val() === '') {
-                $("#txtCNDDate").addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $('#txtCNDDate').removeClass('is-invalid');
+        //    if ($('#txtCNDDate').val() === '') {
+        //        $("#txtCNDDate").addClass('is-invalid');
+        //        errorCount += 1;
+        //    }
+        //    else {
+        //        $('#txtCNDDate').removeClass('is-invalid');
 
-            }
+        //    }
 
-            if ($('#txtCNDHospitalName').val() === '') {
-                $("#txtCNDHospitalName").addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $('#txtCNDHospitalName').removeClass('is-invalid');
+        //    if ($('#txtCNDHospitalName').val() === '') {
+        //        $("#txtCNDHospitalName").addClass('is-invalid');
+        //        errorCount += 1;
+        //    }
+        //    else {
+        //        $('#txtCNDHospitalName').removeClass('is-invalid');
 
-            }
+        //    }
 
-            if ($('#txtCNDMedicineAmount').val() === '') {
-                $("#txtCNDMedicineAmount").addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $('#txtCNDMedicineAmount').removeClass('is-invalid');
+        //    if ($('#txtCNDMedicineAmount').val() === '') {
+        //        $("#txtCNDMedicineAmount").addClass('is-invalid');
+        //        errorCount += 1;
+        //    }
+        //    else {
+        //        $('#txtCNDMedicineAmount').removeClass('is-invalid');
 
-            }
+        //    }
 
-            if ($('#txtCNDInvestigationAmount').val() === '') {
-                $("#txtCNDInvestigationAmount").addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $('#txtCNDInvestigationAmount').removeClass('is-invalid');
+        //    if ($('#txtCNDInvestigationAmount').val() === '') {
+        //        $("#txtCNDInvestigationAmount").addClass('is-invalid');
+        //        errorCount += 1;
+        //    }
+        //    else {
+        //        $('#txtCNDInvestigationAmount').removeClass('is-invalid');
 
-            }
+        //    }
 
-            if ($('#txtCNDConsultationAmount').val() === '') {
-                $("#txtCNDConsultationAmount").addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $('#txtCNDConsultationAmount').removeClass('is-invalid');
+        //    if ($('#txtCNDConsultationAmount').val() === '') {
+        //        $("#txtCNDConsultationAmount").addClass('is-invalid');
+        //        errorCount += 1;
+        //    }
+        //    else {
+        //        $('#txtCNDConsultationAmount').removeClass('is-invalid');
 
-            }
-
-
-            if ($('#txtCNDOtherAmount').val() === '') {
-                $("#txtCNDOtherAmount").addClass('is-invalid');
-                errorCount += 1;
-            }
-            else {
-                $('#txtCNDOtherAmount').removeClass('is-invalid');
-
-            }
+        //    }
 
 
+        //    if ($('#txtCNDOtherAmount').val() === '') {
+        //        $("#txtCNDOtherAmount").addClass('is-invalid');
+        //        errorCount += 1;
+        //    }
+        //    else {
+        //        $('#txtCNDOtherAmount').removeClass('is-invalid');
+
+        //    }
+
+        //end
+
+        //    //if (DocumentsArray.length <= 0) {
+        //    //    alert("Please upload document");
+        //    //    isvalid = false;
+        //    //    return;
+        //    //}
+        //}
 
 
+        //if ($("#selDocumentType option:selected").text() === 'Select') {
+        //    $("#selDocumentType").addClass('is-invalid');
+        //    errorCount += 1;
+        //}
+        //else {
+        //    $('#selDocumentType').removeClass('is-invalid');
 
-            //if (DocumentsArray.length <= 0) {
-            //    alert("Please upload document");
-            //    isvalid = false;
-            //    return;
-            //}
-        }
-
-
-        if ($("#selDocumentType option:selected").text() === 'Select') {
-            $("#selDocumentType").addClass('is-invalid');
-            errorCount += 1;
-        }
-        else {
-            $('#selDocumentType').removeClass('is-invalid');
-
-        }
+        //}
         isValid = (errorCount > 0) ? false : true;
 
         $('#nonCashlessForm').validate({
@@ -492,37 +507,62 @@
     };
 
     //----C&D Part
-
+    var CNDArray = [];
     $('#btnAddCND').click(function () {
-        //Populate the fields
-        CNDArray = [];
         if (PopulateCNDProperties()) {
-            //Empty all elements from table
-            $('#tblCND tbody').empty();
             var total = 0;
-            //If there are elements in array 
-            //Add those to table
-            if (CNDArray.length > 0) {
-                //If there are elements in array 
-                //Add those to table
-                $.each(CNDArray, function (index, item) {
-                    total = total + parseInt(item.TotalAmount, 10);
-                    var row = '<tr><td> '
-                        + formatDate(item.OPDCNDDate) + '</td><td>'
-                        + item.HospitalName + '</td><td>'
-                        + item.MedicineAmount + '<span class="text-danger req_text">₹ </span></td><td>'
-                        + item.ConsultationAmount + '<span class="text-danger req_text">₹ </span></td><td>'
-                        + item.InvestigationAmount + '<span class="text-danger req_text">₹ </span></td><td>'
-                        + item.OtherAmount + '<span class="text-danger req_text">₹ </span></td><td>'
-                        + item.TotalAmount + '<span class="text-danger req_text">₹ </span></td><td>'
-                        + '<button type="button"  class="btn btn-danger btn-sm mr-2 btn_small" onclick="deleteRow(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td><tr>'
+            $('#tblCND tbody').empty();
+            $.each(CNDArray, function (index, item) {
+                total = total + parseInt(item.TotalAmount, 10);
+                var row = '<tr><td>' + formatDate(item.OPDCNDDate) + '</td><td>'
+                    + item.HospitalName + '</td><td>'
+                    + item.MedicineAmount + '<span class="text-danger req_text">₹</span></td><td>'
+                    + item.ConsultationAmount + '<span class="text-danger req_text">₹</span></td><td>'
+                    + item.InvestigationAmount + '<span class="text-danger req_text">₹</span></td><td>'
+                    + item.OtherAmount + '<span class="text-danger req_text">₹</span></td><td>'
+                    + item.TotalAmount + '<span class="text-danger req_text">₹</span></td><td>'
+                    + '<button type="button" class="btn btn-danger btn-sm btn_small" onclick="deleteRow(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>';
 
-                    $("#tblCND tbody").append(row);
-                });
-            }
+                $('#tblCND tbody').append(row);
+            });
             ResetCND();
         }
     });
+
+
+
+    //comment by rajan 19/05/25
+
+    //$('#btnAddCND').click(function () {
+    //    //Populate the fields
+    //    CNDArray = [];
+    //    if (PopulateCNDProperties()) {
+    //        //Empty all elements from table
+    //        $('#tblCND tbody').empty();
+    //        var total = 0;
+    //        //If there are elements in array 
+    //        //Add those to table
+    //        if (CNDArray.length > 0) {
+    //            //If there are elements in array 
+    //            //Add those to table
+    //            $.each(CNDArray, function (index, item) {
+    //                total = total + parseInt(item.TotalAmount, 10);
+    //                var row = '<tr><td> '
+    //                    + formatDate(item.OPDCNDDate) + '</td><td>'
+    //                    + item.HospitalName + '</td><td>'
+    //                    + item.MedicineAmount + '<span class="text-danger req_text">₹ </span></td><td>'
+    //                    + item.ConsultationAmount + '<span class="text-danger req_text">₹ </span></td><td>'
+    //                    + item.InvestigationAmount + '<span class="text-danger req_text">₹ </span></td><td>'
+    //                    + item.OtherAmount + '<span class="text-danger req_text">₹ </span></td><td>'
+    //                    + item.TotalAmount + '<span class="text-danger req_text">₹ </span></td><td>'
+    //                    + '<button type="button"  class="btn btn-danger btn-sm mr-2 btn_small" onclick="deleteRow(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td><tr>'
+
+    //                $("#tblCND tbody").append(row);
+    //            });
+    //        }
+    //        ResetCND();
+    //    }
+    //});
 
     $('#btnClearCND').click(function () {
         ResetCND();
@@ -556,8 +596,14 @@
     }
 
     var ResetCND = function () {
-        $('#CD_div').find('input:text').val('');
-        $('#txtCNDDate').val('');
+       /* $('#CD_div').find('input:text').val('');*/   //COMMENT BY RAJAN 01/06/25
+        //$('#txtCNDDate').val('');                    //COMMENT BY RAJAN 01/06/25
+        //$('#txtCNDHospitalName').val('');            //COMMENT BY RAJAN 01/06/25
+        $('#txtCNDMedicineAmount').val('');
+        $('#txtCNDConsultationAmount').val('');
+        $('#txtCNDInvestigationAmount').val('');
+        $('#txtCNDOtherAmount').val('');
+        $('#txtCNDTotalAmount').val('');
     }
 
     //---UI behavior functions when some element
@@ -597,19 +643,24 @@
         }
     });
 
+    //$('#txtDateOfBirth').change(function () {
+    //    //alert('Toing');
+    //    var currentDate = new Date();
+    //    var dobDate = new Date($('#txtDateOfBirth').val());
+    //    var age1 = currentDate.getFullYear() - dobDate.getFullYear();
+    //    $('#txtAge').val(age1);
+    //});
+
     $('#txtDateOfBirth').change(function () {
-        //alert('Toing');
-        var currentDate = new Date();
         var dobDate = new Date($('#txtDateOfBirth').val());
-        var age1 = currentDate.getFullYear() - dobDate.getFullYear();
-        //var age2 = Math.floor((currentDate - dobDate) / (365.25 * 24 * 60 * 60 * 1000));
-        //console.log(currentDate);
-        //console.log(dobDate);
-        //console.log(age1);
-        //console.log(age2);
-        $('#txtAge').val(age1);
+        if (!isNaN(dobDate)) {
+            var age = calculateAge(dobDate);
+            $('#txtAge').val(age);
+        }
     });
 
+
+    //comment by rajan 19/05/25 comment
     $('#txtDependentDob').change(function () {
         var currentDate = new Date();
         var dobDate = new Date($('#txtDependentDob').val());
@@ -635,6 +686,7 @@
     });
 
     var FileUpload = function () {
+        //debugger;
         var _indicator = $('#selDocumentType').val();
         var form = new FormData();
         var uploadfiles = $('#fileUpload')[0].files;
@@ -709,6 +761,72 @@
     });
 
 });
+
+
+// add by rajan 14/04/25  
+function formatDateForInput(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+$('#txtPPONumber').change(function () {
+    //debugger;
+    var PPONumber = $('#txtPPONumber').val();
+    if (PPONumber !== '') {
+        $.ajax({
+            type: 'GET',
+            url: "/Mediclaim/Raise/GetEmployeeAccount_data/" + PPONumber,
+            data: '',
+            contentType: 'application/json; charset=utf-8',
+            //dataType: 'json',
+            success: function (response, status, xhr) {
+                hideLoader();
+                if (xhr.status == '200') {
+                    if (response !== null || response !== undefined) {
+                        $('#txtAccountHolderName').val(response.accountHolderName);
+                        $('#txtMedicalCardHolderName').val(response.accountHolderName);
+                        $('#txtAccountNumber').val(response.accountNumber);
+                        $('#txtBankName').val(response.bankName);
+                        $('#txtBranchName').val(response.branchName);
+                       // Set DOB
+                        const dob = formatDateForInput(response.dateOfBirth);
+                        $('#txtDateOfBirth').val(dob);
+
+                        // Calculate and set Age
+                        if (dob) {
+                            var age = calculateAge(new Date(dob));
+                            $('#txtAge').val(age);
+                        }
+                        $('#txtEmployeeNumber').val(response.employeeNumber);
+                    }
+                }
+            },
+            error: function (xhr, status, error) {
+                hideLoader();
+            }
+        }
+        )
+    }
+    else {
+        alert('Please select PPONumber');
+        $('#txtPPONumber').val('');
+    }
+});
+
+
+function calculateAge(dobDate) {
+    var today = new Date();
+    var age = today.getFullYear() - dobDate.getFullYear();
+    //var m = today.getMonth() - dobDate.getMonth();
+    //if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+    //    age--;
+    //}
+    return age;
+}
 
 //Self Invoking function to populate the table when page loads
 (function () {

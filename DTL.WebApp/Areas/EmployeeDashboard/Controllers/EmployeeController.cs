@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace DTL.WebApp.Areas.EmployeeDashboard.Controllers
 {
-
     [Area("EmployeeDashboard")]
     public class EmployeeController : Controller
     {

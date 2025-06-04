@@ -10,7 +10,6 @@ namespace DTL.Model.Models.Mediclaim
        // public int Id { get; set; }
         public int ClaimId { get; set; }
         public string EMP_NAME { get; set; }
-        //public Guid CL_Id { get; set; }
         public string PatientName { get; set; }
         public string PensionerName { get; set; }
         public string Relation { get; set; }
@@ -29,7 +28,7 @@ namespace DTL.Model.Models.Mediclaim
         //public DateTime DateOfDischargeOrDeath { get; set; }
         public string Diagnosis { get; set; }
         public string Treatment { get; set; }
-        public string SignatureDischargeTime { get; set; }
+        public string SignatureOfEmployee { get; set; }
 
         public string email_id { get; set; }
         public string Mobile_no { get; set; }
@@ -64,7 +63,7 @@ namespace DTL.Model.Models.Mediclaim
         [Display(Name = "Name Of Patient")]
         public string NameOfPatient { get; set; }
 
-        [Required(ErrorMessage = "Please patient enter email id"), MaxLength(150)]
+        //[Required(ErrorMessage = "Please patient enter email id"), MaxLength(150)]  // change by rajan 14/04/25
         [Display(Name = "Patient Email Id")]
         //[RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is not valid.")]
         public string PatientEmailId { get; set; }
@@ -97,11 +96,11 @@ namespace DTL.Model.Models.Mediclaim
         [Display(Name = "Name Of Card Holder")]
         public string NameOfCardHolder { get; set; }
 
-        [Required(ErrorMessage = "Please enter medical card number"), MaxLength(16)]
+        //[Required(ErrorMessage = "Please enter medical card number"), MaxLength(16)]  //change by rajan 13/04/25
         [Display(Name = "Medical Card Number")]
         public string MedicalCardNumber { get; set; }
 
-        [Required(ErrorMessage = "Please enter admission number"), MaxLength(50)]
+        //[Required(ErrorMessage = "Please enter admission number"), MaxLength(50)]
         [Display(Name = "Admission Number")]
         public string AdmissionNumber { get; set; }
 
@@ -109,7 +108,7 @@ namespace DTL.Model.Models.Mediclaim
         [Display(Name = "Card Category")]
         public string CardCategory { get; set; }
 
-        [Required(ErrorMessage = "Please enter card category"), MaxLength(50)]
+        
         [Display(Name = "Case Type")]
         public string CaseType { get; set; }
 
@@ -149,11 +148,11 @@ namespace DTL.Model.Models.Mediclaim
         [Display(Name = "Branch Name")]
         public string BranchName { get; set; }
 
-        [Required(ErrorMessage = "Please enter bic code"), MaxLength(20)]
+        //[Required(ErrorMessage = "Please enter bic code"), MaxLength(20)]  //change by rajan 13/04/25
         [Display(Name = "BIC Code")]
         public string BICCode { get; set; }
 
-        [Required(ErrorMessage = "Please enter ifsc number"), MaxLength(50)]
+        //[Required(ErrorMessage = "Please enter ifsc number"), MaxLength(50)]   //change by rajan 13/04/25
         [Display(Name = "IFSC Number")]
         public string IFSCNumber { get; set; }
 
@@ -233,6 +232,7 @@ namespace DTL.Model.Models.Mediclaim
         public string SerialNo { get; set; }
         public string CASE_TYPE { get; set; }
         public string Doctor_NO { get; set; }
+        public string Doctor_SignAndStamp { get; set; } // add by rajan 04/04/25
 
     }
 }

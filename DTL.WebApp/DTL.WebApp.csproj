@@ -66,9 +66,10 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Controllers\" />
     <Folder Include="Areas\Identity\Views\" />
-    <Folder Include="wwwroot\files\cashless\" />
+    <Folder Include="wwwroot\files\Cashless\" />
     <Folder Include="wwwroot\files\Creditletter\" />
     <Folder Include="wwwroot\files\Extend_Date\" />
+    <Folder Include="wwwroot\files\noncashless\" />
     <Folder Include="wwwroot\files\noncashless\" />
     <Folder Include="wwwroot\files\nonrefundable\" />
     <Folder Include="wwwroot\files\refundable\" />

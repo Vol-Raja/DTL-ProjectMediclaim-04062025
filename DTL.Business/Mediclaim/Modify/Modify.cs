@@ -46,9 +46,9 @@ namespace DTL.Business.Mediclaim.Modify
             dbparams.Add("@MedicalSectionPageNumber", cashlessModel.MedicalSectionPageNumber, DbType.String);
             dbparams.Add("@NameOfCardHolder", cashlessModel.NameOfCardHolder, DbType.String);
             dbparams.Add("@MedicalCardNumber", cashlessModel.MedicalCardNumber, DbType.String);
-            dbparams.Add("@AdmissionNumber", cashlessModel.AdmissionNumber, DbType.String);
+            //dbparams.Add("@AdmissionNumber", cashlessModel.AdmissionNumber, DbType.String);
             dbparams.Add("@CardCategory", cashlessModel.CardCategory, DbType.String);
-            dbparams.Add("@CaseType", cashlessModel.CaseType, DbType.String);
+            //dbparams.Add("@CaseType", cashlessModel.CaseType, DbType.String);
             dbparams.Add("@TypeOfTreatment", cashlessModel.TypeOfTreatment, DbType.String);
             dbparams.Add("@Amount", cashlessModel.Amount, DbType.Decimal);
             dbparams.Add("@DateOfAdmission", cashlessModel.DateOfAdmission, DbType.Date);
@@ -71,6 +71,11 @@ namespace DTL.Business.Mediclaim.Modify
             dbparams.Add("@Department", cashlessModel.Department, DbType.String);
             dbparams.Add("@Designation", cashlessModel.Designation, DbType.String);
             dbparams.Add("@DateOfRetirement", cashlessModel.DateOfRetirement, DbType.Date);
+            dbparams.Add("@Diagnosis", cashlessModel.Diagnosis, DbType.String); // add by rajan 04/04/25
+            dbparams.Add("@SignatureOfEmployee", cashlessModel.SignatureOfEmployee, DbType.String);// add by rajan 04/04/25
+            dbparams.Add("@Doctor_SignAndStamp", cashlessModel.Doctor_SignAndStamp, DbType.String);// add by rajan 04/04/25
+            dbparams.Add("@NameOfDoctor", cashlessModel.NameOfDoctor, DbType.String);// add by rajan 22/04/25
+            dbparams.Add("@Doctor_No", cashlessModel.Doctor_NO, DbType.String);// add by rajan 22/04/25
             var returnVal = _dapper.Execute("UpdateMediclaimCashless", dbparams);
       
             foreach (var item in cashlessModel.Documents)

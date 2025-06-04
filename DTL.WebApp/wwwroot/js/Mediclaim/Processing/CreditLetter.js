@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    debugger;
+
     let designation = ''
     var LoadPendingMediclaims = function () {
         $.ajax({

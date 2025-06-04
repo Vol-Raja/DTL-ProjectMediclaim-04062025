@@ -1,0 +1,9 @@
+------------ Log Entry ------------
+Timestamp      : { User = hospitaluser1, SubArea = Creditletter, Indicator = 1, FileNames = System.Collections.Generic.List`1[System.String], Exception = nirbhay }
+User           : hospitaluser1
+SubArea        : Creditletter
+Indicator      : 1
+File Names     : Cashless - DTL.pdf
+Error Message  : nirbhay
+-----------------------------------
+

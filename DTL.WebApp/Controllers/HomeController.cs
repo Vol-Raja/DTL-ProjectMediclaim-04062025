@@ -94,18 +94,6 @@ namespace DTL.WebApp.Controllers
                     return Redirect(dashboardUrl);
             }
 
-            //add by rajan 26/02/2025
-            var Emplist = _hospitalUser.GetHospitalUserByUsername(_detail.UserName);
-            if (Emplist.Username == "1000678")
-            {
-                PersistData(Constants.Dashboard, Constants.Emp_Dashboard);
-                var dashboardUrl = "/EmployeeDashboard/Employee/Emp_Dashboard";
-
-                if (string.IsNullOrEmpty(dashboardUrl) == false)
-                    return Redirect(dashboardUrl);
-            }
-            //end
-
             else
             {
                 var hospiList = _hospitalUser.GetHospitalUserByParam(null, null, _detail.Email, null, null);

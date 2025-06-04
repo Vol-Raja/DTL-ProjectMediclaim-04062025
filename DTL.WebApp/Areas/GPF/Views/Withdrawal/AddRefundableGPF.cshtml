@@ -196,7 +196,7 @@
                     <div class="col-sm-4 mb-3 form-group">
                         <label class="form-label d-block mb-1">Eligible Amount<span class="text-danger req_text">*</span></label>
                         <input type="text" class="form-control validateThis" name="eligibleAmount"
-                               placeholder="Eligible Amount" readonly />
+                               placeholder="Eligible Amount" />  @*readonly*@
                         <div class="invalid-feedback"></div>
                     </div>
 
@@ -551,6 +551,7 @@
     }
 
     function LoadEmpData(empId) {
+        debugger;
         const getAddress = ad => `${ad.address || ''} ${ad.street || ''} ${ad.city || ''} ${ad.pinCode || ''} ${ad.state || ''}`.replaceAll(/\s+/gm, ' ').trim();
 
         $.get(`@Url.Action("GetEmployeeDetails", "Data")?externalCode=${encodeURIComponent(empId)}`).then(r => {
@@ -766,6 +767,7 @@
     }
 
     function Save() {
+        debugger;
         obj.details = objDetail;
         obj.bankDetails = bankDetail;
         $.ajax({

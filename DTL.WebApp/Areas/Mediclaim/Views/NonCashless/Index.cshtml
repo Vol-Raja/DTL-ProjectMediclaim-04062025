@@ -21,18 +21,19 @@
     <div class="card border-card mt-0">
         <div class="card-body pt-0 ps-0 pr-2">
             <div class="my-4 border_bottom pb-4">
-                <a href="@Url.Action("NonCashless", "Raise", new { Area = "Mediclaim" })" class="btn btn-primary btn-sm mr-2 ">Add New Mediclaim</a>
+                <a href="@Url.Action("NonCashless", "Raise", new { Area = "Mediclaim" })" class="btn btn-primary btn-sm mr-2 rounded-pill ">Add New Mediclaim</a>
             </div>
             <table id="example1" class="table table-bordered ">
                 <thead>
                     <tr>
                         <th width="7%" class="text-center">Sr. No.</th>
                         <th>Date</th>
+                        <th>Serial No</th>
                         <th>Claim No</th>
                         <th>PPO No</th>
                         <th>Type of Claim</th>
                         <th>Card Category</th>
-                        <th>Organization</th>
+                        @*<th>Organization</th>*@
                         <th>Patient Name</th>
                         <th>Claim Status</th>
                         <th width="20%">Remark</th>
@@ -63,11 +64,12 @@
                             <tr>
                                 <td class="text-center">@_index</td>
                                 <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+                                <td>@item.ClaimNumber</td>
                                 <td>@item.ClaimId</td>
                                 <td>@item.PPONumber</td>
                                 <td>@item.ClaimType</td>
                                 <td>@item.CardCategory</td>
-                                <td>@item.Organization</td>
+                                @*<td>@item.Organization</td>*@
                                 <td>@item.PatientName</td>
                                 <td class="text-center"><span class="@_statusStyle Status_text">@_status</span></td>
                                 <td class="para">@item.Remark</td>                                
@@ -124,8 +126,6 @@
         }
 
         (function ($) {
-
-
             $('#example1').DataTable({
                 "ordering": false,
                 "sScrollX": "100%",
@@ -134,6 +134,7 @@
                 "bJQueryUI": true,
                 "bRetrieve": true,
                 "bAutoWidth": true
+                
             });
 
 

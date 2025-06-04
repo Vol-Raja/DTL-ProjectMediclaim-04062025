@@ -125,15 +125,32 @@
                             <label class="form-label d-block mb-1">Email Id</label>
                             <p class="View_text">@Model.Cashless.EmailId</p>
                         </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Treating Doctor Name</label>
+                            <p class="View_text">@Model.Cashless.NameOfDoctor</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Doctor Mobile No </label>
+                            <p class="View_text">@Model.Cashless.Doctor_NO</p>
+                        </div>
+
                         <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 mb-3 view_text_border">
                             <label class="form-label d-block mb-1">Address</label>
                             <p class="View_text">@Model.Cashless.HospitalAddress</p>
                         </div>
                     </div>
                     <h4 class="form_title">
-                        Card Holder Detail 
+                        Card Holder Detail
                     </h4>
                     <div class="row">
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                            <label class="form-label d-block mb-1" for="name">PPO Number</label>
+                            <p class="View_text">@Model.Cashless.PPONumber</p>
+                        </div>
+
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                             <label class="form-label d-block mb-1">Name of medical card holder</label>
                             <p class="View_text">@Model.Cashless.NameOfCardHolder</p>
@@ -154,10 +171,7 @@
                             <label class="form-label d-block mb-1">Email Id</label>
                             <p class="View_text">@Model.Cashless.PatientEmailId</p>
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
-                            <label class="form-label d-block mb-1" for="name">PPO Number</label>
-                            <p class="View_text">@Model.Cashless.PPONumber</p>
-                        </div>
+
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                             <label class="form-label d-block mb-1">Date Of Birth</label>
                             <p class="View_text">@Model.Cashless.DateOfBirth.ToString("dd-MM-yyyy")</p>
@@ -183,14 +197,16 @@
                             <p class="View_text">@Model.Cashless.Designation</p>
                         </div>
 
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-9 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Address</label>
-                            <p class="View_text">@Model.Cashless.PatientAddress</p>
-                        </div>
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
                             <label class="form-label d-block mb-1">Date Of Retirement</label>
                             <p class="View_text">@Model.Cashless.DateOfRetirement.ToString("dd-MM-yyyy")</p>
                         </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-9 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Address</label>
+                            <p class="View_text">@Model.Cashless.PatientAddress</p>
+                        </div>
+
                     </div>
                     <h4 class="form_title mt-3 shadow-2-strong">
                         Detail Of Patients
@@ -209,9 +225,6 @@
                             <p class="View_text">@Model.Cashless.Gender</p>
                         </div>
 
-
-
-
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
                             <label class="form-label d-block mb-1">Date Of Birth</label>
                             <p class="View_text">@Model.Cashless.DependantDOB.ToString("dd-MM-yyyy")</p>
@@ -220,35 +233,6 @@
                             <label class="form-label d-block mb-1">Age</label>
                             <p class="View_text">@Model.Cashless.DependantAge</p>
                         </div>
-
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Date of Admission </label>
-                            <p class="View_text">@Model.Cashless.DateOfAdmission.ToString("dd-MM-yyyy")</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Admission Number</label>
-                            <p class="View_text">@Model.Cashless.AdmissionNumber</p>
-                        </div>
-
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Illness Type</label>
-                            <p class="View_text">@Model.Cashless.CaseType</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1"> Type Of treatment </label>
-                            <p class="View_text">@Model.Cashless.TypeOfTreatment</p>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
-                            <label class="form-label d-block mb-1">Claim Amount</label>
-                            <p class="View_text">@Model.Cashless.Amount</p>
-                        </div>
-
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
-                            <label class="form-label d-block mb-1"> Date of Discharge / Date of Death </label>
-                            <p class="View_text">@Model.Cashless.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
-                        </div>
-
-
                     </div>
 
                     <h4 class="form_title mt-3 shadow-2-strong">
@@ -270,23 +254,21 @@
                                     {
 
                                         var _index = 1;
-                                        @foreach (var item in Model.Cashless.Documents)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @_index
-                                                </td>
-                                                <td>
-                                                    @item.DocumentFor
-                                                </td>
-                                                <td class="text-center">
-                                                    @*<a href="@item.DocumentPath" target="_blank">@item.FileName</a>*@
-                                                    <a href="/@item.DocumentPath" class="pdfIcons" target="_blank"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
-                                                </td>
-                                            </tr>
-                                            _index = _index + 1;
-                                        }
-                                    }
+                        @foreach (var item in Model.Cashless.Documents)
+                        {
+                <tr>
+                    <td>
+                        @_index
+                    </td>
+                    <td>
+                        @item.DocumentFor
+                    </td>
+                    <td class="text-center">
+                        @*<a href="@item.DocumentPath" target="_blank">@item.FileName</a>*@
+                        <a href="/@item.DocumentPath" class="pdfIcons" target="_blank"><i class="fa fa-file-pdf" aria-hidden="true"></i></a>
+                    </td>
+                </tr>_index = _index + 1;
+                                }}
                                 </tbody>
                             </table>
 
@@ -323,6 +305,48 @@
                         </div>
 
                     </div>
+
+                    <h4 class="form_title mt-3 ">
+                        Requested By Hospital at the time of Discharge
+                    </h4>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Date of Admission </label>
+                            <p class="View_text">@Model.Cashless.DateOfAdmission.ToString("dd-MM-yyyy")</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                            <label class="form-label d-block mb-1"> Date of Discharge / Date of Death </label>
+                            <p class="View_text">@Model.Cashless.DateOfDischargeOrDeath.ToString("dd-MM-yyy")</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Diagnosis</label>
+                            <p class="View_text">@Model.Cashless.Diagnosis</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Claim Amount</label>
+                            <p class="View_text">@Model.Cashless.Amount</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                            <label class="form-label d-block mb-1"> Type Of treatment </label>
+                            <p class="View_text">@Model.Cashless.TypeOfTreatment</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                            <label class="form-label d-block mb-1"> Signature Of Employee </label>
+                            <p class="View_text">@Model.Cashless.SignatureOfEmployee</p>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3  mb-3 view_text_border">
+                            <label class="form-label d-block mb-1">Sign/Stamp Treating Doctor</label>
+                            <p class="View_text">@Model.Cashless.Doctor_SignAndStamp</p>
+                        </div>
+
+                    </div>
+
                     <div class="border-card border-top-0 ">
                         <h4 class="form_title shadow-2-strong">
                             Claim Approval Status
@@ -343,18 +367,16 @@
                         <div class="row">
                             @if (ViewBag.Designation.ToLower() == "cmo")
                             {
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                                    <label class="form-label d-block mb-1">CMO Remark<span class="text-danger req_text">*</span></label>
-                                    <textarea type="text" id="txtCMORemark" class="form-control form-control-sm">@Model.Cashless.CMORemark</textarea>
-                                </div>
-                            }
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <label class="form-label d-block mb-1">CMO Remark<span class="text-danger req_text">*</span></label>
+                    <textarea type="text" id="txtCMORemark" class="form-control form-control-sm">@Model.Cashless.CMORemark</textarea>
+                </div> }
                             else
                             {
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                                    <label class="form-label d-block mb-1">CMO Remark<span class="text-danger req_text">*</span></label>
-                                    <textarea type="text" id="txtCMORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.CMORemark</textarea>
-                                </div>
-                            }
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <label class="form-label d-block mb-1">CMO Remark<span class="text-danger req_text">*</span></label>
+                    <textarea type="text" id="txtCMORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.CMORemark</textarea>
+                </div>}
                         </div>
                         <h4 class="form_title shadow-2-strong">
                             Dealing assitant remark
@@ -362,18 +384,16 @@
                         <div class="row">
                             @if (ViewBag.Designation.ToLower() == "da1" || ViewBag.Designation.ToLower() == "da2")
                             {
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                                    <label class="form-label d-block mb-1">Dealing asistant Remark<span class="text-danger req_text">*</span></label>
-                                    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm">@Model.Cashless.DealingAssistanceRemark</textarea>
-                                </div>
-                            }
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <label class="form-label d-block mb-1">Dealing asistant Remark<span class="text-danger req_text">*</span></label>
+                    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm">@Model.Cashless.DealingAssistanceRemark</textarea>
+                </div> }
                             else
                             {
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                                    <label class="form-label d-block mb-1">Dealing asistant Remark<span class="text-danger req_text">*</span></label>
-                                    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.DealingAssistanceRemark</textarea>
-                                </div>
-                            }
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <label class="form-label d-block mb-1">Dealing asistant Remark<span class="text-danger req_text">*</span></label>
+                    <textarea type="text" id="txtDealingAssistantRemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.DealingAssistanceRemark</textarea>
+                </div>}
                         </div>
                         <h4 class="form_title shadow-2-strong">
                             ASO (Assitant Special Officer)
@@ -381,18 +401,16 @@
                         <div class="row">
                             @if (ViewBag.Designation.ToLower() == "aso")
                             {
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                                    <label class="form-label d-block mb-1">ASO Remark<span class="text-danger req_text">*</span></label>
-                                    <textarea type="text" id="txtASORemark" class="form-control form-control-sm">@Model.Cashless.ASORemark</textarea>
-                                </div>
-                            }
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <label class="form-label d-block mb-1">ASO Remark<span class="text-danger req_text">*</span></label>
+                    <textarea type="text" id="txtASORemark" class="form-control form-control-sm">@Model.Cashless.ASORemark</textarea>
+                </div> }
                             else
                             {
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                                    <label class="form-label d-block mb-1">ASO Remark<span class="text-danger req_text">*</span></label>
-                                    <textarea type="text" id="txtASORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.ASORemark</textarea>
-                                </div>
-                            }
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <label class="form-label d-block mb-1">ASO Remark<span class="text-danger req_text">*</span></label>
+                    <textarea type="text" id="txtASORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.ASORemark</textarea>
+                </div>}
                         </div>
                         <h4 class="form_title shadow-2-strong">
                             SO (Special Officer)
@@ -400,31 +418,28 @@
                         <div class="row">
                             @if (ViewBag.Designation.ToLower() == "so")
                             {
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                                    <label class="form-label d-block mb-1">SO Remark<span class="text-danger req_text">*</span></label>
-                                    <textarea type="text" id="txtSORemark" class="form-control form-control-sm">@Model.Cashless.SORemark</textarea>
-                                </div>
-                            }
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <label class="form-label d-block mb-1">SO Remark<span class="text-danger req_text">*</span></label>
+                    <textarea type="text" id="txtSORemark" class="form-control form-control-sm">@Model.Cashless.SORemark</textarea>
+                </div> }
                             else
                             {
                                 {
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
-                                        <label class="form-label d-block mb-1">SO Remark<span class="text-danger req_text">*</span></label>
-                                        <textarea type="text" id="txtSORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.SORemark</textarea>
-                                    </div>
-                                }
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <label class="form-label d-block mb-1">SO Remark<span class="text-danger req_text">*</span></label>
+                    <textarea type="text" id="txtSORemark" class="form-control form-control-sm" readonly disabled>@Model.Cashless.SORemark</textarea>
+                </div>}
                             }
                         </div>
                         <br />
                         @if (ViewBag.Designation.ToLower() != "am_dm")
                         {
-                            <div class="row">
-                                <div class="col-lg-12" style="float:right">
-                                    <button id="btnModalApprove" type="button" class="btn btn-success me-2 text-white" data-backdrop="static" data-keyboard="false">Approve</button>
-                                    <button id="btnModalReject" type="button" class="btn btn-danger me-2 text-white" data-backdrop="static" data-keyboard="false">Reject</button>
-                                </div>
-                            </div>
-                        }
+                <div class="row">
+                    <div class="col-lg-12" style="float:right">
+                        <button id="btnModalApprove" type="button" class="btn btn-success me-2 text-white" data-backdrop="static" data-keyboard="false">Approve</button>
+                        <button id="btnModalReject" type="button" class="btn btn-danger me-2 text-white" data-backdrop="static" data-keyboard="false">Reject</button>
+                    </div>
+                </div>}
                     </div>
 
                 </div>

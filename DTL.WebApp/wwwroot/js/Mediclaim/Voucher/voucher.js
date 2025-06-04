@@ -16,6 +16,7 @@
     var IsDelete = '';
 
     $('#btnSubmit').click(function () {
+        //debugger;
         validateEntryForm();
         if ($("#voucherForm").valid()) {
             PopulateVoucherProperties();
@@ -131,7 +132,7 @@
     });
 
     $('#btnSearch').click(function () {
-        debugger;
+        //debugger;
         var claimType = $('#selClaimType').val();
         var claimNumber = $('#txtClaimId').val();
         if (claimType !== '') {

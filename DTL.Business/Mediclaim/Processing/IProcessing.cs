@@ -50,7 +50,11 @@ namespace DTL.Business.Mediclaim.Processing
         //end new changed
 
         IEnumerable<MediclaimDocumentModel> GetMediclaimDocumentsByParam(int? documentId, int? referenceId, string applicationSubArea, bool isActive = true);
+        IEnumerable<NonCashlessModel> GetClaimsByASODateRange(DateTime startDate, DateTime endDate);  // add by nirbhay ExportToExcel 05/30/2025
 
-        
+        IEnumerable<NonCashlessModel> GetClaimsBymediclaimAMDMDateRange(DateTime startDate, DateTime endDate);  // add by nirbhay ExportToExcel 05/30/2025
+        IEnumerable<NonCashlessModel> GetClaimsBymediclaimMediDisbusDateRange(DateTime startDate, DateTime endDate);  // add by nirbhay ExportToExcel 05/30/2025
+
+        IEnumerable<NonCashlessModel> GetClaimsBymediclaimOPDDADateRange(DateTime startDate, DateTime endDate);  // add by nirbhay ExportToExcel 05/30/2025
     }
 }
