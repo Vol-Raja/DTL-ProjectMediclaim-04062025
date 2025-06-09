@@ -56,5 +56,7 @@ namespace DTL.Business.Mediclaim.Processing
         IEnumerable<NonCashlessModel> GetClaimsBymediclaimMediDisbusDateRange(DateTime startDate, DateTime endDate);  // add by nirbhay ExportToExcel 05/30/2025
 
         IEnumerable<NonCashlessModel> GetClaimsBymediclaimOPDDADateRange(DateTime startDate, DateTime endDate);  // add by nirbhay ExportToExcel 05/30/2025
+
+        int UpdateDeductedAmounts(List<OPDCNDModel> deductions);
     }
 }

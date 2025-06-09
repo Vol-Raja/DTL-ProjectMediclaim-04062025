@@ -507,14 +507,15 @@ $(document).ready(function () {
     };
 
     //----C&D Part
-    var CNDArray = [];
+   // var CNDArray = [];
     $('#btnAddCND').click(function () {
         if (PopulateCNDProperties()) {
             var total = 0;
             $('#tblCND tbody').empty();
             $.each(CNDArray, function (index, item) {
                 total = total + parseInt(item.TotalAmount, 10);
-                var row = '<tr><td>' + formatDate(item.OPDCNDDate) + '</td><td>'
+                //var row = '<tr><td>' + formatDate(item.OPDCNDDate) + '</td><td>'
+                var row = '<tr data-index="' + index + '"><td>' + formatDate(item.OPDCNDDate) + '</td><td>'
                     + item.HospitalName + '</td><td>'
                     + item.MedicineAmount + '<span class="text-danger req_text">₹</span></td><td>'
                     + item.ConsultationAmount + '<span class="text-danger req_text">₹</span></td><td>'
@@ -522,6 +523,14 @@ $(document).ready(function () {
                     + item.OtherAmount + '<span class="text-danger req_text">₹</span></td><td>'
                     + item.TotalAmount + '<span class="text-danger req_text">₹</span></td><td>'
                     + '<button type="button" class="btn btn-danger btn-sm btn_small" onclick="deleteRow(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>';
+               
+    //+ item.HospitalName + '</td><td>'
+    //+ item.MedicineAmount + '<span class="text-danger req_text">₹</span></td><td>'
+    //+ item.ConsultationAmount + '<span class="text-danger req_text">₹</span></td><td>'
+    //+ item.InvestigationAmount + '<span class="text-danger req_text">₹</span></td><td>'
+    //+ item.OtherAmount + '<span class="text-danger req_text">₹</span></td><td>'
+    //+ item.TotalAmount + '<span class="text-danger req_text">₹</span></td><td>'
+    //+ '<button type="button" class="btn btn-danger btn-sm btn_small" onclick="deleteRow(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>';
 
                 $('#tblCND tbody').append(row);
             });
@@ -759,9 +768,14 @@ $(document).ready(function () {
 
        }
     });
-
+    window.deleteRow = function (btn) {
+        debugger;
+        var row = $(btn).closest('tr');
+        var index = row.data('index');
+        CNDArray.splice(index, 1);
+        row.remove();
+    };
 });
-
 
 // add by rajan 14/04/25  
 function formatDateForInput(dateStr) {
@@ -890,10 +904,9 @@ function DeleteFile(currentfile, row) {
     }
 }
 
-function deleteRow(rw) {
-    $(rw).parents("tr").remove();
-}
-
+//function deleteRow(rw) {
+//    $(rw).parents("tr").remove();
+//}
 
 function showLoader() {
     //$('.preloader').css()

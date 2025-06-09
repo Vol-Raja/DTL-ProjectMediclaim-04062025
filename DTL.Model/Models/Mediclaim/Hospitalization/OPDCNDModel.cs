@@ -15,5 +15,8 @@ namespace DTL.Model.Models.Mediclaim.Hospitalization
         public decimal OtherAmount { get; set; }
         public int NonCashlessClaimId { get; set; }
         public string OPDCNDDateYYYYMMDD { get { return OPDCNDDate.ToString("yyyy-MM-dd"); } }
+
+        public int Id { get; set; }
+        public decimal DeductedAmount { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using DTL.Business.Dapper;
 using DTL.Model.Models;
 using DTL.Model.Models.Mediclaim;
 using DTL.Model.Models.Mediclaim.Hospitalization;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -379,5 +380,23 @@ namespace DTL.Business.Mediclaim.Processing
             return _dapper.GetAll<NonCashlessModel>(query, dbparams, CommandType.Text);
         }
         //end changes
+
+
+        public int UpdateDeductedAmounts(List<OPDCNDModel> deductions)
+        {
+            int rowsAffected = 0;
+
+            foreach (var item in deductions)
+            {
+                var dbparams = new DynamicParameters();
+                dbparams.Add("@OPDCNDId", item.OPDCNDId, DbType.Int32);
+                dbparams.Add("@DeductedAmount", item.DeductedAmount, DbType.Decimal);
+
+                rowsAffected += _dapper.Execute("Update_OPDCND_DeductedAmount", dbparams, commandType: CommandType.StoredProcedure);
+            }
+
+            return rowsAffected;
+        }
+
     }
 }

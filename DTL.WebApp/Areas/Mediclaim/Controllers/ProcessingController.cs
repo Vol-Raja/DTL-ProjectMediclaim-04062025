@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Dapper;
 using DTL.Business.Common;
 using DTL.Business.Mediclaim.Detail.Cashless;
 using DTL.Business.Mediclaim.Detail.NonCashless;
@@ -6,6 +7,7 @@ using DTL.Business.Mediclaim.Processing;
 using DTL.Business.Mediclaim.Voucher;
 using DTL.Model.CommonModels;
 using DTL.Model.Models.Mediclaim;
+using DTL.Model.Models.Mediclaim.Hospitalization;
 using DTL.WebApp.Common.CommonClasses;
 using DTL.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,8 +15,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +30,8 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
     [Authorize(Roles = "Hospitals,DVB Pension Trust")]
     public class ProcessingController : Controller
     {
+        private static string connectionString;
+        private readonly string _connectionString;
         private readonly IProcessing _processing;         
         private readonly IVoucher _voucher;
         private readonly INonCashlessDetail _nonCashlessDetail;
@@ -34,13 +41,14 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
              UserManager<ApplicationUser> userManager,
              IVoucher voucher,
              INonCashlessDetail nonCashlessDetail,
-             ICashlessDetail cashlessDetail)
+             ICashlessDetail cashlessDetail, IConfiguration configuration)
         {
             _processing = processing;
             _userManager = userManager;
             _voucher = voucher;
             _nonCashlessDetail = nonCashlessDetail;
             _cashlessDetail = cashlessDetail;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         public IActionResult Index()
@@ -773,6 +781,85 @@ namespace DTL.WebApp.Areas.Mediclaim.Controllers
             }
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult SaveDeductedAmounts(List<OPDCNDModel> Deductions)
+        {
+            if (Deductions != null && Deductions.Any())
+            {
+                _processing.UpdateDeductedAmounts(Deductions);
+            }
+
+            return RedirectToAction("NonCashlessClaimAndVoucherView"); // Replace with actual view name
+        }
         //end
+       
+        [HttpPost]
+        public IActionResult SaveDeductedAmountsAjax(List<OPDCNDModel> deductedList)
+        {
+            if (string.IsNullOrWhiteSpace(_connectionString))
+            {
+                return Json(new { success = false, message = "Connection string is missing." });
+            }
+
+            using (var db = new SqlConnection(_connectionString))
+            {
+                db.Open();
+
+                using (var transaction = db.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var item in deductedList)
+                        {
+                            string query = @"UPDATE OPDCND 
+                                         SET DeductedAmount = @DeductedAmount 
+                                         WHERE OPDCNDID = @OPDCNDID";
+
+                            db.Execute(query, new
+                            {
+                                DeductedAmount = item.DeductedAmount,
+                                OPDCNDID = item.OPDCNDId
+                            }, transaction: transaction);
+                        }
+
+                        transaction.Commit();
+                        return Json(new { success = true });
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        return Json(new { success = false, message = "Error occurred while saving data.", error = ex.Message });
+                    }
+                }
+            }
+        }
+
+
+        [HttpGet]
+        public IActionResult GetUpdatedDeductions(int opdcndId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var data = db.Query<OPDCNDModel>(
+                    "SELECT OPDCNDID, DeductedAmount FROM OPDCND WHERE OPDCNDID = @OPDCNDID",
+                    new { OPDCNDID = opdcndId }).FirstOrDefault();
+
+                if (data == null)
+                {
+                    return Json(new { success = false, message = "Record not found." });
+                }
+
+                //return Json(new
+                //{
+                //    success = true,
+                //    opdcndId = data.OPDCNDId,
+                //    deductedAmount = data.DeductedAmount
+                //});
+                return View(data);
+            }
+        }
+
+
     }
 }
